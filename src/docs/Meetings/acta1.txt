@@ -9,14 +9,13 @@ Attendances:
 	Jaime Fernández
 
 	Topics:
-		Data base:
 		
-			Get information about SOLID.
-			Get information about db that works nicely with SOLID.
-			Get more information about solidDB.
-			Chooose languaje for the documentation and coding: English.
-			Choose programmming languaje: JavaScript. (WebStorm)
-			Make principal branches.
-			Creating Issues.
-			Starting documentation.
+		Get information about SOLID.
+		Get information about pod.
+		Descentralization info.
+		Chooose languaje for the documentation and coding: English.
+		Choose programmming languaje: JavaScript. (WebStorm)
+		Make principal branches.
+		Creating Issues.
+		Starting documentation.
 			
