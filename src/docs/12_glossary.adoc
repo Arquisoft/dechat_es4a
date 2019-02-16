@@ -26,6 +26,22 @@ Potentially more columns in case you need translations.
 [options="header"]
 |===
 | Term         | Definition
-| <Term-1>     | <definition-1>
-| <Term-2>     | <definition-2>
+| POD    | An Acronim for 'Personal Online Data', it refers to the personal decentralized storage used in SOLID aplications. Its stores the data from the user outside of the application, allowing the user to retain control and ownership of personal information.
+| REST   | It refers to a software architectural style in web applications in which the full extend of HTTP protocols is used, avoiding abuse of the POST and GET well-known protocols. while HTTP is an application protocol, REST is a set of rules, that when followed, enable you to build a distributed application that has a specific set of desirable constraints.
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
+| Term         | Definition
 |===
