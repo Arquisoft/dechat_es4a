@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>Cross-cutting Concepts</title>
+<title>Deployment View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -430,188 +430,173 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
-<div id="header">
+<body ccID="31120" class="article">
+<div ccID="31144" id="header">
 </div>
-<div id="content">
-<div class="sect1">
-<h2 id="section-concepts">Cross-cutting Concepts</h2>
-<div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>This section describes overall, principal regulations and solution ideas that are
-relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as</p>
+<div ccID="31171" id="content">
+<div ccID="31191" class="sect1">
+<h2 ccID="31212" id="section-deployment-view">Deployment View</h2>
+<div ccID="31267" class="sectionbody">
+<div ccID="31294" class="sidebarblock arc42help">
+<div ccID="31332" class="content">
+<div ccID="31355" class="paragraph">
+<div ccID="31380" class="title">Content</div>
+<p ccID="31414">The deployment view describes:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>domain models</p>
+<div ccID="31461" class="olist arabic">
+<ol ccID="31489" class="arabic">
+<li ccID="31510">
+<p ccID="31516">the technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and</p>
 </li>
-<li>
-<p>architecture patterns or design patterns</p>
+<li ccID="31757">
+<p ccID="31763">the mapping of (software) building blocks to that infrastructure elements.</p>
 </li>
-<li>
-<p>rules for using specific technology</p>
+</ol>
+</div>
+<div ccID="31868" class="paragraph">
+<p ccID="31893">Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.</p>
+</div>
+<div ccID="32096" class="paragraph">
+<p ccID="32121">Especially document the deployment view when your software is executed as distributed system with more then one computer, processor, server or container or when you design and construct your own hardware processors and chips.</p>
+</div>
+<div ccID="32363" class="paragraph">
+<p ccID="32388">From a software perspective it is sufficient to capture those elements of the infrastructure that are needed to show the deployment of your building blocks. Hardware architects can go beyond that and describe the infrastructure to any level of detail they need to capture.</p>
+</div>
+<div ccID="32677" class="paragraph">
+<div ccID="32702" class="title">Motivation</div>
+<p ccID="32739">Software does not run without hardware.
+This underlying infrastructure can and will influence your system and/or some
+cross-cutting concepts. Therefore, you need to know the infrastructure.</p>
+</div>
+<div ccID="32947" class="paragraph">
+<div ccID="32972" class="title">Form</div>
+<p ccID="33003">Maybe the highest level deployment diagram is already contained in section 3.2. as
+technical context with your own infrastructure as ONE black box. In this section you will
+zoom into this black box using additional deployment diagrams:</p>
+</div>
+<div ccID="33257" class="ulist">
+<ul ccID="33278">
+<li ccID="33284">
+<p ccID="33290">UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
+when your infrastructure is more complex.</p>
 </li>
-<li>
-<p>principal, often technical decisions of overall decisions</p>
-</li>
-<li>
-<p>implementation rules</p>
+<li ccID="33440">
+<p ccID="33446">When your (hardware) stakeholders prefer other kinds of diagrams rather than the deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity)
-of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.</p>
 </div>
-<div class="paragraph">
-<p>Some of these concepts cannot be assigned to individual building blocks
-(e.g. security or safety). This is the place in the template that we provided for a
-cohesive specification of such concepts.</p>
 </div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The form can be varied:</p>
+<div ccID="33678" class="sect2">
+<h3 ccID="33699" id="_infrastructure_level_1">Infrastructure Level 1</h3>
+<div ccID="33761" class="sidebarblock arc42help">
+<div ccID="33799" class="content">
+<div ccID="33822" class="paragraph">
+<p ccID="33847">Describe (usually in a combination of diagrams, tables, and text):</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>concept papers with any kind of structure</p>
+<div ccID="33930" class="ulist">
+<ul ccID="33951">
+<li ccID="33957">
+<p ccID="33963">the distribution of your system to multiple locations, environments, computers, processors, .. as well as the physical connections between them</p>
 </li>
-<li>
-<p>cross-cutting model excerpts or scenarios using notations of the architecture views</p>
+<li ccID="34122">
+<p ccID="34128">important justification or motivation for this deployment structure</p>
 </li>
-<li>
-<p>sample implementations, especially for technical concepts</p>
+<li ccID="34211">
+<p ccID="34217">Quality and/or performance features of the infrastructure</p>
 </li>
-<li>
-<p>reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
+<li ccID="34290">
+<p ccID="34296">the mapping of software artifacts to elements of the infrastructure</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<div class="title">Structure</div>
-<p>A potential (but not mandatory) structure for this section could be:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Domain concepts</p>
-</li>
-<li>
-<p>User Experience concepts (UX)</p>
-</li>
-<li>
-<p>Safety and security concepts</p>
-</li>
-<li>
-<p>Architecture and design patterns</p>
-</li>
-<li>
-<p>"Under-the-hood"</p>
-</li>
-<li>
-<p>development concepts</p>
-</li>
-<li>
-<p>operational concepts</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Note: it might be difficult to assign individual concepts to one specific topic
-on this list.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
+<div ccID="34394" class="paragraph">
+<p ccID="34419">For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_concept_1"><em>Domain Model</em></h3>
-<div class="paragraph">
-<p><em>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</em></p>
-<table>
-  <colgroup span="2" class="columns"></colgroup>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
+<div ccID="34569" class="paragraph">
+<p ccID="34594"><span ccID="34597" class="image"><img ccID="34617" src="images/07_Deployment.png" alt="Basic Deployment View"></span></p>
+</div>
+<div ccID="34702" class="dlist">
+<dl ccID="34723">
+<dt ccID="34729" class="hdlist1">Motivation</dt>
+<dd ccID="34766">
+<p ccID="34772"><em ccID="34775">This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.</em></p>
+</dd>
+<dt ccID="35053" class="hdlist1">Quality and/or Performance Features</dt>
+<dd ccID="35115">
+<p ccID="35121"><em ccID="35124">SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.</em></p>
+</dd>
+<dt ccID="35296" class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
+<dd ccID="35367">
+<table ccID="35373">
+  <colgroup ccID="35384" span="2" class="columns"></colgroup>
+  <tr ccID="35434">
+    <th ccID="35444">Node/Artifact</th>
+    <th ccID="35472">Description</th>
   </tr>
-  <tr>
-    <td>className1</td>
-    <td>Description1</td>
+  <tr ccID="35505">
+    <td ccID="35515">myChat.html</td>
+    <td ccID="35541">Html file that contain all information to execute our application in the web browser.</td>
   </tr>
-  <tr>
-    <td>className2</td>
-    <td>Description2</td>
+  <tr ccID="35648">
+    <td ccID="35658">Costumer Pod</td>
+    <td ccID="35685">This is a place located in a SOLID Pod Server where costumer can save all personal data.</td>
+  </tr>
+    <tr ccID="35797">
+    <td ccID="35807">Web Browser</td>
+    <td ccID="35833">A browser that can run our application. Chrome or Firefox should work.</td>
+  </tr>
+    </tr>
+    <tr ccID="35938">
+    <td ccID="35948">SOLID Server</td>
+    <td ccID="35975">Server where our decentralized app will be build.</td>
   </tr>
 </table>
+</dd>
+</dl>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_concept_2"><em>Architecture and design</em></h3>
-<div class="paragraph">
-<p><em>Here we will add the design of our software and its architecture.</em></p>
+<div ccID="36084" class="sect2">
+<h3 ccID="36105" id="_infrastructure_level_2">Infrastructure Level 2</h3>
+<div ccID="36167" class="sidebarblock arc42help">
+<div ccID="36205" class="content">
+<div ccID="36228" class="paragraph">
+<p ccID="36253">Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
+</div>
+<div ccID="36361" class="paragraph">
+<p ccID="36386">Please copy the structure from level 1 for each selected element.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_concept_3"><em>User Experience</em></h3>
-<div class="paragraph">
-<h4 id="_concept_3_1"><em>User Interface</em></h4>
-<div class="paragraph">
-<p><em>Design of the user interface for the app. The default user interface is written in JavaScript.</em></p>
-<h4 id="_concept_3_2"><em>Internationalization</em></h4>
-<div class="paragraph">
-<p><em>This app will be available in English and we will adapt it to Spanish in the future.</em></p>
+</div>
+<div ccID="36484" class="sect3">
+<h4 ccID="36505" id="_infrastructure_element_1"><em ccID="36540">&lt;Infrastructure Element 1&gt;</em></h4>
+<div ccID="36588" class="paragraph">
+<p ccID="36613"><em ccID="36616">&lt;diagram + explanation&gt;</em></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_concept_4"><em>Under-the-hood</em></h3>
-<div class="sect2">
-<h4 id="_concept_4_1"><em>Persistency</em></h4>
-<div class="paragraph">
-<p><em>The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</em></p>
+<div ccID="36676" class="sect3">
+<h4 ccID="36697" id="_infrastructure_element_2"><em ccID="36732">&lt;Infrastructure Element 2&gt;</em></h4>
+<div ccID="36780" class="paragraph">
+<p ccID="36805"><em ccID="36808">&lt;diagram + explanation&gt;</em></p>
+</div>
+<div ccID="36860" class="paragraph">
+<p ccID="36885">&#8230;&#8203;</p>
 </div>
 </div>
-<div class="sect2">
-<h4 id="_concept_4_2"><em>Exception/Error Handling</em></h4>
-<div class="paragraph">
-<p><em>Description of how we will handle errors and exceptions. To be filled in the future.</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concept_5"><em>Security and Safety</em></h3>
-<div class="sect2">
-<h4 id="_concept_5_1"><em>Security</em></h4>
-<div class="paragraph">
-<p><em>All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</em></p>
-</div>
-</div>
-<div class="sect2">
-<h4 id="_concept_5_2"><em>Safety</em></h4>
-<div class="paragraph">
-<p><em>This application doesn't have anything dangerous.</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concept_6"><em>Development Concepts</em></h3>
-<div class="sect2">
-<h4 id="_concept_6_1"><em>Testability</em></h4>
-<div class="paragraph">
-<p><em>Place for the future tests of our app.</em></p>
+<div ccID="36924" class="sect3">
+<h4 ccID="36945" id="_infrastructure_element_n"><em ccID="36980">&lt;Infrastructure Element n&gt;</em></h4>
+<div ccID="37028" class="paragraph">
+<p ccID="37053"><em ccID="37056">&lt;diagram + explanation&gt;</em></p>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
+</div>
+<div ccID="37148" id="footer">
+<div ccID="37167" id="footer-text">
 Last updated 2019-02-08 10:15:29 +0100
 </div>
 </div>
