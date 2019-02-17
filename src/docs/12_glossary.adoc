@@ -26,22 +26,10 @@ Potentially more columns in case you need translations.
 [options="header"]
 |===
 | Term         | Definition
+| Javascript         | the main clent-side programming language of HTML and the Web. It's the programming language chosen for this project https://en.wikipedia.org/wiki/JavaScript
+| HTML         | HTML stands for Hyper Text Markup Language; HTML describes the structure of Web pages using markup
+| SOLID         | a web decentralization project that aims to separate user's data and applications, led by Tim Berners-Lee, the inventor of the World Wide Web. This is the project in which this project is based on. SOLID It stands for Social Linked Data
 | POD    | An Acronim for 'Personal Online Data', it refers to the personal decentralized storage used in SOLID aplications. Its stores the data from the user outside of the application, allowing the user to retain control and ownership of personal information.
 | REST   | It refers to a software architectural style in web applications in which the full extend of HTTP protocols is used, avoiding abuse of the POST and GET well-known protocols. while HTTP is an application protocol, REST is a set of rules, that when followed, enable you to build a distributed application that has a specific set of desirable constraints.
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
-| Term         | Definition
+
 |===
