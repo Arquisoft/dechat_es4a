@@ -49,6 +49,7 @@ For multiple environments or alternative deployments please copy that section of
 ****
 
 image:images/07_Deployment.png["Basic Deployment View"]
+****
 
 Motivation::
 
@@ -60,18 +61,22 @@ SOLID Server will allow us to use our application as decentralized and the clien
 
 Mapping of Building Blocks to Infrastructure::
 
-.Windtrainer workouts
+.Deployment nodes and artifact
 [width="80%",cols="3,^2,^2,10",options="header"]
 |=========================================================
 |Node/Artifact |Description
 
-|myChat.html |Html file that contain all information to execute our application in the web browser.
+|myChat.html
+|Html file that contain all information to execute our application in the web browser.
 
-|Costumer Pod |This is a place located in a SOLID Pod Server where costumer can save all personal data.
+|Costumer Pod
+|This is a place located in a SOLID Pod Server where costumer can save all personal data.
 
-|Web Browser |A browser that can run our application. Chrome or Firefox should work.
+|Web Browser
+|A browser that can run our application. Chrome or Firefox should work.
 
-|SOLID Server |Server where our decentralized app will be build.
+|SOLID Server
+|Server where our decentralized app will be build.
 
 |=========================================================
 
