@@ -2545,9 +2545,48 @@
                                     ATAM you need to describe your quality goals (from section 1.2)
                                     more precisely down to a level of scenarios that can be discussed and evaluated.</p>
                             </div>
-                            <div class="paragraph">
-                                <div class="title">Form</div>
-                                <p>Tabular or free form text.</p>
+                            <div class="ulist">
+                                <div class="title">Usage Scenarios:</div>
+                                <ul>
+                                    <li>
+                                        <p>An user attempts to access the porfile of a friend &#8594; the application
+                                            makes a request to the server to access the porfile&#8217;s contents of the
+                                            friend&#8217;s POD, retrieves them, and shows them to the user within 1
+                                            second (multimedia content may vary)</p>
+                                    </li>
+                                    <li>
+                                        <p>An user attempts to access the porfile of a person that has explicitly set
+                                            their profile to private &#8594; the application makes a request to the
+                                            server to access the porfile&#8217;s contents of the person&#8217;s POD, but
+                                            due to the lack of permission the access is denied and the requesting user
+                                            is informed within 1 second</p>
+                                    </li>
+                                    <li>
+                                        <p>An user changes his/her porfile picture &#8594; The application request the
+                                            server storing the POD to edit the contents, and upon obtainin permission he
+                                            changes the picture. from now on people accessing this porfile will see the
+                                            updated picture</p>
+                                    </li>
+                                    <li>
+                                        <p>An user wants to start a conversation with a friend &#8594; The application
+                                            makes a request to estabish a line of communication between the current
+                                            device and the device in which the friend has his app installed within 2
+                                            seconds.</p>
+                                    </li>
+                                    <li>
+                                        <p>An user wants to start a conversation with an user he isn&#8217;t friends
+                                            with &#8594; The application makes a request to estabish a line of
+                                            communication between the current device and the device in which the user
+                                            has his app installed. Due to them not being friends, the application will
+                                            first make a request to the friend&#8217;s POD to reveal the device in which
+                                            the app is installed to establish communication: the user will first have to
+                                            personally accept this request (unless stated otherwise in configuration)
+                                            before the application is allowed to know the device he must communicate
+                                            with. Both the user being contacted and the person trying to contact them
+                                            will have the capacity to block and/or report the person they are
+                                            communicating with at any moment.</p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -2557,7 +2596,7 @@
     </div>
     <div id="footer">
         <div id="footer-text">
-            Last updated 2019-02-20 00:52:29 +0100
+            Last updated 2019-02-20 09:46:54 +0100
         </div>
     </div>
 </body>
