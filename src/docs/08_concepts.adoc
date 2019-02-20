@@ -61,9 +61,11 @@ _Our project is a decentralized chat application. Here we will add an Entity Rel
 
 |className1
 |Description1
+|===
 
 |className2
 |Description2
+|===
 
 |=========================================================
 

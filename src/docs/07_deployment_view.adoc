@@ -68,15 +68,19 @@ Mapping of Building Blocks to Infrastructure::
 
 |myChat.html
 |Html file that contain all information to execute our application in the web browser.
+|===
 
 |Costumer Pod
 |This is a place located in a SOLID Pod Server where costumer can save all personal data.
+|===
 
 |Web Browser
 |A browser that can run our application. Chrome or Firefox should work.
+|===
 
 |SOLID Server
 |Server where our decentralized app will be build.
+|===
 
 |=========================================================
 
