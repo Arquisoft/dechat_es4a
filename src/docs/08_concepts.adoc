@@ -46,22 +46,69 @@ A potential (but not mandatory) structure for this section could be:
 Note: it might be difficult to assign individual concepts to one specific topic
 on this list.
 
-image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
+image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
 ****
 
 
-=== _<Concept 1>_
+=== _Domain Model_
 
-_<explanation>_
+_Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype._
+
+.Windtrainer workouts
+[width="80%",cols="3,^2,^2,10",options="header"]
+|=========================================================
+|Name |Description
+
+|className1 |Description1
+
+|className2 |Description2
+
+|=========================================================
+
+=== _Architecture and design_
+
+_Here we will add the design of our software and its architecture._
+
+
+=== _User Experience_
+
+==== _User Interface_
+
+_Design of the user interface for the app. The default user interface is written in JavaScript._
+
+==== _Internationalization_
+
+_This app will be available in English and we will adapt it to Spanish in the future._
+
+=== _Under-the-hood_
+
+==== _Persistency_
+
+_The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer._
+
+==== _Exception/Error Handling_
+
+_Description of how we will handle errors and exceptions. To be filled in the future._
+
+=== _Security and Safety_
+
+==== _Security_
+
+_All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure._
+
+==== _Safety_
+
+_This application doesn't have anything dangerous._
+
+=== _Development Concepts_
+
+==== _Testability_
+
+_Place for the future tests of our app._
 
 
 
-=== _<Concept 2>_
 
-_<explanation>_
 
-...
 
-=== _<Concept n>_
 
-_<explanation>_

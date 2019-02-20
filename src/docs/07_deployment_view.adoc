@@ -48,18 +48,32 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
 ****
 
-_**<Overview Diagram>**_
+image:images/07_Deployment.png["Basic Deployment View"]
 
 Motivation::
 
-_<explanation in text form>_
+This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.
 
 Quality and/or Performance Features::
 
-_<explanation in text form>_
+SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.
 
 Mapping of Building Blocks to Infrastructure::
-_<description of the mapping>_
+
+.Windtrainer workouts
+[width="80%",cols="3,^2,^2,10",options="header"]
+|=========================================================
+|Node/Artifact |Description
+
+|myChat.html |Html file that contain all information to execute our application in the web browser.
+
+|Costumer Pod |This is a place located in a SOLID Pod Server where costumer can save all personal data.
+
+|Web Browser |A browser that can run our application. Chrome or Firefox should work.
+
+|SOLID Server |Server where our decentralized app will be build.
+
+|=========================================================
 
 
 === Infrastructure Level 2
