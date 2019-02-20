@@ -55,19 +55,16 @@ image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for cros
 _Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype._
 
 .Tables
-[width="80%",cols="3,^2,^2,10",options="header"]
-|=========================================================
+|===
 |Name |Description
 
 |className1
 |Description1
-|===
 
 |className2
 |Description2
-|===
 
-|=========================================================
+|===
 
 === _Architecture and design_
 
