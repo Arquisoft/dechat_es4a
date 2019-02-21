@@ -3,7 +3,7 @@
 
 === Quality Tree
 
-
+image:images/quality_tree.PNG[] 
 
 === Quality Scenarios
 
