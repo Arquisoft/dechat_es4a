@@ -1,0 +1,98 @@
+[[section-introduction-and-goals]]
+== Introduction and Goals
+
+[role="arc42help"]
+****
+The objective of this project that we will develop further is to create a decentralized chat application based on https://solid.mit.edu/[SOLID] specifications. Our application can resemble any other more popular and commercially successful in the field of instant messaging, except that ours, as we said in the beginning uses a decentralized architecture to store data, providing a more remarkable security than the others.
+Our application aims to help users (two or more) to communicate with each other, sharing all kinds of information without this information being stored on any external server, providing a completely private and therefore secure communication. To do so, users must have a https://solid.inrupt.com/get-a-solid-pod/[POD of SOLID] to store their data. 
+As essential characteristics of our application, we will look for them to be the most similar to those of the most popular, either:
+
+* Share photos, videos and other files
+* Multi-person chat groups
+* Notifications 
+* Etc.
+****
+
+=== Requirements Overview
+
+[role="arc42help"]
+****
+.Contents
+A brief description of the functional requirements of our application is that it consists of a decentralized chat application based on SOLID, where users using the application must have a SOLID POD, which will allow these users to store their data, to share their files, images, videos, notifications, and so on.
+A more rigorous specification can be found at the following link, which describes the high level requirements of the application. https://labra.solid.community/public/SoftwareArchitecture/EnunciadoPractica/[Requirements].
+
+.Motivation
+As for the general motivation, the aim of the development of the following project is that in the chat application there is no central database that could violate the information shared by users. The purpose is to seek the security provided by the privacy provided by the decentralization of the application, so that all users who use it feel safe and secure that the data they share are not compromised.
+
+.Use cases
+Here are two cases of uses in which our application shares a text file between two users and the other case, a user with several.
+image:images/Diapositiva0.PNG[]One case.
+image:images/Diapositiva1.PNG[]Two case.
+****
+
+=== Quality Goals
+
+[role="arc42help"]
+****
+Main characteristics of our application.
+
+.Quality Goals
+|===
+|Nr |Quality |Motivation
+
+|1
+|Security
+|The chat should not have weak points that violate the data and files of users, as well as provide visibility only to those users involved in the chat.
+
+|2
+|Usability
+|It must be a simple application in use for all types of user, that is intuitive and that entails a very easy learning curve. 
+
+|3
+|Availability
+|The application must be ready to run at any time, and as long as there is a connection, the user should be able to use all the features offered by the chat.
+
+|4
+|Efficiency
+|Messages should be sent as fluidly and quickly as possible, without any loss of information.
+
+|5
+|Scalability
+|The application is functioning correctly as the number of users grows.
+
+|6
+|Decentralized
+|Main objective in accordance with functional requirements, we will use SOLID requirements for this purpose to protect user data.
+
+|===
+****
+
+=== Stakeholders
+
+[role="arc42help"]
+****
+Table with the people involved in the project
+
+.Stakeholders
+|===
+|Stakeholder |Description |Goal/Boundaries
+
+|Chat Users
+|Users of the developed application.
+|Be able to chat in real time with a person or group of people, with ease of use and comfort.
+
+|Inrupt 
+|Company interested in the application and that has proposed us the challenge to develop it.
+|Obtain a decentralized and secure application using SOLID specifications built by students.
+
+|José Emilio Labra Gayo
+|Coordinator of the Software Architecture subject.
+|Person who participates in the evaluation of the application and who is also interested in its correct development fulfilling the quality attributes.
+
+|Team
+|Development team
+|Develop an application that will work and archive the minimum requirements set out in the beginning.
+
+|===
+
+****
