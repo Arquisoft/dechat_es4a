@@ -18,7 +18,9 @@ In this application we will use an interface that allows you to see the name of 
 The communication interface is that of any chat of this style, so that stakeholders will be known and therefore more intuitive. On the other hand our interface will be made with a library of JavaScript with the aforementioned, an area to write the text to send, another to see the conversation we have with the other person and finally a small part above in which we will see the name of the other person.
 
 .Form
-* Diagram:
+* Diagram: 
+
+image:images/basicDiagram.png[] 
 
 * Stakeholders: anyone who wants to chat with a friend
 * Same communication interface, typical of any chat seen so far
@@ -38,7 +40,9 @@ The interface will receive the messages of the two users and will save the conve
 Being an app as simple as a chat, users should not have any problem with the use of this application.
 
 .Form
-* Table:
+* Table: 
+
+image:images/tableContext.png[] 
 
 ****
 
@@ -51,7 +55,7 @@ Being an app as simple as a chat, users should not have any problem with the use
 As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user
 
 .Motivation
-Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.
+We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.
 
 .Form
 * Diagram:
