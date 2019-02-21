@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>System Scope and Context</title>
+<title>Building Block View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -435,95 +435,299 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-system-scope-and-context">System Scope and Context</h2>
+<h2 id="section-building-block-view">Building Block View</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>System scope and context - as the name suggests - delimits your system (i.e. your scope) from all its communication partners
-(neighboring systems and users, i.e. the context of your system). It thereby specifies the external interfaces.</p>
+<div class="title">Content</div>
+<p>The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes,
+interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations,
+datas structures, &#8230;&#8203;) as well as their dependencies (relationships, associations, &#8230;&#8203;)</p>
 </div>
 <div class="paragraph">
-<p>If necessary, differentiate the business context (domain specific inputs and outputs) from the technical context (channels, protocols, hardware).</p>
+<p>This view is mandatory for every architecture documentation.
+In analogy to a house this is the <em>floor plan</em>.</p>
 </div>
 <div class="paragraph">
 <div class="title">Motivation</div>
-<p>The domain interfaces and technical interfaces to communication partners are among your system&#8217;s most critical aspects. Make sure that you completely understand them.</p>
+<p>Maintain an overview of your source code by making its structure understandable through
+abstraction.</p>
+</div>
+<div class="paragraph">
+<p>This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.</p>
 </div>
 <div class="paragraph">
 <div class="title">Form</div>
-<p>Various options:</p>
+<p>The building block view is a hierarchical collection of black boxes and white boxes
+(see figure below) and their descriptions.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="05_building_blocks-EN.png" alt="Hierarchy of building blocks"></span></p>
+</div>
+<div class="paragraph">
+<p><strong>Level 1</strong> is the white box description of the overall system together with black
+box descriptions of all contained building blocks.</p>
+</div>
+<div class="paragraph">
+<p><strong>Level 2</strong> zooms into some building blocks of level 1.
+Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.</p>
+</div>
+<div class="paragraph">
+<p><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_whitebox_overall_system">Whitebox Overall System</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you describe the decomposition of the overall system using the following white box template. It contains</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Context diagrams</p>
+<p>an overview diagram</p>
 </li>
 <li>
-<p>Lists of communication partners and their interfaces.</p>
+<p>a motivation for the decomposition</p>
+</li>
+<li>
+<p>black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces</p>
+</li>
+<li>
+<p>use a list of black box descriptions of the building blocks according to the black box template (see below).
+Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>(optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
+Since there are so many ways to specify interfaces why do not provide a specific template for them.
+ In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
+ restrictions, versions, qualities, necessary compatibilities and many things more.
+In the best case you will get away with examples or simple signatures.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_business_context">Business Context</h3>
+<div class="paragraph">
+<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p><em>&lt;text explanation&gt;</em></p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
+</dd>
+<dt class="hdlist1">Important Interfaces</dt>
+<dd>
+<p><em>&lt;Description of important interfaces&gt;</em></p>
+</dd>
+</dl>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>Specification of <strong>all</strong> communication partners (users, IT-systems, &#8230;&#8203;) with explanations of domain specific inputs and outputs or interfaces.
-Optionally you can add domain specific formats or communication protocols.</p>
+<p>Insert your explanations of black boxes from level 1:</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>All stakeholders should understand which data are exchanged with the environment of the system.</p>
+<p>If you use tabular form you will only describe your black boxes with name and
+responsibility according to the following schema:</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>All kinds of diagrams that show the system as a black box and specify the domain interfaces to communication partners.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively (or additionally) you can use a table.
-The title of the table is the name of your system, the three columns contain the name of the communication partner, the inputs, and the outputs.</p>
+<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
+Its headline is the name of the black box.</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_technical_context">Technical Context</h3>
+<div class="sect3">
+<h4 id="_name_black_box_1">&lt;Name black box 1&gt;</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation with I/O uses which channel.</p>
+<p>Here you describe &lt;black box 1&gt;
+according the the following black box template:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Purpose/Responsibility</p>
+</li>
+<li>
+<p>Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.</p>
+</li>
+<li>
+<p>(Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, &#8230;&#8203;.</p>
+</li>
+<li>
+<p>(Optional) directory/file location</p>
+</li>
+<li>
+<p>(Optional) Fulfilled requirements (if you need traceability to requirements).</p>
+</li>
+<li>
+<p>(Optional) Open issues/problems/risks</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.</p>
+<p><em>&lt;Purpose/Responsibility&gt;</em></p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>E.g. UML deployment diagram describing channels to neighboring systems,
-together with a mapping table showing the relationships between channels and input/output.</p>
+<p><em>&lt;Interface(s)&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Directory/File Location&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_2">&lt;Name black box 2&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_n">&lt;Name black box n&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_1">&lt;Name interface 1&gt;</h4>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_m">&lt;Name interface m&gt;</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_2">Level 2</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
+</div>
+<div class="paragraph">
+<p>You have to decide which building blocks of your system are important enough to justify such a detailed description.
+Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
+Leave out normal, simple, boring or standardized parts of your system</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_1">White Box <em>&lt;building block 1&gt;</em></h4>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_2">White Box <em>&lt;building block 2&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_m">White Box <em>&lt;building block m&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_3">Level 3</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
 </div>
 <div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+<p>When you need more detailed levels of your architecture please copy this
+part of arc42 for additional levels.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_x_1">White Box &lt;_building block x.1_&gt;</h4>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Specifies the internal structure of <em>building block x.1</em>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_x_2">White Box &lt;_building block x.2_&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_y_1">White Box &lt;_building block y.1_&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
 </div>
 </div>
 </div>

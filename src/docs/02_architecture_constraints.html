@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>Deployment View</title>
+<title>Architecture Constraints</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -430,174 +430,116 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body ccID="31120" class="article">
-<div ccID="31144" id="header">
+<body class="article">
+<div id="header">
 </div>
-<div ccID="31171" id="content">
-<div ccID="31191" class="sect1">
-<h2 ccID="31212" id="section-deployment-view">Deployment View</h2>
-<div ccID="31267" class="sectionbody">
-<div ccID="31294" class="sidebarblock arc42help">
-<div ccID="31332" class="content">
-<div ccID="31355" class="paragraph">
-<div ccID="31380" class="title">Content</div>
-<p ccID="31414">The deployment view describes:</p>
+<div id="content">
+<div class="sect1">
+<h2 id="section-architecture-constraints">Architecture Constraints</h2>
+<div class="sectionbody">
+<hr>
+<div class="sect2">
+<h3 id="_2_1_introduction">2.1 Introduction</h3>
+<div class="paragraph">
+<p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
 </div>
-<div ccID="31461" class="olist arabic">
-<ol ccID="31489" class="arabic">
-<li ccID="31510">
-<p ccID="31516">the technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and</p>
-</li>
-<li ccID="31757">
-<p ccID="31763">the mapping of (software) building blocks to that infrastructure elements.</p>
-</li>
-</ol>
+<hr>
 </div>
-<div ccID="31868" class="paragraph">
-<p ccID="31893">Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.</p>
-</div>
-<div ccID="32096" class="paragraph">
-<p ccID="32121">Especially document the deployment view when your software is executed as distributed system with more then one computer, processor, server or container or when you design and construct your own hardware processors and chips.</p>
-</div>
-<div ccID="32363" class="paragraph">
-<p ccID="32388">From a software perspective it is sufficient to capture those elements of the infrastructure that are needed to show the deployment of your building blocks. Hardware architects can go beyond that and describe the infrastructure to any level of detail they need to capture.</p>
-</div>
-<div ccID="32677" class="paragraph">
-<div ccID="32702" class="title">Motivation</div>
-<p ccID="32739">Software does not run without hardware.
-This underlying infrastructure can and will influence your system and/or some
-cross-cutting concepts. Therefore, you need to know the infrastructure.</p>
-</div>
-<div ccID="32947" class="paragraph">
-<div ccID="32972" class="title">Form</div>
-<p ccID="33003">Maybe the highest level deployment diagram is already contained in section 3.2. as
-technical context with your own infrastructure as ONE black box. In this section you will
-zoom into this black box using additional deployment diagrams:</p>
-</div>
-<div ccID="33257" class="ulist">
-<ul ccID="33278">
-<li ccID="33284">
-<p ccID="33290">UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
-when your infrastructure is more complex.</p>
-</li>
-<li ccID="33440">
-<p ccID="33446">When your (hardware) stakeholders prefer other kinds of diagrams rather than the deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div ccID="33678" class="sect2">
-<h3 ccID="33699" id="_infrastructure_level_1">Infrastructure Level 1</h3>
-<div ccID="33761" class="sidebarblock arc42help">
-<div ccID="33799" class="content">
-<div ccID="33822" class="paragraph">
-<p ccID="33847">Describe (usually in a combination of diagrams, tables, and text):</p>
-</div>
-<div ccID="33930" class="ulist">
-<ul ccID="33951">
-<li ccID="33957">
-<p ccID="33963">the distribution of your system to multiple locations, environments, computers, processors, .. as well as the physical connections between them</p>
-</li>
-<li ccID="34122">
-<p ccID="34128">important justification or motivation for this deployment structure</p>
-</li>
-<li ccID="34211">
-<p ccID="34217">Quality and/or performance features of the infrastructure</p>
-</li>
-<li ccID="34290">
-<p ccID="34296">the mapping of software artifacts to elements of the infrastructure</p>
-</li>
-</ul>
-</div>
-<div ccID="34394" class="paragraph">
-<p ccID="34419">For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.</p>
-</div>
-</div>
-</div>
-<div ccID="34569" class="paragraph">
-<p ccID="34594"><span ccID="34597" class="image"><img ccID="34617" src="images/07_Deployment.png" alt="Basic Deployment View"></span></p>
-</div>
-<div ccID="34702" class="dlist">
-<dl ccID="34723">
-<dt ccID="34729" class="hdlist1">Motivation</dt>
-<dd ccID="34766">
-<p ccID="34772"><em ccID="34775">This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.</em></p>
-</dd>
-<dt ccID="35053" class="hdlist1">Quality and/or Performance Features</dt>
-<dd ccID="35115">
-<p ccID="35121"><em ccID="35124">SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.</em></p>
-</dd>
-<dt ccID="35296" class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd ccID="35367">
-<table ccID="35373">
-  <colgroup ccID="35384" span="2" class="columns"></colgroup>
-  <tr ccID="35434">
-    <th ccID="35444">Node/Artifact</th>
-    <th ccID="35472">Description</th>
-  </tr>
-  <tr ccID="35505">
-    <td ccID="35515">myChat.html</td>
-    <td ccID="35541">Html file that contain all information to execute our application in the web browser.</td>
-  </tr>
-  <tr ccID="35648">
-    <td ccID="35658">Costumer Pod</td>
-    <td ccID="35685">This is a place located in a SOLID Pod Server where costumer can save all personal data.</td>
-  </tr>
-    <tr ccID="35797">
-    <td ccID="35807">Web Browser</td>
-    <td ccID="35833">A browser that can run our application. Chrome or Firefox should work.</td>
-  </tr>
-    </tr>
-    <tr ccID="35938">
-    <td ccID="35948">SOLID Server</td>
-    <td ccID="35975">Server where our decentralized app will be build.</td>
-  </tr>
+<div class="sect2">
+<h3 id="_2_2_constraints">2.2 Constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Technical Constraints</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Programming language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El chat debe ser descentralizado utilizando la tecnología SOLID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized architecture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It must be a chat where the user&#8217;s data is separated from the application that uses it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatible and stand-alone application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge &#8230;&#8203;).</p></td>
+</tr>
+</tbody>
 </table>
-</dd>
-</dl>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Organitazional constraints</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The team will be formed by Aida Maria Gonzalez, Elena Puga, David Canle, Alberto Nuñez, German Iglesias and Jaime Fernández.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timetable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The project will be carried out during the Software Architecture course, which will be approximately four months.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project cost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No budget is available for the project, which reduces our resources for the development of the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A GitHub repository (dechat_es4a) will be used to keep the project development up to date and available to all participants anytime, anywhere.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Conventions</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arc42 Template for documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of arc42 templates written on AsciiDoc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We have decided to use English for the development of the project in order to seek greater international reach.</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
 </div>
 </div>
-<div ccID="36084" class="sect2">
-<h3 ccID="36105" id="_infrastructure_level_2">Infrastructure Level 2</h3>
-<div ccID="36167" class="sidebarblock arc42help">
-<div ccID="36205" class="content">
-<div ccID="36228" class="paragraph">
-<p ccID="36253">Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
-</div>
-<div ccID="36361" class="paragraph">
-<p ccID="36386">Please copy the structure from level 1 for each selected element.</p>
 </div>
 </div>
-</div>
-<div ccID="36484" class="sect3">
-<h4 ccID="36505" id="_infrastructure_element_1"><em ccID="36540">&lt;Infrastructure Element 1&gt;</em></h4>
-<div ccID="36588" class="paragraph">
-<p ccID="36613"><em ccID="36616">&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-<div ccID="36676" class="sect3">
-<h4 ccID="36697" id="_infrastructure_element_2"><em ccID="36732">&lt;Infrastructure Element 2&gt;</em></h4>
-<div ccID="36780" class="paragraph">
-<p ccID="36805"><em ccID="36808">&lt;diagram + explanation&gt;</em></p>
-</div>
-<div ccID="36860" class="paragraph">
-<p ccID="36885">&#8230;&#8203;</p>
-</div>
-</div>
-<div ccID="36924" class="sect3">
-<h4 ccID="36945" id="_infrastructure_element_n"><em ccID="36980">&lt;Infrastructure Element n&gt;</em></h4>
-<div ccID="37028" class="paragraph">
-<p ccID="37053"><em ccID="37056">&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div ccID="37148" id="footer">
-<div ccID="37167" id="footer-text">
-Last updated 2019-02-08 10:15:29 +0100
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-02-21 05:40:27 +0100
 </div>
 </div>
 </body>
