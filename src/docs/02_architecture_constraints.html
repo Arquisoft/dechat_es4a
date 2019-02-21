@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>Introduction and Goals</title>
+<title>Architecture Constraints</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -435,115 +435,111 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-introduction-and-goals">Introduction and Goals</h2>
+<h2 id="section-architecture-constraints">Architecture Constraints</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
+<hr>
+<div class="sect2">
+<h3 id="_2_1_introduction">2.1 Introduction</h3>
 <div class="paragraph">
-<p>The objective of this project is to create a decentralized chat to allow two or
-more users to communicate with each other so that they can control their data and thus,
-their privacy unlike other software.</p>
+<p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
 </div>
-<div class="paragraph">
-<p>We will be based on SOLID specifications, in addition to each user having a SOLID POD
-and one of them will manage the SOLID Server.</p>
-</div>
-<div class="paragraph">
-<p>=== Requirements Overview</p>
-</div>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Form</div>
-<div class="paragraph">
-<p>=== Quality Goals</p>
-</div>
-</div>
+<hr>
 </div>
 <div class="sect2">
-<h3 id="_stakeholders">Stakeholders</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>They consist of that someone, who is involved in the "deChat" project.</p>
-</div>
+<h3 id="_2_2_constraints">2.2 Constraints</h3>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Technical Constraints</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contents</th>
-<th class="tableblock halign-left valign-top">Motivation</th>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The chat user</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Programming language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Teacher</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The subject teacher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El chat debe ser descentralizado utilizando la tecnología SOLID.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Responsive and smooth</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The company</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized architecture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It must be a chat where the user&#8217;s data is separated from the application that uses it.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Our development team</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatible and stand-alone application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge &#8230;&#8203;).</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Organitazional constraints</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
-<th class="tableblock halign-left valign-top">Expectations</th>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The team will be formed by Aida Maria Gonzalez, Elena Puga, David Canle, Alberto Nuñez, German Iglesias and Jaime Fernández.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timetable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The project will be carried out during the Software Architecture course, which will be approximately four months.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project cost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No budget is available for the project, which reduces our resources for the development of the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A GitHub repository (dechat_es4a) will be used to keep the project development up to date and available to all participants anytime, anywhere.</p></td>
 </tr>
 </tbody>
 </table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Conventions</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Background and / or motivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arc42 Template for documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of arc42 templates written on AsciiDoc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We have decided to use English for the development of the project in order to seek greater international reach.</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-13 16:51:56 +0100
+Last updated 2019-02-21 05:40:27 +0100
 </div>
 </div>
 </body>

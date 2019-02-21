@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>Quality Requirements</title>
+<title>Runtime View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -435,55 +435,98 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-quality-scenarios">Quality Requirements</h2>
+<h2 id="section-runtime-view">Runtime View</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_quality_tree">Quality Tree</h3>
-<div class="paragraph">
-<p><span class="image"><img src="images/quality_tree.PNG" alt="quality tree"></span></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_quality_scenarios">Quality Scenarios</h3>
-<div class="sidebarblock">
+<div class="sidebarblock arc42help">
 <div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
+</div>
 <div class="ulist">
-<div class="title">Usage Scenarios:</div>
 <ul>
 <li>
-<p>An user attempts to access the porfile of a friend &#8594; the application makes a request to the server to access the porfile&#8217;s contents of the friend&#8217;s POD, retrieves them, and shows them to the user within 1 second (multimedia content may vary)</p>
+<p>important use cases or features: how do building blocks execute them?</p>
 </li>
 <li>
-<p>An user attempts to access the porfile of a person that has explicitly set their profile to private &#8594; the application makes a request to the server to access the porfile&#8217;s contents of the person&#8217;s POD, but due to the lack of permission the access is denied and the requesting user is informed within 1 second</p>
+<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
 </li>
 <li>
-<p>An user changes his/her porfile picture &#8594; The application request the server storing the POD to edit the contents, and upon obtainin permission he changes the picture. from now on people accessing this  porfile will see the updated picture</p>
+<p>operation and administration: launch, start-up, stop</p>
 </li>
 <li>
-<p>An user wants to start a conversation with a friend &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the friend has his app installed within 2 seconds.</p>
-</li>
-<li>
-<p>An user wants to start a conversation with an user he isn&#8217;t friends with &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the user has his app installed. Due to them not being friends, the application will first make a request to the friend&#8217;s POD to reveal the device in which the app is installed to establish communication: the user will first have to personally accept this request (unless stated otherwise in configuration) before the application is allowed to know the device he must communicate with. Both the user being contacted and the person trying to contact them will have the capacity to block and/or report the person they are communicating with at any moment.</p>
+<p>error and exception scenarios</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
+You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>There are many notations for describing scenarios, e.g.</p>
+</div>
 <div class="ulist">
-<div class="title">Change Scenarios:</div>
 <ul>
 <li>
-<p>The application is modified to be integrated with Github &#8594; the Application now can retrieve information from the linked GitHub account, informing the user with each relevant action (Commits, updates in repostories, requests to participate in projectts, etc). If Application friends link their accounts to the application and they allow that information to be shared in settings, the user will be informed that they share platform.</p>
+<p>numbered list of steps (in natural language)</p>
+</li>
+<li>
+<p>activity diagrams or flow charts</p>
+</li>
+<li>
+<p>sequence diagrams</p>
+</li>
+<li>
+<p>BPMN or EPCs (event process chains)</p>
+</li>
+<li>
+<p>state machines</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_runtime_scenario_1">&lt;Runtime Scenario 1&gt;</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
+</li>
+<li>
+<p><em>&lt;insert description of the notable aspects of the interactions between the
+building block instances depicted in this diagram.&gt;</em></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_2">&lt;Runtime Scenario 2&gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="">&#8230;&#8203;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_n">&lt;Runtime Scenario n&gt;</h3>
+
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-21 13:49:13 +0100
+Last updated 2019-02-13 16:54:34 +0100
 </div>
 </div>
 </body>

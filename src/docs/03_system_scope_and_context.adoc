@@ -5,19 +5,25 @@
 [role="arc42help"]
 ****
 .Contents
-System scope and context - as the name suggests - delimits your system (i.e. your scope) from all its communication partners
-(neighboring systems and users, i.e. the context of your system). It thereby specifies the external interfaces.
+The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).
 
-If necessary, differentiate the business context (domain specific inputs and outputs) from the technical context (channels, protocols, hardware).
+For all this we are using Solid that is a tool that allows users to mark their data, which allows them to have their own server. They can also specify which data to communicate with whom and which apps can access which parts of their data do not need that your data go through an intermediary that makes money with private data
+
+The stakeholders who can use this app will be anyone who has added as a friend in solid to the other person, so that they can access their POD with the data of this person.
+
+In this application we will use an interface that allows you to see the name of the other person with whom you are chatting and the messages sent and received, we will have a box to write the message to send. These messages will be stored in the POD so that conversation the messages are completely isolated and only people who chat among them will be able to access them.
 
 .Motivation
-The domain interfaces and technical interfaces to communication partners are among your system's most critical aspects. Make sure that you completely understand them.
+
+The communication interface is that of any chat of this style, so that stakeholders will be known and therefore more intuitive. On the other hand our interface will be made with a library of JavaScript with the aforementioned, an area to write the text to send, another to see the conversation we have with the other person and finally a small part above in which we will see the name of the other person.
 
 .Form
-Various options:
+* Diagram: 
 
-* Context diagrams
-* Lists of communication partners and their interfaces.
+image:images/basicDiagram.png[] 
+
+* Stakeholders: anyone who wants to chat with a friend
+* Same communication interface, typical of any chat seen so far
 ****
 
 
@@ -26,41 +32,34 @@ Various options:
 [role="arc42help"]
 ****
 .Contents
-Specification of *all* communication partners (users, IT-systems, ...) with explanations of domain specific inputs and outputs or interfaces.
-Optionally you can add domain specific formats or communication protocols.
+The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.
+
+The interface will receive the messages of the two users and will save the conversation in the PODs of the two users. On the other hand it will show information of both users. The communication with Solid and the POD will be received in the application with the use of specific JavaScript libraries. The RDFs returned by the PODs will be used by the application to access the data of both users.
 
 .Motivation
-All stakeholders should understand which data are exchanged with the environment of the system.
+Being an app as simple as a chat, users should not have any problem with the use of this application.
 
 .Form
-All kinds of diagrams that show the system as a black box and specify the domain interfaces to communication partners.
+* Table: 
 
-Alternatively (or additionally) you can use a table.
-The title of the table is the name of your system, the three columns contain the name of the communication partner, the inputs, and the outputs.
+image:images/tableContext.png[] 
+
 ****
-
-**<Diagram or Table>**
-
-**<optionally: Explanation of external domain interfaces>**
 
 === Technical Context
 
 [role="arc42help"]
 ****
 .Contents
-Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation with I/O uses which channel.
+
+As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user
 
 .Motivation
-Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.
+We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.
 
 .Form
-E.g. UML deployment diagram describing channels to neighboring systems,
-together with a mapping table showing the relationships between channels and input/output.
+* Diagram:
 
 ****
 
-**<Diagram or Table>**
 
-**<optionally: Explanation of technical interfaces>**
-
-**<Mapping Input/Output to Channels>**
