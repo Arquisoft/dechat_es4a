@@ -22,12 +22,12 @@ A brief description of the functional requirements of our application is that it
 A more rigorous specification can be found at the following link, which describes the high level requirements of the application. https://labra.solid.community/public/SoftwareArchitecture/EnunciadoPractica/[Requirements].
 
 .Motivation
-As for the general motivation, the aim of the development of the following project is that in the chat application there is no central database that could violate the information shared by users. The purpose is to seek the security provided by the privacy provided by the decentralization of the application, so that all users who use it feel safe and secure that the data they share are not compromised.
+As for the general motivation, the aim of the development of the following project is that in the chat application there is no central database that could violate the information shared by users. The purpose is to seek the security provided by the privacy provided by the decentralization of the application, so that all users who use it feel safe and secure that the data they share is not compromised.
 
 .Use cases
-Here are two cases of uses in which our application shares a text file between two users and the other case, a user with several.
-image:images/Diapositiva0.PNG[]One case.
-image:images/Diapositiva1.PNG[]Two case.
+Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
+image:images/Diapositiva0.PNG[] case One (1-1).
+image:images/Diapositiva1.PNG[] case Two (1-*).
 ****
 
 === Quality Goals
