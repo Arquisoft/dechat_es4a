@@ -1,72 +1,26 @@
-= Solution Strategy
-:lang: en
+[[section-design-decisions]]
+== Design Decisions
 
-[[header]]
-[[content]]
-[[section-solution-strategy]]
-=== Solution Strategy
 
-Fundamental decisions
+[role="arc42help"]
+****
+.Contents
+Important, expensive, large scale or risky architecture decisions including rationals.
+With "decisions" we mean selecting one alternative based on given criteria.
 
-Every project base should be solid and stable and, even if some we can not stop
-some decisions from changing during the different phases of life of our
-product,we, as software architectors and developers, must make the possibilities
-of these changes be minimal and must choose the most suitable base so changes
-that may occur are not crucial. That's why we have started by selecting the
-crucial factors that are going to form the base of our project and won't be
-changing and after that will decide the rest according to the base and our
-prerequisites.
+Please use your judgement to decide whether an architectural decision should be documented
+here in this central section or whether you better document it locally
+(e.g. within the white box template of one building block).
 
-The first one and key of this project is the decentralization of data. We, as
-developers, are used to centralization of data, the software market is really
-competitive and the software that has more economic value is usually the one
-that has gathered more data, thats why when you are centered on making fast and
-'easy' money you follow the suscess rules that your surrondings shows you and
-lost sight of important facts as user privacy, user rights about owning their
-own data or even the fact that the web and its community is huge and instead of
-using that in our and our clients benefitcs we are creating greedy and insolated
-software that doesnt look for the best service for the client but for the best
-price tag. It is due all this that when you can use decentralization you must do
-it.
+Avoid redundancy. Refer to section 4, where you already captured the most important decisions of your architecture.
 
-For working with data decentralization we will be using Solid, a project by
-Prof. Tim Berners-Lee, as is one of the prerequisites of this project, has and
-intuitive form of use and works very well with diferents programming languages
-and especially with the one we will be using: JavaScript, as it was created with
-it.
+.Motivation
+Stakeholders of your system should be able to comprehend and retrace your decisions.
 
-JavaScript was also chosen because it counts with different libraries, as JDFlex
-for example, that makes working with solid a lot easier, it is also a high
-demanded and used language and it gives us the oportunity to learn more about it
-and in case this projects ends up becoming free source in this language it will
-probably be more usefull for the rest of the community.
+.Form
+Various options:
 
-Using solid and JavaScript will make achieving quality goals easier. Solid will
-provide security and privacy rearding the data while JavaScript counts with
-different libraries for correct and safe connections between the pods and the
-client.We will also implement more security at the client manually and with
-other JS libraries that are specially made for this.
-
-Quality will also be increased as we will work with high ranking technologies
-that we are used to as all the time we would expend documentating this
-development enviroment we will use it improving other factors of our project.We
-are going to use WebStorm for coding and editing our documentation as it is an
-IDE that provides both funcionalities and most of us are used to it. Also we are
-going to use github as version control manager as is the one used in our
-university and one of the leader platforms to share free source code.
-
-Regarding desing we will be using the MVC pattern. Solid provides by itself a
-modular desing form by differents pods containing the client data, and we want
-to keep the decentralization of that data as clear as posible so by structuring
-the project with this pattern we will have the exact responsibilities of each
-layer and the way they communicate to each other very clear.
-
-To achieve all this we will be following a agile methodology. All of us will
-have the software architector role so at the meetings all of us will have to
-take that role and manage to share it with the rest of the group, we will split
-the task in the smallest posible and keep developing,making documentation and
-communicating with the rest of the group during all the procces.
-
-[[footer]]
-[[footer-text]]
-Last updated 2019-02-20 10:25:38 +0100
+* List or table, ordered by importance and consequences or:
+* more detailed in form of separate sections per decision
+* ADR (architecture decision record) for every important decision
+****
