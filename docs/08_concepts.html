@@ -544,11 +544,107 @@ table.CodeRay td.code>pre{padding:0}
 <div id="content">
 <div class="sect1">
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>Cross-cutting Concepts</h2>
-<p><span class="image"><img src="./images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
-<div class="sect2">
-<h3 id="domain-model"><a class="anchor" href="#domain-model"></a>Domain Model</h3>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
 <div class="paragraph">
-<p>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+<div class="title">Content</div>
+<p>This section describes overall, principal regulations and solution ideas that are
+relevant in multiple parts (= cross-cutting) of your system.
+Such concepts are often related to multiple building blocks.
+They can include many different topics, such as</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>domain models</p>
+</li>
+<li>
+<p>architecture patterns or design patterns</p>
+</li>
+<li>
+<p>rules for using specific technology</p>
+</li>
+<li>
+<p>principal, often technical decisions of overall decisions</p>
+</li>
+<li>
+<p>implementation rules</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity)
+of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.</p>
+</div>
+<div class="paragraph">
+<p>Some of these concepts cannot be assigned to individual building blocks
+(e.g. security or safety). This is the place in the template that we provided for a
+cohesive specification of such concepts.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>The form can be varied:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>concept papers with any kind of structure</p>
+</li>
+<li>
+<p>cross-cutting model excerpts or scenarios using notations of the architecture views</p>
+</li>
+<li>
+<p>sample implementations, especially for technical concepts</p>
+</li>
+<li>
+<p>reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Structure</div>
+<p>A potential (but not mandatory) structure for this section could be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain concepts</p>
+</li>
+<li>
+<p>User Experience concepts (UX)</p>
+</li>
+<li>
+<p>Safety and security concepts</p>
+</li>
+<li>
+<p>Architecture and design patterns</p>
+</li>
+<li>
+<p>"Under-the-hood"</p>
+</li>
+<li>
+<p>development concepts</p>
+</li>
+<li>
+<p>operational concepts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note: it might be difficult to assign individual concepts to one specific topic
+on this list.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="domain-model"><a class="anchor" href="#domain-model"></a><em>Domain Model</em></h3>
+<div class="paragraph">
+<p><em>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</em></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Tables</caption>
@@ -575,69 +671,71 @@ table.CodeRay td.code>pre{padding:0}
 </table>
 </div>
 <div class="sect2">
-<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>Architecture and design</h3>
+<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a><em>Architecture and design</em></h3>
 <div class="paragraph">
-<p>Here we will add the design of our software and its architecture.</p>
+<p><em>Here we will add the design of our software and its architecture.</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>User Experience</h3>
+<h3 id="user-experience"><a class="anchor" href="#user-experience"></a><em>User Experience</em></h3>
 <div class="sect3">
-<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>User Interface</h4>
+<h4 id="user-interface"><a class="anchor" href="#user-interface"></a><em>User Interface</em></h4>
 <div class="paragraph">
-<p>Design of the user interface for the app. The default user interface is written in JavaScript.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>Internationalization</h4>
-<div class="paragraph">
-<p>This app will be available in English and we will adapt it to Spanish in the future.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>Under-the-hood</h3>
-<div class="sect3">
-<h4 id="persistency"><a class="anchor" href="#persistency"></a>Persistency</h4>
-<div class="paragraph">
-<p>The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
+<p><em>Design of the user interface for the app. The default user interface is written in JavaScript.</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>Exception/Error Handling</h4>
+<h4 id="internationalization"><a class="anchor" href="#internationalization"></a><em>Internationalization</em></h4>
 <div class="paragraph">
-<p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
+<p><em>This app will be available in English and we will adapt it to Spanish in the future.</em></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>Security and Safety</h3>
+<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a><em>Under-the-hood</em></h3>
 <div class="sect3">
-<h4 id="security"><a class="anchor" href="#security"></a>Security</h4>
+<h4 id="persistency"><a class="anchor" href="#persistency"></a><em>Persistency</em></h4>
 <div class="paragraph">
-<p>All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
+<p><em>The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="safety"><a class="anchor" href="#safety"></a>Safety</h4>
+<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a><em>Exception/Error Handling</em></h4>
 <div class="paragraph">
-<p>This application doesn not have anything dangerous.</p>
+<p><em>Description of how we will handle errors and exceptions. To be filled in the future.</em></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>Development Concepts</h3>
+<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a><em>Security and Safety</em></h3>
 <div class="sect3">
-<h4 id="testability"><a class="anchor" href="#testability"></a>Testability</h4>
+<h4 id="security"><a class="anchor" href="#security"></a><em>Security</em></h4>
 <div class="paragraph">
-<p>Place for the future tests of our app.</p>
+<p><em>All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="safety"><a class="anchor" href="#safety"></a><em>Safety</em></h4>
+<div class="paragraph">
+<p><em>This application doesn&#8217;t have anything dangerous.</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a><em>Development Concepts</em></h3>
+<div class="sect3">
+<h4 id="testability"><a class="anchor" href="#testability"></a><em>Testability</em></h4>
+<div class="paragraph">
+<p><em>Place for the future tests of our app.</em></p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-22 09:36:02 CET
+Last updated 2019-02-21 16:13:04 CET
 </div>
 </div>
 </body>

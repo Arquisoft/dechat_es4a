@@ -531,7 +531,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-system-scope-and-context">System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#business-context">Business Context</a></li>
-<li><a href="#technical-context">Technical Context</a></li>
+<li><a href="#technical-context-optional">Technical Context [OPTIONAL]</a></li>
 </ul>
 </li>
 </ul>
@@ -541,10 +541,9 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>System Scope and Context</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
 <p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
 </div>
 <div class="paragraph">
@@ -557,11 +556,9 @@ table.CodeRay td.code>pre{padding:0}
 <p>In this application we will use an interface that allows you to see the name of the other person with whom you are chatting and the messages sent and received, we will have a box to write the message to send. These messages will be stored in the POD so that conversation the messages are completely isolated and only people who chat among them will be able to access them.</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
 <p>The communication interface is that of any chat of this style, so that stakeholders will be known and therefore more intuitive. On the other hand our interface will be made with a library of JavaScript with the aforementioned, an area to write the text to send, another to see the conversation we have with the other person and finally a small part above in which we will see the name of the other person.</p>
 </div>
 <div class="ulist">
-<div class="title">Form</div>
 <ul>
 <li>
 <p>Diagram:</p>
@@ -569,37 +566,24 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/basicDiagram.png" alt="basicDiagram"></span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Stakeholders: anyone who wants to chat with a friend</p>
-</li>
-<li>
-<p>Same communication interface, typical of any chat seen so far</p>
-</li>
-</ul>
+<p><span class="image"><img src="./images/basicDiagram.png" alt="basicDiagram"></span></p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="business-context"><a class="anchor" href="#business-context"></a>Business Context</h3>
-<div class="sidebarblock arc42help">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
 <p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
 <div class="paragraph">
 <p>The interface will receive the messages of the two users and will save the conversation in the PODs of the two users. On the other hand it will show information of both users. The communication with Solid and the POD will be received in the application with the use of specific JavaScript libraries. The RDFs returned by the PODs will be used by the application to access the data of both users.</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
 <p>Being an app as simple as a chat, users should not have any problem with the use of this application.</p>
 </div>
 <div class="ulist">
-<div class="title">Form</div>
 <ul>
 <li>
 <p>Table:</p>
@@ -607,25 +591,22 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/tableContext.png" alt="tableContext"></span></p>
+<p><span class="image"><img src="./images/tableContext.png" alt="tableContext"></span></p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="technical-context"><a class="anchor" href="#technical-context"></a>Technical Context</h3>
-<div class="sidebarblock arc42help">
+<h3 id="technical-context-optional"><a class="anchor" href="#technical-context-optional"></a>Technical Context [OPTIONAL]</h3>
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
 <p>As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
 <p>We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.</p>
 </div>
 <div class="ulist">
-<div class="title">Form</div>
 <ul>
 <li>
 <p>Diagram:</p>
@@ -640,7 +621,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-22 09:36:02 CET
+Last updated 2019-02-22 17:56:49 CET
 </div>
 </div>
 </body>

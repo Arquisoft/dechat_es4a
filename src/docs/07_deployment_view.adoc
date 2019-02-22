@@ -3,7 +3,6 @@
 
 == Deployment View
 
-[role="arc42help"]
 ****
 .Content
 The deployment view describes:
@@ -36,7 +35,6 @@ when your infrastructure is more complex.
 
 === Infrastructure Level 1
 
-[role="arc42help"]
 ****
 Describe (usually in a combination of diagrams, tables, and text):
 
@@ -46,9 +44,9 @@ Describe (usually in a combination of diagrams, tables, and text):
 *  the mapping of software artifacts to elements of the infrastructure
 
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
-****
 
-image:images/07_Deployment.PNG["Basic Deployment View"]
+
+image:07_Deployment.PNG["Basic Deployment View"]
 ****
 
 Motivation::
@@ -82,7 +80,6 @@ Mapping of Building Blocks to Infrastructure::
 
 === Infrastructure Level 2
 
-[role="arc42help"]
 ****
 Here you can include the internal structure of (some) infrastructure elements from level 1.
 
