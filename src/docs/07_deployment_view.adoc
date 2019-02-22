@@ -48,7 +48,7 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
 ****
 
-image:images/07_Deployment.png["Basic Deployment View"]
+image:images/07_Deployment.PNG["Basic Deployment View"]
 ****
 
 Motivation::
