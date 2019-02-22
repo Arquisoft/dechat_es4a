@@ -1,58 +1,14 @@
 [[section-concepts]]
+
 == Cross-cutting Concepts
-
-
-[role="arc42help"]
-****
-.Content
-This section describes overall, principal regulations and solution ideas that are
-relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as
-
-* domain models
-* architecture patterns or design patterns
-* rules for using specific technology
-* principal, often technical decisions of overall decisions
-* implementation rules
-
-.Motivation
-Concepts form the basis for _conceptual integrity_ (consistency, homogeneity)
-of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.
-
-Some of these concepts cannot be assigned to individual building blocks
-(e.g. security or safety). This is the place in the template that we provided for a
-cohesive specification of such concepts.
-
-.Form
-The form can be varied:
-
-* concept papers with any kind of structure
-* cross-cutting model excerpts or scenarios using notations of the architecture views
-* sample implementations, especially for technical concepts
-* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)
-
-.Structure
-A potential (but not mandatory) structure for this section could be:
-
-* Domain concepts
-* User Experience concepts (UX)
-* Safety and security concepts
-* Architecture and design patterns
-* "Under-the-hood"
-* development concepts
-* operational concepts
-
-Note: it might be difficult to assign individual concepts to one specific topic
-on this list.
 
 image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
 ****
 
 
-=== _Domain Model_
+=== Domain Model
 
-_Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype._
+Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.
 
 .Tables
 |===
@@ -63,49 +19,48 @@ _Our project is a decentralized chat application. Here we will add an Entity Rel
 
 |className2
 |Description2
-
 |===
 
-=== _Architecture and design_
+=== Architecture and design
 
-_Here we will add the design of our software and its architecture._
+Here we will add the design of our software and its architecture.
 
 
-=== _User Experience_
+=== User Experience
 
-==== _User Interface_
+==== User Interface
 
-_Design of the user interface for the app. The default user interface is written in JavaScript._
+Design of the user interface for the app. The default user interface is written in JavaScript.
 
-==== _Internationalization_
+==== Internationalization
 
-_This app will be available in English and we will adapt it to Spanish in the future._
+This app will be available in English and we will adapt it to Spanish in the future.
 
-=== _Under-the-hood_
+=== Under-the-hood
 
-==== _Persistency_
+==== Persistency
 
-_The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer._
+The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.
 
-==== _Exception/Error Handling_
+==== Exception/Error Handling
 
-_Description of how we will handle errors and exceptions. To be filled in the future._
+Description of how we will handle errors and exceptions. To be filled in the future.
 
-=== _Security and Safety_
+=== Security and Safety
 
-==== _Security_
+==== Security
 
-_All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure._
+All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
 
-==== _Safety_
+==== Safety
 
-_This application doesn't have anything dangerous._
+This application doesn't have anything dangerous.
 
-=== _Development Concepts_
+=== Development Concepts
 
-==== _Testability_
+==== Testability
 
-_Place for the future tests of our app._
+Place for the future tests of our app.
 
 
 
