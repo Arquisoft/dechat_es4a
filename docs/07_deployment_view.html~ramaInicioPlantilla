@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Design Decisions</title>
+<title>Deployment View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -521,66 +521,99 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .change .change{color:#66f}
 .CodeRay .head .head{color:#f4f}
 </style>
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-design-decisions">Design Decisions</a></li>
+<li><a href="#section-deployment-view">Deployment View</a>
+<ul class="sectlevel2">
+<li><a href="#infrastructure-level-1">Infrastructure Level 1</a></li>
+<li><a href="#infrastructure-level-2-to-do">Infrastructure Level 2 [TO DO]</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-design-decisions"><a class="anchor" href="#section-design-decisions"></a>Design Decisions</h2>
+<h2 id="section-deployment-view"><a class="anchor" href="#section-deployment-view"></a>Deployment View</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="infrastructure-level-1"><a class="anchor" href="#infrastructure-level-1"></a>Infrastructure Level 1</h3>
 <div class="paragraph">
-<p>The key of this project is the decentralization of data.</p>
+<p><span class="image"><img src="./images/07_Deployment.PNG" alt="Basic Deployment View"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.</p>
+</dd>
+<dt class="hdlist1">Quality and/or Performance Features</dt>
+<dd>
+<p>SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.</p>
+</dd>
+<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
+<dd>
+<p>.Deployment nodes and artifact</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Node/Artifact</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">myChat.html</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Html file that contain all information to execute our application in the web browser.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Costumer Pod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is a place located in a SOLID Pod Server where costumer can save all personal data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Browser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A browser that can run our application. Chrome or Firefox should work.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server where our decentralized app will be build.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="infrastructure-level-2-to-do"><a class="anchor" href="#infrastructure-level-2-to-do"></a>Infrastructure Level 2 [TO DO]</h3>
+<div class="paragraph">
+<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
 </div>
 <div class="paragraph">
-<p>For working with data decentralization we will be using Solid, a project by Prof. Tim Berners-Lee, as is one of the
-prerequisites of this project, has and intuitive form of use and works very well with different programming languages
-and especially with the one we will be using: JavaScript, as it was created with it.</p>
+<p>Please copy the structure from level 1 for each selected element.</p>
 </div>
+<div class="sect3">
+<h4 id="infrastructure-element-1-to-do"><a class="anchor" href="#infrastructure-element-1-to-do"></a>Infrastructure Element 1 [TO DO]</h4>
 <div class="paragraph">
-<p>JavaScript was also chosen because it counts with different libraries, as LDFlex for example, that makes working with
-solid a lot easier; it is also a high demanded and used language and it gives us the opportunity to learn more about it
-and in case this projects ends up becoming free source in this language it will probably be more useful for the
-rest of the community.</p>
+<p><em>&lt;diagram + explanation&gt;</em> [TO DO]</p>
 </div>
-<div class="paragraph">
-<p>Using solid and JavaScript will make achieving quality goals easier. Solid will provide security and privacy regarding
-the data while JavaScript counts with different libraries for correct and safe connections between the pods and the
-client.
-We will also implement more security at the client manually and with other JS libraries specialized on it.</p>
 </div>
-<div class="paragraph">
-<p>Quality will also be increased as we will work with high ranking technologies that we are used to as all the time we
-would expend documenting this development environment we will use it improving other factors of our project.We are
-going to use WebStorm for coding and editing our documentation as it is an IDE that provides both funcionalities and
-most of us are used to it. Also we are going to use github as version control manager as is the one used in our
-university and one of the leader platforms to share free source code.</p>
-</div>
-<div class="paragraph">
-<p>Regarding design we will be using the MVC pattern. Solid provides by itself a modular design form by different pods
-containing the client data, and we want to keep the decentralization of that data as clear as possible so by structuring
-the project with this pattern we will have the exact responsibilities of each layer and the way they communicate to
-each other very clear.</p>
-</div>
-<div class="paragraph">
-<p>To achieve all this we will be following a agile methodology. All of us will have the software architect role so at
-the meetings all of us will have to take that role and manage to share it with the rest of the group, we will split
-the task in the smallest possible and keep developing,making documentation and communicating with the rest of the group
-during all the process.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-24 20:23:48 CET
+Last updated 2019-02-24 20:09:33 CET
 </div>
 </div>
 </body>

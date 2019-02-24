@@ -5,8 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<meta name="keywords" content="software-architecture, documentation, template, arc42">
-<title>Untitled</title>
+<title>Cross-cutting Concepts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -524,33 +523,121 @@ table.CodeRay td.code>pre{padding:0}
 </style>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script> -->
 </head>
-<body class="article">
-<div id="header">
-</div>
-<div id="content">
-<div class="paragraph">
-<p><strong>About arc42</strong></p>
-</div>
-<div class="paragraph lead">
-<p>arc42, the Template for documentation of
-software and system architecture.</p>
-</div>
-<div class="paragraph">
-<p>By Dr. Gernot Starke, Dr. Peter Hruschka and contributors.</p>
-</div>
-<div class="paragraph">
-<p>Template Revision: 7.0 EN (based on asciidoc), January 2017</p>
-</div>
-<div class="paragraph">
-<p>&#169;
-We acknowledge that this document uses material from the
-arc 42 architecture template, <a href="http://www.arc42.de" class="bare">http://www.arc42.de</a>.
-Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
+<body ccID="34808" class="article toc2 toc-left">
+<div ccID="34846" id="header">
+<div ccID="34865" id="toc" class="toc2">
+<div ccID="34894" id="toctitle">Table of Contents</div>
+<ul ccID="34938" class="sectlevel1">
+<li ccID="34963"><a ccID="34967" href="#section-concepts">Cross-cutting Concepts</a>
+<ul ccID="35023" class="sectlevel2">
+<li ccID="35048"><a ccID="35052" href="#domain-model"><em ccID="35076">Domain Model</em></a></li>
+<li ccID="35108"><a ccID="35112" href="#architecture-and-design"><em ccID="35147">Architecture and design</em></a></li>
+<li ccID="35190"><a ccID="35194" href="#user-experience"><em ccID="35221">User Experience</em></a></li>
+<li ccID="35256"><a ccID="35260" href="#under-the-hood"><em ccID="35286">Under-the-hood</em></a></li>
+<li ccID="35320"><a ccID="35324" href="#security-and-safety"><em ccID="35355">Security and Safety</em></a></li>
+<li ccID="35394"><a ccID="35398" href="#development-concepts"><em ccID="35430">Development Concepts</em></a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2019-02-24 20:06:57 CET
+<div ccID="35507" id="content">
+<div ccID="35527" class="sect1">
+<h2 ccID="35548" id="section-concepts"><a ccID="35574" class="anchor" href="#section-concepts"></a>Cross-cutting Concepts</h2>
+<p ccID="35650"><span ccID="35653" class="image"><img ccID="35673" src="./images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
+<div ccID="35796" class="sect2">
+<h3 ccID="35817" id="domain-model"><a ccID="35839" class="anchor" href="#domain-model"></a>Domain Model</h3>
+<div ccID="35901" class="paragraph">
+<p ccID="35926">Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+</div>
+<table ccID="36079" class="tableblock frame-all grid-all stretch">
+<caption ccID="36134" class="title">Table 1. Tables</caption>
+<colgroup ccID="36184">
+<col ccID="36196" style="width: 50%;">
+<col ccID="36223" style="width: 50%;">
+</colgroup>
+<thead ccID="36263">
+<tr ccID="36272">
+<th ccID="36278" class="tableblock halign-left valign-top">Name</th>
+<th ccID="36335" class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody ccID="36416">
+<tr ccID="36425">
+<td ccID="36431" class="tableblock halign-left valign-top"><p ccID="36477" class="tableblock">className1</p></td>
+<td ccID="36520" class="tableblock halign-left valign-top"><p ccID="36566" class="tableblock">Description1</p></td>
+</tr>
+<tr ccID="36618">
+<td ccID="36624" class="tableblock halign-left valign-top"><p ccID="36670" class="tableblock">className2</p></td>
+<td ccID="36713" class="tableblock halign-left valign-top"><p ccID="36759" class="tableblock">Description2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div ccID="36839" class="sect2">
+<h3 ccID="36860" id="architecture-and-design"><a ccID="36893" class="anchor" href="#architecture-and-design"></a>Architecture and design</h3>
+<div ccID="36977" class="paragraph">
+<p ccID="37002">Here we will add the design of our software and its architecture.</p>
+</div>
+</div>
+<div ccID="37092" class="sect2">
+<h3 ccID="37113" id="user-experience"><a ccID="37138" class="anchor" href="#user-experience"></a>User Experience</h3>
+<div ccID="37206" class="sect3">
+<h4 ccID="37227" id="user-interface"><a ccID="37251" class="anchor" href="#user-interface"></a>User Interface</h4>
+<div ccID="37317" class="paragraph">
+<p ccID="37342">Design of the user interface for the app. The default user interface is written in JavaScript.</p>
+</div>
+</div>
+<div ccID="37461" class="sect3">
+<h4 ccID="37482" id="internationalization"><a ccID="37512" class="anchor" href="#internationalization"></a>Internationalization</h4>
+<div ccID="37590" class="paragraph">
+<p ccID="37615">This app will be available in English and we will adapt it to Spanish in the future.</p>
+</div>
+</div>
+</div>
+<div ccID="37732" class="sect2">
+<h3 ccID="37753" id="under-the-hood"><a ccID="37777" class="anchor" href="#under-the-hood"></a>Under-the-hood</h3>
+<div ccID="37843" class="sect3">
+<h4 ccID="37864" id="persistency"><a ccID="37885" class="anchor" href="#persistency"></a>Persistency</h4>
+<div ccID="37945" class="paragraph">
+<p ccID="37970">The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
+</div>
+</div>
+<div ccID="38198" class="sect3">
+<h4 ccID="38219" id="exceptionerror-handling"><a ccID="38252" class="anchor" href="#exceptionerror-handling"></a>Exception/Error Handling</h4>
+<div ccID="38337" class="paragraph">
+<p ccID="38362">Description of how we will handle errors and exceptions. To be filled in the future.</p>
+</div>
+</div>
+</div>
+<div ccID="38479" class="sect2">
+<h3 ccID="38500" id="security-and-safety"><a ccID="38529" class="anchor" href="#security-and-safety"></a>Security and Safety</h3>
+<div ccID="38605" class="sect3">
+<h4 ccID="38626" id="security"><a ccID="38644" class="anchor" href="#security"></a>Security</h4>
+<div ccID="38698" class="paragraph">
+<p ccID="38723">All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
+</div>
+</div>
+<div ccID="38921" class="sect3">
+<h4 ccID="38942" id="safety"><a ccID="38958" class="anchor" href="#safety"></a>Safety</h4>
+<div ccID="39008" class="paragraph">
+<p ccID="39033">This application doesn not have anything dangerous.</p>
+</div>
+</div>
+</div>
+<div ccID="39117" class="sect2">
+<h3 ccID="39138" id="development-concepts"><a ccID="39168" class="anchor" href="#development-concepts"></a>Development Concepts</h3>
+<div ccID="39246" class="sect3">
+<h4 ccID="39267" id="testability"><a ccID="39288" class="anchor" href="#testability"></a>Testability</h4>
+<div ccID="39348" class="paragraph">
+<p ccID="39373">Place for the future tests of our app.</p>
+</div>
+</div>
+</div>
+</div>
+<div ccID="39452" id="footer">
+<div ccID="39471" id="footer-text">
+Last updated 2019-02-22 09:36:02 CET
 </div>
 </div>
 </body>
