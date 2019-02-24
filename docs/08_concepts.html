@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Architecture Constraints</title>
+<title>Cross-cutting Concepts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -521,17 +521,21 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .change .change{color:#66f}
 .CodeRay .head .head{color:#f4f}
 </style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script> -->
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-architecture-constraints">Architecture Constraints</a>
+<li><a href="#section-concepts">Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#2-1-introduction">2.1 Introduction</a></li>
-<li><a href="#2-2-constraints">2.2 Constraints</a></li>
+<li><a href="#domain-model">Domain Model</a></li>
+<li><a href="#architecture-and-design">Architecture and design</a></li>
+<li><a href="#user-experience">User Experience</a></li>
+<li><a href="#under-the-hood">Under-the-hood</a></li>
+<li><a href="#security-and-safety">Security and Safety</a></li>
+<li><a href="#development-concepts">Development Concepts</a></li>
 </ul>
 </li>
 </ul>
@@ -539,111 +543,106 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-architecture-constraints"><a class="anchor" href="#section-architecture-constraints"></a>Architecture Constraints</h2>
+<h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>Cross-cutting Concepts</h2>
 <div class="sectionbody">
-<hr>
-<div class="sect2">
-<h3 id="2-1-introduction"><a class="anchor" href="#2-1-introduction"></a>2.1 Introduction</h3>
 <div class="paragraph">
-<p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
-</div>
-<hr>
+<p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
 </div>
 <div class="sect2">
-<h3 id="2-2-constraints"><a class="anchor" href="#2-2-constraints"></a>2.2 Constraints</h3>
+<h3 id="domain-model"><a class="anchor" href="#domain-model"></a>Domain Model</h3>
+<div class="paragraph">
+<p>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Technical Constraints</caption>
+<caption class="title">Table 1. Tables</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">className1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El chat debe ser descentralizado utilizando la tecnología SOLID.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized architecture</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It must be a chat where the user&#8217;s data is separated from the application that uses it.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compatible and stand-alone application</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge &#8230;&#8203;).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">className2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description2</p></td>
 </tr>
 </tbody>
 </table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Organitazional constraints</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The team will be formed by Aida Maria Gonzalez, Elena Puga, David Canle, Alberto Nuñez, German Iglesias and Jaime Fernández.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Timetable</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project will be carried out during the Software Architecture course, which will be approximately four months.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Project cost</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No budget is available for the project, which reduces our resources for the development of the project.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A GitHub repository (dechat_es4a) will be used to keep the project development up to date and available to all participants anytime, anywhere.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Conventions</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Arc42 Template for documentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use of arc42 templates written on AsciiDoc.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We have decided to use English for the development of the project in order to seek greater international reach.</p></td>
-</tr>
-</tbody>
-</table>
-<hr>
+</div>
+<div class="sect2">
+<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>Architecture and design</h3>
+<div class="paragraph">
+<p>Here we will add the design of our software and its architecture.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>User Experience</h3>
+<div class="sect3">
+<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>User Interface</h4>
+<div class="paragraph">
+<p>Design of the user interface for the app. The default user interface is written in JavaScript.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>Internationalization</h4>
+<div class="paragraph">
+<p>This app will be available in English and we will adapt it to Spanish in the future.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>Under-the-hood</h3>
+<div class="sect3">
+<h4 id="persistency"><a class="anchor" href="#persistency"></a>Persistency</h4>
+<div class="paragraph">
+<p>The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>Exception/Error Handling</h4>
+<div class="paragraph">
+<p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>Security and Safety</h3>
+<div class="sect3">
+<h4 id="security"><a class="anchor" href="#security"></a>Security</h4>
+<div class="paragraph">
+<p>All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="safety"><a class="anchor" href="#safety"></a>Safety</h4>
+<div class="paragraph">
+<p>This application doesn&#8217;t have anything dangerous.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>Development Concepts</h3>
+<div class="sect3">
+<h4 id="testability"><a class="anchor" href="#testability"></a>Testability</h4>
+<div class="paragraph">
+<p>Place for the future tests of our app.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-24 20:06:57 CET
+Last updated 2019-02-24 20:23:48 CET
 </div>
 </div>
 </body>
