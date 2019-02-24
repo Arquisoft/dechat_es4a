@@ -1,9 +1,6 @@
 [[section-design-decisions]]
 == Design Decisions
 
-
-[role="arc42help"]
-****
 The main and actual decisions are further explained at the fourth
 section of this document : link:04_solution_strategy.adoc[Solution
 Strategy] but an index of these is:
@@ -26,5 +23,3 @@ Strategy] but an index of these is:
 . Testing
 [upperroman]
 .. Selenium (Still being decided)
-
-****
