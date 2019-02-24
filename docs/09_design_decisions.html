@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Architecture Constraints</title>
+<title>Design Decisions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -528,122 +528,85 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-architecture-constraints">Architecture Constraints</a>
-<ul class="sectlevel2">
-<li><a href="#2-1-introduction">2.1 Introduction</a></li>
-<li><a href="#2-2-constraints">2.2 Constraints</a></li>
-</ul>
-</li>
+<li><a href="#section-design-decisions">Design Decisions</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-architecture-constraints"><a class="anchor" href="#section-architecture-constraints"></a>Architecture Constraints</h2>
+<h2 id="section-design-decisions"><a class="anchor" href="#section-design-decisions"></a>Design Decisions</h2>
 <div class="sectionbody">
-<hr>
-<div class="sect2">
-<h3 id="2-1-introduction"><a class="anchor" href="#2-1-introduction"></a>2.1 Introduction</h3>
 <div class="paragraph">
-<p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
+<p>The main and actual decisions are further explained at the fourth
+section of this document : <a href="04_solution_strategy.adoc">Solution
+Strategy</a> but an index of these is:</p>
 </div>
-<hr>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>Architecture and desing decisions</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>MVC</p>
+</li>
+<li>
+<p>Modular Desing by Solid</p>
+</li>
+</ol>
 </div>
-<div class="sect2">
-<h3 id="2-2-constraints"><a class="anchor" href="#2-2-constraints"></a>2.2 Constraints</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Technical Constraints</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El chat debe ser descentralizado utilizando la tecnología SOLID.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized architecture</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It must be a chat where the user&#8217;s data is separated from the application that uses it.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compatible and stand-alone application</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge &#8230;&#8203;).</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Organitazional constraints</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The team will be formed by Aida Maria Gonzalez, Elena Puga, David Canle, Alberto Nuñez, German Iglesias and Jaime Fernández.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Timetable</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project will be carried out during the Software Architecture course, which will be approximately four months.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Project cost</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No budget is available for the project, which reduces our resources for the development of the project.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A GitHub repository (dechat_es4a) will be used to keep the project development up to date and available to all participants anytime, anywhere.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Conventions</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Constraint</th>
-<th class="tableblock halign-left valign-top">Background and / or motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Arc42 Template for documentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use of arc42 templates written on AsciiDoc.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We have decided to use English for the development of the project in order to seek greater international reach.</p></td>
-</tr>
-</tbody>
-</table>
-<hr>
+</li>
+<li>
+<p>Programing languages</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>JavaScript</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Technologies</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>WebStorm by Jetbrains</p>
+</li>
+<li>
+<p>Github</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Methodologies</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>Scrum</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Testing</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>Selenium (Still being decided)</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-22 09:23:17 CET
+Last updated 2019-02-24 20:07:11 CET
 </div>
 </div>
 </body>
