@@ -1,5 +1,5 @@
 {
-  "name": "testreactapp",
+  "name": "dechat_es4a",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +14,17 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "eslint:recommended",
+      "react-app"
+    ],
+    "rules": {
+      "no-console": "off",
+      "strict": [
+        "error",
+        "global"
+      ]
+    }
   },
   "browserslist": [
     ">0.2%",
