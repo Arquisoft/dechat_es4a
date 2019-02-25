@@ -10,6 +10,8 @@ The main goal of SOLID is to give the user full control over their data and who 
 where their data is stored, it can be stored in their personal PC or in an onlive server from various SOLID providers. 
 In order to Log in to the deChat app you can use your SOLID POD.
 
+image:images/05_building_block_level1.PNG["Whitebox Overall System"]
+
 The main elements that make part of the app and will communicate with each other are the following:
 
 [cols="1,2" options="header"]
