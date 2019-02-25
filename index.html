@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Decentralized Chat</title>
-  </head>
-  <body>    
-    
+<!DOCTYPE html>
+<html lang="en">
+<title>Test React</title>
+
+<!-- Load React API -->
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<!-- Load React DOM-->
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<!-- Load Babel Compiler -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+<body>
+  <div id="id01">Hello World!</div>
+
+  <script type="text/babel">
+  ReactDOM.render(
+      <h1>Hello React!</h1>,
+      document.getElementById('id01'));
+  </script>
+
+
   <section class="section">
     <div class="container">
       <h1 class="title">
@@ -21,19 +34,21 @@
         <hr>
         No, choose from the list of Pod Providers!
         <hr>
-        <a href="https://solid.inrupt.com/get-a-solid-pod" target="_blank" class="button button is-info is-rounded">I Want a Solid Pod!</a>
+        <a href="https://solid.inrupt.com/get-a-solid-pod" target="_blank" class="button button is-info is-rounded">I
+          Want a Solid Pod!</a>
         <hr>
       </section>
-      
+
       <section id="logout" style="display:none">
         <hr>
         <a id="user" target="_blank" href="#"></a>
         <hr>
-        <button class="button button is-info is-rounded">Log out</button>        
+        <button class="button button is-info is-rounded">Log out</button>
       </section>
-      
+
     </div>
   </section>
-  
-  </body>
+
+</body>
+
 </html>
