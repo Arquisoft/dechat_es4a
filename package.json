@@ -2,6 +2,7 @@
   "name": "dechat_es4a",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://arquisoft.github.io/dechat_es4a/",
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
@@ -12,6 +13,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+	"predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
