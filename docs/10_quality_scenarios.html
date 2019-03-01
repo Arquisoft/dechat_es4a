@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Untitled</title>
+<title>Quality Requirements</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -523,11 +523,67 @@ table.CodeRay td.code>pre{padding:0}
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#section-quality-scenarios">Quality Requirements</a>
+<ul class="sectlevel2">
+<li><a href="#quality-tree">Quality Tree</a></li>
+<li><a href="#quality-scenarios">Quality Scenarios</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-
+<div class="sect1">
+<h2 id="section-quality-scenarios"><a class="anchor" href="#section-quality-scenarios"></a>Quality Requirements</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="quality-tree"><a class="anchor" href="#quality-tree"></a>Quality Tree</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/images/quality_tree.PNG" alt="quality tree"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quality-scenarios"><a class="anchor" href="#quality-scenarios"></a>Quality Scenarios</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<div class="title">Usage Scenarios:</div>
+<ul>
+<li>
+<p>An user attempts to access the porfile of a friend &#8594; the application makes a request to the server to access the porfile&#8217;s contents of the friend&#8217;s POD, retrieves them, and shows them to the user within 1 second (multimedia content may vary)</p>
+</li>
+<li>
+<p>An user attempts to access the porfile of a person that has explicitly set their profile to private &#8594; the application makes a request to the server to access the porfile&#8217;s contents of the person&#8217;s POD, but due to the lack of permission the access is denied and the requesting user is informed within 1 second</p>
+</li>
+<li>
+<p>An user changes his/her porfile picture &#8594; The application request the server storing the POD to edit the contents, and upon obtainin permission he changes the picture. from now on people accessing this  porfile will see the updated picture</p>
+</li>
+<li>
+<p>An user wants to start a conversation with a friend &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the friend has his app installed within 2 seconds.</p>
+</li>
+<li>
+<p>An user wants to start a conversation with an user he isn&#8217;t friends with &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the user has his app installed. Due to them not being friends, the application will first make a request to the friend&#8217;s POD to reveal the device in which the app is installed to establish communication: the user will first have to personally accept this request (unless stated otherwise in configuration) before the application is allowed to know the device he must communicate with. Both the user being contacted and the person trying to contact them will have the capacity to block and/or report the person they are communicating with at any moment.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Change Scenarios:</div>
+<ul>
+<li>
+<p>The application is modified to be integrated with Github &#8594; the Application now can retrieve information from the linked GitHub account, informing the user with each relevant action (Commits, updates in repostories, requests to participate in projectts, etc). If Application friends link their accounts to the application and they allow that information to be shared in settings, the user will be informed that they share platform.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
