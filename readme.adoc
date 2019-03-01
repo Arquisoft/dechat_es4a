@@ -56,7 +56,14 @@ The https://github.com/Arquisoft/dechat_es4a/tree/master/pom.xml[pom.xml] file
 mvn site
 ----
 
+== Contributors
 
+- https://github.com/Lisa159[Aida María González].
+- https://github.com/davidcanle[David Canle Roza].
+- https://github.com/protojaime[Jaime Fernández].
+- https://github.com/elenappuga[Elena Puga Pascual].
+- https://github.com/giramos[Germán Iglesias Ramos].
+- https://github.com/albertong98[Alberto Núñez García].
 
 
 
