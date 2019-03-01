@@ -1,75 +1,93 @@
 [[section-introduction-and-goals]]
 == Introduction and Goals
-
-[role="arc42help"]
 ****
-Describes the relevant requirements and the driving forces that software architects and development team must consider. These include
+The objective of this project that we will develop further is to create a decentralized chat application based on https://solid.mit.edu/[SOLID] specifications. Our application can resemble any other more popular and commercially successful in the field of instant messaging, except that ours, as we said in the beginning uses a decentralized architecture to store data, providing a more remarkable security than the others.
+Our application aims to help users (two or more) to communicate with each other, sharing all kinds of information without this information being stored on any external server, providing a completely private and therefore secure communication. To do so, users must have a https://solid.inrupt.com/get-a-solid-pod/[POD of SOLID] to store their data. 
+As essential characteristics of our application, we will look for them to be the most similar to those of the most popular, either:
 
-* underlying business goals, essential features and functional requirements for the system
-* quality goals for the architecture
-* relevant stakeholders and their expectations
+* Share photos, videos and other files
+* Multi-person chat groups
+* Notifications 
+* Etc.
 ****
 
 === Requirements Overview
 
-[role="arc42help"]
 ****
 .Contents
-Short description of the functional requirements, driving forces, extract (or abstract)
-of requirements. Link to (hopefully existing) requirements documents
-(with version number and information where to find it).
+A brief description of the functional requirements of our application is that it consists of a decentralized chat application based on SOLID, where users using the application must have a SOLID POD, which will allow these users to store their data, to share their files, images, videos, notifications, and so on.
+A more rigorous specification can be found at the following link, which describes the high level requirements of the application. https://labra.solid.community/public/SoftwareArchitecture/EnunciadoPractica/[Requirements].
 
 .Motivation
-From the point of view of the end users a system is created or modified to
-improve support of a business activity and/or improve the quality.
+As for the general motivation, the aim of the development of the following project is that in the chat application there is no central database that could violate the information shared by users. The purpose is to seek the security provided by the privacy provided by the decentralization of the application, so that all users who use it feel safe and secure that the data they share is not compromised.
 
-.Form
-Short textual description, probably in tabular use-case format.
-If requirements documents exist this overview should refer to these documents.
-
-Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
+.Use cases
+Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
+image:Diapositiva0.PNG[] case One (1-1).
+image:Diapositiva1.PNG[] case Two (1-*).
 ****
 
 === Quality Goals
 
-[role="arc42help"]
 ****
-.Contents
-The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders. We really mean quality goals for the architecture. Don't confuse them with project goals. They are not necessarily identical.
+Main characteristics of our application.
 
-.Motivation
-You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions. Make sure to be very concrete about these qualities, avoid buzzwords.
-If you as an architect do not know how the quality of your work will be judged …
+.Quality Goals
+|===
+|Nr |Quality |Motivation
 
-.Form
-A table with quality goals and concrete scenarios, ordered by priorities
+|1
+|Security
+|The chat should not have weak points that violate the data and files of users, as well as provide visibility only to those users involved in the chat.
+
+|2
+|Usability
+|It must be a simple application in use for all types of user, that is intuitive and that entails a very easy learning curve. 
+
+|3
+|Availability
+|The application must be ready to run at any time, and as long as there is a connection, the user should be able to use all the features offered by the chat.
+
+|4
+|Efficiency
+|Messages should be sent as fluidly and quickly as possible, without any loss of information.
+
+|5
+|Scalability
+|The application is functioning correctly as the number of users grows.
+
+|6
+|Decentralized
+|Main objective in accordance with functional requirements, we will use SOLID requirements for this purpose to protect user data.
+
+|===
 ****
 
 === Stakeholders
 
-[role="arc42help"]
+
 ****
-.Contents
-Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that
+Table with the people involved in the project
 
-* should know the architecture
-* have to be convinced of the architecture
-* have to work with the architecture or with code
-* need the documentation of the architecture for their work
-* have to come up with decisions about the system or its development
+.Stakeholders
+|===
+|Stakeholder |Description |Goal/Boundaries
 
-.Motivation
-You should know all parties involved in development of the system or affected by the system.
-Otherwise, you may get nasty surprises later in the development process.
-These stakeholders determine the extent and the level of detail of your work and its results.
+|Chat Users
+|Users of the developed application.
+|Be able to chat in real time with a person or group of people, with ease of use and comfort.
 
-.Form
-Table with role names, person names, and their expectations with respect to the architecture and its documentation.
+|Inrupt 
+|Company interested in the application and that has proposed us the challenge to develop it.
+|Obtain a decentralized and secure application using SOLID specifications built by students.
+
+|José Emilio Labra Gayo
+|Coordinator of the Software Architecture subject.
+|Person who participates in the evaluation of the application and who is also interested in its correct development fulfilling the quality attributes.
+
+|Team
+|Development team
+|Develop an application that will work and archive the minimum requirements set out in the beginning.
+
+|===
 ****
-
-[options="header",cols="1,2,2"]
-|===
-|Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
-|===
