@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  background-image: linear-gradient(rebeccapurple, mediumpurple);
+  -webkit-background-size: cover;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
 button.wide-button {
   width: 360px;
   height: 40px;
