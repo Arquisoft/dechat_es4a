@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Installation
 
-Clone or download this repository. After that, you will need to download the folder node_modules. Go to the folder /dechat and run `npm install`.
+Clone or download this repository. After that, go to the folder /dechat and run `npm install` to install all dependencies.
 
 ## Development server
 
