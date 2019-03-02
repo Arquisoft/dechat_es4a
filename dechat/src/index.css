@@ -1,0 +1,10 @@
+html {
+
+  background-image: linear-gradient(rebeccapurple, mediumpurple);
+  -webkit-background-size: cover;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
