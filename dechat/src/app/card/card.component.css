@@ -76,7 +76,7 @@
 }
 
 .profile-save-button:disabled {
-  background-color: #F0EEEB;
+  background-color: #b39ff2;
   border-color: #F0EEEB;
   cursor: not-allowed;
 }
