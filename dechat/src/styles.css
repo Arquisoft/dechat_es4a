@@ -68,4 +68,9 @@ input[type=text].wide-text {
 .ng-select.login-select .ng-arrow:after {
 
 }
-
+body {
+  background-color: lightblue;
+}
+head {
+  background-color: lightblue;
+}
