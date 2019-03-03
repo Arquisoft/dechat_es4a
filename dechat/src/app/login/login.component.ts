@@ -53,4 +53,7 @@ export class LoginComponent implements OnInit {
   goToRegistration() {
     this.router.navigateByUrl('/register');
   }
+  goToChat(){
+
+  }
 }
