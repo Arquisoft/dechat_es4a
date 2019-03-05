@@ -5,7 +5,7 @@ body {
     text-align:center;
     padding:35px; }
   
-form, p, span {
+form, p {
     margin:0;
     padding:0; }
   
@@ -17,17 +17,14 @@ a {
   
     a:hover { text-decoration:underline; }
   
-#wrapper, #loginform {
+#wrapper{
     margin:0 auto;
     padding-bottom:25px;
     background:#EBF4FB;
     width:504px;
     border:1px solid #ACD8F0; }
   
-#loginform { padding-top:18px; }
-  
-    #loginform p { margin: 5px; }
-  
+
 #chatbox {
     text-align:left;
     margin:0 auto;
