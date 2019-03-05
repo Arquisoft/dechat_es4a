@@ -4,10 +4,7 @@ body {
     color: #222;
     text-align:center;
     padding:35px; }
-  
-form, p {
-    margin:0;
-    padding:0; }
+
   
 input { font:12px arial; }
   
@@ -16,14 +13,6 @@ a {
     text-decoration:none; }
   
     a:hover { text-decoration:underline; }
-  
-#wrapper{
-    margin:0 auto;
-    padding-bottom:25px;
-    background:#EBF4FB;
-    width:504px;
-    border:1px solid #ACD8F0; }
-  
 
 #chatbox {
     text-align:left;
@@ -35,6 +24,18 @@ a {
     width:430px;
     border:1px solid #ACD8F0;
     overflow:auto; }
+  
+#wrapper {
+    margin:0 auto;
+    padding-bottom:25px;
+    background:#EBF4FB;
+    width:504px;
+    border:1px solid #ACD8F0; }  
+  
+  
+form, p{
+    margin:0;
+    padding:0; }
   
 #usermsg {
     width:395px;
