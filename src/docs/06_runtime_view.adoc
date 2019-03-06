@@ -1,5 +1,5 @@
 [[section-runtime-view]]
-== Runtime View
+== Runtime View [TODO]
 
 
 [role="arc42help"]
@@ -30,15 +30,16 @@ There are many notations for describing scenarios, e.g.
 
 ****
 
-=== <Runtime Scenario 1>
+=== Log in
 
+* An user can log in into the deChat app through his own private SOLID POD provided by either Inrupt or the SOLID community.
 
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
+=== Add friends
 
-=== <Runtime Scenario 2>
+* An user can send a request to his friends POD using that POD url, then the requested user can choose to 
+  either grant the requester access to the POD data or deny it. 
 
-=== ...
+=== Send and recieve messages
 
-=== <Runtime Scenario n>
+* The messages sent must be encrypted in the users' PODs to ensure privacy over the data.
+
