@@ -2,24 +2,24 @@
   <!-- EXAMPLE TOP NAV -->
   <div class="topnav">
     <div class="logo">Solid</div>
-    <div class="menu-item">
-      <div>
-        <i class="far fa-compass"></i>
-      </div>
-      Menu Item 1
-    </div>
-    <div class="menu-item">
+    <!--- <div class="menu-item">
+   <div
+       <i class="far fa-compass"></i>
+     </div>
+     Menu Item 1
+   </div>--->
+    <div class="menu-item" (click)="goToChat()">
       <div>
         <i class="far fa-comment"></i>
       </div>
-      Menu Item 2
+      Chat
     </div>
-    <div class="menu-item">
+    <!--<div class="menu-item">
       <div>
         <i class="fas fa-sliders-h"></i>
       </div>
       Menu Item 3
-    </div>
+    </div>-->
 
     <div class="profile-menu" (click)="logout()">
       <img [src]="profileImage" />

@@ -12,7 +12,7 @@ Strategy] but an index of these is:
 .. Modular Desing by Solid
 . Programing languages
 [upperroman]
-.. JavaScript
+.. Angular [TypeScript]
 . Technologies
 [upperroman]
 .. WebStorm by Jetbrains
