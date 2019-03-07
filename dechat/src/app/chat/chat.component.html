@@ -1,5 +1,35 @@
-<div class="chat-container">
-  <p>
-    edit here the chat interface!
-  </p>
+<!DOCTYPE html">
+<html lang="en">
+<head>
+<title>dechat_es4a - User Interface</title>
+<link type="text/css" rel="stylesheet" href="chat.component.css" />
+
+</head>
+ 
+<div id="wrapper">
+  <div id="menu">
+		<!-- First part -->
+        <p class="welcome">Welcome, {{user.name}} <b></b></p>
+        <!--<p class="logout"><a id="exit" href="#">Exit Chat</a></p>-->
+        <button class="logout" md-raised-button type="button" (click)="logout()">Exit Chat</button>
+        <div style="clear:both"></div>
+    </div>
+     
+	<!-- Second part --> 
+    <div id="chatbox"></div>
+    
+	<!-- Third part -->	
+    <form name="message" action="">
+     <!--    <input name="usermsg" type="text" id="usermsg" size="63" />-->
+        <input  class="usermsg"  [(ngModel)]="message"  (keydown)="handleSubmit($event)"size="63" />
+      <!--  <input name="submitmsg" type="submit"  id="submitmsg" value="Send " />-->
+        <button class="chatButton" type="submit" (click)=send()>Send</button>
+    </form>
 </div>
+
+<script type="text/javascript">
+
+});
+</script>
+</body>
+</html>
