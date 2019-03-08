@@ -36,8 +36,8 @@ Once executed, the application should be available at: http://localhost:4200
 
 There are some test implemented at our app with the extension .ts.
 We have 2 files to run the test:
-- https://github.com/Arquisoft/dechat_es4a/tree/master/dechat/e2e [e2e]
-- https://github.com/Arquisoft/dechat_es4a/blob/master/dechat/src/test.ts [test.ts]
+https://github.com/Arquisoft/dechat_es4a/tree/master/dechat/e2e [e2e]
+https://github.com/Arquisoft/dechat_es4a/blob/master/dechat/src/test.ts [test.ts]
 
 To run tests execute:
 ----
