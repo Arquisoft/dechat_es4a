@@ -8,15 +8,17 @@ describe('LoginComponent',() => {
 			declarations: [LoginComponent],
 		}).compileComponents();
 	}));
+	
+	beforeEach(() => {
+		fixture = TestBed.createComponent(LoginComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
 	it('should create',async(() => { 
-		const fixture = TestBed.createComponent(LoginComponent);
-		const component = fixture.componentInstance;
 		expect(component).toBeTruthy();
-	});
+	}));
 	it('should have inrupt provider',async(() => {
-		const fixture = TestBed.createComponent(LoginComponent);
-		const component = fixture.componentInstance;
 		const inruptProvider : SolidProvider {
 			name: 'Inrupt';
 			image: '/assets/images/Inrupt.png',
@@ -24,10 +26,8 @@ describe('LoginComponent',() => {
 			desc: 'Inrupt Inc. provider'
 		};
 		expect(component.identityProviders.include(inruptProvider)).toBeTruthy;
-	});
+	}));
 	it('should have solid community provider',async(() => {
-		const fixture = TestBed.createComponent(LoginComponent);
-		const component = fixture.componentInstance;
 		const solidCommunityProvider : SolidProvider {
 			name: 'Solid Community';
 			image: '/assets/images/Solid.png',
@@ -35,5 +35,5 @@ describe('LoginComponent',() => {
 			desc: 'A provider maintained by the Solid Community'
 		};
 		expect(component.identityProviders.include(inruptProvider)).toBeTruthy;
-	});
+	}));
 });
