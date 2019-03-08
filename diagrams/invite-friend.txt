@@ -1,0 +1,13 @@
+title 2. Invite friend to join game
+
+participant Solid Chess [A]
+database POD B
+
+autonumber 1
+
+Solid Chess [A]->POD B: GET: WebId
+POD B-->>Solid Chess [A]:  RDF
+note over Solid Chess [A]: determine inbox url\nof player B
+Solid Chess [A]->POD B: POST: invitation (RDF) to inbox
+
+# made with sequencediagram.org

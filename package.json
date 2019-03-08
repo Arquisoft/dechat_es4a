@@ -1,0 +1,48 @@
+{
+  "name": "solid-chess",
+  "version": "0.2.0",
+  "description": "A Solid-based chess game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:web": "webpack --config webpack.config.js",
+    "doc": "./node_modules/.bin/jsdoc -c jsdoc.json ./lib"
+  },
+  "bin": {
+    "solid-chess": "bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pheyvaer/solid-chess.git"
+  },
+  "author": "Pieter Heyvaert <pheyvaer.heyvaert@ugent.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pheyvaer/solid-chess/issues"
+  },
+  "homepage": "https://github.com/pheyvaer/solid-chess#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.6.0",
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "@comunica/actor-init-sparql-rdfjs": "1.4.2",
+    "@solid/cli": "^0.1.0",
+    "@solid/query-ldflex": "^1.1.1",
+    "chess.js": "jhlywa/chess.js#master",
+    "date-fns": "^2.0.0-alpha.25",
+    "inquirer": "^6.2.0",
+    "n3": "^1.0.2",
+    "prefix-ns": "^0.1.2",
+    "q": "^1.5.1",
+    "semantic-chess": "0.2.0",
+    "solid-auth-client": "^2.2.10",
+    "streamify-array": "^1.0.1",
+    "uniqid": "^5.0.3",
+    "uri-js": "^4.2.2",
+    "winston": "^3.1.0"
+  }
+}
