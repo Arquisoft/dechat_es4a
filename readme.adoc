@@ -23,28 +23,25 @@ mvn generate-resources
 == Compile and run
 
 The skeleton project is a simple
- https://spring.io/projects/spring-boot[Spring-boot] application which can be run as:
+ https://angular.io/ [Angular] application which can be run as:
 
 ----
- mvn spring-boot:run
+ npm install
+ ng serve --open
 ----
 
-Once executed, the application should be available at: http://localhost:8080
+Once executed, the application should be available at: http://localhost:4200
 
 == Testing
 
-There are some simple Unit tests at:
- https://github.com/Arquisoft/dechat_es4a/tree/master/src/test[src/test].
-
-There are also some
- https://cucumber.io/[Cucumber based tests]
- with a simple user story defined at:
- https://github.com/Arquisoft/dechat_es4a/tree/master/src/test/resources/features[src/test/resources/features].
+There are some test implemented at our app with the extension .ts.
+We have 2 files to run the test:
+- https://github.com/Arquisoft/dechat_es4a/tree/master/dechat/e2e [e2e]
+- https://github.com/Arquisoft/dechat_es4a/blob/master/dechat/src/test.ts [test.ts]
 
 To run tests execute:
-
 ----
-mvn test
+ng -e2e or ng test
 ----
 
 == Site documentation
