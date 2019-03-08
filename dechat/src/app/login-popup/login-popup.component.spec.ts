@@ -1,5 +1,5 @@
 import {TestBed, async} from '@angular/core/testing';
-import {LoginPopupComponent from} './login-popup-component';
+import {LoginPopupComponent} from './login-popup-component';
 
 describe('LoginPopupComponent',()=>{
 	let component: LoginPopupComponent;
