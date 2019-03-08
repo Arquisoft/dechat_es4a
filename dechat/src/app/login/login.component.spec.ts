@@ -3,6 +3,9 @@ import {LoginComponent} from './login.component';
 import { SolidProvider } from '../models/solid-provider.model';
 
 describe('LoginComponent',() => {
+	let component: LoginComponent;
+    let fixture: ComponentFixture<LoginComponent>;
+	
 	beforeEach(async(() => {
 		TestBed.ConfigureTestingModule({
 			declarations: [LoginComponent],
