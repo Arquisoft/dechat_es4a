@@ -22,7 +22,18 @@ describe('LoginComponent',() => {
 			image: '/assets/images/Inrupt.png',
 			loginUrl: 'https://inrupt.net/auth',
 			desc: 'Inrupt Inc. provider'
-		}
+		};
+		expect(component.identityProviders.include(inruptProvider)).toBeTruthy;
+	});
+	it('should have solid community provider',async(() => {
+		const fixture = TestBed.createComponent(LoginComponent);
+		const component = fixture.componentInstance;
+		const solidCommunityProvider : SolidProvider {
+			name: 'Solid Community';
+			image: '/assets/images/Solid.png',
+			loginUrl: 'https://solid.community',
+			desc: 'A provider maintained by the Solid Community'
+		};
 		expect(component.identityProviders.include(inruptProvider)).toBeTruthy;
 	});
 });
