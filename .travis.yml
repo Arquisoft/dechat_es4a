@@ -5,7 +5,8 @@ addons:
   chrome: stable
 before_script:
   - npm install -g @angular/cli
-  - cd dechat && npm install
+  - cd dechat
+  - npm install
 script: 
   - ng build --prod
 after_success:
