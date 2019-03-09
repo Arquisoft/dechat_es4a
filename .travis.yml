@@ -3,4 +3,10 @@ node_js:
 - "stable"
 addons:
   chrome: stable
-after_success: cd dechat && npm run coverage
+before_script:
+  - npm install -g @angular/cli
+  - cd dechat && npm install
+script: 
+  - ng build --prod
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
