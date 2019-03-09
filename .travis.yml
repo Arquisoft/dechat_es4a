@@ -1,4 +1,22 @@
 language: node_js
 node_js:
 - "stable"
-after_success: cd dechat && npm run coverage
+
+addons:
+  chrome: stable
+
+cache:
+  directories:
+    - ./node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run setup:install
+  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - npm run e2e
+  - npm run docs:build
+  
+after_success:
+  - npm run coverage
