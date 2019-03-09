@@ -5,8 +5,4 @@ addons:
   chrome: stable
 before_script:
   - npm install -g @angular/cli
-  - npm install
-script: 
-  - ng build --prod
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+after_success: npm run coverage
