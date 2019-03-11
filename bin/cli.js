@@ -5,7 +5,7 @@ const SolidClient = require('../node_modules/@solid/cli/src/SolidClient');
 const IdentityManager = require('../node_modules/@solid/cli/src/IdentityManager');
 const Core = require('../lib/core');
 const namespaces = require('../lib/namespaces');
-const {Loader} = require('semantic-chess');
+const { Loader } = require('semantic-chess');
 const readline = require('readline');
 const DataSync = require('../lib/datasync');
 const https = require('https');
@@ -53,7 +53,7 @@ function showMainMenu() {
     .then(answers => {
       const item = answers['main-menu'];
 
-      switch(item) {
+      switch (item) {
         case 'Log in':
           login();
           break;
@@ -133,7 +133,7 @@ async function showNewGameMenu() {
 
       askForDataUrl(async url => {
         userDataUrl = url;
-        semanticGame = await core.setUpNewGame(userDataUrl, userWebId, oppWebId, null, answers['name'], dataSync);
+        semanticGame = await core.setUpNewChat(userDataUrl, UserWebId, oppWebId, "test");
 
         showGame();
       });
@@ -143,11 +143,11 @@ async function showNewGameMenu() {
 function askForDataUrl(callback) {
   inquirer
     .prompt([{
-        name: 'dataurl',
-        type: 'input',
-        message: 'Where do you want to store the game data?',
-        'default': core.getDefaultDataUrl(userWebId)
-      }
+      name: 'dataurl',
+      type: 'input',
+      message: 'Where do you want to store the game data?',
+      'default': core.getDefaultDataUrl(userWebId)
+    }
     ])
     .then(async answers => {
       const url = answers['dataurl'];
@@ -214,7 +214,7 @@ async function showContinueGameMenu() {
   }
 }
 
-async function showJoinGameMenu(){
+async function showJoinGameMenu() {
   process.stdout.write('Looking for games...');
 
   await checkForNewGamesToJoin();
@@ -283,7 +283,7 @@ function login() {
         name: 'password',
         type: 'password',
         message: 'What is your password?'
-      },{
+      }, {
         name: 'identityProvider',
         type: 'input',
         message: 'What is your identify provider?',
@@ -292,7 +292,7 @@ function login() {
     ])
     .then(async answers => {
       console.log('Logging in...');
-      const {identityProvider, username, password} = answers;
+      const { identityProvider, username, password } = answers;
 
       const identityManager = IdentityManager.fromJSON('{}');
       client = new SolidClient({ identityManager });
@@ -304,7 +304,7 @@ function login() {
         console.log(`Welcome ${await core.getFormattedName(userWebId)}!`);
 
         showGameMenu();
-      } catch(e) {
+      } catch (e) {
         console.error(`Something went wrong when logging in. Try again?`);
         showMainMenu();
       }
@@ -316,7 +316,7 @@ function quit() {
   process.exit(0);
 }
 
-async function fetch(url, options = {method: 'GET'}) {
+async function fetch(url, options = { method: 'GET' }) {
   const deferred = Q.defer();
   const token = await client.createToken(url, session);
 
@@ -336,7 +336,7 @@ async function fetch(url, options = {method: 'GET'}) {
     });
 
     res.on('end', () => {
-      deferred.resolve({status, text: () => data, url});
+      deferred.resolve({ status, text: () => data, url });
     });
   });
 
@@ -361,7 +361,7 @@ async function checkForNotifications() {
   updates.forEach(async (fileurl) => {
     // check for new moves
     core.checkForNewMove(semanticGame, userWebId, fileurl, userDataUrl, dataSync, (san, url) => {
-      semanticGame.loadMove(san, {url});
+      semanticGame.loadMove(san, { url });
 
       //readline.cursorTo(process.stdout, 0,-10);
 
@@ -414,8 +414,8 @@ function showUsersTurn() {
 
         if (items.length === 3) {
           const from = items[0];
-          const to = items [2];
-          move = semanticGame.doMove({from, to});
+          const to = items[2];
+          move = semanticGame.doMove({ from, to });
         }
 
         if (move) {
@@ -447,24 +447,24 @@ function listenForEscape() {
   const stdin = process.stdin;
 
   // without this, we would only get streams once enter is pressed
-  stdin.setRawMode( true );
+  stdin.setRawMode(true);
 
   // resume stdin in the parent process (node app won't quit all by itself
   // unless an error or process.exit() happens)
   stdin.resume();
 
   // i don't want binary, do you?
-  stdin.setEncoding( 'utf8' );
+  stdin.setEncoding('utf8');
 
   // on any data into stdin
-  stdin.on( 'data', keyPressed);
+  stdin.on('data', keyPressed);
 }
 
 function stopListeningForEscape() {
-  process.stdin.off( 'data', keyPressed);
+  process.stdin.off('data', keyPressed);
 }
 
-function keyPressed( key ){
+function keyPressed(key) {
   if (semanticGame && semanticGame.isOpponentsTurn()) {
     // ctrl-c ( end of text )
     if (key === '\u0003') {
@@ -517,8 +517,8 @@ function printASCII() {
     const board = new Chess(semanticGame.getChess().fen()).board();
 
     process.stdout.write(`   +------------------------+\n`);
-    for (let i = board.length - 1; i >= 0; i --) {
-      for (let j = board[i].length - 1; j >= 0; j --) {
+    for (let i = board.length - 1; i >= 0; i--) {
+      for (let j = board[i].length - 1; j >= 0; j--) {
         if (j === board[i].length - 1) {
           process.stdout.write(` ${board.length - i} |`);
         }

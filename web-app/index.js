@@ -1,5 +1,5 @@
 const Chessboard = require('../lib/chessboard');
-const {Loader} = require('semantic-chess');
+const { Loader } = require('semantic-chess');
 const auth = require('solid-auth-client');
 const DataSync = require('../lib/datasync');
 const namespaces = require('../lib/namespaces');
@@ -109,10 +109,8 @@ function setUpAfterEveryGameOptionIsSetUp() {
  */
 async function setUpNewChessGame() {
   setUpForEveryGameOption();
-
-  const startPosition = getNewGamePosition();
   const realTime = getRealTime();
-  semanticGame = await core.setUpNewGame(userDataUrl, userWebId, oppWebId, startPosition, gameName, dataSync, realTime);
+  semanticGame = await core.setUpNewChat(userDataUrl, userWebId, oppWebId, ChatName);
 
   if (realTime) {
     let newMoveFound = false;
@@ -125,7 +123,7 @@ async function setUpNewChessGame() {
       initiator: true,
       onNewData: rdfjsSource => {
         core.checkForNewMoveForRealTimeGame(semanticGame, dataSync, userDataUrl, rdfjsSource, (san, url) => {
-          semanticGame.loadMove(san, {url});
+          semanticGame.loadMove(san, { url });
           board.position(semanticGame.getChess().fen());
           updateStatus();
           newMoveFound = true;
@@ -181,7 +179,7 @@ async function setUpBoard(semanticGame) {
 
   // do not pick up pieces if the game is over
   // only pick up pieces for the side to move
-  const onDragStart = function(source, piece, position, orientation) {
+  const onDragStart = function (source, piece, position, orientation) {
     const userColor = semanticGame.getUserColor();
 
     if (game.game_over() === true || userColor !== game.turn()) {
@@ -189,13 +187,13 @@ async function setUpBoard(semanticGame) {
     }
 
     if (game.game_over() === true || (userColor !== game.turn() &&
-        ((userColor === 'w' && piece.search(/^b/) !== -1) ||
+      ((userColor === 'w' && piece.search(/^b/) !== -1) ||
         (userColor === 'b' && piece.search(/^w/) !== -1)))) {
       return false;
     }
   };
 
-  const onDrop = async function(source, target) {
+  const onDrop = async function (source, target) {
     // see if the move is legal
     const move = semanticGame.doMove({
       from: source,
@@ -222,7 +220,7 @@ async function setUpBoard(semanticGame) {
 
   // update the board position after the piece snap
   // for castling, en passant, pawn promotion
-  const onSnapEnd = function() {
+  const onSnapEnd = function () {
     board.position(game.fen());
   };
 
@@ -314,9 +312,9 @@ $('#new-btn').click(async () => {
     const $select = $('#possible-opps');
 
     for await (const friend of data[userWebId].friends) {
-        let name = await core.getFormattedName(friend.value);
+      let name = await core.getFormattedName(friend.value);
 
-        $select.append(`<option value="${friend}">${name}</option>`);
+      $select.append(`<option value="${friend}">${name}</option>`);
     }
   } else {
     $('#login-required').modal('show');
@@ -327,12 +325,14 @@ $('#start-new-game-btn').click(async () => {
   const dataUrl = $('#data-url').val();
 
   if (await core.writePermission(dataUrl, dataSync)) {
+
     $('#new-game-options').addClass('hidden');
     oppWebId = $('#possible-opps').val();
     userDataUrl = dataUrl;
     gameName = $('#game-name').val();
     afterGameSpecificOptions();
     setUpNewChessGame();
+
   } else {
     $('#write-permission-url').text(dataUrl);
     $('#write-permission').modal('show');
@@ -373,7 +373,7 @@ $('#join-game-btn').click(async () => {
   if ($('#join-data-url').val() !== userWebId) {
     userDataUrl = $('#join-data-url').val();
 
-    if (await core.writePermission(userDataUrl, dataSync)){
+    if (await core.writePermission(userDataUrl, dataSync)) {
       $('#join-game-options').addClass('hidden');
       const gameUrl = $('#game-urls').val();
 
@@ -405,7 +405,7 @@ $('#join-game-btn').click(async () => {
             let newMoveFound = false;
 
             core.checkForNewMoveForRealTimeGame(semanticGame, dataSync, userDataUrl, rdfjsSource, (san, url) => {
-              semanticGame.loadMove(san, {url});
+              semanticGame.loadMove(san, { url });
               board.position(semanticGame.getChess().fen());
               updateStatus();
               newMoveFound = true;
@@ -480,14 +480,14 @@ $('#continue-btn').click(async () => {
             <td>${oppName}</td>
           </tr>`);
 
-        $row.click(function() {
+        $row.click(function () {
           $('#continue-game-options').addClass('hidden');
           const selectedGame = $(this).data('game-url');
 
           let i = 0;
 
           while (i < games.length && games[i].gameUrl !== selectedGame) {
-            i ++;
+            i++;
           }
 
           userDataUrl = games[i].storeUrl;
@@ -513,7 +513,7 @@ $('#continue-game-btn').click(async () => {
   let i = 0;
 
   while (i < games.length && games[i].gameUrl !== selectedGame) {
-    i ++;
+    i++;
   }
 
   userDataUrl = games[i].storeUrl;
@@ -574,7 +574,7 @@ async function checkForNotifications() {
     let newMoveFound = false;
     // check for new moves
     await core.checkForNewMove(semanticGame, userWebId, fileurl, userDataUrl, dataSync, (san, url) => {
-      semanticGame.loadMove(san, {url});
+      semanticGame.loadMove(san, { url });
       board.position(semanticGame.getChess().fen());
       updateStatus();
       newMoveFound = true;
