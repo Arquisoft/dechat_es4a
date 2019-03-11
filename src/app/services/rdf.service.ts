@@ -7,6 +7,7 @@ declare let $rdf: any;
 // TODO: Remove any UI interaction from this service
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { store } from '@angular/core/src/render3/instructions';
 
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
@@ -326,5 +327,16 @@ export class RdfService {
       return store.value;
     }
     return '';
+  }
+
+  createChat(friendWebId:string){
+    var userChatName: string = this.getValueFromVcard('fn',friendWebId);
+    var friendChatName: string = this.getValueFromVcard('fn');
+
+    var me = $rdf.sym(this.session.webId);
+    var friend =  $rdf.sym(friendWebId);
+   
+    $rdf.graph().add(me,FOAF('inbox'),userChatName);
+    $rdf.graph().add(friend,FOAF('inbox'),friendChatName);
   }
 }

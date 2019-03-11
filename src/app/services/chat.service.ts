@@ -20,12 +20,16 @@ export class ChatService{
     user:User;
     friend:User;
 
+    friendWebId:string;
+
     constructor(friendWebId:string){
         this.rdfService = new RdfService(null);
         this.getSession();
 
         this.user.profile = this.getUserProfile(this.session.webId);
         this.friend.profile = this.getUserProfile(friendWebId);
+
+        this.friendWebId= friendWebId;
     }
     
     getUserProfile(webid):SolidProfile{
@@ -40,8 +44,8 @@ export class ChatService{
         this.session = await solid.auth.currentSession(localStorage);
     }
 
-    createInbox() {
-        
+    createInboxChat() {
+        this.rdfService.createChat(this.friendWebId);
     };
 
 }
