@@ -36,4 +36,8 @@ export class ChatService{
         this.session = await solid.auth.currentSession(localStorage);
     }
 
+    createInbox() {
+        
+    };
+
 }
