@@ -22,8 +22,8 @@ export class ChatService{
 
     friendWebId:string;
 
-    constructor(friendWebId:string){
-        this.rdfService = new RdfService(null);
+    constructor(friendWebId:string,rdf:RdfService){
+        this.rdfService = rdf;
         this.getSession();
 
         this.user.profile = this.getUserProfile(this.session.webId);
