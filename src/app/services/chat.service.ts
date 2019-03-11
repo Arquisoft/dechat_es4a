@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { RdfService } from './rdf.service';
 import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
+
+import {User} from '../models/user.model';
+
 declare let solid: any;
 
 
@@ -13,21 +16,22 @@ export class ChatService{
     rdfService: RdfService;
 
     session : SolidSession;
-    userWebId: string;
-    friendWebId: string;
+
+    user:User;
+    friend:User;
 
     constructor(friendWebId:string){
         this.rdfService = new RdfService(null);
         this.getSession();
 
-        this.friendWebId = friendWebId;
-        this.userWebId = this.session.webId;
+        this.user.profile = this.getUserProfile(this.session.webId);
+        this.friend.profile = this.getUserProfile(friendWebId);
     }
     
-    getUserProfile(webid) {
+    getUserProfile(webid):SolidProfile{
         var profile : SolidProfile;
         
-        profile.fn = this.rdfService.getValueFromVcard('fn',this.friendWebId);
+        profile.fn = this.rdfService.getValueFromVcard('fn',webid);
         
         return profile;
     };
