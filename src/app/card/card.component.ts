@@ -4,32 +4,49 @@ import { NgForm } from '@angular/forms';
 import { SolidProfile } from '../models/solid-profile.model';
 import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
-
+import { SolidChat } from '../models/solid-chat.model';
+import { FileClient } from 'solid-file-client';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
+
 })
-export class CardComponent implements OnInit  {
+export class CardComponent implements OnInit {
 
   profile: SolidProfile;
   profileImage: string;
   loadingProfile: Boolean;
+  chat: SolidChat;
+  FileC: FileClient;
 
   @ViewChild('f') cardForm: NgForm;
 
   constructor(private rdf: RdfService,
-    private router: Router, private auth: AuthService) {}
+    private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
     this.loadingProfile = true;
     this.loadProfile();
-
+    this.Test();
     // Clear cached profile data
     // TODO: Remove this code and find a better way to get the old data
     localStorage.removeItem('oldProfileData');
+    this.FileC = require('solid-file-client');
+    alert(this.FileC.readFile("https://uo244102.solid.community/public/t"));
+    /*
+    this.chat;
+    this.chat.clientId = "uo244102";
+    this.chat.friendId = "friend";
+    this.chat.webUrl = "https://uo244102.solid.community/public/";
+    localStorage.setItem('TestChat', JSON.stringify(this.chat));
+    **/
   }
+  async Test() {
+    alert(await this.rdf.getValueFromFoaf("solid.data.user.name", "https://uo244102.solid.community/profile/card#me"));
+  }
+
 
   // Loads the profile from the rdf service and handles the response
   async loadProfile() {
@@ -50,10 +67,11 @@ export class CardComponent implements OnInit  {
   }
 
   // Submits the form, and saves the profile data using the auth/rdf service
-  async onSubmit () {
+  async onSubmit() {
     if (!this.cardForm.invalid) {
       try {
         await this.rdf.updateProfile(this.cardForm);
+
         localStorage.setItem('oldProfileData', JSON.stringify(this.profile));
       } catch (err) {
         console.log(`Error: ${err}`);
@@ -76,7 +94,7 @@ export class CardComponent implements OnInit  {
     this.auth.solidSignOut();
   }
 
-  goToChat(){
+  goToChat() {
     this.router.navigateByUrl('/chat');
   }
 }
