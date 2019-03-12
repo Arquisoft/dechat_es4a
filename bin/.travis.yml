@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "10.15"
+before_script:
+  - npm install -g @angular/cli
+script: 
+  - ng build --prod
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
