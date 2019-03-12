@@ -1,0 +1,17 @@
+title 1. Set up game
+
+actor Player A
+participant Solid Chess [A]
+database POD A
+
+autonumber 1
+Solid Chess [A]->POD A:GET: WebId
+POD A-->>Solid Chess [A]: RDF
+
+note over Solid Chess [A]: determine friends\nof Player A
+
+Player A->Solid Chess [A]: select friend
+
+Solid Chess [A]->POD A: PUT: game data (RDF)
+
+# made with sequencediagram.org
