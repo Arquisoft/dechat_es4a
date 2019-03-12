@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { RdfService } from './rdf.service';
 import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
@@ -7,20 +7,24 @@ import {User} from '../models/user.model';
 
 declare let solid: any;
 
-
 @Injectable({
     providedIn: 'root',
   })
-export class ChatService{
+export class ChatService implements OnInit{
+
 
     session : SolidSession;
 
     user:User;
     friend:User;
 
-    fileClient = require('solid-file-client');
+    fileClient:any; 
 
     constructor(private rdf:RdfService){}
+    
+    ngOnInit() {
+       this.fileClient = require('solid-file-client');
+    }
     
     getUserProfile(webid):SolidProfile{
         var profile : SolidProfile;
@@ -35,11 +39,11 @@ export class ChatService{
     };
 
     createInboxChat(friendWebId:string) {
-       
-        let solidId = this.rdf.session.webId;
+        let str = "/profile/card#me";
+        friendWebId = friendWebId.replace(str,"/public/dechat");
 
-        this.fileClient.createFolder(solidId).then(success => {
-            console.log(`Created folder ${solidId}.`);
+        this.fileClient.createFolder(friendWebId).then(success => {
+            console.log(`Created folder ${friendWebId}.`);
         }, err => console.log(err) );
     };
 
