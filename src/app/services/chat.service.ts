@@ -18,6 +18,8 @@ export class ChatService{
     user:User;
     friend:User;
 
+    fileClient = require('solid-file-client');
+
     constructor(private rdf:RdfService){}
     
     getUserProfile(webid):SolidProfile{
@@ -30,11 +32,18 @@ export class ChatService{
 
     getSession = async() => {
         this.session = await solid.auth.currentSession(localStorage);
-    }
+    };
 
     createInboxChat(friendWebId:string) {
-        this.rdf.createChat(friendWebId);
-        this.friend.profile = this.getUserProfile(friendWebId);
+       
+        let solidId = this.rdf.session.webId;
+
+
+        this.fileClient.createFolder(solidId).then(success => {
+            console.log(`Created folder ${solidId}.`);
+        }, err => console.log(err) );
     };
+
+    
 
 }

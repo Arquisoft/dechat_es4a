@@ -25,7 +25,7 @@ export class RdfService {
 
   session: SolidSession;
   store = $rdf.graph();
-
+  fileClient = require('solid-file-client');
   /**
    * A helper object that connects to the web, loads data, and saves it back. More powerful than using a simple
    * store object.
@@ -329,16 +329,5 @@ export class RdfService {
       return store.value;
     }
     return '';
-  }
-
-  createChat(friendWebId:string){
-    var userChatName: string = this.getValueFromVcard('fn',friendWebId);
-    var friendChatName: string = this.getValueFromVcard('fn');
-
-    var me = $rdf.sym(this.session.webId);
-    var friend =  $rdf.sym(friendWebId);
-    
-    this.store.add(me,LDP('inbox'),userChatName);
-    this.store.add(friend,LDP('inbox'),friendChatName);
   }
 }
