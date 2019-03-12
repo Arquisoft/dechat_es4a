@@ -133,7 +133,8 @@ async function showNewGameMenu() {
 
       askForDataUrl(async url => {
         userDataUrl = url;
-        semanticGame = await core.setUpNewChat(userDataUrl, UserWebId, oppWebId, "test");
+        dataSync.createEmptyFileForUser("https://uo244102.solid.community/public/prototype");
+        semanticGame = await core.setUpNewGame(userDataUrl, userWebId, oppWebId, null, answers['name'], dataSync);
 
         showGame();
       });

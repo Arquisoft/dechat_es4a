@@ -109,8 +109,10 @@ function setUpAfterEveryGameOptionIsSetUp() {
  */
 async function setUpNewChessGame() {
   setUpForEveryGameOption();
+
+  const startPosition = getNewGamePosition();
   const realTime = getRealTime();
-  semanticGame = await core.setUpNewChat(userDataUrl, userWebId, oppWebId, ChatName);
+  semanticGame = await core.setUpNewGame(userDataUrl, userWebId, oppWebId, startPosition, gameName, dataSync, realTime);
 
   if (realTime) {
     let newMoveFound = false;
@@ -325,14 +327,12 @@ $('#start-new-game-btn').click(async () => {
   const dataUrl = $('#data-url').val();
 
   if (await core.writePermission(dataUrl, dataSync)) {
-
     $('#new-game-options').addClass('hidden');
     oppWebId = $('#possible-opps').val();
     userDataUrl = dataUrl;
     gameName = $('#game-name').val();
     afterGameSpecificOptions();
     setUpNewChessGame();
-
   } else {
     $('#write-permission-url').text(dataUrl);
     $('#write-permission').modal('show');
