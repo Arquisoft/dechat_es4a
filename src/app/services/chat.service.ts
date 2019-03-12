@@ -38,7 +38,6 @@ export class ChatService{
        
         let solidId = this.rdf.session.webId;
 
-
         this.fileClient.createFolder(solidId).then(success => {
             console.log(`Created folder ${solidId}.`);
         }, err => console.log(err) );
