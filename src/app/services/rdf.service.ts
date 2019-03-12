@@ -8,9 +8,11 @@ declare let $rdf: any;
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { store } from '@angular/core/src/render3/instructions';
+import { StringDecoder } from 'string_decoder';
 
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
+const LDP = $rdf.Namespace("http://www.w3.org/ns/ldp#");
 
 /**
  * A service layer for RDF data manipulation using rdflib.js
@@ -335,8 +337,8 @@ export class RdfService {
 
     var me = $rdf.sym(this.session.webId);
     var friend =  $rdf.sym(friendWebId);
-   
-    $rdf.graph().add(me,FOAF('inbox'),userChatName);
-    $rdf.graph().add(friend,FOAF('inbox'),friendChatName);
+    
+    this.store.add(me,LDP('inbox'),userChatName);
+    this.store.add(friend,LDP('inbox'),friendChatName);
   }
 }

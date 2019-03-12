@@ -13,29 +13,17 @@ declare let solid: any;
   })
 export class ChatService{
 
-    rdfService: RdfService;
-
     session : SolidSession;
 
     user:User;
     friend:User;
 
-    friendWebId:string;
-
-    constructor(friendWebId:string,rdf:RdfService){
-        this.rdfService = rdf;
-        this.getSession();
-
-        this.user.profile = this.getUserProfile(this.session.webId);
-        this.friend.profile = this.getUserProfile(friendWebId);
-
-        this.friendWebId= friendWebId;
-    }
+    constructor(private rdf:RdfService){}
     
     getUserProfile(webid):SolidProfile{
         var profile : SolidProfile;
         
-        profile.fn = this.rdfService.getValueFromVcard('fn',webid);
+        profile.fn = this.rdf.getValueFromVcard('fn',webid);
         
         return profile;
     };
@@ -44,8 +32,9 @@ export class ChatService{
         this.session = await solid.auth.currentSession(localStorage);
     }
 
-    createInboxChat() {
-        this.rdfService.createChat(this.friendWebId);
+    createInboxChat(friendWebId:string) {
+        this.rdf.createChat(friendWebId);
+        this.friend.profile = this.getUserProfile(friendWebId);
     };
 
 }
