@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit {
  
  ngOnInit() {
     this.fileClient = require('solid-file-client');
-    this.createInboxChat('https://masterhacker.solid.community/profile/card#me');
+    this.createInboxChat('https://masterhacker.solid.community/profile/card#me',this.rdf.session.webId);
   }
 
   private getUsername(webId: string):string{
@@ -27,20 +27,18 @@ export class ChatComponent implements OnInit {
     return user;
 
 }
-
-  createInboxChat(friendWebId:string) {
-    let id = this.rdf.session.webId;
+  createInboxChat(submitterWebId:string,destinataryWebId:string) {
     let str = "/profile/card#me";
-    let user=this.getUsername('https://masterhacker.solid.community/profile/card#me');
+    let user=this.getUsername(destinataryWebId);
     let folder = "/public/" + user;
-    id = id.replace(str,folder);
+    submitterWebId = submitterWebId.replace(str,folder);
 
     this.fileClient.popupLogin().then( webId => {
       console.log( `Logged in as ${webId}.`)
     }, err => console.log(err) );
 
-    this.fileClient.createFolder(id).then(success => {
-      console.log(`Created folder ${id}.`);
+    this.fileClient.createFolder(submitterWebId).then(success => {
+      console.log(`Created folder ${submitterWebId}.`);
     }, err => console.log(err) );
 };
 
@@ -48,14 +46,16 @@ export class ChatComponent implements OnInit {
     
     this.auth.solidSignOut();
     
-  }
+  }*/
 
   send() {
-    this.chat.sendMessage(this.message);
+   /** this.chat.sendMessage(this.message);
     this.message = '';
+    */ 
+   this.createInboxChat(this.rdf.session.webId,'https://masterhacker.solid.community/profile/card#me');
   }
 
-   handleSubmit(event) {
+  /** handleSubmit(event) {
     if (event.keyCode === 13) {
       this.send();
     }
