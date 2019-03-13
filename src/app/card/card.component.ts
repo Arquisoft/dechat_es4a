@@ -29,12 +29,10 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     this.loadingProfile = true;
     this.loadProfile();
-    this.Test();
     // Clear cached profile data
     // TODO: Remove this code and find a better way to get the old data
     localStorage.removeItem('oldProfileData');
-    this.FileC = require('solid-file-client');
-    alert(this.FileC.readFile("https://uo244102.solid.community/public/t"));
+
     /*
     this.chat;
     this.chat.clientId = "uo244102";
@@ -43,9 +41,7 @@ export class CardComponent implements OnInit {
     localStorage.setItem('TestChat', JSON.stringify(this.chat));
     **/
   }
-  async Test() {
-    alert(await this.rdf.getValueFromFoaf("solid.data.user.name", "https://uo244102.solid.community/profile/card#me"));
-  }
+
 
 
   // Loads the profile from the rdf service and handles the response

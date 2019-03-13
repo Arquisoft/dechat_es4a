@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { SolidChat } from '../models/solid-chat.model';
-import { NgForm } from '@angular/forms';
-import { SolidProfile } from '../models/solid-profile.model';
 import { RdfService } from '../services/rdf.service';
-import { AuthService } from '../services/solid.auth.service';
-
-/** import { AuthService } from '../services/solid.auth.service';
-import { ChatService } from '../services/chat.service';*/
+import { SolidChat } from '../models/solid-chat.model';
 
 @Component({
   selector: 'app-chat',
@@ -16,27 +10,49 @@ import { ChatService } from '../services/chat.service';*/
 })
 export class ChatComponent implements OnInit {
 
-  chat: SolidChat;
   /** message: string = '';*/
-
+  fileClient: any;
   /**  constructor(private auth: AuthService, private router: Router, private chat: ChatService) { }*/
-  constructor(private router: Router) {
-  }
+  constructor(private rdf: RdfService, private router: Router, private chatfile: SolidChat) {
 
-  async ngOnInit() {
-    this.router.navigateByUrl('/chat');
-    this.chat.clientId = "uo244102";
-    this.chat.friendId = "friend";
-    this.chat.webUrl = "https://uo244102.solid.community/public/";
-    /** 
-        try {
-          localStorage.setItem('PrototypeChat', JSON.stringify(this.chat));
-        } catch (err) {
-          console.log(`Error: ${err}`);
-        }
-      */
+
 
   }
+
+  ngOnInit() {
+    this.fileClient = require('solid-file-client');
+    this.router.navigateByUrl("/chat");
+    this.createInboxChat();
+  }
+
+  private getUsername(webId: string): string {
+    let username = webId.replace('https://', '');
+    let user = username.split('.')[0];
+    return user;
+
+  }
+
+  createInboxChat() {
+    let id = this.rdf.session.webId;
+    let str = "/profile/card#me";
+    let user = this.getUsername('https://masterhacker.solid.community/profile/card#me');
+    let folder = "/public/" + user;
+    id = id.replace(str, folder);
+
+    this.fileClient.popupLogin().then(webId => {
+      console.log(`Logged in as ${webId}.`)
+    }, err => console.log(err));
+
+    this.fileClient.createFolder(id).then(() => {
+      console.log(`Created folder ${id}.`);
+    }, err => console.log(err));
+
+    this.fileClient.createFile(folder + "testfile").then(fileCreated => {
+      console.log(`Created file ${fileCreated}.`);
+    }, err => console.log(err));
+
+
+  };
 
   /** logout(): void{
     
@@ -56,3 +72,6 @@ export class ChatComponent implements OnInit {
   }*/
 
 }
+
+
+
