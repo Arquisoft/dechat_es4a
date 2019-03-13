@@ -3,8 +3,6 @@ import { RdfService } from './rdf.service';
 import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 
-import {User} from '../models/user.model';
-
 declare let solid: any;
 
 @Injectable({
@@ -12,18 +10,13 @@ declare let solid: any;
   })
 export class ChatService implements OnInit{
 
-
-    session : SolidSession;
-
-    user:User;
-    friend:User;
-
     fileClient:any; 
 
-    constructor(private rdf:RdfService){}
+    constructor(private rdf:RdfService){this.fileClient = require('solid-file-client');}
     
     ngOnInit() {
-       this.fileClient = require('solid-file-client');
+       
+       
     }
     
     getUserProfile(webid):SolidProfile{
@@ -34,16 +27,25 @@ export class ChatService implements OnInit{
         return profile;
     };
 
-    getSession = async() => {
-        this.session = await solid.auth.currentSession(localStorage);
-    };
+    private getUsername(webId: string):string{
+        let username = webId.replace('https://', '');
+        let user = username.split('.')[0];
+        return user;
+    
+    }
 
-    createInboxChat(friendWebId:string) {
+      createInboxChat(submitterWebId:string,destinataryWebId:string) {
         let str = "/profile/card#me";
-        friendWebId = friendWebId.replace(str,"/public/dechat");
-
-        this.fileClient.createFolder(friendWebId).then(success => {
-            console.log(`Created folder ${friendWebId}.`);
+        let user=this.getUsername(destinataryWebId);
+        let folder = "/public/" + user;
+        submitterWebId = submitterWebId.replace(str,folder);
+    
+        this.fileClient.popupLogin().then( webId => {
+          console.log( `Logged in as ${webId}.`)
+        }, err => console.log(err) );
+    
+        this.fileClient.createFolder(submitterWebId).then(success => {
+          console.log(`Created folder ${submitterWebId}.`);
         }, err => console.log(err) );
     };
 
