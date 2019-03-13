@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { RdfService } from '../services/rdf.service';
 import { SolidChat } from '../models/solid-chat.model';
+import { SolidMessage } from '../models/solid-message.model';
 
 @Component({
   selector: 'app-chat',
@@ -13,15 +14,16 @@ export class ChatComponent implements OnInit {
   /** message: string = '';*/
   fileClient: any;
   /**  constructor(private auth: AuthService, private router: Router, private chat: ChatService) { }*/
-  constructor(private rdf: RdfService, private router: Router, private chatfile: SolidChat) {
-
-
-
+  constructor(private rdf: RdfService) {
   }
 
   ngOnInit() {
     this.fileClient = require('solid-file-client');
-    this.router.navigateByUrl("/chat");
+    /*
+        this.chatfile.clientId = "uo244102"
+        this.chatfile.friendId = "friend"
+        this.chatfile.webUrl = "https://" + this.chatfile.clientId + ".solid.community/public/prototypeChat"
+        */
     this.createInboxChat();
   }
 
@@ -35,8 +37,8 @@ export class ChatComponent implements OnInit {
   createInboxChat() {
     let id = this.rdf.session.webId;
     let str = "/profile/card#me";
-    let user = this.getUsername('https://masterhacker.solid.community/profile/card#me');
-    let folder = "/public/" + user;
+    let user = this.getUsername('https://uo244102.solid.community/profile/card#me');
+    let folder = "/public/prototypeChat";
     id = id.replace(str, folder);
 
     this.fileClient.popupLogin().then(webId => {
@@ -47,7 +49,7 @@ export class ChatComponent implements OnInit {
       console.log(`Created folder ${id}.`);
     }, err => console.log(err));
 
-    this.fileClient.createFile(folder + "testfile").then(fileCreated => {
+    this.fileClient.createFile(folder + "testfile.tll").then(fileCreated => {
       console.log(`Created file ${fileCreated}.`);
     }, err => console.log(err));
 
