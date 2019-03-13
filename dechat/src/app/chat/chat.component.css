@@ -33,10 +33,11 @@ a {
     border:1px solid #ACD8F0; }  
 	
 #menuFriend {
-    margin:0 auto;
+	float: left;
+    margin-left: 1px;
     padding-bottom:25px;
     background:#EBF4FB;
-    width: 504px;
+    width: 300px;
     border:1px solid #ACD8F0; }  
   
   
@@ -52,6 +53,7 @@ form, p{
   
   
 #menu { padding:12.5px 25px 12.5px 25px; }
+#listFriends { padding:12.5px 25px 12.5px 12.5px; }
   
 .welcome { float:left; }
   
