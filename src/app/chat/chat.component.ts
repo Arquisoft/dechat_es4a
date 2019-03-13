@@ -37,24 +37,28 @@ export class ChatComponent implements OnInit {
   createInboxChat() {
     let id = this.rdf.session.webId;
     let str = "/profile/card#me";
-    let user = this.getUsername('https://uo244102.solid.community/profile/card#me');
+    //   let user = this.getUsername('https://uo244102.solid.community/profile/card#me');
     let folder = "/public/prototypeChat";
     id = id.replace(str, folder);
 
     this.fileClient.popupLogin().then(webId => {
       console.log(`Logged in as ${webId}.`)
     }, err => console.log(err));
-
     this.fileClient.createFolder(id).then(() => {
       console.log(`Created folder ${id}.`);
     }, err => console.log(err));
+    /** 
+        this.fileClient.createFile(folder + "testfile.tll").then(fileCreated => {
+          console.log(`Created file ${fileCreated}.`);
+        }, err => console.log(err));
+    */
 
-    this.fileClient.createFile(folder + "testfile.tll").then(fileCreated => {
-      console.log(`Created file ${fileCreated}.`);
+    this.fileClient.readFile("https://uo244102.solid.community/public/prototypeChat/index.ttl#this").then(body => {
+      console.log(`File content is : ${body}.`);
     }, err => console.log(err));
-
-
   };
+
+
 
   /** logout(): void{
     
