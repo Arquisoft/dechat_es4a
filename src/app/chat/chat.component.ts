@@ -58,7 +58,8 @@ export class ChatComponent implements OnInit {
       console.log(`File content is : ${body}.`);
     }, err => console.log(err));
 
-    let localPath = "..\\Downloaded_file";
+    let localPath = "..\\Downloaded_file\\";
+
 
     this.fileClient.downloadFile(localPath, url).then(success => {
       console.log(`Downloaded ${url} to ${localPath}.`);
