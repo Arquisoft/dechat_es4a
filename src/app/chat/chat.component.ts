@@ -48,11 +48,7 @@ export class ChatComponent implements OnInit {
     this.fileClient.createFolder(id).then(() => {
       console.log(`Created folder ${id}.`);
     }, err => console.log(err));
-    /** 
-        this.fileClient.createFile(folder + "testfile.tll").then(fileCreated => {
-          console.log(`Created file ${fileCreated}.`);
-        }, err => console.log(err));
-    */
+
     let url = "https://uo244102.solid.community/public/prototypeChat/index.ttl#this";
     this.fileClient.readFile(url).then(body => {
       console.log(`File content is : ${body}.`);
@@ -60,13 +56,19 @@ export class ChatComponent implements OnInit {
 
     let localPath = "..\\Downloaded_file\\";
 
+    /** 
+       this.fileClient.downloadFile(localPath, url).then(success => {
+         console.log(`Downloaded ${url} to ${localPath}.`);
+       }, err => console.log(err));
+       */
+    this.fileClient.createFile(folder + "index.ttl",
+      "@prefix : <#>. @prefix mee: <http://www.w3.org/ns/pim/meeting#>.@prefix ic: <http://www.w3.org/2002/12/cal/ical#>.@prefix XML: <http://www.w3.org/2001/XMLSchema#>.@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.@prefix c: </profile/card#>. @prefix ui: <http://www.w3.org/ns/ui#>.@prefix n0: <http://purl.org/dc/elements/1.1/>." +
+      ':id1552479004104 ic:dtstart "2019-03-13T12:10:04Z"^^XML:dateTime; flow:participant c:me; ui:backgroundColor "#daf1d8".' +
+      ':this a mee:LongChat; n0:author c:me; n0:created "2019-03-13T12:10:00Z"^^XML:dateTime; n0:title "Chat channel"; flow:participation :id1552479004104; ui:sharedPreferences :SharedPreferences.'
+    ).then(fileCreated => {
 
-    this.fileClient.downloadFile(localPath, url).then(success => {
-      console.log(`Downloaded ${url} to ${localPath}.`);
+      console.log(`Created file ${fileCreated}.`);
     }, err => console.log(err));
-
-
-
   };
 
 
