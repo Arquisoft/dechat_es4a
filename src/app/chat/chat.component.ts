@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit {
   createInboxChat() {
     let id = this.rdf.session.webId;
     let str = "/profile/card#me";
+
     //   let user = this.getUsername('https://uo244102.solid.community/profile/card#me');
     let folder = "/public/prototypeChat";
     id = id.replace(str, folder);
@@ -52,10 +53,19 @@ export class ChatComponent implements OnInit {
           console.log(`Created file ${fileCreated}.`);
         }, err => console.log(err));
     */
-
-    this.fileClient.readFile("https://uo244102.solid.community/public/prototypeChat/index.ttl#this").then(body => {
+    let url = "https://uo244102.solid.community/public/prototypeChat/index.ttl#this";
+    this.fileClient.readFile(url).then(body => {
       console.log(`File content is : ${body}.`);
     }, err => console.log(err));
+
+    let localPath = "..\\Downloaded_file";
+
+    this.fileClient.downloadFile(localPath, url).then(success => {
+      console.log(`Downloaded ${url} to ${localPath}.`);
+    }, err => console.log(err));
+
+
+
   };
 
 
