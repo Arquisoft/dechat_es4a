@@ -20,11 +20,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
-        this.chatfile.clientId = "uo244102"
-        this.chatfile.friendId = "friend"
-        this.chatfile.webUrl = "https://" + this.chatfile.clientId + ".solid.community/public/prototypeChat"
-        */
     this.createInboxChat();
   }
 
@@ -38,8 +33,8 @@ export class ChatComponent implements OnInit {
   createInboxChat() {
     let id = this.rdf.session.webId;
     let str = "/profile/card#me";
+    var user = this.getUsername(id);
 
-    //   let user = this.getUsername('https://uo244102.solid.community/profile/card#me');
     let folder = "/public/prototypeChat";
     id = id.replace(str, folder);
 
@@ -50,56 +45,25 @@ export class ChatComponent implements OnInit {
       console.log(`Created folder ${id}.`);
     }, err => console.log(err));
 
-
-    let url = "https://uo244102.solid.community/public/PrototypeChat/index.ttl#this";
-
-
-    /** 
-    fileClient.deleteFile(url).then(success => {
-      console.log(`Deleted ${url}.`);
-    }, err => console.log(err));
-
-    fileClient.createFile(url).then((fileCreated: any) => {
-      fileClient.updateFile(fileCreated, `
-    @prefix : <#>.
-    @prefix terms: <http://purl.org/dc/terms/>.
-    @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
-    @prefix n: <http://rdfs.org/sioc/ns#>.
-    @prefix n0: <http://xmlns.com/foaf/0.1/>.
-    @prefix c: </profile/card#>.
-    @prefix ind: <../../../index.ttl#>.
-    @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
-    
-    `
-      ).then(success => {
-        console.log('chat has been saved');
-      }, (err: any) => console.log(err));
-    });
-*/
-
-    /** 
-     * 
-    let localPath = "..\\Downloaded_file\\";
-       this.fileClient.downloadFile(localPath, url).then(success => {
-         console.log(`Downloaded ${url} to ${localPath}.`);
-       }, err => console.log(err));
-       
-    fileClient.createFile(folder + "index.ttl",
-      "@prefix : <#>. @prefix mee: <http://www.w3.org/ns/pim/meeting#>.@prefix ic: <http://www.w3.org/2002/12/cal/ical#>.@prefix XML: <http://www.w3.org/2001/XMLSchema#>.@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.@prefix c: </profile/card#>. @prefix ui: <http://www.w3.org/ns/ui#>.@prefix n0: <http://purl.org/dc/elements/1.1/>." +
-      ':id1552479004104 ic:dtstart "2019-03-13T12:10:04Z"^^XML:dateTime; flow:participant c:me; ui:backgroundColor "#daf1d8".' +
-      ':this a mee:LongChat; n0:author c:me; n0:created "2019-03-13T12:10:00Z"^^XML:dateTime; n0:title "Chat channel"; flow:participation :id1552479004104; ui:sharedPreferences :SharedPreferences.'
-    ).then(fileCreated => {
-
-      console.log(`Created file ${fileCreated}.`);
-    }, err => console.log(err));
-*/
-
-    this.postMessage(new SolidMessage("uo244102", "mensaje de prueba"), url);
+    //esta url deberia sustituirse por 
+    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
+    this.postMessage(new SolidMessage(user, "mensaje de prueba"), url, "uo244102");
   };
 
-  private async postMessage(msg: SolidMessage, url: String) {
 
 
+
+
+  /**
+   * 
+   * @param msg contenido del mensaje
+   * @param url url del index.ttl a modificar. actualmente  este debe ser un chat simple con un mensaje enviado desde la pod en el antes de intentar hacer la operación y debe ser creado manualmente en la pod
+   */
+  private async postMessage(msg: SolidMessage, url: string, author: string) {
+
+    if (author == this.getUsername(url)) {
+      author = "me";
+    }
 
 
 
@@ -109,7 +73,6 @@ export class ChatComponent implements OnInit {
       chatcontent = body;
       console.log(chatcontent);
       console.log("---------------------------------------------------------");
-
       var chatcontentsplit = chatcontent.split(":this");
       var chatcontent1 = chatcontentsplit[0];
       console.log(chatcontentsplit[0]);
@@ -126,14 +89,12 @@ export class ChatComponent implements OnInit {
         :Msg${msgnb}
             terms:created "'${d.toISOString()}'"^^XML:dateTime;
             n:content "${msg.content}";
-            n0:maker c:me.
+            n0:maker c:${author}.
             `+ `:this
             `+ `
              `+ chatcontent2 + `, :Msg${msgnb} .
         `
         ;
-      // const path = 'https://uo244102.solid.community/public/prototypeChat/2019/03/14/chat.ttl#Msg' + msgnb;
-
       fileClient.deleteFile(url).then(success => {
         console.log(`Deleted ${url}.`);
       }, err => console.log(err));
