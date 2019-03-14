@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import {LoginPopupComponent} from './login-popup/login-popup.component';
-import {LoginComponent} from './login/login.component';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
+import { LoginComponent } from './login/login.component';
 import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChatComponent } from './chat/chat.component';
@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -70,6 +71,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgSelectModule,
     ToastrModule.forRoot(),
+    TranslateModule.forRoot(),
     BrowserAnimationsModule //required for toastr
   ],
   providers: [AuthService],
