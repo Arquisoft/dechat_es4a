@@ -4,6 +4,7 @@ import { RdfService } from '../services/rdf.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
+import * as fileClient from 'solid-file-client';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +20,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fileClient = require('solid-file-client');
     /*
         this.chatfile.clientId = "uo244102"
         this.chatfile.friendId = "friend"
@@ -43,15 +43,15 @@ export class ChatComponent implements OnInit {
     let folder = "/public/prototypeChat";
     id = id.replace(str, folder);
 
-    this.fileClient.popupLogin().then(webId => {
+    fileClient.popupLogin().then(webId => {
       console.log(`Logged in as ${webId}.`)
     }, err => console.log(err));
-    this.fileClient.createFolder(id).then(() => {
+    fileClient.createFolder(id).then(() => {
       console.log(`Created folder ${id}.`);
     }, err => console.log(err));
 
     let url = "https://uo244102.solid.community/public/prototypeChat/index.ttl#this";
-    this.fileClient.readFile(url).then(body => {
+    fileClient.readFile(url).then(body => {
       console.log(`File content is : ${body}.`);
     }, err => console.log(err));
 
@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit {
          console.log(`Downloaded ${url} to ${localPath}.`);
        }, err => console.log(err));
        */
-    this.fileClient.createFile(folder + "index.ttl",
+    fileClient.createFile(folder + "index.ttl",
       "@prefix : <#>. @prefix mee: <http://www.w3.org/ns/pim/meeting#>.@prefix ic: <http://www.w3.org/2002/12/cal/ical#>.@prefix XML: <http://www.w3.org/2001/XMLSchema#>.@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.@prefix c: </profile/card#>. @prefix ui: <http://www.w3.org/ns/ui#>.@prefix n0: <http://purl.org/dc/elements/1.1/>." +
       ':id1552479004104 ic:dtstart "2019-03-13T12:10:04Z"^^XML:dateTime; flow:participant c:me; ui:backgroundColor "#daf1d8".' +
       ':this a mee:LongChat; n0:author c:me; n0:created "2019-03-13T12:10:00Z"^^XML:dateTime; n0:title "Chat channel"; flow:participation :id1552479004104; ui:sharedPreferences :SharedPreferences.'
@@ -86,8 +86,8 @@ export class ChatComponent implements OnInit {
       schem:dateSent "${msg.time}".
     `;
     const path = 'https://uo244102.solid.community/public/prototypeChat/message' + new Date().toISOString() + '.ttl';
-    this.fileClient.createFile(path).then((fileCreated: any) => {
-      this.fileClient.updateFile(fileCreated, message).then(success => {
+    fileClient.createFile(path).then((fileCreated: any) => {
+      fileClient.updateFile(fileCreated, message).then(success => {
         console.log('message' + new Date().toISOString() + '.ttl has been saved');
       }, (err: any) => console.log(err));
     });
