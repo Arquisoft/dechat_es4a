@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { RdfService } from '../services/rdf.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
+import { getLocaleDateFormat } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -56,6 +57,7 @@ export class ChatComponent implements OnInit {
 
     let localPath = "..\\Downloaded_file\\";
 
+
     /** 
        this.fileClient.downloadFile(localPath, url).then(success => {
          console.log(`Downloaded ${url} to ${localPath}.`);
@@ -69,8 +71,27 @@ export class ChatComponent implements OnInit {
 
       console.log(`Created file ${fileCreated}.`);
     }, err => console.log(err));
-  };
 
+    this.postMessage(new SolidMessage("uo244102", "mensaje de prueba"));
+  };
+  private async postMessage(msg: SolidMessage) {
+    const message = `
+    @prefix : <#>.
+    @prefix schem: <http://schema.org/>.
+    @prefix s: < https://uo244102.solid.community/profile/card# >.
+    :message
+      a schem:Message;
+      schem:sender s:me;
+      schem:text "${msg.content}";
+      schem:dateSent "${msg.time}".
+    `;
+    const path = 'https://uo244102.solid.community/public/prototypeChat/message' + new Date().toISOString() + '.ttl';
+    this.fileClient.createFile(path).then((fileCreated: any) => {
+      this.fileClient.updateFile(fileCreated, message).then(success => {
+        console.log('message' + new Date().toISOString() + '.ttl has been saved');
+      }, (err: any) => console.log(err));
+    });
+  }
 
 
   /** logout(): void{
