@@ -76,21 +76,29 @@ export class ChatComponent implements OnInit {
   };
   private async postMessage(msg: SolidMessage) {
     const message = `
+
+
     @prefix : <#>.
-    @prefix schem: <http://schema.org/>.
-    @prefix s: < https://uo244102.solid.community/profile/card# >.
-    :message
-      a schem:Message;
-      schem:sender s:me;
-      schem:text "${msg.content}";
-      schem:dateSent "${msg.time}".
-    `;
-    const path = 'https://uo244102.solid.community/public/prototypeChat/message' + new Date().toISOString() + '.ttl';
-    fileClient.createFile(path).then((fileCreated: any) => {
-      fileClient.updateFile(fileCreated, message).then(success => {
-        console.log('message' + new Date().toISOString() + '.ttl has been saved');
-      }, (err: any) => console.log(err));
-    });
+    @prefix terms: <http://purl.org/dc/terms/>.
+    @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+    @prefix n: <http://rdfs.org/sioc/ns#>.
+    @prefix n0: <http://xmlns.com/foaf/0.1/>.
+    @prefix c: </profile/card#>.
+    @prefix ind: <../../../index.ttl#>.
+    @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+    
+    :Msg1552571334410
+        terms:created "2019-03-14T13:48:54Z"^^XML:dateTime;
+        n:content "'${msg.content}'";
+        n0:maker c:me.
+    ind:this flow:message :Msg1552571334410 .
+    `
+      ;
+    const path = 'https://uo244102.solid.community/public/prototypeChat/2019/03/14/chat.ttl#Msg1552571334410';
+    await fileClient.updateFile(path, message).then(success => {
+      console.log('message has been saved');
+    }, (err: any) => console.log(err));
+
   }
 
 
