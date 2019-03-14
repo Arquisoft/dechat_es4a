@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit {
 
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
-    let user = this.getUsername(this.rdf.session.webId);
+    let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
     this.chat.postMessage(new SolidMessage(user, content), url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
@@ -55,8 +55,9 @@ export class ChatComponent implements OnInit {
   }
 
 
-  private getUsername(webId: string): string {
-    let username = webId.replace('https://', '');
+  private getUsername(): string {
+    let id = this.rdf.session.webId;
+    let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
 
