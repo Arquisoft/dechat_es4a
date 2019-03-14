@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {RdfService} from '../services/rdf.service';
+
+
 /** import { AuthService } from '../services/solid.auth.service';
 import { ChatService } from '../services/chat.service';*/
 
@@ -18,6 +21,8 @@ export class ChatComponent implements OnInit {
  ngOnInit() {
     this.router.navigateByUrl('/chat');
   }
+
+
 
   /** logout(): void{
     

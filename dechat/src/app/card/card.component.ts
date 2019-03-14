@@ -12,6 +12,7 @@ import { AuthService } from '../services/solid.auth.service';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit  {
+  rdf: RdfService ;
 
   profile: SolidProfile;
   profileImage: string;
@@ -20,18 +21,16 @@ export class CardComponent implements OnInit  {
   @ViewChild('f') cardForm: NgForm;
 
   constructor(private rdf: RdfService,
-    private router: Router, private auth: AuthService) {}
+    private router: Router, private auth: AuthService) {this.rdf = rdf;}
 
   ngOnInit() {
     this.loadingProfile = true;
     this.loadProfile();
-
     // Clear cached profile data
     // TODO: Remove this code and find a better way to get the old data
     localStorage.removeItem('oldProfileData');
   }
-
-  // Loads the profile from the rdf service and handles the response
+   // Loads the profile from the rdf service and handles the response
   async loadProfile() {
     try {
       this.loadingProfile = true;

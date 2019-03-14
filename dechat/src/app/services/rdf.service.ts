@@ -7,6 +7,7 @@ declare let $rdf: any;
 // TODO: Remove any UI interaction from this service
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import {forEach} from '@angular/router/src/utils/collection';
 
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
@@ -327,4 +328,30 @@ export class RdfService {
     }
     return '';
   }
-}
+
+
+    const LDP = $rdf.(‘http://www.w3.org/ns/ldp#>’);
+
+       let folder = $rdf.sym(‘https://alice.example.com/Public/’);   // NOTE: Ends in a slash
+
+        this.fetcher.load(folder).then(() => {
+        let files = this.store.any(folder, LDP(‘contains’));
+          files.forEach(file) {
+        console.log(‘ contains ‘ + file);
+        }
+        });
+    function list(folder, indent) {
+        indent = indent || ‘’;
+        this.fetcher.load(folder).then(() => {
+            let files = this.store.any(folder,  LDP(‘contains’));
+            files.forEach(file) {
+                console.log(indent + folder + ‘ contains ‘ + file);
+                if (store.holds(file,  RDF(‘type’), LDP(‘Container’)) {
+                    list(file, indent + ‘   ‘);
+                }
+            }
+        });
+    }
+
+
+list(rdf.sym(‘https://alice.example.com/Public/’));
