@@ -1,6 +1,13 @@
 import { SolidMessage } from "./solid-message.model";
 
-export interface SolidChat {
+export class SolidChat {
+    constructor(clientId, friendId, webUrl) {
+        this.clientId = clientId;
+        this.friendId = friendId;
+        this.webUrl = webUrl;
+        this.messages.push(new SolidMessage(clientId, "--chat started--"))
+    }
+
 
     clientId: string;
     friendId: string;
