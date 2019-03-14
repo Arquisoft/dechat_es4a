@@ -5,6 +5,8 @@ export class SolidChat {
         this.clientId = clientId;
         this.friendId = friendId;
         this.webUrl = webUrl;
+
+        this.messages = new Array();
         this.messages.push(new SolidMessage(clientId, "--chat started--"))
     }
 
