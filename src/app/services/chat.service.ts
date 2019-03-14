@@ -138,7 +138,7 @@ export class ChatService implements OnInit{
 
       var split = chatcontent.split(':Msg');
       split.forEach(async str =>{
-        var content = str.split(':content');
+        var content = str.substring(str.indexOf(':content'),str.indexOf(";"))
         var maker = this.getUsername(this.userID)
         this.chat.messages.push(new SolidMessage(maker,content));
       })
@@ -152,7 +152,7 @@ export class ChatService implements OnInit{
 
       var split = chatcontent.split(':Msg');
       split.forEach(async str =>{
-        var content = str.split(':content');
+        var content = str.substring(str.indexOf(':content'),str.indexOf(";"));
         var maker = this.getUsername(this.friendID)
         this.chat.messages.push(new SolidMessage(maker,content));
       })
