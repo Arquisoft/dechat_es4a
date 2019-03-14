@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import {Router} from "@angular/router";
 /** import { AuthService } from '../services/solid.auth.service';*/
 import { ChatService } from '../services/chat.service';
@@ -17,40 +17,22 @@ import * as fileClient from 'solid-file-client';
 export class ChatComponent implements OnInit {
   
   ngOnInit(): void {
-    throw new Error("Method not implemented.");
+    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
+    this.loadMessages();
   }
 
   /** message: string = '';*/
   fileClient: any;
-  /**  constructor(private auth: AuthService, private router: Router, private chat: ChatService) { }*/
-  constructor(private rdf: RdfService) {
+  messages : Array<String> = new Array();
+  
+  @ViewChild('chatbox') chatbox:ElementRef;
+
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
   }
+ 
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
-   /**this.chat.createInboxChat(submitterWebId,destinataryWebId); */
+   this.chat.createInboxChat(submitterWebId,destinataryWebId);
   }
-
-/**  private getUsername(webId: string):string{
-    let username = webId.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
-
-} */
-
-/**  createInboxChat(submitterWebId:string,destinataryWebId:string) {
-    let str = "/profile/card#me";
-    let user=this.getUsername(destinataryWebId);
-    let folder = "/public/" + user;
-    submitterWebId = submitterWebId.replace(str,folder);
-
-    this.fileClient.popupLogin().then( webId => {
-      console.log( `Logged in as ${webId}.`)
-    }, err => console.log(err) );
-
-    this.fileClient.createFolder(submitterWebId).then(success => {
-      console.log(`Created folder ${submitterWebId}.`);
-    }, err => console.log(err) );
-};
-*/
 
   /** logout(): void{
     
@@ -59,18 +41,19 @@ export class ChatComponent implements OnInit {
   }*/
 
   send() {
-   /** this.chat.sendMessage(this.message);
-    this.message = '';
-    */ 
-   this.createInboxChat('https://masterhacker.solid.community/profile/card#me',this.rdf.session.webId);
+    var content = (<HTMLInputElement>document.getElementById("message")).value;
+    let user = this.getUsername(this.rdf.session.webId);
+    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
+    this.chat.postMessage(new SolidMessage(user, content), url, user);
+    (<HTMLInputElement>document.getElementById("message")).value = "";
   }
 
-  /** handleSubmit(event) {
+  handleSubmit(event) {
     if (event.keyCode === 13) {
       this.send();
-  ngOnInit() {
-    this.createInboxChat();
+    }
   }
+
 
   private getUsername(webId: string): string {
     let username = webId.replace('https://', '');
@@ -79,114 +62,11 @@ export class ChatComponent implements OnInit {
 
   }
 
-  createInboxChat() {
-    let id = this.rdf.session.webId;
-    let str = "/profile/card#me";
-    var user = this.getUsername(id);
-
-    let folder = "/public/prototypeChat";
-    id = id.replace(str, folder);
-
-    fileClient.popupLogin().then(webId => {
-      console.log(`Logged in as ${webId}.`)
-    }, err => console.log(err));
-    fileClient.createFolder(id).then(() => {
-      console.log(`Created folder ${id}.`);
-    }, err => console.log(err));
-
-    //esta url deberia sustituirse por 
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    this.postMessage(new SolidMessage(user, "mensaje de prueba"), url, "uo244102");
-  };
-
-
-
-
-
-  /**
-   * 
-   * @param msg contenido del mensaje
-   * @param url url del index.ttl a modificar. actualmente  este debe ser un chat simple con un mensaje enviado desde la pod en el antes de intentar hacer la operación y debe ser creado manualmente en la pod
-   */
-  private async postMessage(msg: SolidMessage, url: string, author: string) {
-
-    if (author == this.getUsername(url)) {
-      author = "me";
-    }
-
-
-
-    var chatcontent = "";
-
-    fileClient.readFile(url).then(body => {
-      chatcontent = body;
-      console.log(chatcontent);
-      console.log("---------------------------------------------------------");
-      var chatcontentsplit = chatcontent.split(":this");
-      var chatcontent1 = chatcontentsplit[0];
-      console.log(chatcontentsplit[0]);
-      console.log("---------------------------------------------------------");
-      var chatcontent2 = chatcontentsplit[1].split(".")[0];
-      console.log(chatcontent2);
-      console.log("---------------------------------------------------------");
-
-
-      const msgnb = Math.floor(Math.random() * 10000000000000);
-      console.log("numero de mensaje: " + msgnb);
-      const d = new Date();
-      const message = chatcontent1 + `
-        :Msg${msgnb}
-            terms:created "'${d.toISOString()}'"^^XML:dateTime;
-            n:content "${msg.content}";
-            n0:maker c:${author}.
-            `+ `:this
-            `+ `
-             `+ chatcontent2 + `, :Msg${msgnb} .
-        `
-        ;
-      fileClient.deleteFile(url).then(success => {
-        console.log(`Deleted ${url}.`);
-      }, err => console.log(err));
-
-
-      fileClient.updateFile(url, message).then(success => {
-        console.log('message has been saved');
-      }, (err: any) => console.log(err));
-
-
-
-
-
-
-    }, err => console.log(err));
-
-    
-
-
-    /** logout(): void{
-      
-      this.auth.solidSignOut();
-      
-    }
-  
-    send() {
-      this.chat.sendMessage(this.message);
-      this.message = '';
-    }
-  
-     handleSubmit(event) {
-      if (event.keyCode === 13) {
-        this.send();
-      }
-    }*/
-
-  }
-
-  private getUsername(webId: string): string {
-    let username = webId.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
-
+  private async loadMessages(){
+    var chat = await this.chat.loadMessages(this.rdf.session.webId);
+    chat.messages.forEach(message => {
+      this.messages.push(message.authorId + ': '+message.content);
+    });
   }
 }
 
