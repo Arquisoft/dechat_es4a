@@ -20,8 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
-import { TranslateModule } from '@ngx-translate/core';
-
 const routes: Routes = [
   {
     path: '',
@@ -71,7 +69,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgSelectModule,
     ToastrModule.forRoot(),
-    TranslateModule.forRoot(),
     BrowserAnimationsModule //required for toastr
   ],
   providers: [AuthService],
