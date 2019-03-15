@@ -3,7 +3,9 @@
 <div id = "listFriends">
 <p class= "friendText">Friends List</p>
 <div *ngFor="let item of amigos">
+	<td id = "row">
     <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
+	</td>
   </div>
 </div>
 
