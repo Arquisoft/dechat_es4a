@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
   }
 
 
-  private getUsername(): string {
+ getUsername(): string {
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
