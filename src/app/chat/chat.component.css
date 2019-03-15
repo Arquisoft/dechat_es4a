@@ -1,0 +1,88 @@
+/* CSS Document */
+
+body {
+    font: 12px arial;
+    color: #222;
+    text-align: center;
+    padding: 35px;
+}
+
+input {
+    font: 12px arial;
+}
+
+a {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#chatbox {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #fff;
+    height: 270px;
+    width: 430px;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
+}
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#wrapper {
+    margin: 0 auto;
+    padding-bottom: 25px;
+    background: #EBF4FB;
+    width: 504px;
+    border: 1px solid #ACD8F0;
+}
+#menuFriend {
+	float: left;
+    margin-left: 1px;
+    padding-bottom:25px;
+    background:#EBF4FB;
+    width: 360px;
+    border:1px solid #ACD8F0; }  
+
+form, p {
+    margin: 0;
+    padding: 0;
+}
+
+#usermsg {
+    width: 395px;
+    border: 1px solid #ACD8F0;
+}
+
+#submit {
+    width: 60px;
+}
+
+#menu {
+    padding: 12.5px 25px 12.5px 25px;
+}
+#listFriends { padding:12.5px 25px 12.5px 12.5px; }
+#row{padding-bottom:25px;}
+
+.welcome {
+    float: left;
+}
+
+.logout {
+    float: right;
+}
+
+.msgln {
+    margin: 0 0 2px 0;
+}
