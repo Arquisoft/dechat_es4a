@@ -2,7 +2,11 @@
 <div id="menuFriend">
 <div id = "listFriends">
 <p class= "friendText">Friends List</p>
+<div *ngFor="let item of amigos">
+    <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
+  </div>
 </div>
+
 </div>
 <div id="wrapper">
   <div id="menu">
