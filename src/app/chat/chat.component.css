@@ -48,8 +48,15 @@ a:hover {
     border: 1px solid #ACD8F0;
 }
 
-form,
-p {
+#menuFriend {
+	float: left;
+    margin-left: 1px;
+    padding-bottom:25px;
+    background:#EBF4FB;
+    width: 360px;
+    border:1px solid #ACD8F0; }  
+
+form, p {
     margin: 0;
     padding: 0;
 }
@@ -66,6 +73,8 @@ p {
 #menu {
     padding: 12.5px 25px 12.5px 25px;
 }
+#listFriends { padding:12.5px 25px 12.5px 12.5px; }
+#row{padding-bottom:25px;}
 
 .welcome {
     float: left;

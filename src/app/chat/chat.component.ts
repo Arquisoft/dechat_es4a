@@ -9,17 +9,34 @@ import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+
+	
+	amigos = [];
+
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
+
+	this.loadFriends();
   }
+  loadFriends(){
+      const list_friends = this.rdf.getFriends();
+
+      if (list_friends) {
+          console.log(list_friends);
+          let i = 0;
+          this.amigos = list_friends;
+      }
+  }
+
 
   /** message: string = '';*/
   fileClient: any;
@@ -57,7 +74,9 @@ export class ChatComponent implements OnInit {
   }
 
 
+
  getUsername(): string {
+
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
