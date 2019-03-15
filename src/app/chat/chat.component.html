@@ -7,9 +7,9 @@
             <div style="clear:both"></div>
         </div>
 
-        <div id="chatbox" *ngFor="let string of messages; let i = index">
-            <p class="message">{{string}}</p>
-        </div>
+        <!-- <div id="chatbox" *ngFor="let string of messages; let i = index">-->
+        <div class="container" *ngFor="let string of messages; let i = index">{{string}}</div>
+        <!--</div>-->
 
         <form name="message" action="">
             <input id="message" class="usermsg" [(ngModel)]="message" (keydown)="handleSubmit($event)" size="63" />

@@ -44,8 +44,10 @@ export class ChatComponent implements OnInit {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    this.chat.postMessage(new SolidMessage(user, content), url, user);
+    let message = new SolidMessage(user, content)
+    this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
+    this.messages.push(message.authorId + ':' + message.content);
   }
 
   handleSubmit(event) {
@@ -64,9 +66,12 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages(){
-    var chat = await this.chat.loadMessages(this.rdf.session.webId);
+    var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
-      this.messages.push(message.authorId + ': '+message.content);
+      if(message.content && message.content.length > 0){
+        this.messages.push(message.authorId + ': '+message.content);
+        console.log(message.content);
+      }
     });
   }
 }
