@@ -12,7 +12,7 @@
         <!--</div>-->
 
         <form name="message" action="">
-            <input id="message" class="usermsg" [(ngModel)]="message" (keydown)="handleSubmit($event)" size="63" />
+            <input id="message" class="usermsg" (keydown)="handleSubmit($event)" size="63" />
 
             <button class="chatButton" type="submit" (click)=send()>Send</button>
         </form>
