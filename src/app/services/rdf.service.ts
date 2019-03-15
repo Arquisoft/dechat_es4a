@@ -299,7 +299,7 @@ export class RdfService {
             let i=0;
             for (i=0; i<friends.length; i++)
             {
-                lista_friends.push(friends[i].value);
+                list_friends.push(friends[i].value);
             }
             return list_friends;
         } catch (error) {
