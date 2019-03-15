@@ -12,7 +12,6 @@ import { AuthService } from '../services/solid.auth.service';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit  {
-  rdf: RdfService ;
 
   profile: SolidProfile;
   profileImage: string;
@@ -21,7 +20,7 @@ export class CardComponent implements OnInit  {
   @ViewChild('f') cardForm: NgForm;
 
   constructor(private rdf: RdfService,
-    private router: Router, private auth: AuthService) {this.rdf = rdf;}
+    private router: Router, private auth: AuthService) {}
 
   ngOnInit() {
     this.loadingProfile = true;
