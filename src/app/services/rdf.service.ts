@@ -273,9 +273,7 @@ export class RdfService {
 
     return {};
   };
-  
-  
-  
+
 
   //Function to get email. This returns only the first email, which is temporary
   getEmail = () => {
@@ -287,6 +285,7 @@ export class RdfService {
 
     return '';
   }
+
   
   // Function to list friends
   
@@ -306,6 +305,7 @@ export class RdfService {
             console.log(`Error fetching data: ${error}`);
         }
     }
+
 
   //Function to get phone number. This returns only the first phone number, which is temporary. It also ignores the type.
   getPhone = () => {

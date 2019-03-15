@@ -16,12 +16,15 @@ import * as fileClient from 'solid-file-client';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+
 	
 	amigos = [];
+
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
+
 	this.loadFriends();
   }
   loadFriends(){
@@ -33,6 +36,8 @@ export class ChatComponent implements OnInit {
           this.amigos = list_friends;
       }
   }
+
+
   /** message: string = '';*/
   fileClient: any;
   messages : Array<String> = new Array();
@@ -69,7 +74,9 @@ export class ChatComponent implements OnInit {
   }
 
 
-   getUsername(): string {
+
+ getUsername(): string {
+
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
