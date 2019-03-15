@@ -12,16 +12,25 @@ import { ChatService } from '../services/chat.service';*/
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
+    amigos = [];
   /** message: string = '';*/
 
  /**  constructor(private auth: AuthService, private router: Router, private chat: ChatService) { }*/
- constructor(private router: Router) { }
+ constructor(private router: Router, private rdf: RdfService) { }
  
  ngOnInit() {
     this.router.navigateByUrl('/chat');
+    this.loadFriends();
   }
+  loadFriends(){
+      const list_friends = this.rdf.getFriends();
 
+      if (list_friends) {
+          console.log(list_friends);
+          let i = 0;
+          this.amigos = list_friends;
+      }
+  }
 
 
   /** logout(): void{
