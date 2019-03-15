@@ -8,7 +8,6 @@ import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
-import {RdfService} from '../services/rdf.service';
 
 
 @Component({
