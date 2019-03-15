@@ -125,43 +125,56 @@ export class ChatService implements OnInit{
 
   }
 
-  async loadMessages(url: string){
-    var chatcontent = "";
-    let str = "/profile/card#me";
-    let chat = "/public/PrototypeChat/index.ttl#this";
-    url.replace(str,chat);    
-    
+  async loadMessages(user:string){
+    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this"
+    var chatcontent:any;
     this.chat = new SolidChat(this.userID,this.friendID,"https://" + this.getUsername(this.userID) + ".solid.community/public/PrototypeChat/index.ttl#this");
-    
-    this.fileClient.readFile(url).then(body => {
-      chatcontent = body;
-
-      var split = chatcontent.split(':Msg');
-      split.forEach(async str =>{
-        var content = str.substring(str.indexOf(':content'),str.indexOf(";"))
-        var maker = this.getUsername(this.userID)
-        this.chat.messages.push(new SolidMessage(maker,content));
-      })
-      
-    });
-
-    url = "https://" + this.getUsername(this.friendID) + ".solid.community/public/PrototypeChat/index.ttl#this"
    
+    console.log(url);
+    await this.fileClient.readFile(url).then(  body => {
+      console.log(`File content is : ${body}.`);
+    }, err => console.log(err) );
+    
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;
 
       var split = chatcontent.split(':Msg');
+      
       split.forEach(async str =>{
-        var content = str.substring(str.indexOf(':content'),str.indexOf(";"));
-        var maker = this.getUsername(this.friendID)
-        this.chat.messages.push(new SolidMessage(maker,content));
+        var content = str.substring(str.indexOf("n:content"),str.indexOf("\";"));
+        var maker = this.getUsername(this.userID);
+        this.addToChat(content,maker);
+
       })
       
     });
 
-    console.log(chatcontent);
+    var urlFriend = "https://" + this.getUsername(this.friendID) + ".solid.community/public/PrototypeChat/index.ttl#this"
+   
+    console.log(urlFriend);
+    this.fileClient.readFile(urlFriend).then(body => {
+      chatcontent = body;
+
+      var splitFriend = chatcontent.split(':Msg');
+      splitFriend.forEach(async string =>{
+        var contentFriend = string.substring(string.indexOf("n:content"),string.indexOf("\";"));
+        var maker = this.getUsername(this.friendID);
+        this.addToChat(contentFriend,maker); 
+      })
+      
+    });
     
+    await this.fileClient.readFile(urlFriend).then(  body => {
+      console.log(`File content is : ${body}.`);
+    }, err => console.log(err) );
+
     return this.chat;
+  }
+
+  private addToChat(msg:string,maker:string){
+    let content = msg.substring(msg.indexOf("\"")+1);
+    console.log(content);
+    this.chat.messages.push(new SolidMessage(maker,content)); 
   }
 
     
