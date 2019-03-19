@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Introduction and Goals</title>
+<title>System Scope and Context</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -528,11 +528,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-introduction-and-goals">Introduction and Goals</a>
+<li><a href="#section-system-scope-and-context">System Scope and Context</a>
 <ul class="sectlevel2">
-<li><a href="#requirements-overview">Requirements Overview</a></li>
-<li><a href="#quality-goals">Quality Goals</a></li>
-<li><a href="#stakeholders">Stakeholders</a></li>
+<li><a href="#business-context">Business Context</a></li>
+<li><a href="#technical-context-optional">Technical Context [OPTIONAL]</a></li>
 </ul>
 </li>
 </ul>
@@ -540,156 +539,80 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-introduction-and-goals"><a class="anchor" href="#section-introduction-and-goals"></a>Introduction and Goals</h2>
+<h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>System Scope and Context</h2>
 <div class="sectionbody">
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>The objective of this project that we will develop further is to create a decentralized chat application based on <a href="https://solid.mit.edu/">SOLID</a> specifications. Our application can resemble any other more popular and commercially successful in the field of instant messaging, except that ours, as we said in the beginning uses a decentralized architecture to store data, providing a more remarkable security than the others.
-Our application aims to help users (two or more) to communicate with each other, sharing all kinds of information without this information being stored on any external server, providing a completely private and therefore secure communication. To do so, users must have a <a href="https://solid.inrupt.com/get-a-solid-pod/">POD of SOLID</a> to store their data.
-As essential characteristics of our application, we will look for them to be the most similar to those of the most popular, either:</p>
+<p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
+</div>
+<div class="paragraph">
+<p>For all this we are using Solid that is a tool that allows users to mark their data, which allows them to have their own server. They can also specify which data to communicate with whom and which apps can access which parts of their data do not need that your data go through an intermediary that makes money with private data</p>
+</div>
+<div class="paragraph">
+<p>The stakeholders who can use this app will be anyone who has added as a friend in solid to the other person, so that they can access their POD with the data of this person.</p>
+</div>
+<div class="paragraph">
+<p>In this application we will use an interface that allows you to see the name of the other person with whom you are chatting and the messages sent and received, we will have a box to write the message to send. These messages will be stored in the POD so that conversation the messages are completely isolated and only people who chat among them will be able to access them.</p>
+</div>
+<div class="paragraph">
+<p>The communication interface is that of any chat of this style, so that stakeholders will be known and therefore more intuitive. On the other hand our interface will be made with a library of JavaScript with the aforementioned, an area to write the text to send, another to see the conversation we have with the other person and finally a small part above in which we will see the name of the other person.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Share photos, videos and other files</p>
-</li>
-<li>
-<p>Multi-person chat groups</p>
-</li>
-<li>
-<p>Notifications</p>
-</li>
-<li>
-<p>Etc.</p>
+<p>Diagram:</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="requirements-overview"><a class="anchor" href="#requirements-overview"></a>Requirements Overview</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>A brief description of the functional requirements of our application is that it consists of a decentralized chat application based on SOLID, where users using the application must have a SOLID POD, which will allow these users to store their data, to share their files, images, videos, notifications, and so on.
-A more rigorous specification can be found at the following link, which describes the high level requirements of the application. <a href="https://labra.solid.community/public/SoftwareArchitecture/EnunciadoPractica/">Requirements</a>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>As for the general motivation, the aim of the development of the following project is that in the chat application there is no central database that could violate the information shared by users. The purpose is to seek the security provided by the privacy provided by the decentralization of the application, so that all users who use it feel safe and secure that the data they share is not compromised.</p>
-</div>
-<div class="paragraph">
-<div class="title">Use cases</div>
-<p>Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
-<span class="image"><img src="./images/Diapositiva0.PNG" alt="Diapos0"></span> case One (1-1).
-<span class="image"><img src="./images/Diapositiva1.PNG" alt="Diapos1"></span> case Two (1-*).</p>
-</div>
+<p><span class="image"><img src="./images/basicDiagram.png" alt="basicDiagram"></span></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="quality-goals"><a class="anchor" href="#quality-goals"></a>Quality Goals</h3>
+<h3 id="business-context"><a class="anchor" href="#business-context"></a>Business Context</h3>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Main characteristics of our application.</p>
+<p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Quality Goals</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Nr</th>
-<th class="tableblock halign-left valign-top">Quality</th>
-<th class="tableblock halign-left valign-top">Motivation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The chat should not have weak points that violate the data and files of users, as well as provide visibility only to those users involved in the chat.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It must be a simple application in use for all types of user, that is intuitive and that entails a very easy learning curve.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application must be ready to run at any time, and as long as there is a connection, the user should be able to use all the features offered by the chat.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Efficiency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Messages should be sent as fluidly and quickly as possible, without any loss of information.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Scalability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application is functioning correctly as the number of users grows.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Main objective in accordance with functional requirements, we will use SOLID requirements for this purpose to protect user data.</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>The interface will receive the messages of the two users and will save the conversation in the PODs of the two users. On the other hand it will show information of both users. The communication with Solid and the POD will be received in the application with the use of specific JavaScript libraries. The RDFs returned by the PODs will be used by the application to access the data of both users.</p>
+</div>
+<div class="paragraph">
+<p>Being an app as simple as a chat, users should not have any problem with the use of this application.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Table:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/tableContext.png" alt="tableContext"></span></p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="stakeholders"><a class="anchor" href="#stakeholders"></a>Stakeholders</h3>
+<h3 id="technical-context-optional"><a class="anchor" href="#technical-context-optional"></a>Technical Context [OPTIONAL]</h3>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Table with the people involved in the project</p>
+<p>As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Stakeholders</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Stakeholder</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Goal/Boundaries</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Chat Users</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Users of the developed application.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Be able to chat in real time with a person or group of people, with ease of use and comfort.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inrupt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Company interested in the application and that has proposed us the challenge to develop it.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Obtain a decentralized and secure application using SOLID specifications built by students.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">José Emilio Labra Gayo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Coordinator of the Software Architecture subject.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Person who participates in the evaluation of the application and who is also interested in its correct development fulfilling the quality attributes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Development team</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Develop an application that will work and archive the minimum requirements set out in the beginning.</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Diagram:</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>

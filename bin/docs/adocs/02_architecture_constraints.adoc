@@ -1,0 +1,43 @@
+[[section-architecture-constraints]]
+== Architecture Constraints
+
+
+[role="arc42help"]
+***
+
+
+=== 2.1 Introduction
+
+There are certain limitations that may restrict our application, which are different in type and scope.
+
+***
+=== 2.2 Constraints
+
+.Technical Constraints
+[options="header"]
+|===
+|Constraint|Background and / or motivation      
+|Programming language  | JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.
+|SOLID Specifications  | El chat debe ser descentralizado utilizando la tecnología SOLID.
+|Decentralized architecture | It must be a chat where the user's data is separated from the application that uses it.
+|Compatible and stand-alone application | This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge ...).
+|===
+
+.Organitazional constraints
+[options="header"]
+|===
+|Constraint|Background and / or motivation      
+|Team  |  The team will be formed by Aida Maria Gonzalez, Elena Puga, David Canle, Alberto Nuñez, German Iglesias and Jaime Fernández.
+|Timetable | The project will be carried out during the Software Architecture course, which will be approximately four months.
+|Project cost | No budget is available for the project, which reduces our resources for the development of the project.
+|Version Control | A GitHub repository (dechat_es4a) will be used to keep the project development up to date and available to all participants anytime, anywhere.
+|===
+
+.Conventions
+[options="header"]
+|===
+|Constraint|Background and / or motivation      
+|Arc42 Template for documentation| Use of arc42 templates written on AsciiDoc.
+|Language | We have decided to use English for the development of the project in order to seek greater international reach.
+|===
+***

@@ -1,0 +1,60 @@
+[[section-concepts]]
+== Cross-cutting Concepts
+
+image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
+
+=== Domain Model
+
+Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.
+
+.Tables
+|===
+|Name |Description
+
+|className1
+|Description1
+
+|className2
+|Description2
+|===
+
+=== Architecture and design
+
+Here we will add the design of our software and its architecture.
+
+
+=== User Experience
+
+==== User Interface
+
+Design of the user interface for the app. The default user interface is written in JavaScript.
+
+==== Internationalization
+
+This app will be available in English and we will adapt it to Spanish in the future.
+
+=== Under-the-hood
+
+==== Persistency
+
+The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.
+
+==== Exception/Error Handling
+
+Description of how we will handle errors and exceptions. To be filled in the future.
+
+=== Security and Safety
+
+==== Security
+
+All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
+
+==== Safety
+
+This application doesn't have anything dangerous.
+
+=== Development Concepts
+
+==== Testability
+
+Place for the future tests of our app.
