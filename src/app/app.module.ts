@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChatComponent } from './chat/chat.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 // Services
 import { AuthService } from './services/solid.auth.service';
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -61,7 +63,8 @@ const routes: Routes = [
     DashboardComponent,
     CardComponent,
     RegisterComponent,
-    ChatComponent
+    ChatComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

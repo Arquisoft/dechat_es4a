@@ -19,12 +19,13 @@ export class ChatComponent implements OnInit {
 
 	
 	amigos = [];
+	profileImage: string;
 
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
-
+    this.loadProfile();
 	this.loadFriends();
   }
   loadFriends(){
@@ -44,7 +45,8 @@ export class ChatComponent implements OnInit {
   
   @ViewChild('chatbox') chatbox:ElementRef;
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
+    private router: Router) {
   }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
@@ -93,6 +95,28 @@ export class ChatComponent implements OnInit {
       }
     });
   }
+  
+  logout() {
+    this.auth.solidSignOut();
+  }
+
+  goToChat() {
+    this.router.navigateByUrl('/chat');
+  }
+  
+  private setupProfileData() {
+    this.profileImage = '/assets/images/profile.png';
+  }
+  
+  async loadProfile() {
+    try {
+      this.setupProfileData();
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+
+  }
+  
 }
 
 
