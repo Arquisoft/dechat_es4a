@@ -120,10 +120,12 @@ export class ChatService implements OnInit {
       var chatcontent1 = chatcontentsplit[0];
       console.log(chatcontentsplit[0]);
       console.log("---------------------------------------------------------");
-      var chatcontent2 = chatcontentsplit[1].split(".")[0];
+      var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
       console.log(chatcontent2);
       console.log("---------------------------------------------------------");
-
+      var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
+      console.log(chatcontent3);
+      console.log("---------------------------------------------------------");
 
       const msgnb = Math.floor(Math.random() * 10000000000000);
       console.log("numero de mensaje: " + msgnb);
@@ -135,8 +137,8 @@ export class ChatService implements OnInit {
             n0:maker c:${author}.
             `+ `:this
             `+ `
-             `+ chatcontent2 + `, :Msg${msgnb} .
-        `
+             `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
+
         ;
       this.fileClient.deleteFile(url).then(success => {
         console.log(`Deleted ${url}.`);
