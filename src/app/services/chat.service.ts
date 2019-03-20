@@ -9,75 +9,102 @@ import { forEach } from '@angular/router/src/utils/collection';
 declare let solid: any;
 
 @Injectable({
-    providedIn: 'root',
-  })
-export class ChatService implements OnInit{
+  providedIn: 'root',
+})
+export class ChatService implements OnInit {
 
-    fileClient:any; 
+  fileClient: any;
 
-    chat:SolidChat;
+  chat: SolidChat;
 
-    userID:any;
-    friendID:any;
+  userID: any;
+  friendID: any;
 
-    constructor(private rdf:RdfService){this.fileClient = require('solid-file-client');}
-    
-    ngOnInit() {
-       
-       
-    }
-    
-    getUserProfile(webid):SolidProfile{
-        var profile : SolidProfile;
-        
-        profile.fn = this.rdf.getValueFromVcard('fn',webid);
-        
-        return profile;
-    };
+  constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
-    private getUsername(webId: string):string{
-        let username = webId.replace('https://', '');
-        let user = username.split('.')[0];
-        return user;
-    
-    }
-
-    createInboxChat(submitterWebId:string,destinataryWebId:string) {
-     this.userID = submitterWebId;
-     this.friendID = destinataryWebId;
-    };
-
-    sendMessage(msg: string) {
-
-      var message = new SolidMessage(this.getUsername(this.userID),msg);
-  
-      this.chat.messages.push(message);
-  
-      var str = JSON.stringify(msg);
-      var path = this.chat.webUrl +"/"+ this.getDate() + ".txt";
-      this.fileClient.updateFile(path, str);
-  
-      console.log("[Message sent] : " + msg);
-    }
+  ngOnInit() {
 
 
-    private getDate() {
-      const now = new Date();
-  
-      const date = now.getUTCFullYear() + '-' +
-                   (now.getUTCMonth() + 1) + '-' +
-                   now.getUTCDate();
-      
-      return date;
-    }
-  
+  }
 
-    /**
-   * 
-   * @param msg contenido del mensaje
-   * @param url url del index.ttl a modificar. actualmente  este debe ser un chat simple con un mensaje enviado desde la pod en el antes de intentar hacer la operación y debe ser creado manualmente en la pod
-   */
+  getUserProfile(webid): SolidProfile {
+    var profile: SolidProfile;
+
+    profile.fn = this.rdf.getValueFromVcard('fn', webid);
+
+    return profile;
+  };
+
+  private getUsername(webId: string): string {
+    let username = webId.replace('https://', '');
+    let user = username.split('.')[0];
+    return user;
+
+  }
+
+  createInboxChat(submitterWebId: string, destinataryWebId: string) {
+    this.userID = submitterWebId;
+    this.friendID = destinataryWebId;
+  };
+
+  sendMessage(msg: string) {
+
+    var message = new SolidMessage(this.getUsername(this.userID), msg);
+
+    this.chat.messages.push(message);
+
+    var str = JSON.stringify(msg);
+    var path = this.chat.webUrl + "/" + this.getDate() + ".txt";
+    this.fileClient.updateFile(path, str);
+
+    console.log("[Message sent] : " + msg);
+  }
+
+
+  private getDate() {
+    const now = new Date();
+
+    const date = now.getUTCFullYear() + '-' +
+      (now.getUTCMonth() + 1) + '-' +
+      now.getUTCDate();
+
+    return date;
+  }
+
+
+  /**
+ * 
+ * @param msg contenido del mensaje
+ * @param url url del index.ttl a modificar. actualmente  este debe ser un chat simple con un mensaje enviado desde la pod en el antes de intentar hacer la operación y debe ser creado manualmente en la pod
+ */
   async postMessage(msg: SolidMessage, url: string, author: string) {
+
+
+
+    var basechat = `@prefix : <#>.
+@prefix mee: <http://www.w3.org/ns/pim/meeting#>.
+@prefix terms: <http://purl.org/dc/terms/>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+@prefix n: <http://rdfs.org/sioc/ns#>.
+@prefix n0: <http://xmlns.com/foaf/0.1/>.
+@prefix c: </profile/card#>.
+@prefix n1: <http://purl.org/dc/elements/1.1/>.
+@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+
+:Msg0000000000001
+    terms:created "2019-03-14T15:26:30Z"^^XML:dateTime;
+    n:content "ChatStarted \n";
+    n0:maker c:me.
+:this
+    a mee:Chat;
+    n1:author c:me;
+    n1:created "2019-03-14T15:26:06Z"^^XML:dateTime;
+    n1:title "ChatWith`+ this.getUsername(this.friendID) + `";
+    flow:message :Msg0000000000001.
+                     
+    `
+
+
 
     if (author == this.getUsername(url)) {
       author = "me";
@@ -120,63 +147,71 @@ export class ChatService implements OnInit{
         console.log('message has been saved');
       }, (err: any) => console.log(err));
 
-    }, err => console.log(err));
+    }, err => this.fileClient.createFile(url).then(fileCreated => {
+      this.fileClient.updateFile(fileCreated, basechat).then(success => {
+        console.log('chat has been started');
+      }, (err: any) => console.log(err));
+
+
+    }, err => console.log(err)));
 
 
   }
 
-  async loadMessages(user:string){
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this"
-    var chatcontent:any;
-    this.chat = new SolidChat(this.userID,this.friendID,"https://" + this.getUsername(this.userID) + ".solid.community/public/PrototypeChat/index.ttl#this");
-   
+  async loadMessages(user: string) {
+    let url = "https://" + user + ".solid.community/private/" + this.getUsername(this.friendID) + "PrototypeChat/index.ttl#this"
+    var chatcontent: any;
+    this.chat = new SolidChat(this.userID, this.friendID, url);
+
     console.log(url);
-    await this.fileClient.readFile(url).then(  body => {
-      console.log(`File content is : ${body}.`);
-    }, err => console.log(err) );
-    
+
+
+
+
+
+
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;
 
       var split = chatcontent.split(':Msg');
-      
-      split.forEach(async str =>{
-        var content = str.substring(str.indexOf("n:content"),str.indexOf("\";"));
+
+      split.forEach(async str => {
+        var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
         var maker = this.getUsername(this.userID);
-        this.addToChat(content,maker);
+        this.addToChat(content, maker);
 
       })
-      
+
     });
 
-    var urlFriend = "https://" + this.getUsername(this.friendID) + ".solid.community/public/PrototypeChat/index.ttl#this"
-   
+    var urlFriend = "https://" + this.getUsername(this.friendID) + ".solid.community/private/" + this.getUsername(this.friendID) + "PrototypeChat/index.ttl#this"
+
     console.log(urlFriend);
     this.fileClient.readFile(urlFriend).then(body => {
       chatcontent = body;
 
       var splitFriend = chatcontent.split(':Msg');
-      splitFriend.forEach(async string =>{
-        var contentFriend = string.substring(string.indexOf("n:content"),string.indexOf("\";"));
+      splitFriend.forEach(async string => {
+        var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
         var maker = this.getUsername(this.friendID);
-        this.addToChat(contentFriend,maker); 
+        this.addToChat(contentFriend, maker);
       })
-      
+
     });
-    
-    await this.fileClient.readFile(urlFriend).then(  body => {
+
+    await this.fileClient.readFile(urlFriend).then(body => {
       console.log(`File content is : ${body}.`);
-    }, err => console.log(err) );
+    }, err => console.log(err));
 
     return this.chat;
   }
 
-  private addToChat(msg:string,maker:string){
-    let content = msg.substring(msg.indexOf("\"")+1);
+  private addToChat(msg: string, maker: string) {
+    let content = msg.substring(msg.indexOf("\"") + 1);
     console.log(content);
-    this.chat.messages.push(new SolidMessage(maker,content)); 
+    this.chat.messages.push(new SolidMessage(maker, content));
   }
 
-    
+
 
 }
