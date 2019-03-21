@@ -51,8 +51,8 @@ export class ChatService implements OnInit {
     var d = new Date().toISOString();
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/PrototypeChat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/PrototypeChat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -70,7 +70,7 @@ export class ChatService implements OnInit {
 :this
     a mee:Chat;
     n1:author c:me;
-    n1:created "2019-03-14T15:26:06Z"^^XML:dateTime;
+    n1:created "${d}"^^XML:dateTime;
     n1:title "Chat";
     flow:message :Msg0000000000001.
                      
@@ -111,12 +111,10 @@ export class ChatService implements OnInit {
  */
   async postMessage(msg: SolidMessage) {
     var author = msg.friendId;
-    var urlfile;
+    var urlfile = this.chatuserUrl + "index.ttl#this";
     if (this.userID == msg.authorId) {
       urlfile = this.chatuserUrl + "index.ttl#this";
       author = "me";
-    } else {
-      urlfile = this.chatfriendUrl + "index.ttl#this";
     }
 
     var chatcontent = "";
