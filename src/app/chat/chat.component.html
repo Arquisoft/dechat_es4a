@@ -1,35 +1,55 @@
-<app-navbar></app-navbar>
+<div id="frame">
+    <app-navbar></app-navbar>
 
-<h1></h1>
+    <h1></h1>
 
-<div id="menuFriend">
-    <div id = "listFriends">
-    <p class= "friendText">Friends List</p>
-    <div *ngFor="let item of amigos">
-        <td id = "row">
-        <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
-        </td>
+    <div id="sidepanel">
+            <div id="profile">
+                    <div class="wrap">
+                        <img id="profile-img" class="online" alt="" />
+                        <p>{{getUsername()}}</p>
+                    </div>
+                </div>
+            <div id="contacts"> 
+            <p class= "friendText">Friends List</p>
+                <ul>
+                    <div *ngFor="let item of namesFriends">
+                        <li class="contact">
+                            <td id = "row">
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                                <div class="meta">
+                                    <p class="name">{{item}}</p>
+                                </div>
+                            </div>
+                            </td>
+                        </li>
+                    </div>
+                </ul>
+            </div>
     </div>
-    </div>
-</div>
 
-    <div id="wrapper">
-        <div id="menu">
-            <p class="welcome">Welcome, {{getUsername()}} <b></b></p>
-            <button class="logout" md-raised-button type="button">Exit Chat</button>
-            <div style="clear:both"></div>
+
+
+        <div id="wrapper">
+            <div id="menu">
+                <p class="welcome">Welcome, {{getUsername()}} <b></b></p>
+                <button class="logout" md-raised-button type="button">Exit Chat</button>
+                <div style="clear:both"></div>
+            </div>
+
+            <!-- <div id="chatbox" *ngFor="let string of messages; let i = index">-->
+            <div class="container" *ngFor="let string of messages; let i = index">{{string}}</div>
+            <!--</div>-->
+
+            <form name="message" action="">
+                <input id="message" class="usermsg" (keydown)="handleSubmit($event)" size="63" />
+
+                <button class="chatButton" type="submit" (click)=send()>Send</button>
+            </form>
         </div>
 
-        <!-- <div id="chatbox" *ngFor="let string of messages; let i = index">-->
-        <div class="container" *ngFor="let string of messages; let i = index">{{string}}</div>
-        <!--</div>-->
-
-        <form name="message" action="">
-            <input id="message" class="usermsg" (keydown)="handleSubmit($event)" size="63" />
-
-            <button class="chatButton" type="submit" (click)=send()>Send</button>
-        </form>
-    </div>
-
-    <script type="text/javascript">
-    </script>
+        <script type="text/javascript">
+        </script>
+</div>

@@ -17,20 +17,24 @@ import * as fileClient from 'solid-file-client';
 })
 export class ChatComponent implements OnInit {
 
-	
-	amigos = [];
-	profileImage: string;
-
+  amigos = [];
+  namesFriends=[];
+  profileImage: string;
+  
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
+    private router: Router) {
+  }
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
     this.loadProfile();
-	this.loadFriends();
+    this.loadFriends();
+    this.getNamesFriends();
   }
+
   loadFriends(){
       const list_friends = this.rdf.getFriends();
-
       if (list_friends) {
           console.log(list_friends);
           let i = 0;
@@ -38,26 +42,24 @@ export class ChatComponent implements OnInit {
       }
   }
 
+  getNamesFriends(){
+    let i = 0;
+    for(i = 0; i < this.amigos.length; i++){
+      let username = this.amigos[i].replace('https://', '');
+      let user = username.split('.')[0];
+      this.namesFriends.push(user);
+    }
+  }
 
   /** message: string = '';*/
   fileClient: any;
   messages : Array<String> = new Array();
   
   @ViewChild('chatbox') chatbox:ElementRef;
-
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router) {
-  }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
   }
-
-  /** logout(): void{
-    
-    this.auth.solidSignOut();
-    
-  }*/
 
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
@@ -75,15 +77,11 @@ export class ChatComponent implements OnInit {
     }
   }
 
-
-
  getUsername(): string {
-
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
-
   }
 
   private async loadMessages(){
