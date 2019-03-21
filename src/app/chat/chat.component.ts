@@ -24,7 +24,6 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId, "https://albertong.solid.community/profile/card#me");
     this.loadMessages();
-
     this.loadFriends();
   }
   loadFriends() {
@@ -60,9 +59,8 @@ export class ChatComponent implements OnInit {
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/";
     let message = new SolidMessage(user, content)
-    this.chat.postMessage(message, url, user);
+    this.chat.postMessage(message);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ':' + message.content);
   }
@@ -94,6 +92,7 @@ export class ChatComponent implements OnInit {
     });
   }
 }
+
 
 
 /**
