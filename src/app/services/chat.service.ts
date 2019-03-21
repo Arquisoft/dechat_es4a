@@ -19,6 +19,8 @@ export class ChatService implements OnInit {
 
   userID: any;
   friendID: any;
+  chatUrl: any;
+  basechat: any;
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
@@ -38,6 +40,7 @@ export class ChatService implements OnInit {
   private getUsername(webId: string): string {
     let username = webId.replace('https://', '');
     let user = username.split('.')[0];
+
     return user;
 
   }
@@ -45,6 +48,31 @@ export class ChatService implements OnInit {
   createInboxChat(submitterWebId: string, destinataryWebId: string) {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
+    this.chatUrl = "https://" + this.getUsername(submitterWebId) + ".solid.community/public/PrototypeChat/"
+    this.basechat = `@prefix : <#>.
+@prefix mee: <http://www.w3.org/ns/pim/meeting#>.
+@prefix terms: <http://purl.org/dc/terms/>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+@prefix n: <http://rdfs.org/sioc/ns#>.
+@prefix n0: <http://xmlns.com/foaf/0.1/>.
+@prefix c: </profile/card#>.
+@prefix n1: <http://purl.org/dc/elements/1.1/>.
+@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+
+:Msg0000000000001
+    terms:created "2019-03-14T15:26:30Z"^^XML:dateTime;
+    n:content "Chat Started";
+    n0:maker c:me.
+:this
+    a mee:Chat;
+    n1:author c:me;
+    n1:created "2019-03-14T15:26:06Z"^^XML:dateTime;
+    n1:title "Chat";
+    flow:message :Msg0000000000001.
+                     
+    `
+    this.createBaseChat();
+
   };
 
   sendMessage(msg: string) {
@@ -81,30 +109,8 @@ export class ChatService implements OnInit {
 
 
 
-    var basechat = `@prefix : <#>.
-@prefix mee: <http://www.w3.org/ns/pim/meeting#>.
-@prefix terms: <http://purl.org/dc/terms/>.
-@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
-@prefix n: <http://rdfs.org/sioc/ns#>.
-@prefix n0: <http://xmlns.com/foaf/0.1/>.
-@prefix c: </profile/card#>.
-@prefix n1: <http://purl.org/dc/elements/1.1/>.
-@prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
 
-:Msg0000000000001
-    terms:created "2019-03-14T15:26:30Z"^^XML:dateTime;
-    n:content "ChatStarted \n";
-    n0:maker c:me.
-:this
-    a mee:Chat;
-    n1:author c:me;
-    n1:created "2019-03-14T15:26:06Z"^^XML:dateTime;
-    n1:title "ChatWith`+ this.getUsername(this.friendID) + `";
-    flow:message :Msg0000000000001.
-                     
-    `
-
-
+    var urlfile = url + "index.ttl#this";
 
     if (author == this.getUsername(url)) {
       author = "me";
@@ -112,7 +118,7 @@ export class ChatService implements OnInit {
 
     var chatcontent = "";
 
-    this.fileClient.readFile(url).then(body => {
+    this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
       console.log(chatcontent);
       console.log("---------------------------------------------------------");
@@ -139,29 +145,45 @@ export class ChatService implements OnInit {
             `+ `
              `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
 
-        ;
-      this.fileClient.deleteFile(url).then(success => {
-        console.log(`Deleted ${url}.`);
+      console.log(`test`);
+      this.fileClient.deleteFile(urlfile).then(success => {
+        console.log(`Deleted ${urlfile}.`);
       }, err => console.log(err));
 
 
-      this.fileClient.updateFile(url, message).then(success => {
+      this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been saved');
       }, (err: any) => console.log(err));
 
-    }, err => this.fileClient.createFile(url).then(fileCreated => {
-      this.fileClient.updateFile(fileCreated, basechat).then(success => {
-        console.log('chat has been started');
-      }, (err: any) => console.log(err));
-
-
-    }, err => console.log(err)));
+    }, err => this.createBaseChat());
 
 
   }
 
+
+
+  createBaseChat() {
+
+    this.fileClient.readFile(this.chatUrl + "index.ttl#this").then(body => {
+      console.log('-----------------------------------------------------');
+      console.log('Chat exists, no action needed');
+      console.log('-----------------------------------------------------');
+    }, err =>
+        this.fileClient.createFolder(this.chatUrl).then(success => {
+          console.log('Folder Created');
+          this.fileClient.createFile(this.chatUrl + "index.ttl#this").then(fileCreated => {
+            this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
+              console.log('chat has been started');
+            }, (err: any) => console.log(err));
+          }, err => console.log(err));
+        }, err => console.log(err)));
+  }
+
+
+
+
   async loadMessages(user: string) {
-    let url = "https://" + user + ".solid.community/private/" + this.getUsername(this.friendID) + "PrototypeChat/index.ttl#this"
+    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this"
     var chatcontent: any;
     this.chat = new SolidChat(this.userID, this.friendID, url);
 
@@ -186,7 +208,7 @@ export class ChatService implements OnInit {
 
     });
 
-    var urlFriend = "https://" + this.getUsername(this.friendID) + ".solid.community/private/" + this.getUsername(this.friendID) + "PrototypeChat/index.ttl#this"
+    var urlFriend = "https://" + this.getUsername(this.friendID) + ".solid.community/public/PrototypeChat/index.ttl#this"
 
     console.log(urlFriend);
     this.fileClient.readFile(urlFriend).then(body => {

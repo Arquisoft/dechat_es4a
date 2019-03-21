@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 /** import { AuthService } from '../services/solid.auth.service';*/
 import { ChatService } from '../services/chat.service';
 import { RdfService } from '../services/rdf.service';
@@ -17,38 +17,38 @@ import * as fileClient from 'solid-file-client';
 })
 export class ChatComponent implements OnInit {
 
-	
-	amigos = [];
 
-  
+  amigos = [];
+
+
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
+    this.chat.createInboxChat(this.rdf.session.webId, "https://albertong.solid.community/profile/card#me");
     this.loadMessages();
 
-	this.loadFriends();
+    this.loadFriends();
   }
-  loadFriends(){
-      const list_friends = this.rdf.getFriends();
+  loadFriends() {
+    const list_friends = this.rdf.getFriends();
 
-      if (list_friends) {
-          console.log(list_friends);
-          let i = 0;
-          this.amigos = list_friends;
-      }
+    if (list_friends) {
+      console.log(list_friends);
+      let i = 0;
+      this.amigos = list_friends;
+    }
   }
 
 
   /** message: string = '';*/
   fileClient: any;
-  messages : Array<String> = new Array();
-  
-  @ViewChild('chatbox') chatbox:ElementRef;
+  messages: Array<String> = new Array();
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
+  @ViewChild('chatbox') chatbox: ElementRef;
+
+  constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2) {
   }
- 
-  createInboxChat(submitterWebId:string,destinataryWebId:string): any {
-   this.chat.createInboxChat(submitterWebId,destinataryWebId);
+
+  createInboxChat(submitterWebId: string, destinataryWebId: string): any {
+    this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
   /** logout(): void{
@@ -60,7 +60,7 @@ export class ChatComponent implements OnInit {
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
+    let url = "https://" + user + ".solid.community/public/PrototypeChat/";
     let message = new SolidMessage(user, content)
     this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
@@ -75,7 +75,7 @@ export class ChatComponent implements OnInit {
 
 
 
- getUsername(): string {
+  getUsername(): string {
 
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
@@ -84,11 +84,11 @@ export class ChatComponent implements OnInit {
 
   }
 
-  private async loadMessages(){
+  private async loadMessages() {
     var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
-      if(message.content && message.content.length > 0){
-        this.messages.push(message.authorId + ': '+message.content);
+      if (message.content && message.content.length > 0) {
+        this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
       }
     });
