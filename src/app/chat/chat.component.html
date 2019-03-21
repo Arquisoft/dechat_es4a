@@ -1,19 +1,16 @@
-<div class="chat_container">
-
 <app-navbar></app-navbar>
 
 <h1></h1>
 
 <div id="menuFriend">
-<div id = "listFriends">
-<p class= "friendText">Friends List</p>
-<div *ngFor="let item of amigos">
-	<td id = "row">
-    <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
-	</td>
-  </div>
-</div>
-
+    <div id = "listFriends">
+    <p class= "friendText">Friends List</p>
+    <div *ngFor="let item of amigos">
+        <td id = "row">
+        <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
+        </td>
+    </div>
+    </div>
 </div>
 
     <div id="wrapper">
@@ -36,4 +33,3 @@
 
     <script type="text/javascript">
     </script>
-</div>
