@@ -9,17 +9,32 @@ import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+
+	
+	amigos = [];
   
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
+    this.chatService.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
+	  this.loadFriends();
   }
+  loadFriends(){
+      const list_friends = this.rdf.getFriends();
+
+      if (list_friends) {
+          console.log(list_friends);
+          let i = 0;
+          this.amigos = list_friends;
+      }
+  }
+
 
   /** message: string = '';*/
   fileClient: any;
@@ -27,11 +42,11 @@ export class ChatComponent implements OnInit {
   
   @ViewChild('chatbox') chatbox:ElementRef;
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
+  constructor(private rdf: RdfService,private chatService:ChatService,private renderer:Renderer2) {
   }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
-   this.chat.createInboxChat(submitterWebId,destinataryWebId);
+   this.chatService.createInboxChat(submitterWebId,destinataryWebId);
   }
 
   /** logout(): void{
@@ -44,20 +59,22 @@ export class ChatComponent implements OnInit {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content)
-    this.chat.postMessage(message, url, user);
+    let message = new SolidMessage(user, content,new Date().toISOString());
+    this.chatService.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ':' + message.content);
   }
 
-  handleSubmit(event) {
+  /*handleSubmit(event) {
     if (event.keyCode === 13) {
       this.send();
     }
-  }
+  }*/
 
 
-  private getUsername(): string {
+
+ getUsername(): string {
+
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
@@ -66,12 +83,23 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages(){
-    var chat = await this.chat.loadMessages(this.getUsername());
-    chat.messages.forEach(message => {
+    
+    await this.chatService.loadMessages(this.getUsername());
+   
+    this.chatService.chat.messages.forEach(message => {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': '+message.content);
         console.log(message.content);
       }
+    });
+
+    this.chatService.chat.messages.sort(function(a,b) {
+      if(a.time > b.time)
+        return 1;
+      if(b.time > a.time)
+        return -1
+      else
+        return 0;
     });
   }
 }
