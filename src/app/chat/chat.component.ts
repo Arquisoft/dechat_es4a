@@ -58,11 +58,13 @@ export class ChatComponent implements OnInit {
 
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
-    let user = this.getUsername();
-    let message = new SolidMessage(user, content)
-    this.chat.postMessage(message);
-    (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ':' + message.content);
+    if (!(content == "")) {
+      let user = this.getUsername();
+      let message = new SolidMessage(user, content)
+      this.chat.postMessage(message);
+      (<HTMLInputElement>document.getElementById("message")).value = "";
+      this.messages.push(message.authorId + ':' + message.content);
+    }
   }
 
   handleSubmit(event) {

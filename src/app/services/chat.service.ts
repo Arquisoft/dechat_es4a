@@ -110,11 +110,11 @@ export class ChatService implements OnInit {
  * @param url url del index.ttl a modificar. actualmente  este debe ser un chat simple con un mensaje enviado desde la pod en el antes de intentar hacer la operación y debe ser creado manualmente en la pod
  */
   async postMessage(msg: SolidMessage) {
-    var author = msg.friendId;
+    var author = "me";
     var urlfile = this.chatuserUrl + "index.ttl#this";
     if (this.userID == msg.authorId) {
-      urlfile = this.chatuserUrl + "index.ttl#this";
-      author = "me";
+      // urlfile = this.chatuserUrl + "index.ttl#this";
+      // author = "me";
     }
 
     var chatcontent = "";
