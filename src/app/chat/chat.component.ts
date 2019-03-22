@@ -16,7 +16,6 @@ import * as fileClient from 'solid-file-client';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
   amigos = [];
   namesFriends=[];
   profileImage: string;
@@ -41,7 +40,6 @@ export class ChatComponent implements OnInit {
           this.amigos = list_friends;
       }
   }
-
   getNamesFriends(){
     let i = 0;
     for(i = 0; i < this.amigos.length; i++){
@@ -56,6 +54,10 @@ export class ChatComponent implements OnInit {
   messages : Array<String> = new Array();
   
   @ViewChild('chatbox') chatbox:ElementRef;
+
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
+  }
+
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
@@ -69,6 +71,7 @@ export class ChatComponent implements OnInit {
     this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ': ' + message.content);
+
   }
 
   handleSubmit(event) {
@@ -76,6 +79,7 @@ export class ChatComponent implements OnInit {
       this.send();
     }
   }
+
 
  getUsername(): string {
     let id = this.rdf.session.webId;
@@ -114,7 +118,7 @@ export class ChatComponent implements OnInit {
     }
 
   }
-  
+
 }
 
 
