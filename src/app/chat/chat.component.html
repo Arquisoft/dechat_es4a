@@ -1,13 +1,12 @@
+<app-navbar></app-navbar>
+<body>
 <div id="frame">
-    <app-navbar></app-navbar>
-
-    <h1></h1>
-
     <div id="sidepanel">
             <div id="profile">
                     <div class="wrap">
-                        <img id="profile-img" class="online" alt="" />
-                        <p>{{getUsername()}}</p>
+                        <span class="contact-status online"></span>
+                        <img [src]="profileImage" alt=""/>
+                        {{getUsername()}}
                     </div>
                 </div>
             <div id="contacts"> 
@@ -29,27 +28,30 @@
                 </ul>
             </div>
     </div>
-
-
-
-        <div id="wrapper">
-            <div id="menu">
-                <p class="welcome">Welcome, {{getUsername()}} <b></b></p>
-                <button class="logout" md-raised-button type="button">Exit Chat</button>
-                <div style="clear:both"></div>
-            </div>
-
-            <!-- <div id="chatbox" *ngFor="let string of messages; let i = index">-->
-            <div class="container" *ngFor="let string of messages; let i = index">{{string}}</div>
-            <!--</div>-->
-
-            <form name="message" action="">
-                <input id="message" class="usermsg" (keydown)="handleSubmit($event)" size="63" />
-
-                <button class="chatButton" type="submit" (click)=send()>Send</button>
-            </form>
+    <div id="content">
+        <div class="contact-profile">
+            <p>Harvey Specter</p>
         </div>
-
-        <script type="text/javascript">
-        </script>
+        <div class="messages">
+            <ul>
+                <div *ngFor="let string of messages">
+                    <li class="replies">
+                        <p>{{string}}</p>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div class="message-input">
+            <div class="wrap">
+                <form name="message" action="">
+                    <input id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button class="chatButton" type="submit" (click)=send()>
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+</body>

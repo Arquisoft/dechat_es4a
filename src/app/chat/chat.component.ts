@@ -68,7 +68,7 @@ export class ChatComponent implements OnInit {
     let message = new SolidMessage(user, content)
     this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ':' + message.content);
+    this.messages.push(message.authorId + ': ' + message.content);
   }
 
   handleSubmit(event) {
@@ -88,7 +88,7 @@ export class ChatComponent implements OnInit {
     var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
       if(message.content && message.content.length > 0){
-        this.messages.push(message.authorId + ': '+message.content);
+        this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
       }
     });
