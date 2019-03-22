@@ -52,6 +52,10 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent
+  },
+  {
+    path: 'navbar',
+    component: NavbarComponent
   }
 ];
 
