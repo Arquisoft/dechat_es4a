@@ -10,18 +10,19 @@ import { RdfService } from 'src/app/services/rdf.service';
 })
 export class NavbarComponent implements OnInit {
 
+ 
+
+
   constructor(private router: Router,private auth: AuthService,private rdf: RdfService) { }
 
   ngOnInit() {
   }
 
   getUsername(): string {
-
-    let id = this.rdf.session.webId;
+    var id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
-
   }
 
   goToChat() {

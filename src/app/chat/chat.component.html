@@ -5,24 +5,20 @@
     <div id="sidepanel">
             <div id="profile">
                     <div class="wrap">
-                        <img [src]="profileImage" alt=""/>
+                        <div class="profile-image"> 
+                            <img [src]="profileImage" alt=""/>
+                        </div>
                         {{getUsername()}}
                     </div>
                 </div>
             <div id="contacts"> 
-            <p class= "friendText">Friends List</p>
+            <p class= "friendText">Contacts</p>
                 <ul>
                     <div *ngFor="let item of namesFriends">
                         <li class="contact">
-                            <td id = "row">
                             <div class="wrap">
-                                <span class="contact-status online"></span>
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">{{item}}</p>
-                                </div>
+                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" /> {{item}}
                             </div>
-                            </td>
                         </li>
                     </div>
                 </ul>

@@ -58,6 +58,7 @@ form{
 
 ul {
     list-style-type: none;
+    padding: 0;
 }
 
 
@@ -111,12 +112,11 @@ ul {
     }
   }
 
-  #frame #sidepanel #profile .wrap img {
+  #frame #sidepanel #profile .wrap .profile-image img {
     width: 40px;
     border-radius: 50%;
-    float: left;
+    align: center;
   }
-
 
 /*Contact*/
   #frame #sidepanel #contacts {
@@ -124,6 +124,7 @@ ul {
     overflow-y: scroll;
     overflow-x: hidden;
     background: #405468;
+    margin-left: 8px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
@@ -145,25 +146,23 @@ ul {
   #frame #sidepanel #contacts::-webkit-scrollbar-thumb {
     background-color: #243140;
   }
-  #frame #sidepanel #contacts ul li.contact {
+
+  #frame #sidepanel #contacts li.contact {
     position: relative;
-    padding: 10px 0 15px 0;
+    padding: 10px 50px 6px 90px;
     font-size: 0.9em;
     cursor: pointer;
   }
-  @media screen and (max-width: 735px) {
-    #frame #sidepanel #contacts ul li.contact {
-      padding: 6px 0 46px 8px;
-    }
-  }
-  #frame #sidepanel #contacts ul li.contact:hover {
+ 
+  #frame #sidepanel #contacts li.contact:hover {
     background: #32465a;
   }
 
   #frame #sidepanel #contacts ul li.contact .wrap {
-    width: 88%;
+    width: 90%;
     margin: 0 auto;
     position: relative;
+    left: -100px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap {
@@ -173,8 +172,6 @@ ul {
   #frame #sidepanel #contacts ul li.contact .wrap img {
     width: 40px;
     border-radius: 50%;
-    float: left;
-    margin-right: 10px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap img {
