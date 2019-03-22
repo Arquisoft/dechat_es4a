@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
 button.wide-button {
   width: 360px;
   height: 40px;
@@ -68,9 +71,16 @@ input[type=text].wide-text {
 .ng-select.login-select .ng-arrow:after {
 
 }
-body {
-  background-color: lightblue;
+
+html {
+  background-image: linear-gradient(#63576d, mediumpurple);
+  -webkit-background-size: cover;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
 }
-head {
-  background-color: lightblue;
+
+body{
+  background-color: transparent !important;
+  overflow-x: hidden;
 }

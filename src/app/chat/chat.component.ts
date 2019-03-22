@@ -16,46 +16,48 @@ import * as fileClient from 'solid-file-client';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
-	
-	amigos = [];
-
+  amigos = [];
+  namesFriends=[];
+  profileImage: string;
+  
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
+    private router: Router) {
+  }
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
     this.loadMessages();
-
-	this.loadFriends();
+    this.loadProfile();
+    this.loadFriends();
+    this.getNamesFriends();
   }
+
   loadFriends(){
       const list_friends = this.rdf.getFriends();
-
       if (list_friends) {
           console.log(list_friends);
           let i = 0;
           this.amigos = list_friends;
       }
   }
-
+  getNamesFriends(){
+    let i = 0;
+    for(i = 0; i < this.amigos.length; i++){
+      let username = this.amigos[i].replace('https://', '');
+      let user = username.split('.')[0];
+      this.namesFriends.push(user);
+    }
+  }
 
   /** message: string = '';*/
   fileClient: any;
   messages : Array<String> = new Array();
   
   @ViewChild('chatbox') chatbox:ElementRef;
-
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
-  }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
   }
-
-  /** logout(): void{
-    
-    this.auth.solidSignOut();
-    
-  }*/
 
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
@@ -64,7 +66,8 @@ export class ChatComponent implements OnInit {
     let message = new SolidMessage(user, content)
     this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ':' + message.content);
+    this.messages.push(message.authorId + ': ' + message.content);
+
   }
 
   handleSubmit(event) {
@@ -74,25 +77,44 @@ export class ChatComponent implements OnInit {
   }
 
 
-
  getUsername(): string {
-
     let id = this.rdf.session.webId;
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
-
   }
 
   private async loadMessages(){
     var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
       if(message.content && message.content.length > 0){
-        this.messages.push(message.authorId + ': '+message.content);
+        this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
       }
     });
   }
+  
+  logout() {
+    this.auth.solidSignOut();
+  }
+
+  goToChat() {
+    this.router.navigateByUrl('/chat');
+  }
+  
+  private setupProfileData() {
+    this.profileImage = '/assets/images/profile.png';
+  }
+  
+  async loadProfile() {
+    try {
+      this.setupProfileData();
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+
+  }
+
 }
 
 
