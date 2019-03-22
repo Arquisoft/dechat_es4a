@@ -285,6 +285,23 @@ export class RdfService {
     return '';
   }
 
+  getFriends = () =>
+  {
+      const user = this.session.webId;
+      const friends = this.store.each($rdf.sym(user), FOAF('knows'));
+      const list_friends = [];
+      try {
+          let i=0;
+          for (i=0; i<friends.length; i++)
+          {
+              list_friends.push(friends[i].value);
+          }
+          return list_friends;
+      } catch (error) {
+          console.log(`Error fetching data: ${error}`);
+      }
+  }
+
   //Function to get phone number. This returns only the first phone number, which is temporary. It also ignores the type.
   getPhone = () => {
     const linkedUri = this.getValueFromVcard('hasTelephone');
