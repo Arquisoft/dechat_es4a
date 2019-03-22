@@ -97,5 +97,4 @@ export class CardComponent implements OnInit {
   drop(){
 	console.log("holaaaa");
   }
-
 }
