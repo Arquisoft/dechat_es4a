@@ -1,8 +1,8 @@
 export class SolidMessage {
-    constructor(AuthorId, c) {
+    constructor(AuthorId, c,time) {
         this.authorId = AuthorId;
         this.content = c;
-        this.time = (new Date()).toISOString();
+        this.time = time;
     }
 
     authorId: string;

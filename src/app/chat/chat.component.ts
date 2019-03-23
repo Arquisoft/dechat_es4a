@@ -20,16 +20,20 @@ export class ChatComponent implements OnInit {
   namesFriends=[];
   profileImage: string;
   
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
+  constructor(private rdf: RdfService,private chatService:ChatService,private renderer:Renderer2, private auth: AuthService,
     private router: Router) {
   }
   
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
-    this.loadMessages();
     this.loadProfile();
     this.loadFriends();
     this.getNamesFriends();
+    this.beginChat(this.amigos[0]);
+  }
+
+  beginChat(friend){
+    this.chatService.createInboxChat(this.rdf.session.webId,friend);
+    this.loadMessages();
   }
 
   loadFriends(){
@@ -56,15 +60,15 @@ export class ChatComponent implements OnInit {
   @ViewChild('chatbox') chatbox:ElementRef;
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
-   this.chat.createInboxChat(submitterWebId,destinataryWebId);
+   this.chatService.createInboxChat(submitterWebId,destinataryWebId);
   }
 
   send() {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content)
-    this.chat.postMessage(message, url, user);
+    let message = new SolidMessage(user, content,(new Date()).toISOString());
+    this.chatService.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ': ' + message.content);
 
@@ -85,12 +89,21 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages(){
-    var chat = await this.chat.loadMessages(this.getUsername());
-    chat.messages.forEach(message => {
+    var chat = await this.chatService.loadMessages(this.getUsername());
+    this.chatService.chat.messages.forEach(message => {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
       }
+    });
+
+    this.chatService.chat.messages.sort(function(a,b) {
+      if(a.time > b.time)
+        return 1;
+      if(b.time > a.time)
+        return -1
+      else
+        return 0;
     });
   }
   
