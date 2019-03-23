@@ -7,7 +7,7 @@ export class SolidChat {
         this.webUrl = webUrl;
 
         this.messages = new Array();
-        this.messages.push(new SolidMessage(clientId, "--chat started--"))
+        this.messages.push(new SolidMessage(clientId, "--chat started--",(new Date()).toISOString()));
     }
 
 

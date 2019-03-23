@@ -147,10 +147,10 @@ export class ChatService implements OnInit{
   }
 
   async loadMessages(user:string,friend:string){
-    let url = "https://" + user + ".solid.community/public/Chat/"+friend+"/index.ttl#this"
+    let url = "https://" + user + ".solid.community/public/Chat"+friend+"/index.ttl#this"
     
     var chatcontent:any;
-    this.chat = new SolidChat(this.userID,this.friendID,"https://" + this.getUsername(this.userID) + ".solid.community/public/Chat/"+this.getUsername(this.friendID)+"index.ttl#this");
+    this.chat = new SolidChat(this.userID,this.friendID,"https://" + this.getUsername(this.userID) + ".solid.community/public/Chat"+this.getUsername(this.friendID)+"/index.ttl#this");
    
     console.log(url);
     await this.fileClient.readFile(url).then( body => {
