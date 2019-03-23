@@ -19,6 +19,8 @@ export class ChatComponent implements OnInit {
   amigos = [];
   namesFriends=[];
   profileImage: string;
+
+  activefriend:string;
   
   constructor(private rdf: RdfService,private chatService:ChatService,private renderer:Renderer2, private auth: AuthService,
     private router: Router) {
@@ -28,10 +30,12 @@ export class ChatComponent implements OnInit {
     this.loadProfile();
     this.loadFriends();
     this.getNamesFriends();
-    this.beginChat(this.amigos[0]);
+    
   }
 
   beginChat(friend){
+    this.messages = new Array();
+    this.activefriend = friend;
     this.chatService.createInboxChat(this.rdf.session.webId,friend);
     this.loadMessages();
   }
@@ -68,7 +72,7 @@ export class ChatComponent implements OnInit {
     let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
     let message = new SolidMessage(user, content,(new Date()).toISOString());
-    this.chatService.postMessage(message, url, user);
+    this.chatService.postMessage(message);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ': ' + message.content);
 
@@ -89,7 +93,7 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages(){
-    var chat = await this.chatService.loadMessages(this.getUsername());
+    var chat = await this.chatService.loadMessages(this.getUsername(),this.activefriend);
     this.chatService.chat.messages.forEach(message => {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': ' + message.content);

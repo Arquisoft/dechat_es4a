@@ -1,58 +1,58 @@
+<app-navbar>
+</app-navbar>
 
-<app-navbar></app-navbar>
 <body>
-<div id="frame">
-    <div id="sidepanel">
+    <div id="frame">
+        <div id="sidepanel">
             <div id="profile">
-                    <div class="wrap">
-                        <span class="contact-status online"></span>
-                        <img [src]="profileImage" alt=""/>
-                        {{getUsername()}}
-                    </div>
+                <div class="wrap">
+                    <span class="contact-status online"></span>
+                    <img [src]="profileImage" alt="" /> {{getUsername()}}
                 </div>
-            <div id="contacts"> 
-            <p class= "friendText">Friends List</p>
+            </div>
+            <div id="contacts">
+                <p class="friendText">Friends List</p>
                 <ul>
                     <div *ngFor="let item of namesFriends">
                         <li class="contact">
-                            <td id = "row">
-                            <div class="wrap">
-                                <span class="contact-status online"></span>
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">{{item}}</p>
+                            <td id="row">
+                                <div class="wrap">
+                                    <span class="contact-status online"></span>
+                                    <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                                    <div class="meta">
+                                        <p class="name" onclick="beginChat($item)">{{item}}</p>
+                                    </div>
                                 </div>
-                            </div>
                             </td>
                         </li>
                     </div>
                 </ul>
             </div>
-    </div>
-    <div id="content">
-        <div class="contact-profile">
-            <p>Harvey Specter</p>
         </div>
-        <div class="messages">
-            <ul>
-                <div *ngFor="let string of messages">
-                    <li class="replies">
-                        <p>{{string}}</p>
-                    </li>
-                </div>
-            </ul>
-        </div>
-        <div class="message-input">
-            <div class="wrap">
-                <form name="message" action="">
-                    <input id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
-                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                    <button class="chatButton" type="submit" (click)=send()>
+        <div id="content">
+            <div class="contact-profile">
+                <p>Harvey Specter</p>
+            </div>
+            <div class="messages">
+                <ul>
+                    <div *ngFor="let string of messages">
+                        <li class="replies">
+                            <p>{{string}}</p>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="message-input">
+                <div class="wrap">
+                    <form name="message" action="">
+                        <input id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90" />
+                        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                        <button class="chatButton" type="submit" (click)=send()>
                         <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
