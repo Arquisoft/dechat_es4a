@@ -8,6 +8,7 @@ import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
+import { SolidProfile } from '../models/solid-profile.model';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class ChatComponent implements OnInit {
   amigos = [];
   namesFriends=[];
   profileImage: string;
+  profile: SolidProfile;
+  loadingProfile: Boolean;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
     private router: Router) {
@@ -101,17 +104,20 @@ export class ChatComponent implements OnInit {
     this.router.navigateByUrl('/chat');
   }
   
-  private setupProfileData() {
-    this.profileImage = '/assets/images/profile.png';
-  }
-  
   async loadProfile() {
     try {
-      this.setupProfileData();
+      const profile = await this.rdf.getProfile();
+      if (profile) {
+        this.profile = profile;
+        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
+      }
+      else{
+        this.profileImage = '/assets/images/profile.png';
+      }
+      this.loadingProfile = false;
     } catch (error) {
       console.log(`Error: ${error}`);
     }
-
   }
 
 }
