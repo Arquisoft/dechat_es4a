@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
   profileImage: string;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router) {
+    private router: Router,private toastr: ToastrService) {
   }
   
   ngOnInit(): void {
@@ -71,9 +71,6 @@ export class ChatComponent implements OnInit {
   
   @ViewChild('chatbox') chatbox:ElementRef;
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2,private toastr: ToastrService, private auth:AuthService) {
-  }
- 
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
   }
