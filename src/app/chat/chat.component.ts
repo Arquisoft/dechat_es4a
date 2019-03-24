@@ -8,6 +8,7 @@ import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ChatComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
+    this.chat.createInboxChat(this.rdf.session.webId,"https://elenapuga.solid.community/profile/card#me");
     this.loadMessages();
 
 	this.loadFriends();
@@ -44,7 +45,7 @@ export class ChatComponent implements OnInit {
   
   @ViewChild('chatbox') chatbox:ElementRef;
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2,private toastr: ToastrService) {
   }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
@@ -90,6 +91,7 @@ export class ChatComponent implements OnInit {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': '+message.content);
         console.log(message.content);
+        this.toastr.info("You have a new message from "+ message.authorId);
       }
     });
   }
