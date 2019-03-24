@@ -23,12 +23,10 @@ export class ChatComponent implements OnInit {
 
   
   ngOnInit(): void {
-      this.toastr.info("is logged in gg : "+this.auth.getOldWebId());
     this.chat.createInboxChat(this.auth.getOldWebId(),"https://elenapuga.solid.community/profile/card#me");
     this.loadMessages();
 	this.loadFriends();
 
-      this.toastr.info("is logged in : a");
   }
   loadFriends() {
       if(!this.auth.getOldFriends()){
