@@ -8,6 +8,7 @@ import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,19 +26,34 @@ export class ChatComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
+    this.chat.createInboxChat(this.auth.getOldWebId(),"https://elenapuga.solid.community/profile/card#me");
     this.loadMessages();
     this.loadProfile();
     this.loadFriends();
     this.getNamesFriends();
   }
 
-  loadFriends(){
-      const list_friends = this.rdf.getFriends();
-      if (list_friends) {
-          console.log(list_friends);
-          let i = 0;
-          this.amigos = list_friends;
+  loadFriends() {
+      if(!this.auth.getOldFriends()){
+          const list_friends = this.rdf.getFriends();
+          this.auth.saveFriends(this.rdf.getFriends());
+
+          if (list_friends) {
+              console.log(list_friends);
+              let i = 0;
+              this.amigos = list_friends;
+          }
+
+      }
+      else{
+
+          const list_friends = this.auth.getOldFriends();
+
+          if (list_friends) {
+              console.log(list_friends);
+              let i = 0;
+              this.amigos = list_friends;
+          }
       }
   }
   getNamesFriends(){
@@ -54,6 +70,9 @@ export class ChatComponent implements OnInit {
   messages : Array<String> = new Array();
   
   @ViewChild('chatbox') chatbox:ElementRef;
+
+  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2,private toastr: ToastrService, private auth:AuthService) {
+  }
  
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
@@ -78,7 +97,8 @@ export class ChatComponent implements OnInit {
 
 
  getUsername(): string {
-    let id = this.rdf.session.webId;
+
+    let id = this.auth.getOldWebId()
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
@@ -90,6 +110,7 @@ export class ChatComponent implements OnInit {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
+        this.toastr.info("You have a new message from "+ message.authorId);
       }
     });
   }
