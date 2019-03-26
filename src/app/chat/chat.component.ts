@@ -9,7 +9,7 @@ import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
 import { SolidProfile } from '../models/solid-profile.model';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat',
@@ -18,14 +18,15 @@ import { SolidProfile } from '../models/solid-profile.model';
 })
 export class ChatComponent implements OnInit {
   amigos = [];
+  amigosPhoto = [];
   namesFriends=[];
+  photoFriends=[];
+  mapFriends = new Map<String,String>();
   profileImage: string;
   profile: SolidProfile;
-  loadingProfile: Boolean;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router) {
-  }
+    private router: Router,public _DomSanitizationService: DomSanitizer ) {}
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
@@ -33,16 +34,52 @@ export class ChatComponent implements OnInit {
     this.loadProfile();
     this.loadFriends();
     this.getNamesFriends();
+    this.getPhotoFriends();
   }
 
   loadFriends(){
       const list_friends = this.rdf.getFriends();
       if (list_friends) {
-          console.log(list_friends);
-          let i = 0;
           this.amigos = list_friends;
       }
   }
+  
+  async getPhotoFriends(){
+    try {
+      let i = 0;
+      let profileImage;
+      for(i = 0; i < this.amigos.length; i++){
+        const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
+        if (profile) {
+          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
+        }
+        else{
+          profileImage = '/assets/images/profile.png';
+        }
+        let transform = profileImage.toString();
+        if(transform.match('>')){
+          transform = transform.replace('>','');
+        }
+        if(transform.match('<')){
+          transform = transform.replace('<','');
+        }
+        let a;
+        for(a = 0; a < this.namesFriends.length; a++){
+          console.log("key: " + this.namesFriends[a] +" - VALUE: " + transform);
+          if(transform.match(this.namesFriends[a])){
+            this.mapFriends.set(this.namesFriends[a],transform);
+          }
+          else{
+            this.mapFriends.set(this.namesFriends[a],'/assets/images/profile.png');
+          }
+        }
+        this.photoFriends.push(transform);
+      }
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
   getNamesFriends(){
     let i = 0;
     for(i = 0; i < this.amigos.length; i++){
@@ -77,7 +114,6 @@ export class ChatComponent implements OnInit {
       this.send();
     }
   }
-
 
  getUsername(): string {
     let id = this.rdf.session.webId;
@@ -114,7 +150,6 @@ export class ChatComponent implements OnInit {
       else{
         this.profileImage = '/assets/images/profile.png';
       }
-      this.loadingProfile = false;
     } catch (error) {
       console.log(`Error: ${error}`);
     }

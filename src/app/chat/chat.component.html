@@ -14,10 +14,12 @@
             <div id="contacts"> 
             <p class= "friendText">Contacts</p>
                 <ul>
-                    <div *ngFor="let item of namesFriends">
+                    <div *ngFor="let entry of mapFriends | keyvalue:descOrder ">
                         <li class="contact">
                             <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" /> {{item}}
+                                
+                                    <img src={{entry.value}} alt="" /> {{entry.key}}
+                               
                             </div>
                         </li>
                     </div>
