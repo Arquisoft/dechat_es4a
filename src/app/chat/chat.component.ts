@@ -9,6 +9,8 @@ import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
 import { SolidProfile } from '../models/solid-profile.model';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-chat',
@@ -23,21 +25,34 @@ export class ChatComponent implements OnInit {
   mapFriends = new Map<String,String>();
   profileImage: string;
   profile: SolidProfile;
+  friendActive:string;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router) {}
+    private router: Router,private toastr: ToastrService) {
+  }
   
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
-    this.loadMessages();
     this.loadProfile();
     this.loadFriends();
   }
 
-  loadFriends(){
-      const list_friends = this.rdf.getFriends();
-      if (list_friends) {
-          this.amigos = list_friends;
+  loadFriends() {
+      if(!this.auth.getOldFriends()){
+          const list_friends = this.rdf.getFriends();
+          this.auth.saveFriends(this.rdf.getFriends());
+          if (list_friends) {
+              console.log(list_friends);
+              let i = 0;
+              this.amigos = list_friends;
+          }
+      }
+      else{
+          const list_friends = this.auth.getOldFriends();
+          if (list_friends) {
+              console.log(list_friends);
+              let i = 0;
+              this.amigos = list_friends;
+          }
       }
       this.getNamesFriends();
       this.getPhotoFriends();
@@ -85,7 +100,7 @@ export class ChatComponent implements OnInit {
   messages : Array<String> = new Array();
   
   @ViewChild('chatbox') chatbox:ElementRef;
- 
+
   createInboxChat(submitterWebId:string,destinataryWebId:string): any {
    this.chat.createInboxChat(submitterWebId,destinataryWebId);
   }
@@ -107,7 +122,7 @@ export class ChatComponent implements OnInit {
   }
 
  getUsername(): string {
-    let id = this.rdf.session.webId;
+    let id = this.auth.getOldWebId()
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
@@ -119,6 +134,7 @@ export class ChatComponent implements OnInit {
       if(message.content && message.content.length > 0){
         this.messages.push(message.authorId + ': ' + message.content);
         console.log(message.content);
+        this.toastr.info("You have a new message from "+ message.authorId);
       }
     });
   }
@@ -146,9 +162,18 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  changeChat(){
-    console.log("CLIIIIICK");
+  changeChat(name:string){
+    //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.friendActive = name;
+    this.chat.createInboxChat(this.auth.getOldWebId(),"https://" + name + ".solid.community/profile/card#me");
+    this.loadMessages();
   }
+
+  getFriendActive(){
+    //devuelve el amigo del chat que se esta mostrando en pantalla
+    return this.friendActive;
+  }
+
 
 }
 
