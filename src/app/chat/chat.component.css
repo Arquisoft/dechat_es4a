@@ -22,10 +22,6 @@ body {
     margin: 0;
 }
 
-input {
-    font: 12px arial;
-}
-
 a {
     color: #0000FF;
     text-decoration: none;
@@ -184,7 +180,7 @@ ul {
   #frame #content {
     float: right;
     width: 60%;
-    height: 90%;
+    height: 95%;
     overflow: hidden;
     position: relative;
   }
@@ -221,8 +217,8 @@ ul {
   /*Messages*/
   #frame #content .messages {
     height: auto;
-    min-height: calc(100% - 93px);
-    max-height: calc(100% - 93px);
+    min-height: calc(100% - 115px); 
+    max-height: calc(100% - 115px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -283,54 +279,61 @@ ul {
   }
 
   /*SendBox*/
-#frame .content .message-input {
+#frame #content .message-input {
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 99;
 }
-#frame .content .message-input .wrap {
+
+input[type=text], select {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 11px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#frame #content .message-input .wrap {
     position: relative;
 }
-#frame .content .message-input .wrap input:focus {
+#frame #content .message-input .wrap input:focus {
   outline: none;
 }
-#frame .content .message-input .wrap .attachment {
+#frame #content .message-input .wrap .attachment {
   position: absolute;
-  right: 60px;
+  right: 120px;
   z-index: 4;
-  margin-top: 10px;
-  font-size: 1.1em;
+  bottom: 26px;
+  font-size: 1.5em;
   color: #435f7a;
   opacity: .5;
   cursor: pointer;
 }
 @media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap .attachment {
+  #frame #content .message-input .wrap .attachment {
     margin-top: 17px;
     right: 65px;
   }
 }
-#frame .content .message-input .wrap .attachment:hover {
+#frame #content .message-input .wrap .attachment:hover {
   opacity: 1;
 }
-#frame .content .message-input .wrap button {
-  float: right;
+#frame #content .message-input .wrap button {
   border: none;
   width: 50px;
-  padding: 12px 0;
+  padding: 12px 0px;
+  margin: 15px 10px 5px 50px;
   cursor: pointer;
   background: #32465a;
   color: #f5f5f5;
 }
-@media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap button {
-    padding: 16px 0;
-  }
-}
-#frame .content .message-input .wrap button:hover {
+
+#frame #content .message-input .wrap button:hover {
   background: #435f7a;
 }
-#frame .content .message-input .wrap button:focus {
+#frame #content .message-input .wrap button:focus {
   outline: none;
 }

@@ -39,13 +39,11 @@
         </div>
         <div class="message-input">
             <div class="wrap">
-                <form name="message" action="">
-                    <input id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
-                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                    <button class="chatButton" type="submit" (click)=send()>
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    </button>
-                </form>
+                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <button class="chatButton" type="submit" (click)=send()>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </div>
