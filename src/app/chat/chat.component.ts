@@ -33,8 +33,8 @@ export class ChatComponent implements OnInit {
     this.loadMessages();
     this.loadProfile();
     this.loadFriends();
-    this.getNamesFriends();
-    this.getPhotoFriends();
+    
+    
   }
 
   loadFriends(){
@@ -42,6 +42,8 @@ export class ChatComponent implements OnInit {
       if (list_friends) {
           this.amigos = list_friends;
       }
+      this.getNamesFriends();
+      this.getPhotoFriends();
   }
   
   async getPhotoFriends(){
@@ -56,24 +58,16 @@ export class ChatComponent implements OnInit {
         else{
           profileImage = '/assets/images/profile.png';
         }
-        let transform = profileImage.toString();
-        if(transform.match('>')){
-          transform = transform.replace('>','');
+        let transformIm = profileImage.toString();
+        if(transformIm.match('>')){
+          transformIm = transformIm.replace('>','');
         }
-        if(transform.match('<')){
-          transform = transform.replace('<','');
+        if(transformIm.match('<')){
+          transformIm = transformIm.replace('<','');
         }
-        let a;
-        for(a = 0; a < this.namesFriends.length; a++){
-          console.log("key: " + this.namesFriends[a] +" - VALUE: " + transform);
-          if(transform.match(this.namesFriends[a])){
-            this.mapFriends.set(this.namesFriends[a],transform);
-          }
-          else{
-            this.mapFriends.set(this.namesFriends[a],'/assets/images/profile.png');
-          }
-        }
-        this.photoFriends.push(transform);
+        let username = profile.url.replace('https://', '');
+        let user = username.split('.')[0];
+        this.mapFriends.set(user,transformIm);
       }
     } catch (error) {
       console.log(`Error: ${error}`);

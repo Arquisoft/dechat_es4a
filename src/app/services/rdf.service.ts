@@ -328,6 +328,7 @@ export class RdfService {
     try{
       await this.fetcher.load(profile);
       return{
+        url: person,
         image: this.store.any(me, VCARD('hasPhoto'))
       };
     } 
