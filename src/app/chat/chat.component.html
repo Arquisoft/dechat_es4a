@@ -3,18 +3,18 @@
 <body>
 <div id="frame">
     <div id="sidepanel">
-            <div id="profile">
-                    <div class="wrap">
-                        <div class="profile-image"> 
-                            <img [src]="profileImage" alt=""/>
-                        </div>
-                        {{getUsername()}}
-                    </div>
+        <div id="profile">
+            <div class="wrap">
+                <div class="profile-image"> 
+                    <img [src]="profileImage" alt=""/>
                 </div>
-            <div id="contacts"> 
+                {{getUsername()}}
+            </div>
+        </div>
+        <div id="contacts"> 
             <p class= "friendText">Contacts</p>
                 <ul>
-                    <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key)">
+                    <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
                         <li class="contact">
                             <div class="wrap">
                                 <img src={{entry.value}} alt="" /> {{entry.key}}
@@ -22,11 +22,11 @@
                         </li>
                     </div>
                 </ul>
-            </div>
+        </div>
     </div>
     <div id="content">
         <div class="contact-profile">
-            <p>{{getFriendActive()}}</p>
+            <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
         </div>
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             <ul>

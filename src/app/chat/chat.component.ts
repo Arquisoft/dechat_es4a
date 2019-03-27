@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   profileImage: string;
   profile: SolidProfile;
   friendActive:string;
+  friendPhotoActive:string;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
     private router: Router,private toastr: ToastrService) {
@@ -162,9 +163,10 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  changeChat(name:string){
+  changeChat(name:string,photo:string){
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
     this.friendActive = name;
+    this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(),"https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
   }
@@ -172,6 +174,10 @@ export class ChatComponent implements OnInit {
   getFriendActive(){
     //devuelve el amigo del chat que se esta mostrando en pantalla
     return this.friendActive;
+  }
+  getFriendPhotoActive(){
+    //devuelve la foto del amigo del chat que se esta mostrando en pantalla
+    return this.friendPhotoActive;
   }
 
 
