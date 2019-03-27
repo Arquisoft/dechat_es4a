@@ -6,10 +6,9 @@ import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
-import { getLocaleDateFormat } from '@angular/common';
-import * as fileClient from 'solid-file-client';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
+import { SolidChatUser } from '../models/solid-chat-user.model';
 
 
 @Component({
@@ -19,14 +18,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChatComponent implements OnInit {
   amigos = [];
-  amigosPhoto = [];
   namesFriends=[];
-  photoFriends=[];
   mapFriends = new Map<String,String>();
   profileImage: string;
   profile: SolidProfile;
   friendActive:string;
   friendPhotoActive:string;
+  chatUsers=[]; //contiene lista de chat users
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
     private router: Router,private toastr: ToastrService) {
@@ -81,6 +79,8 @@ export class ChatComponent implements OnInit {
         let username = profile.url.replace('https://', '');
         let user = username.split('.')[0];
         this.mapFriends.set(user,transformIm);
+        let chatuser = new SolidChatUser(profile.url,user,transformIm);
+        this.chatUsers.push(chatuser);
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -110,10 +110,21 @@ export class ChatComponent implements OnInit {
     var content = (<HTMLInputElement>document.getElementById("message")).value;
     let user = this.getUsername();
     let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content)
+    let message = new SolidMessage(user, content);
     this.chat.postMessage(message, url, user);
     (<HTMLInputElement>document.getElementById("message")).value = "";
     this.messages.push(message.authorId + ': ' + message.content);
+  }
+
+  private async loadMessages(){
+    var chat = await this.chat.loadMessages(this.getUsername());
+    chat.messages.forEach(message => {
+      if(message.content && message.content.length > 0){
+        this.messages.push(message.authorId + ': ' + message.content);
+        console.log(message.content);
+        this.toastr.info("You have a new message from "+ message.authorId);
+      }
+    });
   }
 
   handleSubmit(event) {
@@ -127,17 +138,6 @@ export class ChatComponent implements OnInit {
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
-  }
-
-  private async loadMessages(){
-    var chat = await this.chat.loadMessages(this.getUsername());
-    chat.messages.forEach(message => {
-      if(message.content && message.content.length > 0){
-        this.messages.push(message.authorId + ': ' + message.content);
-        console.log(message.content);
-        this.toastr.info("You have a new message from "+ message.authorId);
-      }
-    });
   }
   
   logout() {
