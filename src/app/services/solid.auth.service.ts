@@ -87,6 +87,7 @@ export class AuthService {
   }
 
   getOldWebId = () => {
+    //console.log("JSON.parse(localStorage.getItem('oldWebId')): " + JSON.parse(localStorage.getItem('oldWebId')));
     return JSON.parse(localStorage.getItem('oldWebId'));
   }
 

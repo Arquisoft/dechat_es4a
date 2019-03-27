@@ -98,8 +98,4 @@ export class CardComponent implements OnInit {
   goToChat() {
     this.router.navigateByUrl('/chat');
   }
-  
-  drop(){
-	console.log("holaaaa");
-  }
 }

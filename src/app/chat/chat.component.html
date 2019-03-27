@@ -3,37 +3,32 @@
 <body>
 <div id="frame">
     <div id="sidepanel">
-            <div id="profile">
-                    <div class="wrap">
-                        <span class="contact-status online"></span>
-                        <img [src]="profileImage" alt=""/>
-                        {{getUsername()}}
-                    </div>
+        <div id="profile">
+            <div class="wrap">
+                <div class="profile-image"> 
+                    <img [src]="profileImage" alt=""/>
                 </div>
-            <div id="contacts"> 
-            <p class= "friendText">Friends List</p>
+                {{getUsername()}}
+            </div>
+        </div>
+        <div id="contacts"> 
+            <p class= "friendText">Contacts</p>
                 <ul>
-                    <div *ngFor="let item of namesFriends">
+                    <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
                         <li class="contact">
-                            <td id = "row">
                             <div class="wrap">
-                                <span class="contact-status online"></span>
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">{{item}}</p>
-                                </div>
+                                <img src={{entry.value}} alt="" /> {{entry.key}}
                             </div>
-                            </td>
                         </li>
                     </div>
                 </ul>
-            </div>
+        </div>
     </div>
     <div id="content">
         <div class="contact-profile">
-            <p>Harvey Specter</p>
+            <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
         </div>
-        <div class="messages">
+        <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             <ul>
                 <div *ngFor="let string of messages">
                     <li class="replies">
@@ -44,13 +39,11 @@
         </div>
         <div class="message-input">
             <div class="wrap">
-                <form name="message" action="">
-                    <input id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
-                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                    <button class="chatButton" type="submit" (click)=send()>
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    </button>
-                </form>
+                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <button class="chatButton" type="submit" (click)=send()>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </div>

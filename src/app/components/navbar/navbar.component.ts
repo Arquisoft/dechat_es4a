@@ -16,12 +16,15 @@ export class NavbarComponent implements OnInit {
   }
 
   getUsername(): string {
-
-    let id = this.rdf.session.webId;
-    let username = id.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
-
+    try{
+      var id = this.rdf.session.webId;
+      let username = id.replace('https://', '');
+      let user = username.split('.')[0];
+      return user;
+    }
+    catch(error){
+      console.log(`Error webId: ${error}`);
+    }
   }
 
   goToChat() {
