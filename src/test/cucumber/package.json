@@ -1,5 +1,5 @@
 {
-  "name": "hellocucumber",
+  "name": "cucumber",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,6 @@
   "devDependencies": {
     "cucumber": "^5.1.0"
   },
+  "dependencies": {},
   "description": ""
 }
