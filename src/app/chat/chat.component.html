@@ -15,7 +15,7 @@
             <p class= "friendText">Contacts</p>
                 <ul>
                     <div *ngFor="let entry of mapFriends | keyvalue:descOrder ">
-                        <li class="contact">
+                        <li class="contact" (click)="changeChat()">
                             <div class="wrap">
                                 <img src={{entry.value}} alt="" /> {{entry.key}}
                             </div>

@@ -33,8 +33,6 @@ export class ChatComponent implements OnInit {
     this.loadMessages();
     this.loadProfile();
     this.loadFriends();
-    
-    
   }
 
   loadFriends(){
@@ -147,6 +145,10 @@ export class ChatComponent implements OnInit {
     } catch (error) {
       console.log(`Error: ${error}`);
     }
+  }
+
+  changeChat(){
+    console.log("CLIIIIICK");
   }
 
 }

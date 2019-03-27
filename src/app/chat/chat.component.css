@@ -120,7 +120,7 @@ ul {
 
 /*Contact*/
   #frame #sidepanel #contacts {
-    height: calc(100% - 177px);
+    height: calc(100% - 150px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #405468;
@@ -147,14 +147,18 @@ ul {
     background-color: #243140;
   }
 
+  #frame #sidepanel #contacts .friendText{
+    margin-bottom: px;
+  }
+
   #frame #sidepanel #contacts li.contact {
     position: relative;
     padding: 10px 50px 6px 90px;
     font-size: 0.9em;
     cursor: pointer;
   }
- 
-  #frame #sidepanel #contacts li.contact:hover {
+
+  #frame #sidepanel #contacts li.contact:active {
     background: #32465a;
   }
 
