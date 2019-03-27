@@ -9,7 +9,6 @@ import { SolidMessage } from '../models/solid-message.model';
 import { getLocaleDateFormat } from '@angular/common';
 import * as fileClient from 'solid-file-client';
 import { SolidProfile } from '../models/solid-profile.model';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat',
@@ -26,7 +25,7 @@ export class ChatComponent implements OnInit {
   profile: SolidProfile;
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router,public _DomSanitizationService: DomSanitizer ) {}
+    private router: Router) {}
   
   ngOnInit(): void {
     this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
