@@ -5,7 +5,7 @@ Feature: Are you able to send a message to a colleague?
   Scenario Outline: Could the user send a message to a colleague
 	Given I am chatting
     When I send a message "<message>"
-    Then My friend gets a message "<message>" from me
+    Then My partner receives a message "<message>" from me
 	
   Examples:
     | Hi | Hi |

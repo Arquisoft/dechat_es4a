@@ -11,7 +11,7 @@ When('I send a message {string}', function(message) {
 	this.mensaje = message;
 });
 
-Then('My friend gets a message {string} from me', function(message) {
+Then('My partner receives a message "<message>" from me', function(message) {
 	if (this.chatting) {
 		assert.equal(this.mensaje, message); 
 	}
