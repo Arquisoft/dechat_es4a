@@ -1,0 +1,15 @@
+
+Feature: Are you able to send a message to a colleague?
+ We want to send a message to a colleague in the chat
+
+  Scenario Outline: Could the user send a message to a colleague
+	Given I am chatting
+    When I send a message "<message>"
+    Then My friend gets a message "<message>" from me
+	
+  Examples:
+    | Hi | Hi |
+    | Hello | Bye |
+	| How are you | How are you |
+	| Equal | Something else |
+	
