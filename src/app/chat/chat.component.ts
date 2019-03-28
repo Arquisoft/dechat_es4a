@@ -182,6 +182,13 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
+  changeBackground(){
+    console.log("CAMBIAR BACKGROUND");
+  }
+
+  changeColorAppearance(){
+    console.log("CAMBIAR COLOR");
+  }
 
 }
 
