@@ -222,6 +222,17 @@ ul {
     font-size: 16px;
   }
 
+  #frame #content .contact-profile .profile-option label{
+    color: #0b3153;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #frame #content .contact-profile .profile-option input[type="file"] {
+    display: none;
+  }
+
   /*Messages*/
   #frame #content .messages {
     height: auto;

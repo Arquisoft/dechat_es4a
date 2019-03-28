@@ -9,6 +9,7 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -27,14 +28,13 @@ export class ChatComponent implements OnInit {
   chatUsers=[]; //contiene lista de chat users
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router,private toastr: ToastrService) {
+    private router: Router, private toastr: ToastrService, private http: HttpClient) {
   }
   
   ngOnInit(): void {
     this.loadProfile();
     this.loadFriends();
   }
-
 
   loadFriends() {
       if(!this.auth.getOldFriends()){
@@ -183,8 +183,12 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
-  changeBackground(){
+  changeBackground(event){
     console.log("CAMBIAR BACKGROUND");
+    const fd = new FormData();
+    const img = event.target.files[0];
+    fd.append('image', img);
+    //this.http.post('/assets/images/background/',fd).subscribe(response => console.log("Upload ok"));
   }
 
   changeColorAppearance(){
@@ -199,8 +203,18 @@ export class ChatComponent implements OnInit {
     else{
       return;
     }
-    
   }
+
+  /*postMethod(files: FileList) {
+    this.fileToUpload = files.item(0); 
+    let formData = new FormData(); 
+    formData.append('file', this.fileToUpload, this.fileToUpload.name); 
+    this.http.post("Your end-point URL", formData).subscribe((val) => {
+    
+    console.log(val);
+    });
+    return false; 
+  }*/
 
 }
 
