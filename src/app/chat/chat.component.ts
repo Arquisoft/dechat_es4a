@@ -9,6 +9,7 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ChatComponent implements OnInit {
   chatUsers=[]; //contiene lista de chat users
   
   constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2, private auth: AuthService,
-    private router: Router,private toastr: ToastrService) {
+    private router: Router, private toastr: ToastrService, private http: HttpClient) {
   }
   
   ngOnInit(): void {
@@ -107,13 +108,15 @@ export class ChatComponent implements OnInit {
   }
 
   send() {
-    var content = (<HTMLInputElement>document.getElementById("message")).value;
-    let user = this.getUsername();
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content);
-    this.chat.postMessage(message, url, user);
-    (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ': ' + message.content);
+    if(this.friendActive){
+      var content = (<HTMLInputElement>document.getElementById("message")).value;
+      let user = this.getUsername();
+      let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
+      let message = new SolidMessage(user, content);
+      this.chat.postMessage(message, url, user);
+      (<HTMLInputElement>document.getElementById("message")).value = "";
+      this.messages.push(message.authorId + ': ' + message.content);
+    }
   }
 
   private async loadMessages(){
@@ -180,6 +183,27 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
+  changeBackground(event){
+    console.log("CAMBIAR BACKGROUND");
+    const fd = new FormData();
+    const img = event.target.files[0];
+    fd.append('image', img);
+    //this.http.post('/assets/images/background/',fd).subscribe(response => console.log("Upload ok"));
+  }
+
+  changeColorAppearance(){
+    console.log("CAMBIAR COLOR");
+  }
+
+  getStringChat():String{
+    //Imprime el mensaje si no se eligió ningún contacto para chatear
+    if(!this.friendActive){
+      return "Select contact to start chatting";
+    }
+    else{
+      return;
+    }
+  }
 
 }
 

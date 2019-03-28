@@ -15,6 +15,7 @@
             <p class= "friendText">Contacts</p>
                 <ul>
                     <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
+                        <hr>
                         <li class="contact">
                             <div class="wrap">
                                 <img src={{entry.value}} alt="" /> {{entry.key}}
@@ -27,8 +28,20 @@
     <div id="content">
         <div class="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
+            <div class="profile-option">
+                <div class="dropdown">
+                    <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <label class="dropdown-item" id="#bb"> Background
+                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg" size="60" >
+                        </label> 
+                        <a class="dropdown-item" (click)="changeColorAppearance()">Appearance</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <p>{{getStringChat()}}</p>
             <ul>
                 <div *ngFor="let string of messages">
                     <li class="replies">
