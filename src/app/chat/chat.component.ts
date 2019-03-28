@@ -35,6 +35,7 @@ export class ChatComponent implements OnInit {
     this.loadFriends();
   }
 
+
   loadFriends() {
       if(!this.auth.getOldFriends()){
           const list_friends = this.rdf.getFriends();
@@ -188,6 +189,17 @@ export class ChatComponent implements OnInit {
 
   changeColorAppearance(){
     console.log("CAMBIAR COLOR");
+  }
+
+  getStringChat():String{
+    //Imprime el mensaje si no se eligió ningún contacto para chatear
+    if(!this.friendActive){
+      return "Select contact to start chatting";
+    }
+    else{
+      return;
+    }
+    
   }
 
 }

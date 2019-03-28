@@ -15,6 +15,7 @@
             <p class= "friendText">Contacts</p>
                 <ul>
                     <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
+                        <hr>
                         <li class="contact">
                             <div class="wrap">
                                 <img src={{entry.value}} alt="" /> {{entry.key}}
@@ -38,6 +39,7 @@
             </div>
         </div>
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <p>{{getStringChat()}}</p>
             <ul>
                 <div *ngFor="let string of messages">
                     <li class="replies">
