@@ -84,3 +84,9 @@ body{
   background-color: transparent !important;
   overflow-x: hidden;
 }
+
+#toast-container > div {
+  opacity:1;
+  color:black;
+  background-color: #DA81F5;
+}
