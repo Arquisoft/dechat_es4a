@@ -27,6 +27,15 @@
     <div id="content">
         <div class="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
+            <div class="profile-option">
+                <div class="dropdown">
+                    <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Background</a>
+                        <a class="dropdown-item" href="#">Appearance</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             <ul>
