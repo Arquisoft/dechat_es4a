@@ -107,13 +107,15 @@ export class ChatComponent implements OnInit {
   }
 
   send() {
-    var content = (<HTMLInputElement>document.getElementById("message")).value;
-    let user = this.getUsername();
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content);
-    this.chat.postMessage(message, url, user);
-    (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ': ' + message.content);
+    if(this.friendActive){
+      var content = (<HTMLInputElement>document.getElementById("message")).value;
+      let user = this.getUsername();
+      let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
+      let message = new SolidMessage(user, content);
+      this.chat.postMessage(message, url, user);
+      (<HTMLInputElement>document.getElementById("message")).value = "";
+      this.messages.push(message.authorId + ': ' + message.content);
+    }
   }
 
   private async loadMessages(){
