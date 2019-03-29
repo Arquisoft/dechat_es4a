@@ -33,10 +33,9 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId, "https://albertong.solid.community/profile/card#me");
-    this.loadMessages();
     this.loadProfile();
     this.loadFriends();
+    this.refreshMessages();
   }
 
   loadFriends() {
@@ -107,14 +106,11 @@ export class ChatComponent implements OnInit {
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
-  // constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2) {}
-
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
   send() {
-
     if (this.friendActive) {
       var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
@@ -126,18 +122,35 @@ export class ChatComponent implements OnInit {
       }
     }
   }
+
   private async loadMessages() {
     var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
-        this.messages.push(message.authorId + ': ' + message.content);
-        console.log(message.content);
-        this.toastr.info("You have a new message from " + message.authorId);
+        if(!this.checkExistingMessage(message.authorId + ': ' + message.content)){
+          this.messages.push(message.authorId + ': ' + message.content);
+          console.log(message.content);
+          this.toastr.info("You have a new message from " + message.authorId);
+        }
       }
     });
   }
 
+  refreshMessages(){
+    setInterval(() => {
+      this.loadMessages();
+    }, 1000); 
+  }
 
+  checkExistingMessage(m:string){
+    let i;
+    for(i = 0; i < this.messages.length; i++){
+      if(m == this.messages[i]){
+        return true;
+      }
+    }
+    return false;
+  }
 
   handleSubmit(event) {
     if (event.keyCode === 13) {
@@ -145,8 +158,8 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getUsername(): string {
-    let id = this.auth.getOldWebId()
+ getUsername(): string {
+    let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
