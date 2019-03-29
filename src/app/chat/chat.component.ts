@@ -137,7 +137,7 @@ export class ChatComponent implements OnInit {
   }
 
  getUsername(): string {
-    let id = this.auth.getOldWebId()
+    let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
