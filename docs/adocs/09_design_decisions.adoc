@@ -1,0 +1,25 @@
+[[section-design-decisions]]
+== Design Decisions
+
+The main and actual decisions are further explained at the fourth
+section of this document : link:04_solution_strategy.adoc[Solution
+Strategy] but an index of these is:
+
+[upperroman]
+. Architecture and desing decisions
+[upperroman]
+.. MVC
+.. Modular Desing by Solid
+. Programing languages
+[upperroman]
+.. Angular [TypeScript]
+. Technologies
+[upperroman]
+.. WebStorm by Jetbrains
+.. Github
+. Methodologies
+[upperroman]
+.. Scrum
+. Testing
+[upperroman]
+.. Selenium (Still being decided)
