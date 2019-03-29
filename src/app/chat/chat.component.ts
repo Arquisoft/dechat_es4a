@@ -137,9 +137,12 @@ export class ChatComponent implements OnInit {
   }
 
   refreshMessages(){
-    setInterval(() => {
-      this.loadMessages();
-    }, 1000); 
+    try{
+      setInterval(() => {
+        this.loadMessages();
+      }, 1000); 
+    }catch(error){}
+
   }
 
   checkExistingMessage(m:string){
