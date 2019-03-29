@@ -28,11 +28,15 @@
               "node_modules/purecss/build/grids-core-min.css",
               "node_modules/purecss/build/grids-min.css",
               "node_modules/purecss/build/grids-responsive-min.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
-              "src/assets/js/libs/rdflib.min.js"
+              "src/assets/js/libs/rdflib.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {

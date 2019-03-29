@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChatComponent } from './chat/chat.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 // Services
 import { AuthService } from './services/solid.auth.service';
@@ -17,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent
+  },
+  {
+    path: 'navbar',
+    component: NavbarComponent
   }
 ];
 
@@ -61,7 +66,8 @@ const routes: Routes = [
     DashboardComponent,
     CardComponent,
     RegisterComponent,
-    ChatComponent
+    ChatComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +75,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgSelectModule,
     ToastrModule.forRoot(),
+    HttpClientModule,
     BrowserAnimationsModule //required for toastr
   ],
   providers: [AuthService],

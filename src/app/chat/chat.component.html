@@ -1,35 +1,64 @@
-<div class="chat_container">
 
-<div id="menuFriend">
-<div id = "listFriends">
-<p class= "friendText">Friends List</p>
-<div *ngFor="let item of amigos">
-	<td id = "row">
-    <a [routerLink] = "['/components/envio-chat', item.toString()]"> {{item}}</a>
-	</td>
-  </div>
-</div>
-
-</div>
-
-    <div id="wrapper">
-        <div id="menu">
-            <p class="welcome">Welcome, {{getUsername()}} <b></b></p>
-            <button class="logout" md-raised-button type="button">Exit Chat</button>
-            <div style="clear:both"></div>
+<app-navbar></app-navbar>
+<body>
+<div id="frame">
+    <div id="sidepanel">
+        <div id="profile">
+            <div class="wrap">
+                <div class="profile-image"> 
+                    <img [src]="profileImage" alt=""/>
+                </div>
+                {{getUsername()}}
+            </div>
         </div>
-
-        <!-- <div id="chatbox" *ngFor="let string of messages; let i = index">-->
-        <div class="container" *ngFor="let string of messages; let i = index">{{string}}</div>
-        <!--</div>-->
-
-        <form name="message" action="">
-            <input id="message" class="usermsg" (keydown)="handleSubmit($event)" size="63" />
-
-            <button class="chatButton" type="submit" (click)=send()>Send</button>
-        </form>
+        <div id="contacts"> 
+            <p class= "friendText">Contacts</p>
+                <ul>
+                    <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
+                        <hr>
+                        <li class="contact">
+                            <div class="wrap">
+                                <img src={{entry.value}} alt="" /> {{entry.key}}
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+        </div>
     </div>
-
-    <script type="text/javascript">
-    </script>
+    <div id="content">
+        <div class="contact-profile">
+            <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
+            <div class="profile-option">
+                <div class="dropdown">
+                    <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <label class="dropdown-item" id="#bb"> Background
+                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg" size="60" >
+                        </label> 
+                        <a class="dropdown-item" (click)="changeColorAppearance()">Appearance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <p>{{getStringChat()}}</p>
+            <ul>
+                <div *ngFor="let string of messages">
+                    <li class="replies">
+                        <p>{{string}}</p>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div class="message-input">
+            <div class="wrap">
+                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <button class="chatButton" type="submit" (click)=send()>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+</body>
