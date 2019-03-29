@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgSelectModule,
     ToastrModule.forRoot(),
+    HttpClientModule,
     BrowserAnimationsModule //required for toastr
   ],
   providers: [AuthService],

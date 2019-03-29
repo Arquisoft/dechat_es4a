@@ -1,0 +1,16 @@
+{
+  "name": "dechatCucumber",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "description": "",
+  "devDependencies": {
+    "cucumber": "^5.1.0"
+  }
+}

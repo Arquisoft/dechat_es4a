@@ -3,13 +3,8 @@
 body {
     font: 12px arial;
     color: #222;
-    text-align: center;
-    padding: 35px;
-    
+    text-align: center;    
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
     font-family: "proxima-nova", "Source Sans Pro", sans-serif;
     font-size: 1em;
     letter-spacing: 0.1px;
@@ -17,13 +12,12 @@ body {
     text-rendering: optimizeLegibility;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
     -webkit-font-smoothing: antialiased;
-
     min-height: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
     margin: 0;
-}
-
-input {
-    font: 12px arial;
+    overflow: auto;
 }
 
 a {
@@ -36,8 +30,9 @@ a:hover {
 }
 
 p {
-    margin: 0;
-    padding: 0;
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
     margin-top: 0.6em; 
     margin-bottom: 0em;
 }
@@ -58,17 +53,14 @@ form{
 
 ul {
     list-style-type: none;
+    padding: 0;
 }
 
 
 /*****************CHAT******************/
 #frame {
-    width: 95%;
-    min-width: 360px;
-    max-width: 1000px;
-    height: 92vh;
-    min-height: 300px;
-    max-height: 520px;
+    width: 100%;
+    height: 91.5vh;
     background: #E6EAEA;
     min-height: 100px;
     overflow: hidden;
@@ -111,20 +103,19 @@ ul {
     }
   }
 
-  #frame #sidepanel #profile .wrap img {
+  #frame #sidepanel #profile .wrap .profile-image img {
     width: 40px;
     border-radius: 50%;
-    float: left;
-    margin-right: 10px;
+    align: center;
   }
-
 
 /*Contact*/
   #frame #sidepanel #contacts {
-    height: calc(100% - 177px);
+    height: calc(100% - 150px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #405468;
+    margin-left: 8px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
@@ -146,25 +137,23 @@ ul {
   #frame #sidepanel #contacts::-webkit-scrollbar-thumb {
     background-color: #243140;
   }
-  #frame #sidepanel #contacts ul li.contact {
+
+  #frame #sidepanel #contacts li.contact {
     position: relative;
-    padding: 10px 0 15px 0;
+    padding: 10px 50px 6px 90px;
     font-size: 0.9em;
     cursor: pointer;
   }
-  @media screen and (max-width: 735px) {
-    #frame #sidepanel #contacts ul li.contact {
-      padding: 6px 0 46px 8px;
-    }
-  }
-  #frame #sidepanel #contacts ul li.contact:hover {
+
+  #frame #sidepanel #contacts li.contact:active {
     background: #32465a;
   }
 
   #frame #sidepanel #contacts ul li.contact .wrap {
-    width: 88%;
+    width: 90%;
     margin: 0 auto;
     position: relative;
+    left: -100px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap {
@@ -172,10 +161,9 @@ ul {
     }
   }
   #frame #sidepanel #contacts ul li.contact .wrap img {
-    width: 40px;
+    width: 65px;
+    height: 60px;
     border-radius: 50%;
-    float: left;
-    margin-right: 10px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap img {
@@ -187,42 +175,69 @@ ul {
   #frame #content {
     float: right;
     width: 60%;
-    height: 90%;
+    height: 100%;
     overflow: hidden;
     position: relative;
   }
-  @media screen and (max-width: 735px) {
-    #frame #content {
-      width: calc(100% - 58px);
-      min-width: 300px !important;
-    }
-  }
+
   @media screen and (min-width: 900px) {
     #frame #content {
       width: calc(100% - 340px);
     }
   }
+
   #frame #content .contact-profile {
     width: 100%;
     height: 60px;
     line-height: 60px;
     background: #f5f5f5;
   }
+  #frame #content .contact-profile a{
+    font-size: 25px;
+    float: left;
+    margin: 0px 12px 0 0px;
+  }
   #frame #content .contact-profile img {
     width: 40px;
     border-radius: 50%;
     float: left;
-    margin: 9px 12px 0 9px;
+    margin: 10px 12px 0 30px;
   }
-  #frame #content .contact-profile p {
-    float: left;
+  
+  #frame #content .contact-profile .profile-option{
+    float: right;
+    border: none;
+    width: 50px;
+    margin-right: 20px;
+    margin-left: 14px;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #435f7a;
+  }
+
+  #frame #content .contact-profile .profile-option a{
+    color: #0b3153;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+  }
+
+  #frame #content .contact-profile .profile-option label{
+    color: #0b3153;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #frame #content .contact-profile .profile-option input[type="file"] {
+    display: none;
   }
 
   /*Messages*/
   #frame #content .messages {
     height: auto;
-    min-height: calc(100% - 93px);
-    max-height: calc(100% - 93px);
+    min-height: calc(100% - 130px); 
+    max-height: calc(100% - 130px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -230,6 +245,12 @@ ul {
     #frame #content .messages {
       max-height: calc(100% - 105px);
     }
+  }
+  #frame #content .messages p1{
+    font-size: 40px;
+    text-align: center;    
+    margin: 0;
+    justify-content: center;
   }
   #frame #content .messages::-webkit-scrollbar {
     width: 8px;
@@ -283,54 +304,58 @@ ul {
   }
 
   /*SendBox*/
-#frame .content .message-input {
+#frame #content .message-input {
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 99;
+    background: #f5f5f5;
 }
-#frame .content .message-input .wrap {
+
+input[type=text], select {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 11px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#frame #content .message-input .wrap {
     position: relative;
+    align: center;
 }
-#frame .content .message-input .wrap input:focus {
+#frame #content .message-input .wrap input:focus {
   outline: none;
 }
-#frame .content .message-input .wrap .attachment {
-  position: absolute;
-  right: 60px;
-  z-index: 4;
-  margin-top: 10px;
-  font-size: 1.1em;
-  color: #435f7a;
+#frame #content .message-input .wrap .attachment {
+  border: none;
   opacity: .5;
+  width: 50px;
+  margin: 15px 10px 5px 10px;
   cursor: pointer;
+  font-size: 1.5em;
+  color: #435f7a;
 }
-@media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap .attachment {
-    margin-top: 17px;
-    right: 65px;
-  }
-}
-#frame .content .message-input .wrap .attachment:hover {
+
+#frame #content .message-input .wrap .attachment:hover {
   opacity: 1;
 }
-#frame .content .message-input .wrap button {
-  float: right;
+
+#frame #content .message-input .wrap button {
   border: none;
   width: 50px;
-  padding: 12px 0;
+  padding: 12px 0px;
+  margin: 15px 10px 5px 5px;
   cursor: pointer;
   background: #32465a;
   color: #f5f5f5;
 }
-@media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap button {
-    padding: 16px 0;
-  }
-}
-#frame .content .message-input .wrap button:hover {
+
+#frame #content .message-input .wrap button:hover {
   background: #435f7a;
 }
-#frame .content .message-input .wrap button:focus {
+#frame #content .message-input .wrap button:focus {
   outline: none;
 }
