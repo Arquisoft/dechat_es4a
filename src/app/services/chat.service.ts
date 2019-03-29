@@ -133,10 +133,16 @@ export class ChatService implements OnInit {
       var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
       console.log(chatcontent3);
       console.log("---------------------------------------------------------");
-
-      const msgnb = Math.floor(Math.random() * 10000000000000);
-      console.log("numero de mensaje: " + msgnb);
       const d = new Date();
+      //const msgnb = Math.floor(Math.random() * 10000000000000);
+
+      //const msgnb = d.getFullYear().toString() + d.getDay + d.getHours + d.getMilliseconds + 0
+      const msgnb = Math.floor(Math.random() * 10000000000000);
+
+
+
+      console.log("numero de mensaje: " + msgnb);
+
       const message = chatcontent1 + `
         :Msg${msgnb}
             terms:created "${d.toISOString()}"^^XML:dateTime;
