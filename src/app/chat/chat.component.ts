@@ -33,8 +33,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId, "https://albertong.solid.community/profile/card#me");
-    this.loadMessages();
     this.loadProfile();
     this.loadFriends();
   }
@@ -106,8 +104,6 @@ export class ChatComponent implements OnInit {
   messages: Array<String> = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
-
-  // constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2) {}
 
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
