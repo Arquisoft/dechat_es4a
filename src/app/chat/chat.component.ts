@@ -118,7 +118,7 @@ export class ChatComponent implements OnInit {
         let message = new SolidMessage(user, content)
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
-        this.messages.push(message.authorId + ':' + message.content);
+        this.messages.push(message.authorId + ': ' + message.content);
 
       }
     }
@@ -230,6 +230,21 @@ export class ChatComponent implements OnInit {
     }
     else {
       return;
+    }
+  }
+
+  isContactMessage(m:string){
+    let i;
+    let user = this.getUsername() + ':';
+    for (i=0;i<m.length;i++){
+      var words = m[i].split(" ");
+      console.log("AAAAAAAAAAAAAAAAAAAAAA: " + m);
+      if(words[0].match(user)){
+        return false;
+      }
+      else{
+        return true;
+      }
     }
   }
 

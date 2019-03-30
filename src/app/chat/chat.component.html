@@ -44,9 +44,16 @@
             <p>{{getStringChat()}}</p>
             <ul>
                 <div *ngFor="let string of messages">
-                    <li class="replies">
-                        <p>{{string}}</p>
-                    </li>
+                    <div *ngIf="isContactMessage(string)">
+                        <li class="replies">
+                            <p>{{string}}</p>
+                        </li>
+                    </div>
+                    <div *ngIf="!isContactMessage(string)">
+                        <li class="replies">
+                            <p>{{string}}</p>
+                        </li>
+                    </div>
                 </div>
             </ul>
         </div>

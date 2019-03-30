@@ -25,10 +25,7 @@ export class ChatService implements OnInit {
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
-  ngOnInit() {
-
-
-  }
+  ngOnInit() {}
 
   getUserProfile(webid): SolidProfile {
     var profile: SolidProfile;
@@ -76,7 +73,6 @@ export class ChatService implements OnInit {
                      
     `
     this.createBaseChat(this.chatuserUrl);
-
   };
 
   sendMessage(msg: string) {
@@ -92,7 +88,6 @@ export class ChatService implements OnInit {
     console.log("[Message sent] : " + msg);
   }
 
-
   private getDate() {
     const now = new Date();
 
@@ -102,7 +97,6 @@ export class ChatService implements OnInit {
 
     return date;
   }
-
 
   /**
  * 
@@ -139,8 +133,6 @@ export class ChatService implements OnInit {
       //const msgnb = d.getFullYear().toString() + d.getDay + d.getHours + d.getMilliseconds + 0
       const msgnb = Math.floor(Math.random() * 10000000000000);
 
-
-
       console.log("numero de mensaje: " + msgnb);
 
       const message = chatcontent1 + `
@@ -157,14 +149,9 @@ export class ChatService implements OnInit {
       }, (err: any) => console.log(err));
 
     }, err => this.createBaseChat(this.chatuserUrl));
-
-
   }
 
-
-
   createBaseChat(url: String) {
-
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
       console.log('Chat exists, no action needed');
@@ -180,20 +167,11 @@ export class ChatService implements OnInit {
         }, err => console.log(err)));
   }
 
-
-
-
   async loadMessages(url: String) {
-
     var chatcontent: any;
     this.chat = new SolidChat(this.userID, this.friendID, url);
 
     console.log(url);
-
-
-
-
-
 
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;
@@ -206,7 +184,6 @@ export class ChatService implements OnInit {
         this.addToChat(content, maker);
       })
     });
-
 
     console.log(this.chatfriendUrl + "index.ttl#this");
     this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
