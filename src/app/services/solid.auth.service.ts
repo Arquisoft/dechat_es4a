@@ -60,14 +60,22 @@ export class AuthService {
   */
   solidSignOut = async () => {
     try {
+
       await solid.auth.logout();
       // Remove localStorage
+      localStorage.removeItem('oldFriends');
       localStorage.removeItem('solid-auth-client');
+      localStorage.removeItem('oldWebId');
+      localStorage.clear();
       // Redirect to login page
-      this.router.navigate(['/']);
+
+
     } catch (error) {
       console.log(`Error: ${error}`);
     }
+
+      this.router.navigate(['/']);
+      localStorage.clear();
   }
 
   saveOldUserData = (profile: any) => {
