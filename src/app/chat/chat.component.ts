@@ -33,10 +33,9 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId, this.friendActive);
-    this.loadMessages();
     this.loadProfile();
     this.loadFriends();
+    this.refreshMessages();
   }
 
   loadFriends() {
@@ -103,18 +102,15 @@ export class ChatComponent implements OnInit {
 
   /** message: string = '';*/
   fileClient: any;
-  messages: Array<String> = new Array();
+  messages: Array<SolidMessage> = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
-
-  // constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2) {}
 
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
   send() {
-
     if (this.friendActive) {
       var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
@@ -122,19 +118,23 @@ export class ChatComponent implements OnInit {
         let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
-        this.messages.push(message.authorId + ':' + message.content);
+        this.messages.push(message);
+
       }
     }
   }
+
   private async loadMessages() {
     await this.chat.loadMessages(this.getChatUrl(this.auth.getOldWebId(),this.friendActive));
     await this.chat.loadMessages(this.getChatUrl(this.friendActive,this.auth.getOldWebId()));
 
     this.chat.chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
-        this.messages.push(message.authorId + ': ' + message.content);
-        console.log(message.content);
-        this.toastr.info("You have a new message from " + message.authorId);
+        if (!this.checkExistingMessage(message)) {
+          this.messages.push(message);
+          console.log(message.content);
+          this.toastr.info("You have a new message from " + message.authorId);
+        }
       }
     });
 
@@ -149,7 +149,24 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  refreshMessages() {
+    try {
+      setInterval(() => {
+        this.loadMessages();
+      }, 1000);
+    } catch (error) { }
 
+  }
+
+  checkExistingMessage(m: SolidMessage) {
+    let i;
+    for (i = 0; i < this.messages.length; i++) {
+      if (m == this.messages[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   handleSubmit(event) {
     if (event.keyCode === 13) {
@@ -189,6 +206,7 @@ export class ChatComponent implements OnInit {
 
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
