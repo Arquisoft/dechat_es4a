@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
 
   onSignOut = () => {
     this.auth.solidSignOut();
-    localStorage.removeItem('oldFriends');
   }
 
 }

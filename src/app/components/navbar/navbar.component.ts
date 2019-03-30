@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
   getUsername(): string {
     try{
-      var id = this.rdf.session.webId;
+      let id = this.rdf.session.webId;
       let username = id.replace('https://', '');
       let user = username.split('.')[0];
       return user;

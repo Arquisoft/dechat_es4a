@@ -27,12 +27,12 @@ export class CardComponent implements OnInit {
     private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
+    /*localStorage.removeItem('oldProfileData');
+    localStorage.removeItem('oldWebId');*/
     this.loadingProfile = true;
     this.loadProfile();
     // Clear cached profile data
-    // TODO: Remove this code and find a better way to get the old data
-    localStorage.removeItem('oldProfileData');
-    localStorage.removeItem('oldWebId');
+
 
     /*
     this.chat;
@@ -71,7 +71,7 @@ export class CardComponent implements OnInit {
         await this.rdf.updateProfile(this.cardForm);
 
         localStorage.setItem('oldProfileData', JSON.stringify(this.profile));
-        localStorage.setItem('oldWebId', JSON.stringify(this.rdf.session.webId));
+        //localStorage.setItem('oldWebId', JSON.stringify(this.rdf.session.webId));
        // localStorage.setItem('oldFriends', JSON.stringify(this.rdf.session));
 
       } catch (err) {
