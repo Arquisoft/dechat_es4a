@@ -79,31 +79,6 @@ export class ChatService implements OnInit {
 
   };
 
-  sendMessage(msg: string) {
-
-    var message = new SolidMessage(this.getUsername(this.userID), msg,(new Date()).toISOString());
-
-    this.chat.messages.push(message);
-
-    var str = JSON.stringify(msg);
-    var path = this.chat.webUrl + "/" + this.getDate() + ".txt";
-    this.fileClient.updateFile(path, str);
-
-    console.log("[Message sent] : " + msg);
-  }
-
-
-  private getDate() {
-    const now = new Date();
-
-    const date = now.getUTCFullYear() + '-' +
-      (now.getUTCMonth() + 1) + '-' +
-      now.getUTCDate();
-
-    return date;
-  }
-
-
   /**
  * 
  * @param msg contenido del mensaje
@@ -181,17 +156,12 @@ export class ChatService implements OnInit {
 
 
 
-  async loadMessages(url: String) {
+  async loadMessages(url: string) {
 
     var chatcontent: any;
     this.chat = new SolidChat(this.userID, this.friendID, url);
 
     console.log(url);
-
-
-
-
-
 
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;
@@ -200,36 +170,18 @@ export class ChatService implements OnInit {
 
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
-        var maker = this.getUsername(this.userID);
+        var maker = this.getUsername(url);
         this.addToChat(content, maker);
       })
     });
 
-
-    console.log(this.chatfriendUrl + "index.ttl#this");
-    this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
-      chatcontent = body;
-
-      var splitFriend = chatcontent.split(':Msg');
-      splitFriend.forEach(async string => {
-        var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
-        var maker = this.getUsername(this.friendID);
-        this.addToChat(contentFriend, maker);
-      })
-
-    });
-
-    await this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
-      console.log(`File content is : ${body}.`);
-    }, err => console.log(err));
-
-    return this.chat;
   }
 
   private addToChat(msg: string, maker: string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
+    let date = "";
     console.log(content);
-    this.chat.messages.push(new SolidMessage(maker, content,(new Date()).toISOString()));
+    this.chat.messages.push(new SolidMessage(maker, content,date));
   }
 
 
