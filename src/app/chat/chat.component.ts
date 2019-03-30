@@ -138,9 +138,12 @@ export class ChatComponent implements OnInit {
   }
 
   refreshMessages(){
-    setInterval(() => {
-      this.loadMessages();
-    }, 1000); 
+    try{
+      setInterval(() => {
+        this.loadMessages();
+      }, 1000); 
+    }catch(error){}
+
   }
 
   checkExistingMessage(m:string){
@@ -192,6 +195,7 @@ export class ChatComponent implements OnInit {
 
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
