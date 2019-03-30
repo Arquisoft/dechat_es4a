@@ -46,12 +46,14 @@
                 <div *ngFor="let string of messages">
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
-                            <p>{{string}}</p>
+                            <img [src]="profileImage" alt=""/>
+					        <p>{{string.content}}</p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
-                        <li class="replies">
-                            <p>{{string}}</p>
+                        <li class="sent">
+                            <img src={{friendPhotoActive}} alt="" />
+                            <p>{{string.content}}</p>
                         </li>
                     </div>
                 </div>

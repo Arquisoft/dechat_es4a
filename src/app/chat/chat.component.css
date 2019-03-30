@@ -267,23 +267,21 @@ ul {
     width: calc(100% - 25px);
     font-size: 0.9em;
   }
-  #frame #content .messages ul li:nth-last-child(1) {
-    margin-bottom: 20px;
-  }
   #frame #content .messages ul li.sent img {
-    float: right;
     margin: 6px 0 0 8px;
   }
   #frame #content .messages ul li.sent p {
-    background: #f5f5f5;
-    float: right;
-  }
-  #frame #content .messages ul li.replies img {
-    margin: 6px 8px 0 0;
-  }
-  #frame #content .messages ul li.replies p {
     background: #435f7a;
     color: #f5f5f5;
+    margin: 15px 15px 5px 45px;
+  }
+  #frame #content .messages ul li.replies img {
+    float: right;
+    margin: 6px 0 0 8px;
+  }
+  #frame #content .messages ul li.replies p {
+    background: #f5f5f5;
+    float: right;
   }
   #frame #content .messages ul li img {
     width: 22px;
