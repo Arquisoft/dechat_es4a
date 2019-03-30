@@ -119,6 +119,7 @@ export class ChatComponent implements OnInit {
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message.authorId + ':' + message.content);
+
       }
     }
   }
