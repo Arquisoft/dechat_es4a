@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId, "https://albertong.solid.community/profile/card#me");
+    this.chat.createInboxChat(this.rdf.session.webId, this.friendActive);
     this.loadMessages();
     this.loadProfile();
     this.loadFriends();
@@ -127,8 +127,9 @@ export class ChatComponent implements OnInit {
     }
   }
   private async loadMessages() {
-    await this.chat.loadMessages(this.getUsername(this.auth.getOldWebId()));
-    await this.chat.loadMessages(this.getUsername(this.friendActive));
+    await this.chat.loadMessages(this.getChatUrl(this.auth.getOldWebId(),this.friendActive));
+    await this.chat.loadMessages(this.getChatUrl(this.friendActive,this.auth.getOldWebId()));
+
     this.chat.chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
         this.messages.push(message.authorId + ': ' + message.content);
@@ -191,6 +192,7 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    this.messages = new Array();
     this.loadMessages();
   }
 
@@ -223,6 +225,12 @@ export class ChatComponent implements OnInit {
     else {
       return;
     }
+  }
+
+  getChatUrl(user:string, friend: string){
+      let chatUrl = "https://" + this.getUsername(user) + ".solid.community/public/Chat" + this.getUsername(friend) +"/index.ttl#this";
+
+      return chatUrl;
   }
 
 }
