@@ -128,7 +128,7 @@ export class ChatComponent implements OnInit {
     var chat = await this.chat.loadMessages(this.getUsername());
     chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
-        if(!this.checkExistingMessage(message.authorId + ': ' + message.content)){
+        if (!this.checkExistingMessage(message.authorId + ': ' + message.content)) {
           this.messages.push(message.authorId + ': ' + message.content);
           console.log(message.content);
           this.toastr.info("You have a new message from " + message.authorId);
@@ -137,19 +137,19 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  refreshMessages(){
-    try{
+  refreshMessages() {
+    try {
       setInterval(() => {
         this.loadMessages();
-      }, 1000); 
-    }catch(error){}
+      }, 1000);
+    } catch (error) { }
 
   }
 
-  checkExistingMessage(m:string){
+  checkExistingMessage(m: string) {
     let i;
-    for(i = 0; i < this.messages.length; i++){
-      if(m == this.messages[i]){
+    for (i = 0; i < this.messages.length; i++) {
+      if (m == this.messages[i]) {
         return true;
       }
     }
@@ -162,7 +162,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
- getUsername(): string {
+  getUsername(): string {
     let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
