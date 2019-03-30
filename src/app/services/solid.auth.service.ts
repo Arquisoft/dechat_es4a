@@ -60,14 +60,22 @@ export class AuthService {
   */
   solidSignOut = async () => {
     try {
+
       await solid.auth.logout();
       // Remove localStorage
+      localStorage.removeItem('oldFriends');
       localStorage.removeItem('solid-auth-client');
+      localStorage.removeItem('oldWebId');
+      localStorage.clear();
       // Redirect to login page
-      this.router.navigate(['/']);
+
+
     } catch (error) {
       console.log(`Error: ${error}`);
     }
+
+      this.router.navigate(['/']);
+      localStorage.clear();
   }
 
   saveOldUserData = (profile: any) => {
@@ -80,6 +88,26 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('oldProfileData'));
   }
 
+  saveWebId(webId: string) {
+    if (!localStorage.getItem('oldWebId')) {
+      localStorage.setItem('oldWebId', JSON.stringify(webId));
+    }
+  }
+
+  getOldWebId = () => {
+    //console.log("JSON.parse(localStorage.getItem('oldWebId')): " + JSON.parse(localStorage.getItem('oldWebId')));
+    return JSON.parse(localStorage.getItem('oldWebId'));
+  }
+
+  saveFriends(fiends : any[]) {
+    if (!localStorage.getItem('oldFriends')) {
+      localStorage.setItem('oldFriends', JSON.stringify(fiends));
+    }
+  }
+
+  getOldFriends = ( ) => {
+    return JSON.parse(localStorage.getItem('oldFriends'));
+  }
   /*
   *  Make a call to the solid auth endpoint. It requires an identity provider url, which here is coming from the dropdown, which
   *  is populated by the getIdentityProviders() function call. It currently requires a callback url and a storage option or else
@@ -123,4 +151,6 @@ export class AuthService {
       otherProvider
     ];
   }
+
+
 }

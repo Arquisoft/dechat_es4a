@@ -73,5 +73,10 @@
   line-height: 16px;
 }
 body {
-  background-color: lightblue;
+  background-image: linear-gradient(rebeccapurple, mediumpurple);
+  -webkit-background-size: cover;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
