@@ -62,9 +62,10 @@ export class AuthService {
     try {
       await solid.auth.logout();
       // Remove localStorage
+      localStorage.removeItem('oldFriends');
       localStorage.removeItem('solid-auth-client');
       localStorage.removeItem('oldWebId');
-      localStorage.removeItem('oldFriends');
+
       // Redirect to login page
       this.router.navigate(['/']);
     } catch (error) {
