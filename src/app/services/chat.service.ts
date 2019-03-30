@@ -171,15 +171,15 @@ export class ChatService implements OnInit {
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
         var maker = this.getUsername(url);
-        this.addToChat(content, maker);
+        var date = str.substring(str.indexOf("\""),str.indexOf("\"^"));
+        this.addToChat(content, maker,date);
       })
     });
 
   }
 
-  private addToChat(msg: string, maker: string) {
+  private addToChat(msg: string, maker: string,date:string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    let date = "";
     console.log(content);
     this.chat.messages.push(new SolidMessage(maker, content,date));
   }
