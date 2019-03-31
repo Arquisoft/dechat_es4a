@@ -12,6 +12,8 @@ declare let solid: any;
   providedIn: 'root',
 })
 export class ChatService implements OnInit {
+  
+
 
   fileClient: any;
 
@@ -25,9 +27,8 @@ export class ChatService implements OnInit {
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
-  ngOnInit() {
-
-
+  ngOnInit(): void {
+    
   }
 
   getUserProfile(webid): SolidProfile {
@@ -51,6 +52,7 @@ export class ChatService implements OnInit {
     var d = new Date().toISOString();
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
+    this.chat = new SolidChat(this.userID,this.friendID);
     this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
     this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
@@ -153,13 +155,20 @@ export class ChatService implements OnInit {
         }, err => console.log(err)));
   }
 
+  async loadMessages(user,friend) {
+    await this.getMessagesFromPOD(user);
+    await this.getMessagesFromPOD(friend);
 
+   
+  }
 
+  resetChat(){
+    this.chat = new SolidChat(this.userID,this.friendID);
+  }
 
-  async loadMessages(url: string) {
-
+  getMessagesFromPOD(url){
     var chatcontent: any;
-    this.chat = new SolidChat(this.userID, this.friendID, url);
+    
 
     console.log(url);
 
@@ -175,13 +184,15 @@ export class ChatService implements OnInit {
         this.addToChat(content, maker,date);
       })
     });
-
   }
 
   private addToChat(msg: string, maker: string,date:string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
     console.log(content);
-    this.chat.messages.push(new SolidMessage(maker, content,date));
+    let message = new SolidMessage(maker, content,date);
+  
+    this.chat.messages.push(message);
+
   }
 
 

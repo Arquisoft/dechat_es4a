@@ -9,7 +9,6 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -29,7 +28,7 @@ export class ChatComponent implements OnInit {
   chatUsers = []; //contiene lista de chat users
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService, private http: HttpClient) {
+    private router: Router, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -102,7 +101,7 @@ export class ChatComponent implements OnInit {
 
   /** message: string = '';*/
   fileClient: any;
-  messages: Array<SolidMessage> = new Array();
+  messages: Array<string> = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
@@ -118,23 +117,22 @@ export class ChatComponent implements OnInit {
         let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
-        this.messages.push(message);
+        this.messages.push(message.content);
 
       }
     }
   }
 
   private async loadMessages() {
-    await this.chat.loadMessages(this.getChatUrl(this.auth.getOldWebId(),this.friendActive));
-    await this.chat.loadMessages(this.getChatUrl(this.friendActive,this.auth.getOldWebId()));
+    await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
 
     this.chat.chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
-        if (!this.checkExistingMessage(message)) {
-          this.messages.push(message);
+        
+          this.messages.push(message.content);
           console.log(message.content);
           this.toastr.info("You have a new message from " + message.authorId);
-        }
+        
       }
     });
 
@@ -147,18 +145,21 @@ export class ChatComponent implements OnInit {
       else
         return 0;
     });
+
+    this.chat.resetChat();
   }
 
   refreshMessages() {
     try {
       setInterval(() => {
+        this.messages = new Array();
         this.loadMessages();
       }, 1000);
     } catch (error) { }
 
   }
 
-  checkExistingMessage(m: SolidMessage) {
+  checkExistingMessage(m: string) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
       if (m == this.messages[i]) {
@@ -210,7 +211,7 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    this.messages = new Array();
+    
     this.loadMessages();
   }
 
@@ -246,7 +247,7 @@ export class ChatComponent implements OnInit {
   }
 
   getChatUrl(user:string, friend: string){
-      let chatUrl = "https://" + this.getUsername(user) + ".solid.community/public/Chat" + this.getUsername(friend) +"/index.ttl#this";
+      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
 
       return chatUrl;
   }
