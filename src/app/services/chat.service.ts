@@ -159,7 +159,7 @@ export class ChatService implements OnInit {
     await this.getMessagesFromPOD(user);
     await this.getMessagesFromPOD(friend);
 
-   
+    return this.chat.messages;
   }
 
   resetChat(){
@@ -189,8 +189,9 @@ export class ChatService implements OnInit {
   private addToChat(msg: string, maker: string,date:string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
     console.log(content);
-    let message = new SolidMessage(maker, content,date);
-  
+    let message;
+    
+    message = new SolidMessage(maker, content,date);
     this.chat.messages.push(message);
 
   }

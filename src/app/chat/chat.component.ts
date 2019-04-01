@@ -101,7 +101,7 @@ export class ChatComponent implements OnInit {
 
   /** message: string = '';*/
   fileClient: any;
-  messages: Array<string> = new Array();
+  messages: Array<SolidMessage> = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
@@ -117,27 +117,16 @@ export class ChatComponent implements OnInit {
         let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
-        this.messages.push(message.content);
+        this.messages.push(message);
 
       }
     }
   }
 
   private async loadMessages() {
-    await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
+    this.messages = await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
 
-    this.chat.chat.messages.forEach(message => {
-      if (message.content && message.content.length > 0) {
-        
-          this.messages.push(message.content);
-          console.log(message.content);
-          this.toastr.info("You have a new message from " + message.authorId);
-        
-      }
-    });
-
-    
-    this.chat.chat.messages.sort(function(a,b) {
+    this.messages.sort(function(a,b) {
       if(a.time > b.time)
         return 1;
       if(b.time > a.time)
@@ -154,12 +143,12 @@ export class ChatComponent implements OnInit {
       setInterval(() => {
         this.messages = new Array();
         this.loadMessages();
-      }, 1000);
+      }, 3000);
     } catch (error) { }
 
   }
 
-  checkExistingMessage(m: string) {
+  checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
       if (m == this.messages[i]) {
