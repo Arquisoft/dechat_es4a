@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Howl, Howler } from 'howler';
 
 
 @Component({
@@ -135,8 +136,11 @@ export class ChatComponent implements OnInit {
           //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
           if(new Date().getTime()- new Date(message.time).getTime()<30000){
              this.toastr.info("You have a new message from " + message.authorId);
-             // var sound = new Howl({src: ['sound.mp3']});
-            //  sound.play();
+             let sound = new Howl({
+                 src: ['../assets/sounds/alert.mp3'], html5 :true
+             });
+             Howler.volume(0.1);
+             sound.play();
           }
 
         }
