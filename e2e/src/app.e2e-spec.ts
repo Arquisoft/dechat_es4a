@@ -1,14 +1,17 @@
 import { AppPage } from './app.po';
 
+
 describe('workspace-project App', () => {
-  let page: AppPage;
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to solid-app!');
-  });
+    Before(() => {
+        page = new AppPage();
+    });
+    Given(/^I am on the home page$/, async () => {
+        await page.navigateTo();
+    });
+    When(/^I do nothing$/, () => {});
+    Then(/^I should see the title$/, async () => {
+        expect(await page.getTitleText()).to.equal('Solid App');
+    });
 });

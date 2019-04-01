@@ -7,7 +7,8 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "cucumber": "./node_modules/.bin/cucumber.js ./e2e/src -r ./e2e/src"
     },
     "browser": {
         "crypto": false,
