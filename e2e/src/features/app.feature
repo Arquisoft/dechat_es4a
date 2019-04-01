@@ -1,5 +1,5 @@
 Feature: Start the app
-  Check the title
+
 
   Scenario: First scenario
     Given I open app
