@@ -211,7 +211,7 @@ export class ChatService implements OnInit {
     });
 
 
-    console.log(this.chatfriendUrl + "index.ttl#this");
+    //console.log(this.chatfriendUrl + "index.ttl#this");
     this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
       chatcontent = body;
 
@@ -223,13 +223,14 @@ export class ChatService implements OnInit {
       })
 
     });
-
-    await this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
-      console.log(`File content is : ${body}.`);
-    }, err => console.log(err));
-
+    /*
+        await this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
+          console.log(`File content is : ${body}.`);
+        }, err => console.log(err));
+    */
     return this.chat;
   }
+
 
   private addToChat(msg: string, maker: string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
