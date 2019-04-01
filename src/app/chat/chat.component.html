@@ -1,5 +1,4 @@
-<app-navbar>
-</app-navbar>
+<app-navbar></app-navbar>
 
 <body>
     <div id="frame">
@@ -41,35 +40,34 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-            <p>{{getStringChat()}}</p>
-            <ul>
-                <div *ngFor="let string of messages">
-                    <div *ngIf="isContactMessage(string)">
-                        <li class="replies">
-                            <img [src]="profileImage" alt="" />
-                            <p>{{string.content}}</p>
-                        </li>
+            <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <p>{{getStringChat()}}</p>
+                <ul>
+                    <div *ngFor="let string of messages">
+                        <div *ngIf="isContactMessage(string)">
+                            <li class="replies">
+                                <img [src]="profileImage" alt="" />
+                                <p>{{string.content}}</p>
+                            </li>
+                        </div>
+                        <div *ngIf="!isContactMessage(string)">
+                            <li class="sent">
+                                <img src={{friendPhotoActive}} alt="" />
+                                <p>{{string.content}}</p>
+                            </li>
+                        </div>
                     </div>
-                    <div *ngIf="!isContactMessage(string)">
-                        <li class="sent">
-                            <img src={{friendPhotoActive}} alt="" />
-                            <p>{{string.content}}</p>
-                        </li>
-                    </div>
-                </div>
-            </ul>
-        </div>
-        <div class="message-input">
-            <div class="wrap">
-                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90" />
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button class="chatButton" type="submit" (click)=send()>
+                </ul>
+            </div>
+            <div class="message-input">
+                <div class="wrap">
+                    <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90" />
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button class="chatButton" type="submit" (click)=send()>
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </body>

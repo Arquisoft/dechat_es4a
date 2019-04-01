@@ -180,12 +180,13 @@ export class ChatService implements OnInit {
 
   private addToChat(msg: string, maker: string,date:string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    console.log(content);
+    
     let message;
     
     message = new SolidMessage(maker, content,date);
-    if(content != "" && content.length > 0 && content != "Chat Started")
+    if(content != "" && content.length > 0 && content != "Chat Started"){
       this.chat.messages.push(message);
+    }
 
   }
 
