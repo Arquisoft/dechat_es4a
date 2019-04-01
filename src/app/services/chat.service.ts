@@ -27,9 +27,7 @@ export class ChatService implements OnInit {
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit() {}
 
   getUserProfile(webid): SolidProfile {
     var profile: SolidProfile;
@@ -78,7 +76,6 @@ export class ChatService implements OnInit {
                      
     `
     this.createBaseChat(this.chatuserUrl);
-
   };
 
   /**
@@ -116,8 +113,6 @@ export class ChatService implements OnInit {
       //const msgnb = d.getFullYear().toString() + d.getDay + d.getHours + d.getMilliseconds + 0
       const msgnb = Math.floor(Math.random() * 10000000000000);
 
-
-
       console.log("numero de mensaje: " + msgnb);
 
       const message = chatcontent1 + `
@@ -134,12 +129,9 @@ export class ChatService implements OnInit {
       }, (err: any) => console.log(err));
 
     }, err => this.createBaseChat(this.chatuserUrl));
-
-
   }
 
   createBaseChat(url: String) {
-
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
       console.log('Chat exists, no action needed');

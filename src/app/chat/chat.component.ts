@@ -9,6 +9,8 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 
 @Component({
@@ -118,7 +120,6 @@ export class ChatComponent implements OnInit {
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
-
       }
     }
   }
@@ -151,7 +152,7 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m == this.messages[i]) {
+      if (m.content.match(this.messages[i].content) && m.authorId.match(this.messages[i].authorId)) {
         return true;
       }
     }
@@ -239,6 +240,16 @@ export class ChatComponent implements OnInit {
       let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
 
       return chatUrl;
+  }
+  isContactMessage(m:SolidMessage){
+    let contact = this.friendActive;
+    let messageAuthor = m.authorId;
+    if(messageAuthor.match(contact)){
+        return false;
+      }
+    else{
+        return true;
+    }
   }
 
 }
