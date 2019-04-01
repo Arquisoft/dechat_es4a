@@ -17,8 +17,8 @@ export class ChatService implements OnInit {
 
   chat: SolidChat;
 
-  userID: any;
-  friendID: any;
+  userCardUrl: any;
+  friendCardUrl: any;
   chatfriendUrl: any;
   chatuserUrl: any;
   basechat: any;
@@ -45,14 +45,22 @@ export class ChatService implements OnInit {
     return user;
 
   }
+  private getPodServer(webId: string): string {
+    let username = webId.replace('https://', '');
+    let par1 = username.split('.')[1];
 
+    return par1.split('/profile/')[0];
+
+  }
   createInboxChat(submitterWebId: string, destinataryWebId: string) {
 
+
+
     var d = new Date().toISOString();
-    this.userID = submitterWebId;
-    this.friendID = destinataryWebId;
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.userCardUrl = submitterWebId;
+    this.friendCardUrl = destinataryWebId;
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendCardUrl) + "." + this.getPodServer(this.friendCardUrl) + "/public/Chat" + this.getUsername(this.userCardUrl) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userCardUrl) + "." + this.getPodServer(this.userCardUrl) + "/public/Chat" + this.getUsername(this.friendCardUrl) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -81,7 +89,7 @@ export class ChatService implements OnInit {
 
   sendMessage(msg: string) {
 
-    var message = new SolidMessage(this.getUsername(this.userID), msg);
+    var message = new SolidMessage(this.getUsername(this.userCardUrl), msg);
 
     this.chat.messages.push(message);
 
@@ -112,10 +120,12 @@ export class ChatService implements OnInit {
   async postMessage(msg: SolidMessage) {
     var author = "me";
     var urlfile = this.chatuserUrl + "index.ttl#this";
-    if (this.userID == msg.authorId) {
-      // urlfile = this.chatuserUrl + "index.ttl#this";
-      // author = "me";
+    /*
+    if (this.userCardUrl == msg.authorId) {
+       urlfile = this.chatuserUrl + "index.ttl#this";
+       author = "me";
     }
+    */
 
     var chatcontent = "";
 
@@ -189,7 +199,7 @@ export class ChatService implements OnInit {
   async loadMessages(url: String) {
 
     var chatcontent: any;
-    this.chat = new SolidChat(this.userID, this.friendID, url);
+    this.chat = new SolidChat(this.userCardUrl, this.friendCardUrl, url);
 
     console.log(url);
 
@@ -205,7 +215,7 @@ export class ChatService implements OnInit {
 
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
-        var maker = this.getUsername(this.userID);
+        var maker = this.getUsername(this.userCardUrl);
         this.addToChat(content, maker);
       })
     });
@@ -214,11 +224,10 @@ export class ChatService implements OnInit {
     //console.log(this.chatfriendUrl + "index.ttl#this");
     this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
       chatcontent = body;
-
       var splitFriend = chatcontent.split(':Msg');
       splitFriend.forEach(async string => {
         var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
-        var maker = this.getUsername(this.friendID);
+        var maker = this.getUsername(this.friendCardUrl);
         this.addToChat(contentFriend, maker);
       })
 
