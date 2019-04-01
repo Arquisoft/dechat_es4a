@@ -131,7 +131,10 @@ export class ChatComponent implements OnInit {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
           console.log(message.content);
-          this.toastr.info("You have a new message from " + message.authorId);
+          if(new Date(message.time).getTime() - new Date().getTime() <30){
+             this.toastr.info("You have a new message from " + message.authorId);
+          }
+
         }
       }
     });

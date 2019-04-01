@@ -180,8 +180,9 @@ export class ChatService implements OnInit {
 
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+        var time = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
         var maker = this.getUsername(this.userID);
-        this.addToChat(content, maker);
+        this.addToChat(content, maker, time);
       })
     });
 
@@ -192,8 +193,9 @@ export class ChatService implements OnInit {
       var splitFriend = chatcontent.split(':Msg');
       splitFriend.forEach(async string => {
         var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
+        var time = string.substring(string.indexOf("terms:created "), string.indexOf("^^XML:dateTime;"));
         var maker = this.getUsername(this.friendID);
-        this.addToChat(contentFriend, maker);
+        this.addToChat(contentFriend, maker,time);
       })
 
     });
@@ -205,10 +207,10 @@ export class ChatService implements OnInit {
     return this.chat;
   }
 
-  private addToChat(msg: string, maker: string) {
+  private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     console.log(content);
-    this.chat.messages.push(new SolidMessage(maker, content));
+    this.chat.messages.push(new SolidMessage(maker, content, time));
   }
 
 
