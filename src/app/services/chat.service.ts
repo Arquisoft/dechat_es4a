@@ -138,15 +138,11 @@ export class ChatService implements OnInit {
 
       var dm
       if (d.getMonth() < 10) {
-        dm = "0" + dm
+        dm = "0" + d.getMonth()
       } else {
         dm = d.getMonth();
       }
-
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
-      //const msgnb = Math.floor(Math.random() * 10000000000000);
-      console.log
-
 
       console.log("numero de mensaje: " + msgnb);
 
