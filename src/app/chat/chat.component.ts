@@ -131,8 +131,12 @@ export class ChatComponent implements OnInit {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
           console.log(message.content);
-          if(new Date(message.time).getTime() - new Date().getTime() <30){
+          console.log(message.authorId);
+          //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
+          if(new Date().getTime()- new Date(message.time).getTime()<30000){
              this.toastr.info("You have a new message from " + message.authorId);
+             // var sound = new Howl({src: ['sound.mp3']});
+            //  sound.play();
           }
 
         }
@@ -154,6 +158,10 @@ export class ChatComponent implements OnInit {
     for (i = 0; i < this.messages.length; i++) {
       if (m.content.match(this.messages[i].content) && m.authorId.match(this.messages[i].authorId)) {
         return true;
+      }
+      else if(m.content.match(this.chat.escapeRegExp(this.messages[i].content)) &&
+          m.authorId.match(this.chat.escapeRegExp(this.messages[i].authorId))){
+          return true;
       }
     }
     return false;
