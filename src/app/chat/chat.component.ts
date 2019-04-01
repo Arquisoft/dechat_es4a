@@ -144,7 +144,7 @@ export class ChatComponent implements OnInit {
       setInterval(() => {
         this.messages = new Array();
         this.loadMessages();
-      }, 3000);
+      }, 1000);
     } catch (error) { }
 
   }
