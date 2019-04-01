@@ -192,7 +192,8 @@ export class ChatService implements OnInit {
     let message;
     
     message = new SolidMessage(maker, content,date);
-    this.chat.messages.push(message);
+    if(content != "" && content.length > 0 && content != "Chat Started")
+      this.chat.messages.push(message);
 
   }
 
