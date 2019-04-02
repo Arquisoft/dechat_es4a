@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
-  "description": "",
   "devDependencies": {
     "cucumber": "^5.1.0"
-  }
+  },
+  "description": ""
 }
