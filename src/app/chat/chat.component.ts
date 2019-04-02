@@ -116,7 +116,7 @@ export class ChatComponent implements OnInit {
     if (this.friendActive) {
       var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
-        let user = this.getUsername(this.auth.getOldWebId());
+        let user = this.getUsername();
         let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
@@ -127,7 +127,7 @@ export class ChatComponent implements OnInit {
 
   private async loadMessages() {
     
-    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
+    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
     
     await chat.messages.sort(function(a,b) {
       if(a.time > b.time)
@@ -138,7 +138,7 @@ export class ChatComponent implements OnInit {
         return 0;
     });
 
-    chat.messages.forEach(message => {
+    await chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
@@ -187,7 +187,14 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getUsername(id): string {
+  getUsernameFromId(id): string {
+    let username = id.replace('https://', '');
+    let user = username.split('.')[0];
+    return user;
+  }
+
+  getUsername(): string {
+    let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
