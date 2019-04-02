@@ -4,7 +4,6 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
-import {escapeRegExp} from 'tslint/lib/utils';
 import { forEach } from '@angular/router/src/utils/collection';
 import {escapeRegExp} from 'tslint/lib/utils';
 
