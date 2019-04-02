@@ -300,21 +300,6 @@ export class RdfService {
             {
               let person = friends[i].value;
               list_friends.push(person);
-              /*const me = this.store.sym(person);
-              const profile = me.doc();
-              const a = await this.getPhotoFriend(profile);*/
-              //const profile = await this.rdf.getProfile();
-              /*this.fetcher.load(profile).then(photo => {
-                photo = this.store.any(me, VCARD('hasPhoto'));
-                aa = photo;
-                console.log("hasphoto: " + photo);
-                //return photo;
-              }, err => {
-                console.log('Load failed ' +  err);
-              });*/
-              /*console.log("pic.photo: " + pic);
-              list_friends_pictures.push(pic); 
-              console.log("esto es pic: " + pic);*/
             }
             return list_friends;
         } catch (error) {
