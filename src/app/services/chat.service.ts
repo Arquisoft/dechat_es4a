@@ -44,7 +44,7 @@ export class ChatService implements OnInit {
   }
   private getPodServer(webId: string): string {
     let username = webId.replace('https://', '');
-    let par1 = username.split('.')[1];
+    let par1 = username.split('.')[1] + '.' + username.split('.')[2];
 
     return par1.split('/profile/')[0];
 
@@ -113,7 +113,8 @@ export class ChatService implements OnInit {
  */
   async postMessage(msg: SolidMessage) {
     var author = "me";
-    var urlfile = this.chatuserUrl + "index.ttl#this";
+    var urlfile = this.chatuserUrl + "index.ttl";
+
     /*
     if (this.userCardUrl == msg.authorId) {
        urlfile = this.chatuserUrl + "index.ttl#this";
@@ -167,14 +168,14 @@ export class ChatService implements OnInit {
   }
 
   createBaseChat(url: String) {
-    this.fileClient.readFile(url + "index.ttl#this").then(body => {
+    this.fileClient.readFile(url + "index.ttl").then(body => {
       console.log('-----------------------------------------------------');
       console.log('Chat exists, no action needed');
       console.log('-----------------------------------------------------');
     }, err =>
         this.fileClient.createFolder(url).then(success => {
           console.log('Folder Created');
-          this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
+          this.fileClient.createFile(url + "index.ttl").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
               console.log('chat has been started');
             }, (err: any) => console.log(err));
@@ -200,8 +201,8 @@ export class ChatService implements OnInit {
       })
     });
 
-    console.log(this.chatfriendUrl + "index.ttl#this");
-    this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
+    console.log(this.chatfriendUrl + "index.ttl");
+    this.fileClient.readFile(this.chatfriendUrl + "index.ttl").then(body => {
       chatcontent = body;
       var splitFriend = chatcontent.split(':Msg');
       splitFriend.forEach(async string => {
