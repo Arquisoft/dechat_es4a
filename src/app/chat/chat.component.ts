@@ -129,7 +129,7 @@ export class ChatComponent implements OnInit {
     
     var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
     
-    chat.messages.sort(function(a,b) {
+    await chat.messages.sort(function(a,b) {
       if(a.time > b.time)
         return 1;
       if(b.time > a.time)
@@ -162,7 +162,6 @@ export class ChatComponent implements OnInit {
   refreshMessages() {
     try {
       setInterval(() => {
-        this.messages = new Array();
         this.loadMessages();
       }, 1000);
     } catch (error) { }
