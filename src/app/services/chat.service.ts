@@ -6,6 +6,7 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import {escapeRegExp} from 'tslint/lib/utils';
 import { forEach } from '@angular/router/src/utils/collection';
+import {escapeRegExp} from 'tslint/lib/utils';
 
 declare let solid: any;
 
@@ -28,7 +29,7 @@ export class ChatService implements OnInit {
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   getUserProfile(webid): SolidProfile {
     var profile: SolidProfile;
@@ -109,10 +110,16 @@ export class ChatService implements OnInit {
       console.log(chatcontent3);
       console.log("---------------------------------------------------------");
       const d = new Date();
-      //const msgnb = Math.floor(Math.random() * 10000000000000);
 
-      //const msgnb = d.getFullYear().toString() + d.getDay + d.getHours + d.getMilliseconds + 0
-      const msgnb = Math.floor(Math.random() * 10000000000000);
+
+
+      var dm
+      if (d.getMonth() < 10) {
+        dm = "0" + d.getMonth()
+      } else {
+        dm = d.getMonth();
+      }
+      const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
       console.log("numero de mensaje: " + msgnb);
 
@@ -192,7 +199,5 @@ export class ChatService implements OnInit {
     }
 
   }
-
-
 
 }
