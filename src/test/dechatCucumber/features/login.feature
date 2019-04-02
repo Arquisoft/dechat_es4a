@@ -1,4 +1,11 @@
-Feature: Login Inrupt
-  Scenario: We are on the login page an we try to login on inrupt
-    When I am on the main page to login with Inrupt "http://localhost:4200/"
-    And I select Inrupt ID provider and click on Go button
+Feature: Login to enter the page
+  Scenario: I sit on the login page and try to log inrupt
+    Given Inrupt ID provider
+    When I login with <user> and <password> correctly
+    Then I can enter to the app <result>
+
+     Examples:
+      | user            | password          | result  |
+
+      | Sunday          | Nope              | Nop     |
+      | anything else!  | Nope              | Nope    |
