@@ -15,9 +15,6 @@ module.exports = function (config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-      preprocessor: {
-          'src/**/*.js': ['coverage']
-      },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
       reports: ['html', 'lcovonly'],
@@ -27,14 +24,11 @@ module.exports = function (config) {
 
     },
     reporters: ['progress', 'kjhtml','coverage-istanbul'],
-      coverageReporter: {
-          reporters: [{type: 'lcov'}]
-      },
     port: 4200,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false
+    singleRun: true
   });
 };

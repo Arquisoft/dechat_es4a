@@ -19,7 +19,7 @@ export class CardComponent implements OnInit {
   profileImage: string;
   loadingProfile: Boolean;
   chat: SolidChat;
-  FileC: FileClient;
+  File: FileClient;
 
   @ViewChild('f') cardForm: NgForm;
 

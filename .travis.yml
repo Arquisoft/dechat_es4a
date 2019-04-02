@@ -5,8 +5,9 @@ before_script:
   - npm install -g @angular/cli
 script: 
   - ng build --prod
-  - npm run test -- --no-watch --no-progress --browser=ChromeHeadlessCI
+  - npm run test -- --no-watch --no-progress
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
   - npm run coverage
+  - bash <(curl -s https://codecov.io/bash)
+
 
