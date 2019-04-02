@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Howl, Howler } from 'howler';
 
 
 @Component({
@@ -125,9 +126,10 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages() {
-    this.messages = await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
-
-    this.messages.sort(function(a,b) {
+    
+    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsername(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsername(this.rdf.session.webId)));
+    
+    chat.messages.sort(function(a,b) {
       if(a.time > b.time)
         return 1;
       if(b.time > a.time)
@@ -136,7 +138,25 @@ export class ChatComponent implements OnInit {
         return 0;
     });
 
-    this.chat.resetChat();
+    chat.messages.forEach(message => {
+      if (message.content && message.content.length > 0) {
+        if (!this.checkExistingMessage(message)) {
+          this.messages.push(message);
+          console.log(message.content);
+          console.log(message.authorId);
+          //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
+          if(new Date().getTime()- new Date(message.time).getTime()<30000){
+             this.toastr.info("You have a new message from " + message.authorId);
+             let sound = new Howl({
+                 src: ['../assets/sounds/alert.mp3'], html5 :true
+             });
+             Howler.volume(0.1);
+             sound.play();
+          }
+
+        }
+      }
+    });
   }
 
   refreshMessages() {

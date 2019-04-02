@@ -4,6 +4,7 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
+import {escapeRegExp} from 'tslint/lib/utils';
 import { forEach } from '@angular/router/src/utils/collection';
 
 declare let solid: any;
@@ -151,7 +152,7 @@ export class ChatService implements OnInit {
     await this.getMessagesFromPOD(user);
     await this.getMessagesFromPOD(friend);
 
-    return this.chat.messages;
+    return this.chat;
   }
 
   resetChat(){
@@ -172,20 +173,22 @@ export class ChatService implements OnInit {
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
         var maker = this.getUsername(url);
-        var date = str.substring(str.indexOf("\""),str.indexOf("\"^"));
-        this.addToChat(content, maker,date);
+        var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+        var time_array = time_not_parsed.split("T").join(".").split(".");
+        var time = time_array[0]+ " "+ time_array[1];
+        this.addToChat(content, maker,time);
       })
     });
   }
 
-  private addToChat(msg: string, maker: string,date:string) {
+  private addToChat(msg: string, maker: string,time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     
     let message;
     
-    message = new SolidMessage(maker, content,date);
+    message = new SolidMessage(maker, content,time);
     if(content != "" && content.length > 0 && content != "Chat Started"){
-      this.chat.messages.push(message);
+      this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
     }
 
   }
