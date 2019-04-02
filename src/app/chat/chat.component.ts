@@ -165,7 +165,6 @@ export class ChatComponent implements OnInit {
       }
 
     }
-    this.toastr.info(m.content);
     return false;
 
 
