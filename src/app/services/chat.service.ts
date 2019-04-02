@@ -5,6 +5,7 @@ import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
+import {escapeRegExp} from 'tslint/lib/utils';
 
 declare let solid: any;
 
@@ -77,7 +78,7 @@ export class ChatService implements OnInit {
 
   sendMessage(msg: string) {
 
-    var message = new SolidMessage(this.getUsername(this.userID), msg);
+    var message = new SolidMessage(escapeRegExp(this.getUsername(this.userID)), escapeRegExp(msg));
 
     this.chat.messages.push(message);
 
@@ -180,8 +181,11 @@ export class ChatService implements OnInit {
 
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+        var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+        var time_array = time_not_parsed.split("T").join(".").split(".");
+        var time = time_array[0]+ " "+ time_array[1];
         var maker = this.getUsername(this.userID);
-        this.addToChat(content, maker);
+        this.addToChat(content, maker, time);
       })
     });
 
@@ -192,8 +196,10 @@ export class ChatService implements OnInit {
       var splitFriend = chatcontent.split(':Msg');
       splitFriend.forEach(async string => {
         var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
-        var maker = this.getUsername(this.friendID);
-        this.addToChat(contentFriend, maker);
+        var time_not_parsed = string.substring(string.indexOf("terms:created "), string.indexOf("^^XML:dateTime;"));
+        var time_array = time_not_parsed.split("T").join(".").split(".");
+        var time = time_array[0]+ " "+ time_array[1]; var maker = this.getUsername(this.friendID);
+        this.addToChat(contentFriend, maker,time);
       })
 
     });
@@ -205,12 +211,11 @@ export class ChatService implements OnInit {
     return this.chat;
   }
 
-  private addToChat(msg: string, maker: string) {
+  private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
+    console.log("autor:"+ maker);
     console.log(content);
-    this.chat.messages.push(new SolidMessage(maker, content));
+    this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
   }
-
-
 
 }

@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Howl, Howler } from 'howler';
 
 
 @Component({
@@ -131,7 +132,17 @@ export class ChatComponent implements OnInit {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
           console.log(message.content);
-          this.toastr.info("You have a new message from " + message.authorId);
+          console.log(message.authorId);
+          //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
+          if(new Date().getTime()- new Date(message.time).getTime()<30000){
+             this.toastr.info("You have a new message from " + message.authorId);
+             let sound = new Howl({
+                 src: ['../assets/sounds/alert.mp3'], html5 :true
+             });
+             Howler.volume(0.1);
+             sound.play();
+          }
+
         }
       }
     });
@@ -149,11 +160,14 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content.match(this.messages[i].content) && m.authorId.match(this.messages[i].authorId)) {
+      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
         return true;
       }
+
     }
     return false;
+
+
   }
 
   handleSubmit(event) {
