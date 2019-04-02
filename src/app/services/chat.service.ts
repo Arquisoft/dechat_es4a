@@ -218,8 +218,5 @@ export class ChatService implements OnInit {
     this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
   }
 
-  public escapeRegExp(str) {
-    return str.replace(/[?¿()]/g,'v');
-  }
 
 }

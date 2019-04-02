@@ -160,17 +160,10 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content.match(this.messages[i].content) && m.authorId.match(this.messages[i].authorId)) {
+      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
         return true;
       }
-      else if(m.content.match(this.chat.escapeRegExp(this.messages[i].content)) &&
-          m.authorId.match(this.chat.escapeRegExp(this.messages[i].authorId))){
-          return true;
-      }
-      else if(this.chat.escapeRegExp(m.content).match(this.messages[i].content) &&
-          this.chat.escapeRegExp(m.authorId).match(this.messages[i].authorId)){
-        return true;
-      }
+
     }
     this.toastr.info(m.content);
     return false;
