@@ -7,5 +7,7 @@ script:
   - ng build --prod
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - npm run coverage
+test:
+  post:
+    - npm run codecov
 
