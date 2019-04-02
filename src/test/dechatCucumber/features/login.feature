@@ -6,6 +6,6 @@ Feature: Login to enter the page
 
      Examples:
       | user            | password          | result  |
-
+      | ger             | giramos           | Ok      |
       | Sunday          | Nope              | Nop     |
       | anything else!  | Nope              | Nope    |
