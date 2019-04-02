@@ -26,7 +26,7 @@ module.exports = function (config) {
         skipFilesWithNoCoverage: true
 
     },
-    reporters: ['progress', 'kjhtml','coverage'],
+    reporters: ['progress', 'kjhtml','coverage-istanbul'],
       coverageReporter: {
           reporters: [{type: 'lcov'}]
       },
