@@ -34,3 +34,19 @@ Then('header {string} is displayed', (title) => {
             expect(text).to.have.string(title)
         })
 });
+
+// app.feature
+
+Before(() => {
+    appPage = new AppPage();
+});
+
+Given(/^I am on the home page$/, async () => {
+    await appPage.navigateTo();
+});
+
+When(/^I do nothing$/, () => {});
+
+Then(/^I should see the title$/, async () => {
+    expect(await appPage.getTitleText()).to.equal('Welcome to angular-cli-cucumber-demo!');
+});
