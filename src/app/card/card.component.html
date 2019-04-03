@@ -2,7 +2,8 @@
 <div class="split left">
   <div class="centered">
     <h1>Welcome to DeChat</h1>
-    <p>Conecting people</p>
+    <p>Connect with all your friends wherever and whenever you want.</p>
+    <p>Your privacy will always stay with you.</p>
   </div>
   <div class="centered button-position">
     <button class="button button1" routerLink="/chat" (click)="goToChat()">Start chatting!</button>
@@ -19,10 +20,6 @@
   
 <a (mouseenter) ="rotate()"> 
   <div class="split right">
-  <div class="centered">
-    <h2>Imagen de chat aqui</h2>
-    <p>Some text here too.</p>
-  </div>
     <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  
     style="position:fixed; right:50px; bottom:50px; width:50px; height:50px; border:none;">
     <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  

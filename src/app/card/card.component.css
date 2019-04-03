@@ -17,17 +17,26 @@
 .left {
   left: 0;
   color: #fff;
-  font-size: 14px;
   font-style: normal;
   line-height: 1.5;
   overflow: hidden;
 }
 
+h1{
+  font-size: 50px;
+  margin-top: 10%;
+}
+
+p {
+  font-size: 20px;
+  margin: 40px;
+  
+}
+
 /* Control the right side */
 .right {
   right: 0;
-  color: rgb(0, 0, 0);
-  font-size: 14px;
+  color: rgb(255, 255, 255);
   font-style: normal;
   line-height: 1.5;
   overflow: hidden;
@@ -36,7 +45,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -51,14 +59,8 @@
   white-space: nowrap;
 }
 
-/* Style the image inside the centered container, if needed */
-.centered img {
-  width: 150px;
-  border-radius: 50%;
-}
-
 .button-position{
-  top: 50%;
+  top: 55%;
 }
 
 .button {
@@ -99,7 +101,7 @@
 .textGit {
   font-size: 15px;
   display: inline-block;
-  margin: 25px 10px;
+  margin: 0px 10px;
 }
 
 .git{
