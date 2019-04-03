@@ -27,10 +27,10 @@ import { Router } from '@angular/router';
           query(':enter', [
             style({ position: 'fixed',opacity:0 }),
             animate('400ms ease-in-out', style({ opacity:1 }))
-          ]),
+          ],{ optional: true }),
           query(':leave', [
             style({ position: 'fixed', opacity:1 }),
-            animate('400ms ease-in-out', style({ opacity:0 }))]),
+            animate('400ms ease-in-out', style({ opacity:0 }))],{ optional: true }),
         ])
       ])
     ])    
@@ -42,6 +42,7 @@ export class AppComponent {
 
   constructor(private _router: Router){
     this.location = window.location.pathname;
+    console.log("window.location.pathname: " + window.location.pathname);
   }
  
 }
