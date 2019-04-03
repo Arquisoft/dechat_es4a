@@ -6,7 +6,7 @@
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-      './features/**/*.feature'
+      './src/features/**/*.feature'
   ],
 
   capabilities: {
