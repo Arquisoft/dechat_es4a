@@ -20,13 +20,14 @@ import { Howl, Howler } from 'howler';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
+  mapUrl = new Map<String,string>();
   amigos = [];
   namesFriends = [];
   mapFriends = new Map<String, String>();
   profileImage: string;
   profile: SolidProfile;
   friendActive: string;
+  friendActiveUrl:string;
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de chat users
 
@@ -86,6 +87,7 @@ export class ChatComponent implements OnInit {
         this.mapFriends.set(user, transformIm);
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
+        this.mapUrl.set(user,profile.url);
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -127,7 +129,7 @@ export class ChatComponent implements OnInit {
 
   private async loadMessages() {
     
-    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
+    var chat = await this.chat.loadMessages(this.getChatUrl(this.rdf.session.webId,this.friendActiveUrl),this.getChatUrl(this.friendActiveUrl,this.rdf.session.webId));
     
     await chat.messages.sort(function(a,b) {
       if(a.time > b.time)
@@ -229,8 +231,8 @@ export class ChatComponent implements OnInit {
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
+    this.friendActiveUrl = this.mapUrl.get(this.friendActive);
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    
     this.loadMessages();
   }
 
@@ -265,11 +267,16 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getChatUrl(user:string, friend: string){
-      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
+  getChatUrl(userUrl:string, friendUrl: string){
+    let user =  this.getUsernameFromId(userUrl);
+    let friend = this.getUsernameFromId(friendUrl);
+    let userProvider = this.getPodProviderFromId(userUrl);
 
-      return chatUrl;
+    let chatUrl = "https://" + user + "."+userProvider+"/public/Chat" + friend +"/index.ttl#this";
+
+    return chatUrl;
   }
+
   isContactMessage(m:SolidMessage){
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
@@ -279,6 +286,17 @@ export class ChatComponent implements OnInit {
     else{
         return true;
     }
+  }
+
+  getPodProviderFromId(url : string):string{
+      let split = url.split(".");
+      console.log(split);
+      console.log(url);
+      console.log(split[1]);
+      if(split[1] === "solid")
+        return "solid.community";
+      else if(split[1] === "inrupt")
+        return "inrupt.net";
   }
 
 }
