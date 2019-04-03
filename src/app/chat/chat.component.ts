@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Howl, Howler } from 'howler';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class ChatComponent implements OnInit {
   chatUsers = []; //contiene lista de chat users
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService, private http: HttpClient) {
+    private router: Router, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -116,7 +117,7 @@ export class ChatComponent implements OnInit {
       var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
         let user = this.getUsername();
-        let message = new SolidMessage(user, content)
+        let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
@@ -125,13 +126,34 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages() {
-    var chat = await this.chat.loadMessages(this.getUsername());
-    chat.messages.forEach(message => {
+    
+    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
+    
+    await chat.messages.sort(function(a,b) {
+      if(a.time > b.time)
+        return 1;
+      if(b.time > a.time)
+        return -1
+      else
+        return 0;
+    });
+
+    await chat.messages.forEach(message => {
       if (message.content && message.content.length > 0) {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
-          console.log("Esto es mensaje: " + message.content);
-          this.toastr.info("You have a new message from " + message.authorId);
+          console.log(message.content);
+          console.log(message.authorId);
+          //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
+          if(new Date().getTime()- new Date(message.time).getTime()<30000){
+             this.toastr.info("You have a new message from " + message.authorId);
+             let sound = new Howl({
+                 src: ['../assets/sounds/alert.mp3'], html5 :true
+             });
+             Howler.volume(0.1);
+             sound.play();
+          }
+
         }
       }
     });
@@ -149,12 +171,14 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content.match(this.messages[i].content) 
-      && m.authorId.match(this.messages[i].authorId)) {
+      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
         return true;
       }
+
     }
     return false;
+
+
   }
 
   handleSubmit(event) {
@@ -163,13 +187,19 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  getUsernameFromId(id): string {
+    let username = id.replace('https://', '');
+    let user = username.split('.')[0];
+    return user;
+  }
+
   getUsername(): string {
     let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
   }
-
+  
   logout() {
     this.auth.solidSignOut();
   }
@@ -200,6 +230,7 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    
     this.loadMessages();
   }
 
@@ -251,6 +282,11 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  getChatUrl(user:string, friend: string){
+      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
+
+      return chatUrl;
+  }
   isContactMessage(m:SolidMessage){
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
