@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { popupLogin } from 'solid-auth-client/dist-lib/solid-auth-client.bundle.js';
-import { fadeAnimation } from './animations';
-
 import {
   transition,
   trigger,
@@ -11,6 +9,7 @@ import {
   group,
   animateChild
 } from '@angular/animations';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,4 +40,10 @@ import {
 })
 export class AppComponent {
   title = 'app';
+  public location = '' ;
+
+  constructor(private _router: Router){
+    this.location = window.location.pathname;   
+    console.log("locatioooon: " + window.location.pathname);
+  }
 }
