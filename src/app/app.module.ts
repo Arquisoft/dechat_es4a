@@ -65,7 +65,7 @@ const routes: Routes = [
     CardComponent,
     RegisterComponent,
     ChatComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

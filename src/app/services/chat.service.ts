@@ -169,7 +169,7 @@ export class ChatService implements OnInit {
     var chatcontent: any;
     
 
-    console.log(url);
+    console.log("loadMessages url: " + url);
 
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;

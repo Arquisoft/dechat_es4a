@@ -6,12 +6,21 @@ import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { FileClient } from 'solid-file-client';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
-
+  animations: [
+    // Each unique animation requires its own trigger. The first argument of the trigger function is the name
+    trigger('rotatedState', [
+      state('default', style({ transform: 'rotate(0)' })),
+      state('rotated', style({ transform: 'rotate(-360deg)' })),
+      transition('rotated => default', animate('1000ms ease-out')),
+      transition('default => rotated', animate('400ms ease-in'))
+  ])
+]
 })
 export class CardComponent implements OnInit {
 
@@ -20,6 +29,7 @@ export class CardComponent implements OnInit {
   loadingProfile: Boolean;
   chat: SolidChat;
   FileC: FileClient;
+  state: string = 'default';
 
   @ViewChild('f') cardForm: NgForm;
 
@@ -27,24 +37,10 @@ export class CardComponent implements OnInit {
     private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
-    /*localStorage.removeItem('oldProfileData');
-    localStorage.removeItem('oldWebId');*/
     this.loadingProfile = true;
     this.loadProfile();
-    // Clear cached profile data
-
-
-    /*
-    this.chat;
-    this.chat.clientId = "uo244102";
-    this.chat.friendId = "friend";
-    this.chat.webUrl = "https://uo244102.solid.community/public/";
-    localStorage.setItem('TestChat', JSON.stringify(this.chat));
-    **/
   }
-
-
-
+  
   // Loads the profile from the rdf service and handles the response
   async loadProfile() {
     try {
@@ -63,23 +59,6 @@ export class CardComponent implements OnInit {
     }
 
   }
-
-  // Submits the form, and saves the profile data using the auth/rdf service
-  async onSubmit() {
-    if (!this.cardForm.invalid) {
-      try {
-        await this.rdf.updateProfile(this.cardForm);
-
-        localStorage.setItem('oldProfileData', JSON.stringify(this.profile));
-        //localStorage.setItem('oldWebId', JSON.stringify(this.rdf.session.webId));
-       // localStorage.setItem('oldFriends', JSON.stringify(this.rdf.session));
-
-      } catch (err) {
-        console.log(`Error: ${err}`);
-      }
-    }
-  }
-
   // Format data coming back from server. Intended purpose is to replace profile image with default if it's missing
   // and potentially format the address if we need to reformat it for this UI
   private setupProfileData() {
@@ -98,4 +77,8 @@ export class CardComponent implements OnInit {
   goToChat() {
     this.router.navigateByUrl('/chat');
   }
+
+  rotate() {
+    this.state = (this.state === 'default' ? 'rotated' : 'default');
+}
 }
