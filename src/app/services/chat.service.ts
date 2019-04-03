@@ -52,8 +52,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID,this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + "."+this.getPodProviderFromId(this.friendID)+"/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + "."+this.getPodProviderFromId(this.userID)+"/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -198,5 +198,14 @@ export class ChatService implements OnInit {
     }
 
   }
+
+  getPodProviderFromId(url : string):string{
+    let split = url.split(".");
+
+    if(split[1] === "solid")
+      return "solid.community";
+    else if(split[1] === "inrupt")
+      return "inrupt.net";
+}
 
 }
