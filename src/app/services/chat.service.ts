@@ -13,6 +13,8 @@ declare let solid: any;
   providedIn: 'root',
 })
 export class ChatService implements OnInit {
+  
+
 
   fileClient: any;
 
@@ -49,6 +51,7 @@ export class ChatService implements OnInit {
     var d = new Date().toISOString();
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
+    this.chat = new SolidChat(this.userID,this.friendID);
     this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
     this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
@@ -75,29 +78,6 @@ export class ChatService implements OnInit {
     `
     this.createBaseChat(this.chatuserUrl);
   };
-
-  sendMessage(msg: string) {
-
-    var message = new SolidMessage(escapeRegExp(this.getUsername(this.userID)), escapeRegExp(msg));
-
-    this.chat.messages.push(message);
-
-    var str = JSON.stringify(msg);
-    var path = this.chat.webUrl + "/" + this.getDate() + ".txt";
-    this.fileClient.updateFile(path, str);
-
-    console.log("[Message sent] : " + msg);
-  }
-
-  private getDate() {
-    const now = new Date();
-
-    const date = now.getUTCFullYear() + '-' +
-      (now.getUTCMonth() + 1) + '-' +
-      now.getUTCDate();
-
-    return date;
-  }
 
   /**
  * 
@@ -174,9 +154,20 @@ export class ChatService implements OnInit {
         }, err => console.log(err)));
   }
 
-  async loadMessages(url: String) {
+  async loadMessages(user,friend) {
+    await this.getMessagesFromPOD(user);
+    await this.getMessagesFromPOD(friend);
+
+    return this.chat;
+  }
+
+  resetChat(){
+    this.chat = new SolidChat(this.userID,this.friendID);
+  }
+
+  getMessagesFromPOD(url){
     var chatcontent: any;
-    this.chat = new SolidChat(this.userID, this.friendID, url);
+    
 
     console.log(url);
 
@@ -187,41 +178,25 @@ export class ChatService implements OnInit {
 
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+        var maker = this.getUsername(url);
         var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
         var time_array = time_not_parsed.split("T").join(".").split(".");
         var time = time_array[0]+ " "+ time_array[1];
-        var maker = this.getUsername(this.userID);
-        this.addToChat(content, maker, time);
+        this.addToChat(content, maker,time);
       })
     });
-
-    console.log(this.chatfriendUrl + "index.ttl#this");
-    this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
-      chatcontent = body;
-
-      var splitFriend = chatcontent.split(':Msg');
-      splitFriend.forEach(async string => {
-        var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
-        var time_not_parsed = string.substring(string.indexOf("terms:created "), string.indexOf("^^XML:dateTime;"));
-        var time_array = time_not_parsed.split("T").join(".").split(".");
-        var time = time_array[0]+ " "+ time_array[1]; var maker = this.getUsername(this.friendID);
-        this.addToChat(contentFriend, maker,time);
-      })
-
-    });
-
-    await this.fileClient.readFile(this.chatfriendUrl + "index.ttl#this").then(body => {
-      console.log(`File content is : ${body}.`);
-    }, err => console.log(err));
-
-    return this.chat;
   }
 
-  private addToChat(msg: string, maker: string, time = "") {
+  private addToChat(msg: string, maker: string,time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    console.log("autor:"+ maker);
-    console.log(content);
-    this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
+    
+    let message;
+    
+    message = new SolidMessage(maker, content,time);
+    if(content != "" && content.length > 0 && content != "Chat Started"){
+      this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
+    }
+
   }
 
 }
