@@ -26,12 +26,17 @@
 /* Control the right side */
 .right {
   right: 0;
-  background-color: rgba(255, 255, 255, 0.212);
-  color: rgb(16, 10, 73);
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-style: normal;
   line-height: 1.5;
   overflow: hidden;
+  height: 100%;
+  background-image: url("/assets/images/chat.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -100,3 +105,4 @@
 .git{
   color: #ffffff;
 }
+

@@ -17,12 +17,28 @@
   
 </div>
   
-<div class="split right">
+<a (mouseenter) ="rotate()"> 
+  <div class="split right">
   <div class="centered">
     <h2>Imagen de chat aqui</h2>
     <p>Some text here too.</p>
   </div>
-</div>
+    <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  
+    style="position:fixed; right:50px; bottom:50px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  
+    style="position:fixed; right:40%; bottom:10px; top:80px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble.png"  
+    style="position:fixed; right:35%; bottom:180px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble.png"  
+    style="position:fixed; right:150px; top:80px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  
+    style="position:fixed; right:42%; bottom:80px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble2.png"  
+    style="position:fixed; right:20%; bottom:20px; width:50px; height:50px; border:none;">
+    <img [@rotatedState]='state' src="/assets/images/messageBubble.png"  
+    style="position:fixed; right:5%; top:175px; width:50px; height:50px; border:none;">
+  </div>
+</a>
 
 
 

@@ -6,12 +6,21 @@ import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { FileClient } from 'solid-file-client';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
-
+  animations: [
+    // Each unique animation requires its own trigger. The first argument of the trigger function is the name
+    trigger('rotatedState', [
+      state('default', style({ transform: 'rotate(0)' })),
+      state('rotated', style({ transform: 'rotate(-360deg)' })),
+      transition('rotated => default', animate('1000ms ease-out')),
+      transition('default => rotated', animate('400ms ease-in'))
+  ])
+]
 })
 export class CardComponent implements OnInit {
 
@@ -20,6 +29,7 @@ export class CardComponent implements OnInit {
   loadingProfile: Boolean;
   chat: SolidChat;
   FileC: FileClient;
+  state: string = 'default';
 
   @ViewChild('f') cardForm: NgForm;
 
@@ -68,5 +78,7 @@ export class CardComponent implements OnInit {
     this.router.navigateByUrl('/chat');
   }
 
-  
+  rotate() {
+    this.state = (this.state === 'default' ? 'rotated' : 'default');
+}
 }

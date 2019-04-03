@@ -6,8 +6,7 @@ import {
   query,
   style,
   animate,
-  group,
-  animateChild
+  group
 } from '@angular/animations';
 import { Router } from '@angular/router';
 
@@ -34,16 +33,15 @@ import { Router } from '@angular/router';
             animate('400ms ease-in-out', style({ opacity:0 }))]),
         ])
       ])
-    ])
-    
-      ] // register the animations
+    ])    
+    ] // register the animations
 })
 export class AppComponent {
   title = 'app';
   public location = '' ;
 
   constructor(private _router: Router){
-    this.location = window.location.pathname;   
-    console.log("locatioooon: " + window.location.pathname);
+    this.location = window.location.pathname;
   }
+ 
 }
