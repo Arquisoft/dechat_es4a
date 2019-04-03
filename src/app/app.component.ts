@@ -8,7 +8,8 @@ import {
   animate,
   group
 } from '@angular/animations';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+import { AuthService } from './services/solid.auth.service';
 
 
 @Component({
@@ -38,11 +39,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'app';
-  public location = '' ;
+  public inLogin;
 
-  constructor(private _router: Router){
-    this.location = window.location.pathname;
-    console.log("window.location.pathname: " + window.location.pathname);
+  constructor(private _router: ActivatedRoute,private auth: AuthService){
+    if(localStorage.getItem('solid-auth-client') == null){
+      this.inLogin = true ;
+    }
+    else{
+      this.inLogin = false;
+    }
   }
  
 }
