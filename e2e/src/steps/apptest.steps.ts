@@ -2,7 +2,7 @@ import { Given, Before, When, Then } from 'cucumber';
 import { browser, element, by, ExpectedConditions } from 'protractor';
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
-import { AppPage } from './app.po';
+import { AppPage } from '../app.po';
 const expect = chai.use(chaiAsPromised).expect;
 
 let appPage: AppPage = new AppPage();
@@ -36,7 +36,7 @@ Then('header {string} is displayed', (title) => {
 });
 
 // app.feature
-
+/*
 Before(() => {
     appPage = new AppPage();
 });
@@ -50,3 +50,4 @@ When(/^I do nothing$/, () => {});
 Then(/^I should see the title$/, async () => {
     expect(await appPage.getTitleText()).to.equal('Welcome to angular-cli-cucumber-demo!');
 });
+*/
