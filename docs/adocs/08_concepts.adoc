@@ -47,7 +47,7 @@ Description of how we will handle errors and exceptions. To be filled in the fut
 
 ==== Security
 
-All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
+All files and data from client will be contained in the POD so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
 
 ==== Safety
 

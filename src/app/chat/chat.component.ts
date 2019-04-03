@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit {
       const list_friends = this.rdf.getFriends();
       this.auth.saveFriends(this.rdf.getFriends());
       if (list_friends) {
-        console.log(list_friends);
+        console.log("friends list: " + list_friends);
         let i = 0;
         this.amigos = list_friends;
       }
@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit {
     else {
       const list_friends = this.auth.getOldFriends();
       if (list_friends) {
-        console.log(list_friends);
+        console.log("friends list: " + list_friends);
         let i = 0;
         this.amigos = list_friends;
       }
@@ -130,7 +130,7 @@ export class ChatComponent implements OnInit {
       if (message.content && message.content.length > 0) {
         if (!this.checkExistingMessage(message)) {
           this.messages.push(message);
-          console.log(message.content);
+          console.log("Esto es mensaje: " + message.content);
           this.toastr.info("You have a new message from " + message.authorId);
         }
       }
@@ -149,7 +149,8 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content.match(this.messages[i].content) && m.authorId.match(this.messages[i].authorId)) {
+      if (m.content.match(this.messages[i].content) 
+      && m.authorId.match(this.messages[i].authorId)) {
         return true;
       }
     }
@@ -211,13 +212,30 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
+  URL:string;
+  _changeDetection;
+
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
-    const fd = new FormData();
+    /*const fd = new FormData();
     const img = event.target.files[0];
-    fd.append('image', img);
-    //this.http.post('/assets/images/background/',fd).subscribe(response => console.log("Upload ok"));
+    console.log("imagen: " + img);
+    fd.append('image', event.target.files[0]);
+    this.http.post('/assets/images/background/',fd,  {
+            headers:{'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                      'Access-Control-Allow-Origin': 'http://localhost:4200/'}
+          }).subscribe(response => console.log("Upload ok"));*/
+
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // Read file as data url
+      reader.onloadend = (e) => { // function call once readAsDataUrl is completed
+        this.URL = e.target['result']; // Set image in element
+        this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
+      };
   }
+}
 
   changeColorAppearance() {
     console.log("CAMBIAR COLOR");

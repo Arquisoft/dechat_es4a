@@ -171,7 +171,7 @@ export class ChatService implements OnInit {
     var chatcontent: any;
     this.chat = new SolidChat(this.userID, this.friendID, url);
 
-    console.log(url);
+    console.log("loadMessages url: " + url);
 
     this.fileClient.readFile(url).then(body => {
       chatcontent = body;
@@ -207,7 +207,7 @@ export class ChatService implements OnInit {
 
   private addToChat(msg: string, maker: string) {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    console.log(content);
+    console.log("message: " + content);
     this.chat.messages.push(new SolidMessage(maker, content));
   }
 

@@ -27,24 +27,10 @@ export class CardComponent implements OnInit {
     private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
-    /*localStorage.removeItem('oldProfileData');
-    localStorage.removeItem('oldWebId');*/
     this.loadingProfile = true;
     this.loadProfile();
-    // Clear cached profile data
-
-
-    /*
-    this.chat;
-    this.chat.clientId = "uo244102";
-    this.chat.friendId = "friend";
-    this.chat.webUrl = "https://uo244102.solid.community/public/";
-    localStorage.setItem('TestChat', JSON.stringify(this.chat));
-    **/
   }
-
-
-
+  
   // Loads the profile from the rdf service and handles the response
   async loadProfile() {
     try {
@@ -63,23 +49,6 @@ export class CardComponent implements OnInit {
     }
 
   }
-
-  // Submits the form, and saves the profile data using the auth/rdf service
-  async onSubmit() {
-    if (!this.cardForm.invalid) {
-      try {
-        await this.rdf.updateProfile(this.cardForm);
-
-        localStorage.setItem('oldProfileData', JSON.stringify(this.profile));
-        //localStorage.setItem('oldWebId', JSON.stringify(this.rdf.session.webId));
-       // localStorage.setItem('oldFriends', JSON.stringify(this.rdf.session));
-
-      } catch (err) {
-        console.log(`Error: ${err}`);
-      }
-    }
-  }
-
   // Format data coming back from server. Intended purpose is to replace profile image with default if it's missing
   // and potentially format the address if we need to reformat it for this UI
   private setupProfileData() {
@@ -98,4 +67,6 @@ export class CardComponent implements OnInit {
   goToChat() {
     this.router.navigateByUrl('/chat');
   }
+
+  
 }
