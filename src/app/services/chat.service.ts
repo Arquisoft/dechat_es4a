@@ -180,7 +180,6 @@ export class ChatService implements OnInit {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
         var maker = this.getUsername(url);
         var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
-        console.log("jaaaaaaaaaaaaaaa"+ time_not_parsed);
         var time_array = time_not_parsed.split("T").join(".").split(".");
         var time = time_array[0]+ " "+ time_array[1];
         this.addToChat(content, maker,time);
