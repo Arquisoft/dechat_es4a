@@ -38,3 +38,22 @@ Then('My friend gets the {string} message I sent him', function (string) {
       assert.equal(this.response, string); 
     }
   });
+
+  // chatting_with_a_one_friend
+
+  Given('I am using the app', function () {
+    // Write code here that turns the phrase above into concrete actions
+    this.app = true;
+  });
+
+  When('I am chatting with my friend {string}', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    this.response = string;
+  });
+
+  Then('I can read he has sent me {string}', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    if(this.message){
+      assert.equal(this.response, string); 
+    }
+  });
