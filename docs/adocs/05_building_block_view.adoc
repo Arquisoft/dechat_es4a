@@ -10,6 +10,8 @@ World Wide Web. Its name stands for "SOcial LInked Data". The main goal of SOLID
 who can access it, to achieve this, the SOLID PODs have been created. These PODs also let users decide where their data is stored, 
 it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.
 
+image:images/05_building_block_level1.PNG["Whitebox Overall System"]
+
 === Level 2[TODO]
 
 
