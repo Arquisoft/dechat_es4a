@@ -531,7 +531,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-system-scope-and-context">System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#business-context">Business Context</a></li>
-<li><a href="#technical-context-optional">Technical Context [OPTIONAL]</a></li>
+<li><a href="#technical-context">Technical Context</a></li>
 </ul>
 </li>
 </ul>
@@ -541,8 +541,6 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>System Scope and Context</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
 </div>
@@ -568,12 +566,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="paragraph">
 <p><span class="image"><img src="./images/basicDiagram.png" alt="basicDiagram"></span></p>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="business-context"><a class="anchor" href="#business-context"></a>Business Context</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
@@ -590,30 +584,54 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/tableContext.png" alt="tableContext"></span></p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Users</th>
+<th class="tableblock halign-left valign-top">The PODs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The both see each other&#8217;s name in the application&#8217;s interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application calls the two PODs and you are given back the username</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message Received</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Receive the other&#8217;s message and it seen in the part where the conversation shows our interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application communicates the message that is in the other POD of the one that sent the message</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message Sent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write the message in the box and press the button to send it, you can see it just like the once received</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The message is stored in the POD of the sender, and the application receives the link from the node that stores the message and communicates it to the other</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
-<h3 id="technical-context-optional"><a class="anchor" href="#technical-context-optional"></a>Technical Context [OPTIONAL]</h3>
-<div class="sidebarblock">
-<div class="content">
+<h3 id="technical-context"><a class="anchor" href="#technical-context"></a>Technical Context</h3>
 <div class="paragraph">
-<p>As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user</p>
+<p>The implementation of the application has been made in angular and has a user interface that allows you to create a chat with another person who has been added to the POD.</p>
 </div>
 <div class="paragraph">
-<p>We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.</p>
+<p>After start a conversation, the messages of the app are stored in a private folder within the POD of each person, stored in order and using the necessary turtle system to store the information of each message.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Diagram:</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>When you reconnect, read the messages stored in the PODs again to restore the conversation.</p>
 </div>
+<div class="paragraph">
+<p>In addition, profile images of the users are collected as well as the name of these to be displayed in the application.</p>
 </div>
+<div class="paragraph">
+<p>The data processing is done through a rdflib library to deal with the storage of data in rdf and different modules are used that provides angular to work with solid.</p>
 </div>
 </div>
 </div>
@@ -621,7 +639,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-19 18:01:21 CET
+Last updated 2019-04-04 22:27:54 CEST
 </div>
 </div>
 </body>
