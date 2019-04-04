@@ -186,6 +186,7 @@ export class ChatService implements OnInit {
       })
     });
 
+
   }
 
   private addToChat(msg: string, maker: string,time = "") {
