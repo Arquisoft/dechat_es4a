@@ -2,6 +2,8 @@
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 
+// send to a compasion a message
+
 Given('I\'m sending a message through the chat', function () {
            // Write code here that turns the phrase above into concrete actions
            this.message = true;
@@ -18,4 +20,21 @@ Then('My friend gets the {string} message I sent him', function (string) {
            if(this.message){
 			   assert.equal(this.response, string); 
 		   }
-         });		 
+         });		
+         
+  // my friends got listed
+  Given('I press List Friends button', function () {
+    // Write code here that turns the phrase above into concrete actions
+    this.list = true;
+  });
+  When('My friend {string} got listed', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    this.response = string;
+  });
+       
+  Then('I looked for my friend {string}', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    if(this.message){
+      assert.equal(this.response, string); 
+    }
+  });
