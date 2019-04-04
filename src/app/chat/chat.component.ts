@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from "@angular/router";
-/** import { AuthService } from '../services/solid.auth.service';*/
 import { ChatService } from '../services/chat.service';
 import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
@@ -12,6 +11,7 @@ import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { Howl, Howler } from 'howler';
+import {escapeRegExp} from 'tslint/lib/utils';
 
 
 @Component({
@@ -144,8 +144,10 @@ export class ChatComponent implements OnInit {
           this.messages.push(message);
           console.log(message.content);
           console.log(message.authorId);
-          this.toastr.info("You have a new message from " +(new Date()+ " "+new Date(message.time)));
-          if(new Date().getTime()- new Date(message.time).getTime()<300000){
+          let realDate = new Date(message.time);
+          realDate.setHours(new Date(message.time).getHours()+2);
+          this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
+          if(new Date().getTime()- realDate.getTime()<30000){
              this.toastr.info("You have a new message from " + message.authorId);
              let sound = new Howl({
                  src: ['../assets/sounds/alert.mp3'], html5 :true
@@ -172,6 +174,9 @@ export class ChatComponent implements OnInit {
     let i;
     for (i = 0; i < this.messages.length; i++) {
       if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
+        return true;
+      }
+      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId=== escapeRegExp(this.messages[i].authorId)) {
         return true;
       }
 
