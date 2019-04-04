@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing'
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './login/login.component';
 import {LoginPopupComponent} from './login-popup/login-popup.component';
@@ -16,14 +16,14 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [    
-        RouterTestingModule    
+        RouterTestingModule, ToastrModule.forRoot()
       ],
       declarations: [
         AppComponent
       ],
-        imports:[
-            RouterTestingModule, ToastrModule.forRoot()
-        ]
+        /*imports:[
+            
+        ]*/
     }).compileComponents();
 
   }));
