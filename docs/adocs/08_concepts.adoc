@@ -5,29 +5,44 @@ image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for cros
 
 === Domain Model
 
-Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.
+In th following image, we present you the arquitecture of components we are using in this project. 
 
-.Tables
-|===
-|Name |Description
+image:images/classDiagram.png["Domain Model"]
 
-|className1
-|Description1
+=== Domain Concept
 
-|className2
-|Description2
-|===
+In our application we have three main domain concepts:
+
+.POD: Place where all client data is store.
+.Client: Stakeholder that uses the chat to send and receive messages.
+.Message: Text or file sent by client with information for other client.
 
 === Architecture and design
 
-Here we will add the design of our software and its architecture.
+We are using the architecture design in Angular. It is composed by modules and components following MVC (Model-View-Controller).
+
+==== Modules
+
+This are the main modules that the chat is using to run:
+
+image:images/modules.png["Modules"]
 
 === User Experience
 
 ==== User Interface
 
-Design of the user interface for the app. The default user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
-We have pages for the login, registration, main page and chat.
+Design of the user interface for the app. The user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
+We have pages for the login, main page and chat.
+
+Login:
+image:images/login.png["Login Page"]
+image:images/login2.png["Login Page"]
+
+Home:
+image:images/home.png["Home Page"]
+
+Chat:
+image:images/chat.png["Chat Page"]
 
 ==== Internationalization
 
@@ -57,4 +72,4 @@ This application doesn't have anything dangerous.
 
 ==== Testability
 
-Place for the future tests of our app.
+In our project we are implementing tests with Cucumbertest y Jasmine.
