@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>deChat - Decentralized Chat 0</title>
+<title>deChat - Decentralized DeChat_es4a2</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -527,7 +525,7 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1><span class="image"><img src="docs/images/LogoASW.png" alt="arc42"></span> deChat - Decentralized Chat-es4a</h1>
+<h1><span class="image"><img src="docs/images/LogoASW.png" alt="arc42"></span> deChat - Decentralized Chat 0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -550,7 +548,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#technical-context-optional">3.2. Technical Context [OPTIONAL]</a></li>
 </ul>
 </li>
-<li><a href="#section-design-decisions">4. Design Decisions</a></li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
 <li><a href="#section-building-block-view">5. Building Block View [TODO]</a>
 <ul class="sectlevel2">
 <li><a href="#whitebox-overall-system">5.1. Whitebox Overall System</a></li>
@@ -568,17 +566,17 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-deployment-view">7. Deployment View</a>
 <ul class="sectlevel2">
 <li><a href="#infrastructure-level-1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#infrastructure-level-2-to-do">7.2. Infrastructure Level 2 [TO DO]</a></li>
 </ul>
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#domain-model">8.1. Domain Model</a></li>
-<li><a href="#architecture-and-design">8.2. Architecture and design</a></li>
-<li><a href="#user-experience">8.3. User Experience</a></li>
-<li><a href="#under-the-hood">8.4. Under-the-hood</a></li>
-<li><a href="#security-and-safety">8.5. Security and Safety</a></li>
-<li><a href="#development-concepts">8.6. Development Concepts</a></li>
+<li><a href="#domain-concept">8.2. Domain Concept</a></li>
+<li><a href="#architecture-and-design">8.3. Architecture and design</a></li>
+<li><a href="#user-experience">8.4. User Experience</a></li>
+<li><a href="#under-the-hood">8.5. Under-the-hood</a></li>
+<li><a href="#security-and-safety">8.6. Security and Safety</a></li>
+<li><a href="#development-concepts">8.7. Development Concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Design Decisions</a></li>
@@ -632,8 +630,6 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <div class="sect1">
 <h2 id="section-introduction-and-goals"><a class="anchor" href="#section-introduction-and-goals"></a>1. Introduction and Goals</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The objective of this project that we will develop further is to create a decentralized chat application based on <a href="https://solid.mit.edu/">SOLID</a> specifications. Our application can resemble any other more popular and commercially successful in the field of instant messaging, except that ours, as we said in the beginning uses a decentralized architecture to store data, providing a more remarkable security than the others.
 Our application aims to help users (two or more) to communicate with each other, sharing all kinds of information without this information being stored on any external server, providing a completely private and therefore secure communication. To do so, users must have a <a href="https://solid.inrupt.com/get-a-solid-pod/">POD of SOLID</a> to store their data.
@@ -655,12 +651,8 @@ As essential characteristics of our application, we will look for them to be the
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="requirements-overview"><a class="anchor" href="#requirements-overview"></a>1.1. Requirements Overview</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <div class="title">Contents</div>
 <p>A brief description of the functional requirements of our application is that it consists of a decentralized chat application based on SOLID, where users using the application must have a SOLID POD, which will allow these users to store their data, to share their files, images, videos, notifications, and so on.
@@ -673,16 +665,12 @@ A more rigorous specification can be found at the following link, which describe
 <div class="paragraph">
 <div class="title">Use cases</div>
 <p>Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
-<span class="image"><img src="docs/images/Diapositiva0.PNG" alt="Diapositiva0"></span> case One (1-1).
-<span class="image"><img src="docs/images/Diapositiva1.PNG" alt="Diapositiva1"></span> case Two (1-*).</p>
-</div>
-</div>
+<span class="image"><img src="docs/images/Diapos0.png" alt="Diapos0"></span> <strong>Case One (1-1)</strong>
+<span class="image"><img src="docs/images/Diapos1.png" alt="Diapos1"></span> <strong>Case Two (1-</strong>)*</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="quality-goals"><a class="anchor" href="#quality-goals"></a>1.2. Quality Goals</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>Main characteristics of our application.</p>
 </div>
@@ -734,12 +722,8 @@ A more rigorous specification can be found at the following link, which describe
 </tbody>
 </table>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="stakeholders"><a class="anchor" href="#stakeholders"></a>1.3. Stakeholders</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>Table with the people involved in the project</p>
 </div>
@@ -780,8 +764,6 @@ A more rigorous specification can be found at the following link, which describe
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -971,7 +953,7 @@ A more rigorous specification can be found at the following link, which describe
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-design-decisions"><a class="anchor" href="#section-design-decisions"></a>4. Design Decisions</h2>
+<h2 id="section-solution-strategy"><a class="anchor" href="#section-solution-strategy"></a>4. Solution Strategy</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The key of this project is the decentralization of data.</p>
@@ -979,38 +961,35 @@ A more rigorous specification can be found at the following link, which describe
 <div class="paragraph">
 <p>For working with data decentralization we will be using Solid, a project by Prof. Tim Berners-Lee, as is one of the
 prerequisites of this project, has and intuitive form of use and works very well with different programming languages
-and especially with the one we will be using: JavaScript, as it was created with it.</p>
+allowing us to have had more alternatives about this choice the first weeks of our planning.</p>
 </div>
 <div class="paragraph">
-<p>JavaScript was also chosen because it counts with different libraries, as LDFlex for example, that makes working with
-solid a lot easier; it is also a high demanded and used language and it gives us the opportunity to learn more about it
-and in case this projects ends up becoming free source in this language it will probably be more useful for the
-rest of the community.</p>
+<p>Angular was the framework chosen to program with as it counts with different libraries, as RDFLib or solid-auth-client
+for example, that makes working with solid a lot easier and way more secure; it is also a high demanded and used
+framework and it gives us the opportunity to learn more about it and about TypeScript.
+The last reason is Angular will make our code more valuable for the community as there are not so many applications
+for Solid+Angular for now.</p>
 </div>
 <div class="paragraph">
-<p>Using solid and JavaScript will make achieving quality goals easier. Solid will provide security and privacy regarding
-the data while JavaScript counts with different libraries for correct and safe connections between the pods and the
-client.
-We will also implement more security at the client manually and with other JS libraries specialized on it.</p>
+<p>We are going to use WebStorm for coding and editing our documentation as it is an IDE that provides both functionalities
+,most of us are used to it and has many funcionalities and plugins for Angular. Also, it is compatible with Github, the
+version control manager we are going o use, as is the one used in our university and one of the leader platforms
+to share free source code.</p>
 </div>
 <div class="paragraph">
-<p>Quality will also be increased as we will work with high ranking technologies that we are used to as all the time we
-would expend documenting this development environment we will use it improving other factors of our project.We are
-going to use WebStorm for coding and editing our documentation as it is an IDE that provides both funcionalities and
-most of us are used to it. Also we are going to use github as version control manager as is the one used in our
-university and one of the leader platforms to share free source code.</p>
+<p>Regarding design we will be using the MVC pattern that Angular already provides.
+Solid provides by itself a modular design form by different pods containing the client data, and we want to keep the
+decentralization of that data as clear as possible so by structuring the project with this pattern we will have the
+exact responsibilities of each layer separated and the way they communicate to each other will be very clear and visual.</p>
 </div>
 <div class="paragraph">
-<p>Regarding design we will be using the MVC pattern. Solid provides by itself a modular design form by different pods
-containing the client data, and we want to keep the decentralization of that data as clear as possible so by structuring
-the project with this pattern we will have the exact responsibilities of each layer and the way they communicate to
-each other very clear.</p>
+<p>To achieve all this we will be following the agile methodology SCRUM with some modifications. As all of us will have
+the software architect role so there won&#8217;t be a SCRUM master and everybody will have the same level and responsibility.
+We will document and follow this methodology by the different funcionalities of Github as the Dashboard, milestones,
+issues,etc.</p>
 </div>
 <div class="paragraph">
-<p>To achieve all this we will be following a agile methodology. All of us will have the software architect role so at
-the meetings all of us will have to take that role and manage to share it with the rest of the group, we will split
-the task in the smallest possible and keep developing,making documentation and communicating with the rest of the group
-during all the process.</p>
+<p>Finally for testing we will be using Cucumber for the acceptance testing and Karma and Jasmine for the login testing.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1422,23 +1401,8 @@ either grant the requester access to the POD data or deny it.</p>
 <div class="paragraph">
 <p><span class="image"><img src="docs/images/07_Deployment.PNG" alt="Basic Deployment View"></span></p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p>This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.</p>
-</dd>
-<dt class="hdlist1">Quality and/or Performance Features</dt>
-<dd>
-<p>SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.</p>
-</dd>
-<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd>
-<p>.Deployment nodes and artifact</p>
-</dd>
-</dl>
-</div>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Deployment nodes and artifact</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1451,39 +1415,32 @@ either grant the requester access to the POD data or deny it.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">myChat.html</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">index.html</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Html file that contain all information to execute our application in the web browser.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Costumer Pod</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This is a place located in a SOLID Pod Server where costumer can save all personal data.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Web Browser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Device</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A browser that can run our application. Chrome or Firefox should work.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Server</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Server where our decentralized app will be build.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Hosting Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Webpage where the application is deployed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Home SOLID Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server created and administrated by the client with his/her own POD.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inrupt Provider Web Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Free provider of PODs by the commercial entity established by the Solid founding team.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Community Provider Web Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Free provider of PODs for the Solid community, by the Solid community.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="sect2">
-<h3 id="infrastructure-level-2-to-do"><a class="anchor" href="#infrastructure-level-2-to-do"></a>7.2. Infrastructure Level 2 [TO DO]</h3>
-<div class="paragraph">
-<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
-</div>
-<div class="paragraph">
-<p>Please copy the structure from level 1 for each selected element.</p>
-</div>
-<div class="sect3">
-<h4 id="infrastructure-element-1-to-do"><a class="anchor" href="#infrastructure-element-1-to-do"></a>7.2.1. Infrastructure Element 1 [TO DO]</h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em> [TO DO]</p>
-</div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
@@ -1491,94 +1448,130 @@ either grant the requester access to the POD data or deny it.</p>
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<div class="title">Possible topics for crosscutting concepts</div>
 <p><span class="image"><img src="docs/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
 </div>
 <div class="sect2">
 <h3 id="domain-model"><a class="anchor" href="#domain-model"></a>8.1. Domain Model</h3>
 <div class="paragraph">
-<p>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+<p>In th following image, we present you the arquitecture of components we are using in this project.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Tables</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description2</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.2. Architecture and design</h3>
 <div class="paragraph">
-<p>Here we will add the design of our software and its architecture.</p>
+<div class="title">Domain Model</div>
+<p><span class="image"><img src="docs/images/classDiagram.png" alt="Domain Model"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.3. User Experience</h3>
-<div class="sect3">
-<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.3.1. User Interface</h4>
+<h3 id="domain-concept"><a class="anchor" href="#domain-concept"></a>8.2. Domain Concept</h3>
 <div class="paragraph">
-<p>Design of the user interface for the app. The default user interface is written in JavaScript.</p>
+<p>In our application we have three main domain concepts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>POD: Place where all client data is store.</p>
+</li>
+<li>
+<p>Client: Stakeholder that uses the chat to send and receive messages.</p>
+</li>
+<li>
+<p>Message: Text or file sent by client with information for other client.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.3. Architecture and design</h3>
+<div class="paragraph">
+<p>We are using the architecture design in Angular. It is composed by modules and components following MVC (Model-View-Controller).</p>
+</div>
+<div class="sect3">
+<h4 id="modules"><a class="anchor" href="#modules"></a>8.3.1. Modules</h4>
+<div class="paragraph">
+<p>These are the main modules to run the app:</p>
+</div>
+<div class="paragraph">
+<div class="title">Modules</div>
+<p><span class="image"><img src="docs/images/modules.png" alt="Modules"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.4. User Experience</h3>
+<div class="sect3">
+<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.4.1. User Interface</h4>
+<div class="paragraph">
+<p>Design of the user interface for the app. The user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
+We have pages for the login, registration, main page and chat.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="docs/images/login.png" alt="Login Page" width="30%" height="30%">
+</div>
+<div class="title">Figure 1. Login Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="docs/images/login2.png" alt="Registration Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 2. Registration Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="docs/images/home.png" alt="Home Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 3. Home Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="docs/images/chat.png" alt="Chat Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 4. Chat Page</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.3.2. Internationalization</h4>
+<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.4.2. Internationalization</h4>
 <div class="paragraph">
 <p>This app will be available in English and we will adapt it to Spanish in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.4. Under-the-hood</h3>
+<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.5. Under-the-hood</h3>
 <div class="sect3">
-<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.4.1. Persistency</h4>
+<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.5.1. Persistency</h4>
 <div class="paragraph">
-<p>The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
+<p>The application will be using the costumer POD as database from the SOLID server where the account is hosted. This POD will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.4.2. Exception/Error Handling</h4>
+<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.5.2. Exception/Error Handling</h4>
 <div class="paragraph">
 <p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.5. Security and Safety</h3>
+<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.6. Security and Safety</h3>
 <div class="sect3">
-<h4 id="security"><a class="anchor" href="#security"></a>8.5.1. Security</h4>
+<h4 id="security"><a class="anchor" href="#security"></a>8.6.1. Security</h4>
 <div class="paragraph">
-<p>All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
+<p>All files and data from client will be contained in the POD so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="safety"><a class="anchor" href="#safety"></a>8.5.2. Safety</h4>
+<h4 id="safety"><a class="anchor" href="#safety"></a>8.6.2. Safety</h4>
 <div class="paragraph">
 <p>This application doesn&#8217;t have anything dangerous.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.6. Development Concepts</h3>
+<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.7. Development Concepts</h3>
 <div class="sect3">
-<h4 id="testability"><a class="anchor" href="#testability"></a>8.6.1. Testability</h4>
+<h4 id="testability"><a class="anchor" href="#testability"></a>8.7.1. Testability</h4>
 <div class="paragraph">
-<p>Place for the future tests of our app.</p>
+<p>In our project we are implementing tests with Cucumbertest y Jasmine.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1590,17 +1583,17 @@ either grant the requester access to the POD data or deny it.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The main and actual decisions are further explained at the fourth
-section of this document : <a href="04_solution_strategy.adoc">Solution
-Strategy</a> but an index of these is:</p>
+section of this document, Solution
+Strategy, but an index of these is:</p>
 </div>
 <div class="olist upperroman">
 <ol class="upperroman" type="I">
 <li>
-<p>Architecture and desing decisions</p>
+<p>Architecture and design decisions</p>
 <div class="olist upperroman">
 <ol class="upperroman" type="I">
 <li>
-<p>MVC</p>
+<p>MVC by Angular</p>
 </li>
 <li>
 <p>Modular Desing by Solid</p>
@@ -1613,7 +1606,7 @@ Strategy</a> but an index of these is:</p>
 <div class="olist upperroman">
 <ol class="upperroman" type="I">
 <li>
-<p>JavaScript</p>
+<p>Angular [TypeScript]</p>
 </li>
 </ol>
 </div>
@@ -1646,7 +1639,10 @@ Strategy</a> but an index of these is:</p>
 <div class="olist upperroman">
 <ol class="upperroman" type="I">
 <li>
-<p>Selenium (Still being decided)</p>
+<p>Cucumber</p>
+</li>
+<li>
+<p>Karma and Jasmine</p>
 </li>
 </ol>
 </div>
@@ -1662,7 +1658,7 @@ Strategy</a> but an index of these is:</p>
 <div class="sect2">
 <h3 id="quality-tree"><a class="anchor" href="#quality-tree"></a>10.1. Quality Tree</h3>
 <div class="paragraph">
-<p><span class="image"><img src="docs/images/quality_tree.png" alt="quality tree"></span></p>
+<p><span class="image"><img src="docs/images/quality_tree.PNG" alt="quality tree"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -1679,13 +1675,10 @@ Strategy</a> but an index of these is:</p>
 <p>An user attempts to access the porfile of a person that has explicitly set their profile to private &#8594; the application makes a request to the server to access the porfile&#8217;s contents of the person&#8217;s POD, but due to the lack of permission the access is denied and the requesting user is informed within 1 second</p>
 </li>
 <li>
-<p>An user changes his/her porfile picture &#8594; The application request the server storing the POD to edit the contents, and upon obtainin permission he changes the picture. from now on people accessing this  porfile will see the updated picture</p>
+<p>An user changes his/her porfile picture &#8594; The application request the server storing the POD to edit the contents, and upon obtaining permission he changes the picture. from now on people accessing this porfile will see the updated picture</p>
 </li>
 <li>
-<p>An user wants to start a conversation with a friend &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the friend has his app installed within 2 seconds.</p>
-</li>
-<li>
-<p>An user wants to start a conversation with an user he isn&#8217;t friends with &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the user has his app installed. Due to them not being friends, the application will first make a request to the friend&#8217;s POD to reveal the device in which the app is installed to establish communication: the user will first have to personally accept this request (unless stated otherwise in configuration) before the application is allowed to know the device he must communicate with. Both the user being contacted and the person trying to contact them will have the capacity to block and/or report the person they are communicating with at any moment.</p>
+<p>An user wants to start a conversation with a friend &#8594; The application makes a request to estabish a line of communication between the current device and the device in which the friend has his app installed within 3 seconds.</p>
 </li>
 </ul>
 </div>
@@ -1693,7 +1686,7 @@ Strategy</a> but an index of these is:</p>
 <div class="title">Change Scenarios:</div>
 <ul>
 <li>
-<p>The application is modified to be integrated with Github &#8594; the Application now can retrieve information from the linked GitHub account, informing the user with each relevant action (Commits, updates in repostories, requests to participate in projectts, etc). If Application friends link their accounts to the application and they allow that information to be shared in settings, the user will be informed that they share platform.</p>
+<p>The application is modified to be integrated with Github (or any website with social interaction for that matter) &#8594; the Application now can retrieve information from the linked GitHub account, informing the user with each relevant action (Commits, updates in repostories, requests to participate in projectts, etc). If Application friends link their accounts to the application and they allow that information to be shared in settings, the user will be informed that they share platform.</p>
 </li>
 </ul>
 </div>
@@ -1806,7 +1799,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-24 20:06:57 CET
+Last updated 2019-03-19 18:01:21 CET
 </div>
 </div>
 </body>
