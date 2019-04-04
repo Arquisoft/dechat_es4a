@@ -144,13 +144,13 @@ export class ChatComponent implements OnInit {
           this.messages.push(message);
           console.log(message.content);
           console.log(message.authorId);
-          //this.toastr.info("You have a new message from " +(new Date().getTime()- new Date(message.time).getTime()));
-          if(new Date().getTime()- new Date(message.time).getTime()<30000){
+          this.toastr.info("You have a new message from " +(new Date()+ " "+new Date(message.time)));
+          if(new Date().getTime()- new Date(message.time).getTime()<300000){
              this.toastr.info("You have a new message from " + message.authorId);
              let sound = new Howl({
                  src: ['../assets/sounds/alert.mp3'], html5 :true
              });
-             Howler.volume(0.1);
+             Howler.volume(1);
              sound.play();
           }
 
