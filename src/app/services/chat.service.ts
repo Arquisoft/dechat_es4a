@@ -182,6 +182,7 @@ export class ChatService implements OnInit {
       split.forEach(async str => {
         var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
         var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+        console.log("jaaaaaaaaaaaaaaa"+ time_not_parsed);
         var time_array = time_not_parsed.split("T").join(".").split(".");
         var time = time_array[0]+ " "+ time_array[1];
         var maker = this.getUsername(this.userID);
@@ -198,7 +199,8 @@ export class ChatService implements OnInit {
         var contentFriend = string.substring(string.indexOf("n:content"), string.indexOf("\";"));
         var time_not_parsed = string.substring(string.indexOf("terms:created "), string.indexOf("^^XML:dateTime;"));
         var time_array = time_not_parsed.split("T").join(".").split(".");
-        var time = time_array[0]+ " "+ time_array[1]; var maker = this.getUsername(this.friendID);
+        var time = time_array[0]+ " "+ time_array[1];
+        var maker = this.getUsername(this.friendID);
         this.addToChat(contentFriend, maker,time);
       })
 
