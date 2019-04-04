@@ -521,7 +521,7 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .change .change{color:#66f}
 .CodeRay .head .head{color:#f4f}
 </style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script> -->
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -541,6 +541,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>System Scope and Context</h2>
 <div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
 <p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
 </div>
@@ -570,6 +572,8 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="sect2">
 <h3 id="business-context"><a class="anchor" href="#business-context"></a>Business Context</h3>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
 <p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
@@ -586,42 +590,16 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"></th>
-<th class="tableblock halign-left valign-top">Users</th>
-<th class="tableblock halign-left valign-top">The PODs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The both see each other&#8217;s name in the application&#8217;s interface</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application calls the two PODs and you are given back the username</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Message Received</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Receive the other&#8217;s message and it seen in the part where the conversation shows our interface</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application communicates the message that is in the other POD of the one that sent the message</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Message Sent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Write the message in the box and press the button to send it, you can see it just like the once received</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The message is stored in the POD of the sender, and the application receives the link from the node that stores the message and communicates it to the other</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p><span class="image"><img src="./images/tableContext.png" alt="tableContext"></span></p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="technical-context-optional"><a class="anchor" href="#technical-context-optional"></a>Technical Context [OPTIONAL]</h3>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
 <p>As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user</p>
 </div>
@@ -643,7 +621,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-15 02:31:01 CET
+Last updated 2019-03-28 22:07:03 CET
 </div>
 </div>
 </body>
