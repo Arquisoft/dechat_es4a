@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cucumber": "cucumber-js"
+    "test": "cucumber-js"
   },
   "browser": {
     "crypto": false,
@@ -29,7 +29,6 @@
     "@ng-select/ng-select": "^2.5.1",
     "core-js": "^2.5.4",
     "crypto-js": "^3.1.9-1",
-    "cucumber": "^5.1.0",
     "http": "^0.0.0",
     "isomorphic-fetch": "^2.2.1",
     "ngx-toastr": "^9.0.2",
