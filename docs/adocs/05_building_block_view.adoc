@@ -12,6 +12,16 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 
 image:images/05_building_block_level1.PNG["Whitebox Overall System"]
 
+The main elements that make part of the app and will communicate with each other are the following:
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| _User_ | _Users will log in using their POD, from there, they can have conversations and share files with other users_
+| _User POD_ | _They are used to store the data of his owner, then, any user with granted access can interact with it_
+| _deChat app_ | _This app allows users to communicate with each other, provides the functionality and views necessary for that matter_
+|===
+
 === Level 2[TODO]
 
 
