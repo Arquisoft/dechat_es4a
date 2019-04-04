@@ -531,8 +531,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-runtime-view">Runtime View [TODO]</a>
 <ul class="sectlevel2">
 <li><a href="#log-in">Log in</a></li>
-<li><a href="#add-friends">Add friends</a></li>
-<li><a href="#send-and-recieve-messages">Send and recieve messages</a></li>
+<li><a href="#send-messages">Send messages</a></li>
 </ul>
 </li>
 </ul>
@@ -542,93 +541,63 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>Runtime View [TODO]</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>important use cases or features: how do building blocks execute them?</p>
-</li>
-<li>
-<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
-</li>
-<li>
-<p>operation and administration: launch, start-up, stop</p>
-</li>
-<li>
-<p>error and exception scenarios</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>There are many notations for describing scenarios, e.g.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>numbered list of steps (in natural language)</p>
-</li>
-<li>
-<p>activity diagrams or flow charts</p>
-</li>
-<li>
-<p>sequence diagrams</p>
-</li>
-<li>
-<p>BPMN or EPCs (event process chains)</p>
-</li>
-<li>
-<p>state machines</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="log-in"><a class="anchor" href="#log-in"></a>Log in</h3>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>An user can log in into the deChat app through his own private SOLID POD provided by either Inrupt or the SOLID community.</p>
+<p>The user runs the application:</p>
+<div class="literalblock">
+<div class="content">
+<pre>1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1.2. Subscenario 2: The user does already have a POD, but they are not logged in, then they select their provider and enter the credentials.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1.3. Subscenario 3: The user has a POD and is logged in, in this case the user can use the application from the get-go.</pre>
+</div>
+</div>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-friends"><a class="anchor" href="#add-friends"></a>Add friends</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>An user can send a request to his friends POD using that POD url, then the requested user can choose to
-either grant the requester access to the POD data or deny it.</p>
-</li>
-</ul>
+<h3 id="send-messages"><a class="anchor" href="#send-messages"></a>Send messages</h3>
+<div class="literalblock">
+<div class="content">
+<pre>In order to send a message the user has to be logged in and have friends added.</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="send-and-recieve-messages"><a class="anchor" href="#send-and-recieve-messages"></a>Send and recieve messages</h3>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>The messages sent must be encrypted in the users' PODs to ensure privacy over the data.</p>
+<p>The user opens the app, logs in, and then they can go to the chat page.</p>
 </li>
-</ul>
+<li>
+<p>The chat page has two main sections, the friends list and the chat box.</p>
+<div class="literalblock">
+<div class="content">
+<pre>2.1. To chat with a friend the user selects a user from the list.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>2.2. If there is already a chat selected it will load the previous messages.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.</p>
+</li>
+<li>
+<p>The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. Then the other user application can read the messages from the submitter&#8217;s POD and display them</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -636,7 +605,7 @@ either grant the requester access to the POD data or deny it.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-28 22:07:03 CET
+Last updated 2019-04-04 20:07:58 CEST
 </div>
 </div>
 </body>
