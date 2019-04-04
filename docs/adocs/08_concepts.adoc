@@ -1,21 +1,23 @@
 [[section-concepts]]
 == Cross-cutting Concepts
 
-image:images/08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
+.Possible topics for crosscutting concepts
+image:images/08-Crosscutting-Concepts-Structure-EN.png[Possible topics for crosscutting concepts, align="center"]
 
 === Domain Model
 
 In th following image, we present you the arquitecture of components we are using in this project. 
 
-image:images/classDiagram.png["Domain Model"]
+.Domain Model
+image:images/classDiagram.png[Domain Model, align="center"]
 
 === Domain Concept
 
 In our application we have three main domain concepts:
 
-.POD: Place where all client data is store.
-.Client: Stakeholder that uses the chat to send and receive messages.
-.Message: Text or file sent by client with information for other client.
+- POD: Place where all client data is store.
+- Client: Stakeholder that uses the chat to send and receive messages.
+- Message: Text or file sent by client with information for other client.
 
 === Architecture and design
 
@@ -23,26 +25,29 @@ We are using the architecture design in Angular. It is composed by modules and c
 
 ==== Modules
 
-This are the main modules that the chat is using to run:
+These are the main modules to run the app:
 
-image:images/modules.png["Modules"]
+.Modules
+image:images/modules.png[Modules, align="center"]
 
 === User Experience
 
 ==== User Interface
 
 Design of the user interface for the app. The user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
-We have pages for the login, main page and chat.
+We have pages for the login, registration, main page and chat.
 
-Login:
-image:images/login.png["Login Page"]
-image:images/login2.png["Login Page"]
+.Login Page
+image::images/login.png[Login Page,width="30%",height="30%", align="center"]
 
-Home:
-image:images/home.png["Home Page"]
+.Registration Page
+image::images/login2.png[Registration Page,width="80%",height="80%", align="center"]
 
-Chat:
-image:images/chat.png["Chat Page"]
+.Home Page
+image::images/home.png[Home Page,width="80%",height="80%", align="center"]
+
+.Chat Page
+image::images/chat.png[Chat Page,width="80%",height="80%", align="center"]
 
 ==== Internationalization
 

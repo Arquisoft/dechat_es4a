@@ -571,11 +571,12 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#domain-model">8.1. Domain Model</a></li>
-<li><a href="#architecture-and-design">8.2. Architecture and design</a></li>
-<li><a href="#user-experience">8.3. User Experience</a></li>
-<li><a href="#under-the-hood">8.4. Under-the-hood</a></li>
-<li><a href="#security-and-safety">8.5. Security and Safety</a></li>
-<li><a href="#development-concepts">8.6. Development Concepts</a></li>
+<li><a href="#domain-concept">8.2. Domain Concept</a></li>
+<li><a href="#architecture-and-design">8.3. Architecture and design</a></li>
+<li><a href="#user-experience">8.4. User Experience</a></li>
+<li><a href="#under-the-hood">8.5. Under-the-hood</a></li>
+<li><a href="#security-and-safety">8.6. Security and Safety</a></li>
+<li><a href="#development-concepts">8.7. Development Concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Design Decisions</a></li>
@@ -1447,95 +1448,130 @@ either grant the requester access to the POD data or deny it.</p>
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
+<div class="title">Possible topics for crosscutting concepts</div>
+<p><span class="image"><img src="./images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
 </div>
 <div class="sect2">
 <h3 id="domain-model"><a class="anchor" href="#domain-model"></a>8.1. Domain Model</h3>
 <div class="paragraph">
-<p>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+<p>In th following image, we present you the arquitecture of components we are using in this project.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Tables</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description2</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.2. Architecture and design</h3>
 <div class="paragraph">
-<p>Here we will add the design of our software and its architecture.</p>
+<div class="title">Domain Model</div>
+<p><span class="image"><img src="./images/classDiagram.png" alt="Domain Model"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.3. User Experience</h3>
+<h3 id="domain-concept"><a class="anchor" href="#domain-concept"></a>8.2. Domain Concept</h3>
+<div class="paragraph">
+<p>In our application we have three main domain concepts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>POD: Place where all client data is store.</p>
+</li>
+<li>
+<p>Client: Stakeholder that uses the chat to send and receive messages.</p>
+</li>
+<li>
+<p>Message: Text or file sent by client with information for other client.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.3. Architecture and design</h3>
+<div class="paragraph">
+<p>We are using the architecture design in Angular. It is composed by modules and components following MVC (Model-View-Controller).</p>
+</div>
 <div class="sect3">
-<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.3.1. User Interface</h4>
+<h4 id="modules"><a class="anchor" href="#modules"></a>8.3.1. Modules</h4>
 <div class="paragraph">
-<p>Design of the user interface for the app. The default user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
+<p>These are the main modules to run the app:</p>
+</div>
+<div class="paragraph">
+<div class="title">Modules</div>
+<p><span class="image"><img src="./images/modules.png" alt="Modules"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.4. User Experience</h3>
+<div class="sect3">
+<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.4.1. User Interface</h4>
+<div class="paragraph">
+<p>Design of the user interface for the app. The user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
 We have pages for the login, registration, main page and chat.</p>
 </div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/login.png" alt="Login Page" width="30%" height="30%">
+</div>
+<div class="title">Figure 1. Login Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/login2.png" alt="Registration Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 2. Registration Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/home.png" alt="Home Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 3. Home Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/chat.png" alt="Chat Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 4. Chat Page</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.3.2. Internationalization</h4>
+<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.4.2. Internationalization</h4>
 <div class="paragraph">
 <p>This app will be available in English and we will adapt it to Spanish in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.4. Under-the-hood</h3>
+<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.5. Under-the-hood</h3>
 <div class="sect3">
-<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.4.1. Persistency</h4>
+<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.5.1. Persistency</h4>
 <div class="paragraph">
 <p>The application will be using the costumer POD as database from the SOLID server where the account is hosted. This POD will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.4.2. Exception/Error Handling</h4>
+<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.5.2. Exception/Error Handling</h4>
 <div class="paragraph">
 <p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.5. Security and Safety</h3>
+<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.6. Security and Safety</h3>
 <div class="sect3">
-<h4 id="security"><a class="anchor" href="#security"></a>8.5.1. Security</h4>
+<h4 id="security"><a class="anchor" href="#security"></a>8.6.1. Security</h4>
 <div class="paragraph">
 <p>All files and data from client will be contained in the POD so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="safety"><a class="anchor" href="#safety"></a>8.5.2. Safety</h4>
+<h4 id="safety"><a class="anchor" href="#safety"></a>8.6.2. Safety</h4>
 <div class="paragraph">
 <p>This application doesn&#8217;t have anything dangerous.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.6. Development Concepts</h3>
+<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.7. Development Concepts</h3>
 <div class="sect3">
-<h4 id="testability"><a class="anchor" href="#testability"></a>8.6.1. Testability</h4>
+<h4 id="testability"><a class="anchor" href="#testability"></a>8.7.1. Testability</h4>
 <div class="paragraph">
-<p>Place for the future tests of our app.</p>
+<p>In our project we are implementing tests with Cucumbertest y Jasmine.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1763,7 +1799,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-28 22:07:03 CET
+Last updated 2019-03-19 18:01:21 CET
 </div>
 </div>
 </body>
