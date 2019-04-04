@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>deChat - Decentralized DeChat_es4a2</title>
+<title>deChat - Decentralized Chat_es4a</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -538,29 +538,28 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#section-architecture-constraints">2. Architecture Constraints</a>
 <ul class="sectlevel2">
-<li><a href="#2-1-introduction">2.1. 2.1 Introduction</a></li>
-<li><a href="#2-2-constraints">2.2. 2.2 Constraints</a></li>
+<li><a href="#introduction">2.1. Introduction</a></li>
+<li><a href="#constraints">2.2. Constraints</a></li>
 </ul>
 </li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#business-context">3.1. Business Context</a></li>
-<li><a href="#technical-context-optional">3.2. Technical Context [OPTIONAL]</a></li>
+<li><a href="#technical-context">3.2. Technical Context</a></li>
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
 <li><a href="#section-building-block-view">5. Building Block View [TODO]</a>
 <ul class="sectlevel2">
 <li><a href="#whitebox-overall-system">5.1. Whitebox Overall System</a></li>
-<li><a href="#level-2">5.2. Level 2</a></li>
-<li><a href="#level-3">5.3. Level 3</a></li>
+<li><a href="#level-2todo">5.2. Level 2[TODO]</a></li>
+<li><a href="#level-3todo">5.3. Level 3[TODO]</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View [TODO]</a>
 <ul class="sectlevel2">
 <li><a href="#log-in">6.1. Log in</a></li>
-<li><a href="#add-friends">6.2. Add friends</a></li>
-<li><a href="#send-and-recieve-messages">6.3. Send and recieve messages</a></li>
+<li><a href="#send-messages">6.2. Send messages</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -603,27 +602,6 @@ table.CodeRay td.code>pre{padding:0}
 	.arc42help {display:hidden;}
 }
 </style>
-<hr>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This version of the template contains some help and explanations.
-It is used for familiarization with arc42 and the understanding of the concepts.
-For documentation of your own system you use better the <em>plain</em> version.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -771,16 +749,15 @@ A more rigorous specification can be found at the following link, which describe
 <div class="sect1">
 <h2 id="section-architecture-constraints"><a class="anchor" href="#section-architecture-constraints"></a>2. Architecture Constraints</h2>
 <div class="sectionbody">
-<hr>
 <div class="sect2">
-<h3 id="2-1-introduction"><a class="anchor" href="#2-1-introduction"></a>2.1. 2.1 Introduction</h3>
+<h3 id="introduction"><a class="anchor" href="#introduction"></a>2.1. Introduction</h3>
 <div class="paragraph">
 <p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
 </div>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="2-2-constraints"><a class="anchor" href="#2-2-constraints"></a>2.2. 2.2 Constraints</h3>
+<h3 id="constraints"><a class="anchor" href="#constraints"></a>2.2. Constraints</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Technical Constraints</caption>
 <colgroup>
@@ -874,8 +851,6 @@ A more rigorous specification can be found at the following link, which describe
 <div class="sect1">
 <h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>3. System Scope and Context</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
 </div>
@@ -901,12 +876,8 @@ A more rigorous specification can be found at the following link, which describe
 <div class="paragraph">
 <p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/basicDiagram.png" alt="basicDiagram"></span></p>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="business-context"><a class="anchor" href="#business-context"></a>3.1. Business Context</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
@@ -923,30 +894,54 @@ A more rigorous specification can be found at the following link, which describe
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/tableContext.png" alt="tableContext"></span></p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Users</th>
+<th class="tableblock halign-left valign-top">The PODs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The both see each other&#8217;s name in the application&#8217;s interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application calls the two PODs and you are given back the username</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message Received</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Receive the other&#8217;s message and it seen in the part where the conversation shows our interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application communicates the message that is in the other POD of the one that sent the message</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message Sent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write the message in the box and press the button to send it, you can see it just like the once received</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The message is stored in the POD of the sender, and the application receives the link from the node that stores the message and communicates it to the other</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
-<h3 id="technical-context-optional"><a class="anchor" href="#technical-context-optional"></a>3.2. Technical Context [OPTIONAL]</h3>
-<div class="sidebarblock">
-<div class="content">
+<h3 id="technical-context"><a class="anchor" href="#technical-context"></a>3.2. Technical Context</h3>
 <div class="paragraph">
-<p>As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user</p>
+<p>The implementation of the application has been made in angular and has a user interface that allows you to create a chat with another person who has been added to the POD.</p>
 </div>
 <div class="paragraph">
-<p>We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.</p>
+<p>After start a conversation, the messages of the app are stored in a private folder within the POD of each person, stored in order and using the necessary turtle system to store the information of each message.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Diagram:</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>When you reconnect, read the messages stored in the PODs again to restore the conversation.</p>
 </div>
+<div class="paragraph">
+<p>In addition, profile images of the users are collected as well as the name of these to be displayed in the application.</p>
 </div>
+<div class="paragraph">
+<p>The data processing is done through a rdflib library to deal with the storage of data in rdf and different modules are used that provides angular to work with solid.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -997,119 +992,19 @@ issues,etc.</p>
 <div class="sect1">
 <h2 id="section-building-block-view"><a class="anchor" href="#section-building-block-view"></a>5. Building Block View [TODO]</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Disclaimer</div>
-<p>This section of the documentation cannot be done in the current state of the deChat project, as we have not made
-the necessary design decisions for it.</p>
-</div>
-<div class="paragraph">
-<div class="title">Content</div>
-<p>The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes,
-interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations,
-datas structures, &#8230;&#8203;) as well as their dependencies (relationships, associations, &#8230;&#8203;)</p>
-</div>
-<div class="paragraph">
-<p>This view is mandatory for every architecture documentation.
-In analogy to a house this is the <em>floor plan</em>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Maintain an overview of your source code by making its structure understandable through
-abstraction.</p>
-</div>
-<div class="paragraph">
-<p>This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The building block view is a hierarchical collection of black boxes and white boxes
-(see figure below) and their descriptions.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/05_building_blocks-EN.png" alt="Hierarchy of building blocks"></span></p>
-</div>
-<div class="paragraph">
-<p><strong>Level 1</strong> is the white box description of the overall system together with black
-box descriptions of all contained building blocks.</p>
-</div>
-<div class="paragraph">
-<p><strong>Level 2</strong> zooms into some building blocks of level 1.
-Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.</p>
-</div>
-<div class="paragraph">
-<p><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="whitebox-overall-system"><a class="anchor" href="#whitebox-overall-system"></a>5.1. Whitebox Overall System</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
 <div class="paragraph">
-<p>Here you describe the decomposition of the overall system using the following white box template. It contains</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>an overview diagram</p>
-</li>
-<li>
-<p>a motivation for the decomposition</p>
-</li>
-<li>
-<p>black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces</p>
-</li>
-<li>
-<p>use a list of black box descriptions of the building blocks according to the black box template (see below).
-Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>(optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
-Since there are so many ways to specify interfaces why do not provide a specific template for them.
- In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
- restrictions, versions, qualities, necessary compatibilities and many things more.
-In the best case you will get away with examples or simple signatures.</p>
-</li>
-</ul>
-</div>
-</div>
+<p>The decentralized chat app, deChat, is based on SOLID, which is a project led by Tim Berners-Lee, father of the
+World Wide Web. Its name stands for "SOcial LInked Data". The main goal of SOLID is to give the user full control over their data and
+who can access it, to achieve this, the SOLID PODs have been created. These PODs also let users decide where their data is stored,
+it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.</p>
 </div>
 <div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;text explanation&gt;</em></p>
-</dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
-<dd>
-<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
-</dd>
-<dt class="hdlist1">Important Interfaces</dt>
-<dd>
-<p><em>&lt;Description of important interfaces&gt;</em></p>
-</dd>
-</dl>
-</div>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Insert your explanations of black boxes from level 1:</p>
+<p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/05_building_block_level1.png" alt="Whitebox Overall System"></span></p>
 </div>
 <div class="paragraph">
-<p>If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:</p>
+<p>The main elements that make part of the app and will communicate with each other are the following:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1124,270 +1019,90 @@ responsibility according to the following schema:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>Users will log in using their POD, from there, they can have conversations and share files with other users</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User POD</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, then, any user with granted access can interact with it</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>deChat app</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter</em></p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.</p>
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="name-black-box-1"><a class="anchor" href="#name-black-box-1"></a>5.1.1. &lt;Name black box 1&gt;</h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you describe &lt;black box 1&gt;
-according the the following black box template:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Purpose/Responsibility</p>
-</li>
-<li>
-<p>Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.</p>
-</li>
-<li>
-<p>(Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, &#8230;&#8203;.</p>
-</li>
-<li>
-<p>(Optional) directory/file location</p>
-</li>
-<li>
-<p>(Optional) Fulfilled requirements (if you need traceability to requirements).</p>
-</li>
-<li>
-<p>(Optional) Open issues/problems/risks</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Interface(s)&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Directory/File Location&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="name-black-box-2"><a class="anchor" href="#name-black-box-2"></a>5.1.2. &lt;Name black box 2&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="name-black-box-n"><a class="anchor" href="#name-black-box-n"></a>5.1.3. &lt;Name black box n&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="name-interface-1"><a class="anchor" href="#name-interface-1"></a>5.1.4. &lt;Name interface 1&gt;</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="name-interface-m"><a class="anchor" href="#name-interface-m"></a>5.1.5. &lt;Name interface m&gt;</h4>
+<div class="sect2">
+<h3 id="level-2todo"><a class="anchor" href="#level-2todo"></a>5.2. Level 2[TODO]</h3>
 
 </div>
-</div>
 <div class="sect2">
-<h3 id="level-2"><a class="anchor" href="#level-2"></a>5.2. Level 2</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
-</div>
-<div class="paragraph">
-<p>You have to decide which building blocks of your system are important enough to justify such a detailed description.
-Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
-Leave out normal, simple, boring or standardized parts of your system</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-building-block-1"><a class="anchor" href="#white-box-building-block-1"></a>5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-building-block-2"><a class="anchor" href="#white-box-building-block-2"></a>5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-building-block-m"><a class="anchor" href="#white-box-building-block-m"></a>5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="level-3"><a class="anchor" href="#level-3"></a>5.3. Level 3</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
-</div>
-<div class="paragraph">
-<p>When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-_building-block-x-1_"><a class="anchor" href="#white-box-_building-block-x-1_"></a>5.3.1. White Box &lt;_building block x.1_&gt;</h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Specifies the internal structure of <em>building block x.1</em>.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-_building-block-x-2_"><a class="anchor" href="#white-box-_building-block-x-2_"></a>5.3.2. White Box &lt;_building block x.2_&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="white-box-_building-block-y-1_"><a class="anchor" href="#white-box-_building-block-y-1_"></a>5.3.3. White Box &lt;_building block y.1_&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
+<h3 id="level-3todo"><a class="anchor" href="#level-3todo"></a>5.3. Level 3[TODO]</h3>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>6. Runtime View [TODO]</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>important use cases or features: how do building blocks execute them?</p>
-</li>
-<li>
-<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
-</li>
-<li>
-<p>operation and administration: launch, start-up, stop</p>
-</li>
-<li>
-<p>error and exception scenarios</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>There are many notations for describing scenarios, e.g.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>numbered list of steps (in natural language)</p>
-</li>
-<li>
-<p>activity diagrams or flow charts</p>
-</li>
-<li>
-<p>sequence diagrams</p>
-</li>
-<li>
-<p>BPMN or EPCs (event process chains)</p>
-</li>
-<li>
-<p>state machines</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="log-in"><a class="anchor" href="#log-in"></a>6.1. Log in</h3>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>An user can log in into the deChat app through his own private SOLID POD provided by either Inrupt or the SOLID community.</p>
+<p>The user runs the application:</p>
+<div class="literalblock">
+<div class="content">
+<pre>1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1.2. Subscenario 2: The user does already have a POD, but they are not logged in, then they select their provider and enter the credentials.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1.3. Subscenario 3: The user has a POD and is logged in, in this case the user can use the application from the get-go.</pre>
+</div>
+</div>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-friends"><a class="anchor" href="#add-friends"></a>6.2. Add friends</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>An user can send a request to his friends POD using that POD url, then the requested user can choose to
-either grant the requester access to the POD data or deny it.</p>
-</li>
-</ul>
+<h3 id="send-messages"><a class="anchor" href="#send-messages"></a>6.2. Send messages</h3>
+<div class="literalblock">
+<div class="content">
+<pre>In order to send a message the user has to be logged in and have friends added.</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="send-and-recieve-messages"><a class="anchor" href="#send-and-recieve-messages"></a>6.3. Send and recieve messages</h3>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>The messages sent must be encrypted in the users' PODs to ensure privacy over the data.</p>
+<p>The user opens the app, logs in, and then they can go to the chat page.</p>
 </li>
-</ul>
+<li>
+<p>The chat page has two main sections, the friends list and the chat box.</p>
+<div class="literalblock">
+<div class="content">
+<pre>2.1. To chat with a friend the user selects a user from the list.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>2.2. If there is already a chat selected it will load the previous messages.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.</p>
+</li>
+<li>
+<p>The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. Then the other user application can read the messages from the submitter&#8217;s POD and display them</p>
+</li>
+</ol>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1658,13 +1373,11 @@ Strategy, but an index of these is:</p>
 <div class="sect2">
 <h3 id="quality-tree"><a class="anchor" href="#quality-tree"></a>10.1. Quality Tree</h3>
 <div class="paragraph">
-<p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/quality_tree.PNG" alt="quality tree"></span></p>
+<p><span class="image"><img src="/dechat_es4a/assets/statics/docs/images/quality_tree.png" alt="quality tree"></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="quality-scenarios"><a class="anchor" href="#quality-scenarios"></a>10.2. Quality Scenarios</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="ulist">
 <div class="title">Usage Scenarios:</div>
 <ul>
@@ -1690,8 +1403,6 @@ Strategy, but an index of these is:</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1699,8 +1410,6 @@ Strategy, but an index of these is:</p>
 <div class="sect1">
 <h2 id="section-technical-risks"><a class="anchor" href="#section-technical-risks"></a>11. Risks and Technical Debts</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -1723,8 +1432,6 @@ Strategy, but an index of these is:</p>
 <div class="paragraph">
 <div class="title">Measures</div>
 <p>To reduce some of these risks we are trying to inform ourselves as much as possible both in the use of Solid, as well as the use of libraries that JavaScript uses to make applications with Solid. Many of us are looking for information that we add to the repository wiki. In addition to the meetings we are doing in practice class, we are meeting separately to be more organized and prepared</p>
-</div>
-</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1799,7 +1506,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-19 18:01:21 CET
+Last updated 2019-04-04 22:34:49 CEST
 </div>
 </div>
 </body>
