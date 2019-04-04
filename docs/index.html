@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>deChat - Decentralized Chat 0</title>
+<title>deChat - Decentralized Chat_es4a</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -525,7 +525,7 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1><span class="image"><img src="./images/LogoASW.png" alt="arc42"></span> deChat - Decentralized Chat 0</h1>
+<h1><span class="image"><img src="./images/LogoASW.png" alt="arc42"></span> deChat - Decentralized Chat_es4a</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -538,8 +538,8 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#section-architecture-constraints">2. Architecture Constraints</a>
 <ul class="sectlevel2">
-<li><a href="#2-1-introduction">2.1. 2.1 Introduction</a></li>
-<li><a href="#2-2-constraints">2.2. 2.2 Constraints</a></li>
+<li><a href="#introduction">2.1. Introduction</a></li>
+<li><a href="#constraints">2.2. Constraints</a></li>
 </ul>
 </li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
@@ -570,11 +570,12 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#domain-model">8.1. Domain Model</a></li>
-<li><a href="#architecture-and-design">8.2. Architecture and design</a></li>
-<li><a href="#user-experience">8.3. User Experience</a></li>
-<li><a href="#under-the-hood">8.4. Under-the-hood</a></li>
-<li><a href="#security-and-safety">8.5. Security and Safety</a></li>
-<li><a href="#development-concepts">8.6. Development Concepts</a></li>
+<li><a href="#domain-concept">8.2. Domain Concept</a></li>
+<li><a href="#architecture-and-design">8.3. Architecture and design</a></li>
+<li><a href="#user-experience">8.4. User Experience</a></li>
+<li><a href="#under-the-hood">8.5. Under-the-hood</a></li>
+<li><a href="#security-and-safety">8.6. Security and Safety</a></li>
+<li><a href="#development-concepts">8.7. Development Concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Design Decisions</a></li>
@@ -601,27 +602,6 @@ table.CodeRay td.code>pre{padding:0}
 	.arc42help {display:hidden;}
 }
 </style>
-<hr>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This version of the template contains some help and explanations.
-It is used for familiarization with arc42 and the understanding of the concepts.
-For documentation of your own system you use better the <em>plain</em> version.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -769,16 +749,15 @@ A more rigorous specification can be found at the following link, which describe
 <div class="sect1">
 <h2 id="section-architecture-constraints"><a class="anchor" href="#section-architecture-constraints"></a>2. Architecture Constraints</h2>
 <div class="sectionbody">
-<hr>
 <div class="sect2">
-<h3 id="2-1-introduction"><a class="anchor" href="#2-1-introduction"></a>2.1. 2.1 Introduction</h3>
+<h3 id="introduction"><a class="anchor" href="#introduction"></a>2.1. Introduction</h3>
 <div class="paragraph">
 <p>There are certain limitations that may restrict our application, which are different in type and scope.</p>
 </div>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="2-2-constraints"><a class="anchor" href="#2-2-constraints"></a>2.2. 2.2 Constraints</h3>
+<h3 id="constraints"><a class="anchor" href="#constraints"></a>2.2. Constraints</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Technical Constraints</caption>
 <colgroup>
@@ -872,8 +851,6 @@ A more rigorous specification can be found at the following link, which describe
 <div class="sect1">
 <h2 id="section-system-scope-and-context"><a class="anchor" href="#section-system-scope-and-context"></a>3. System Scope and Context</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).</p>
 </div>
@@ -899,12 +876,8 @@ A more rigorous specification can be found at the following link, which describe
 <div class="paragraph">
 <p><span class="image"><img src="./images/basicDiagram.png" alt="basicDiagram"></span></p>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="business-context"><a class="anchor" href="#business-context"></a>3.1. Business Context</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.</p>
 </div>
@@ -953,12 +926,8 @@ A more rigorous specification can be found at the following link, which describe
 </tbody>
 </table>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="technical-context"><a class="anchor" href="#technical-context"></a>3.2. Technical Context</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
 <p>The implementation of the application has been made in angular and has a user interface that allows you to create a chat with another person who has been added to the POD.</p>
 </div>
@@ -973,8 +942,6 @@ A more rigorous specification can be found at the following link, which describe
 </div>
 <div class="paragraph">
 <p>The data processing is done through a rdflib library to deal with the storage of data in rdf and different modules are used that provides angular to work with solid.</p>
-</div>
-</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1196,95 +1163,130 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<div class="title">Possible topics for crosscutting concepts</div>
 <p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
 </div>
 <div class="sect2">
 <h3 id="domain-model"><a class="anchor" href="#domain-model"></a>8.1. Domain Model</h3>
 <div class="paragraph">
-<p>Our project is a decentralized chat application. Here we will add an Entity Relationship Diagram (ER-Diagram) after doing the prototype.</p>
+<p>In th following image, we present you the arquitecture of components we are using in this project.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Tables</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">className2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description2</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.2. Architecture and design</h3>
 <div class="paragraph">
-<p>Here we will add the design of our software and its architecture.</p>
+<div class="title">Domain Model</div>
+<p><span class="image"><img src="./images/images/classDiagram.png" alt="Domain Model"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.3. User Experience</h3>
+<h3 id="domain-concept"><a class="anchor" href="#domain-concept"></a>8.2. Domain Concept</h3>
+<div class="paragraph">
+<p>In our application we have three main domain concepts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>POD: Place where all client data is store.</p>
+</li>
+<li>
+<p>Client: Stakeholder that uses the chat to send and receive messages.</p>
+</li>
+<li>
+<p>Message: Text or file sent by client with information for other client.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="architecture-and-design"><a class="anchor" href="#architecture-and-design"></a>8.3. Architecture and design</h3>
+<div class="paragraph">
+<p>We are using the architecture design in Angular. It is composed by modules and components following MVC (Model-View-Controller).</p>
+</div>
 <div class="sect3">
-<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.3.1. User Interface</h4>
+<h4 id="modules"><a class="anchor" href="#modules"></a>8.3.1. Modules</h4>
 <div class="paragraph">
-<p>Design of the user interface for the app. The default user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
+<p>These are the main modules to run the app:</p>
+</div>
+<div class="paragraph">
+<div class="title">Modules</div>
+<p><span class="image"><img src="./images/images/modules.png" alt="Modules"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-experience"><a class="anchor" href="#user-experience"></a>8.4. User Experience</h3>
+<div class="sect3">
+<h4 id="user-interface"><a class="anchor" href="#user-interface"></a>8.4.1. User Interface</h4>
+<div class="paragraph">
+<p>Design of the user interface for the app. The user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
 We have pages for the login, registration, main page and chat.</p>
 </div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/images/login.png" alt="Login Page" width="30%" height="30%">
+</div>
+<div class="title">Figure 1. Login Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/images/login2.png" alt="Registration Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 2. Registration Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/images/home.png" alt="Home Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 3. Home Page</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/images/chat.png" alt="Chat Page" width="80%" height="80%">
+</div>
+<div class="title">Figure 4. Chat Page</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.3.2. Internationalization</h4>
+<h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.4.2. Internationalization</h4>
 <div class="paragraph">
 <p>This app will be available in English and we will adapt it to Spanish in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.4. Under-the-hood</h3>
+<h3 id="under-the-hood"><a class="anchor" href="#under-the-hood"></a>8.5. Under-the-hood</h3>
 <div class="sect3">
-<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.4.1. Persistency</h4>
+<h4 id="persistency"><a class="anchor" href="#persistency"></a>8.5.1. Persistency</h4>
 <div class="paragraph">
 <p>The application will be using the costumer POD as database from the SOLID server where the account is hosted. This POD will have all personal data and files and none will be able to administrate it except the owner, the costumer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.4.2. Exception/Error Handling</h4>
+<h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.5.2. Exception/Error Handling</h4>
 <div class="paragraph">
 <p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.5. Security and Safety</h3>
+<h3 id="security-and-safety"><a class="anchor" href="#security-and-safety"></a>8.6. Security and Safety</h3>
 <div class="sect3">
-<h4 id="security"><a class="anchor" href="#security"></a>8.5.1. Security</h4>
+<h4 id="security"><a class="anchor" href="#security"></a>8.6.1. Security</h4>
 <div class="paragraph">
 <p>All files and data from client will be contained in the POD so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="safety"><a class="anchor" href="#safety"></a>8.5.2. Safety</h4>
+<h4 id="safety"><a class="anchor" href="#safety"></a>8.6.2. Safety</h4>
 <div class="paragraph">
 <p>This application doesn&#8217;t have anything dangerous.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.6. Development Concepts</h3>
+<h3 id="development-concepts"><a class="anchor" href="#development-concepts"></a>8.7. Development Concepts</h3>
 <div class="sect3">
-<h4 id="testability"><a class="anchor" href="#testability"></a>8.6.1. Testability</h4>
+<h4 id="testability"><a class="anchor" href="#testability"></a>8.7.1. Testability</h4>
 <div class="paragraph">
-<p>Place for the future tests of our app.</p>
+<p>In our project we are implementing tests with Cucumbertest y Jasmine.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1376,8 +1378,6 @@ Strategy, but an index of these is:</p>
 </div>
 <div class="sect2">
 <h3 id="quality-scenarios"><a class="anchor" href="#quality-scenarios"></a>10.2. Quality Scenarios</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="ulist">
 <div class="title">Usage Scenarios:</div>
 <ul>
@@ -1403,8 +1403,6 @@ Strategy, but an index of these is:</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1412,8 +1410,6 @@ Strategy, but an index of these is:</p>
 <div class="sect1">
 <h2 id="section-technical-risks"><a class="anchor" href="#section-technical-risks"></a>11. Risks and Technical Debts</h2>
 <div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -1436,8 +1432,6 @@ Strategy, but an index of these is:</p>
 <div class="paragraph">
 <div class="title">Measures</div>
 <p>To reduce some of these risks we are trying to inform ourselves as much as possible both in the use of Solid, as well as the use of libraries that JavaScript uses to make applications with Solid. Many of us are looking for information that we add to the repository wiki. In addition to the meetings we are doing in practice class, we are meeting separately to be more organized and prepared</p>
-</div>
-</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1512,7 +1506,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-29 00:33:03 CET
+Last updated 2019-04-04 22:34:49 CEST
 </div>
 </div>
 </body>

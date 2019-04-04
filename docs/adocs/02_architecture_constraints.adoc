@@ -1,11 +1,6 @@
 [[section-architecture-constraints]]
 == Architecture Constraints
 
-
-[role="arc42help"]
-***
-
-
 === Introduction
 
 There are certain limitations that may restrict our application, which are different in type and scope.
