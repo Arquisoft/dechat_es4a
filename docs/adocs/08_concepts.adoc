@@ -22,12 +22,12 @@ Our project is a decentralized chat application. Here we will add an Entity Rela
 
 Here we will add the design of our software and its architecture.
 
-
 === User Experience
 
 ==== User Interface
 
-Design of the user interface for the app. The default user interface is written in JavaScript.
+Design of the user interface for the app. The default user interface is written with Angular 7. We also used Bootstrap templates and the default design from tutorial of SOLID Inrupt website with Angular.
+We have pages for the login, registration, main page and chat.
 
 ==== Internationalization
 
@@ -37,7 +37,7 @@ This app will be available in English and we will adapt it to Spanish in the fut
 
 ==== Persistency
 
-The application will be using the costumer pod as database from the SOLID server. These pods will have all personal data and files and none will be able to administrate it except the owner, the costumer.
+The application will be using the costumer POD as database from the SOLID server where the account is hosted. This POD will have all personal data and files and none will be able to administrate it except the owner, the costumer.
 
 ==== Exception/Error Handling
 
@@ -47,7 +47,7 @@ Description of how we will handle errors and exceptions. To be filled in the fut
 
 ==== Security
 
-All files and data from client will be contained in the pod so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
+All files and data from client will be contained in the POD so the costumer will be the only one who can get it. The chat will be decentralized so it will do it very secure.
 
 ==== Safety
 
