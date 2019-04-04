@@ -1,6 +1,6 @@
 [[section-system-scope-and-context]]
 == System Scope and Context
-****
+
 The scope of our project is to create an app that can communicate two people without their data having to go through an external server, that is, this app uses data that is in our private server (POD).
 
 For all this we are using Solid that is a tool that allows users to mark their data, which allows them to have their own server. They can also specify which data to communicate with whom and which apps can access which parts of their data do not need that your data go through an intermediary that makes money with private data
@@ -14,33 +14,41 @@ The communication interface is that of any chat of this style, so that stakehold
 * Diagram: 
 
 image:basicDiagram.png[] 
-****
-
 
 === Business Context
 
-****
 The communicated parties are the stakeholders that can be anyone who wants to have a conversation with this app. There are also the PODs of each of the users that will be used to save the data.
 
 The interface will receive the messages of the two users and will save the conversation in the PODs of the two users. On the other hand it will show information of both users. The communication with Solid and the POD will be received in the application with the use of specific JavaScript libraries. The RDFs returned by the PODs will be used by the application to access the data of both users.
 
 Being an app as simple as a chat, users should not have any problem with the use of this application.
 
-* Table: 
+* Table:
+|===
+| |Users |The PODs
 
-image:tableContext.png[]
-**** 
+|Name
+|The both see each other's name in the application's interface
+|The application calls the two PODs and you are given back the username
 
+|Message Received 
+|Receive the other's message and it seen in the part where the conversation shows our interface
+|The application communicates the message that is in the other POD of the one that sent the message
 
-=== Technical Context [OPTIONAL]
+|Message Sent
+|Write the message in the box and press the button to send it, you can see it just like the once received
+|The message is stored in the POD of the sender, and the application receives the link from the node that stores the message and communicates it to the other
 
-****
-As we have not yet developed our application this part is still quite ambiguous so I show a very general vision of what we have in mind. The application will have to log in with your Solid user and then the application uses your data and your POD to save the conversation with another user
+|===
 
-We have not yet decided on such specific types of technical decisions, but the hardware used would be a computer for each user and that both have a Solid account.
+=== Technical Context 
 
-* Diagram:
-****
+The implementation of the application has been made in angular and has a user interface that allows you to create a chat with another person who has been added to the POD.
 
+After start a conversation, the messages of the app are stored in a private folder within the POD of each person, stored in order and using the necessary turtle system to store the information of each message.
 
+When you reconnect, read the messages stored in the PODs again to restore the conversation.
 
+In addition, profile images of the users are collected as well as the name of these to be displayed in the application.
+
+The data processing is done through a rdflib library to deal with the storage of data in rdf and different modules are used that provides angular to work with solid.

@@ -3,6 +3,7 @@ node_js:
   - "10.15"
 before_script:
   - npm install -g @angular/cli
+  - npm install --save howler
 script: 
   - ng build --prod
   - npm run test -- --no-watch --no-progress

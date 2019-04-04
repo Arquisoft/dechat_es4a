@@ -1,17 +1,12 @@
 [[section-architecture-constraints]]
 == Architecture Constraints
 
-
-[role="arc42help"]
-***
-
-
-=== 2.1 Introduction
+=== Introduction
 
 There are certain limitations that may restrict our application, which are different in type and scope.
 
 ***
-=== 2.2 Constraints
+=== Constraints
 
 .Technical Constraints
 [options="header"]

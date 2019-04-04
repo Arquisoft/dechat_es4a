@@ -285,32 +285,47 @@ export class RdfService {
 
     return '';
   }
-
   
   // Function to list friends
   
-  getFriends = () =>
+  getFriends = () => 
     {
         const user = this.session.webId;
         const friends = this.store.each($rdf.sym(user), FOAF('knows'));
         const list_friends = [];
+        let contacts = new Map();
         try {
             let i=0;
             for (i=0; i<friends.length; i++)
             {
-                list_friends.push(friends[i].value);
+              let person = friends[i].value;
+              list_friends.push(person);
             }
             return list_friends;
         } catch (error) {
             console.log(`Error fetching data: ${error}`);
         }
+      }
+
+  getPhotoFriend = async (person: string) => {
+    const me = this.store.sym(person);
+    const profile = me.doc();
+    try{
+      await this.fetcher.load(profile);
+      return{
+        url: person,
+        image: this.store.any(me, VCARD('hasPhoto'))
+      };
+    } 
+    catch (error) {
+      console.log(`Error fetching data: ${error}`);
     }
+    };
 
 
   //Function to get phone number. This returns only the first phone number, which is temporary. It also ignores the type.
   getPhone = () => {
     const linkedUri = this.getValueFromVcard('hasTelephone');
-
     if(linkedUri) {
       return this.getValueFromVcard('value', linkedUri).split('tel:+')[1];
     }
@@ -324,7 +339,6 @@ export class RdfService {
 
     try {
       await this.fetcher.load(this.session.webId);
-
       return {
         fn : this.getValueFromVcard('fn'),
         company : this.getValueFromVcard('organization-name'),
