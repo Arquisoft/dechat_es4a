@@ -15,15 +15,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [    
-        RouterTestingModule, ToastrModule.forRoot()
-      ],
       declarations: [
         AppComponent
       ],
-        /*imports:[
-            
-        ]*/
+        imports:[
+            RouterTestingModule, ToastrModule.forRoot()
+        ]
     }).compileComponents();
 
   }));
