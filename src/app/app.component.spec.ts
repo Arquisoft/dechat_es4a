@@ -16,12 +16,16 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [    
-        RouterTestingModule    
+        RouterTestingModule, ToastrModule.forRoot()
       ],
       declarations: [
         AppComponent
       ],
+        /*imports:[
+            
+        ]*/
     }).compileComponents();
+
   }));
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
