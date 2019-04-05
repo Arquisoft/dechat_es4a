@@ -6,7 +6,7 @@
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-      './src/features/**/*.feature'
+    'test/acceptance/features/*.feature'
   ],
 
   capabilities: {
@@ -18,7 +18,8 @@ exports.config = {
   baseUrl: 'http://localhost:4200/',
 
     cucumberOpts: {
-        require: ['./src/steps/**/*.steps.ts'],
+        require: ['test/acceptance/steps/*.steps.js'],
+        strict: true
     },
   onPrepare() {
     require('ts-node').register({

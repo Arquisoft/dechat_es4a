@@ -6,9 +6,8 @@ before_script:
   - npm install --save howler
 script: 
   - ng build --prod
-  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 after_success:
-  - npm run coverage
+  - node_modules\.bin\cucumber-js src\test\dechatCucumber\features -r src\test\dechatCucumber\features\step_definitions
   - bash <(curl -s https://codecov.io/bash)
 
 
