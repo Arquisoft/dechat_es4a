@@ -9,28 +9,14 @@ Before(() => {
     page = new AppPage();
 });
 
-
-
 // Go to the login - Display the title
 Given(/^I am on the login page$/, { timeout: 5 * 1000 }, async () => {
     await page.navigateToLogin();
 });
 When(/^I do nothing$/, () => {});
-Then(/^I should see the login title$/, async () => {
-    expect(await page.getTitleText()).to.equal('SOLE CHAT');
-});
-
-
-
-
-// Go to the login - Display the description
 Then(/^I should see the login description$/, async () => {
     expect(await page.getDescriptionLogin()).to.equal('Login with Solid Identity');
 });
-
-
-
-
 
 // Go to the card - Display the title
 Given(/^I am on the card page$/, async () => {
@@ -38,7 +24,7 @@ Given(/^I am on the card page$/, async () => {
 });
 Then(/^I should see the card title$/, async () => {
     // expect(await page.getTitleText()).to.equal('Welcome to angular-cli-cucumber-demo!');
-    expect(await page.getTitleText()).to.equal('SOLE CHAT');
+    expect(await page.getTitleText()).to.equal('Login with Solid Identity');
 });
 
 

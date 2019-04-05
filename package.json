@@ -5,10 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "cucumber-js",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "test": "cucumber-js"
+    "e2e": "ng e2e"
   },
   "browser": {
     "crypto": false,
