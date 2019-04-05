@@ -1,13 +1,17 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import {Router} from "@angular/router";
-/** import { AuthService } from '../services/solid.auth.service';*/
+import { Router } from "@angular/router";
 import { ChatService } from '../services/chat.service';
 import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
-import { getLocaleDateFormat } from '@angular/common';
-import * as fileClient from 'solid-file-client';
+import { SolidProfile } from '../models/solid-profile.model';
+import { ToastrService } from 'ngx-toastr';
+import { SolidChatUser } from '../models/solid-chat-user.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Howl, Howler } from 'howler';
+import {escapeRegExp} from 'tslint/lib/utils';
 
 
 @Component({
@@ -17,54 +21,169 @@ import * as fileClient from 'solid-file-client';
 })
 export class ChatComponent implements OnInit {
 
-	
-	amigos = [];
+  amigos = [];
+  namesFriends = [];
+  mapFriends = new Map<String, String>();
+  profileImage: string;
+  profile: SolidProfile;
+  friendActive: string;
+  friendPhotoActive: string;
+  chatUsers = []; //contiene lista de chat users
 
-  
+  constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
+    private router: Router, private toastr: ToastrService) {
+  }
+
   ngOnInit(): void {
-    this.chat.createInboxChat(this.rdf.session.webId,"https://albertong.solid.community/profile/card#me");
-    this.loadMessages();
-
-	this.loadFriends();
+    this.loadProfile();
+    this.loadFriends();
+    this.refreshMessages();
   }
-  loadFriends(){
+
+  loadFriends() {
+    if (!this.auth.getOldFriends()) {
       const list_friends = this.rdf.getFriends();
-
+      this.auth.saveFriends(this.rdf.getFriends());
       if (list_friends) {
-          console.log(list_friends);
-          let i = 0;
-          this.amigos = list_friends;
+        console.log("friends list: " + list_friends);
+        let i = 0;
+        this.amigos = list_friends;
       }
+    }
+    else {
+      const list_friends = this.auth.getOldFriends();
+      if (list_friends) {
+        console.log("friends list: " + list_friends);
+        let i = 0;
+        this.amigos = list_friends;
+      }
+    }
+    this.getNamesFriends();
+    this.getPhotoFriends();
   }
 
+  async getPhotoFriends() {
+    try {
+      let i = 0;
+      let profileImage;
+      for (i = 0; i < this.amigos.length; i++) {
+        const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
+        if (profile) {
+          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
+        }
+        else {
+          profileImage = '/dechat_es4a/assets/images/profile.png';
+        }
+        let transformIm = profileImage.toString();
+        if (transformIm.match('>')) {
+          transformIm = transformIm.replace('>', '');
+        }
+        if (transformIm.match('<')) {
+          transformIm = transformIm.replace('<', '');
+        }
+        let username = profile.url.replace('https://', '');
+        let user = username.split('.')[0];
+        this.mapFriends.set(user, transformIm);
+        let chatuser = new SolidChatUser(profile.url, user, transformIm);
+        this.chatUsers.push(chatuser);
+      }
+    } catch (error) {
+      console.log(`Error: ${error}`);
+
+    }
+  }
+
+  getNamesFriends() {
+    let i = 0;
+    for (i = 0; i < this.amigos.length; i++) {
+      let username = this.amigos[i].replace('https://', '');
+      let user = username.split('.')[0];
+      this.namesFriends.push(user);
+    }
+  }
 
   /** message: string = '';*/
   fileClient: any;
-  messages : Array<String> = new Array();
-  
-  @ViewChild('chatbox') chatbox:ElementRef;
+  messages: Array<SolidMessage> = new Array();
 
-  constructor(private rdf: RdfService,private chat:ChatService,private renderer:Renderer2) {
-  }
- 
-  createInboxChat(submitterWebId:string,destinataryWebId:string): any {
-   this.chat.createInboxChat(submitterWebId,destinataryWebId);
-  }
+  @ViewChild('chatbox') chatbox: ElementRef;
 
-  /** logout(): void{
-    
-    this.auth.solidSignOut();
-    
-  }*/
+  createInboxChat(submitterWebId: string, destinataryWebId: string): any {
+    this.chat.createInboxChat(submitterWebId, destinataryWebId);
+  }
 
   send() {
-    var content = (<HTMLInputElement>document.getElementById("message")).value;
-    let user = this.getUsername();
-    let url = "https://" + user + ".solid.community/public/PrototypeChat/index.ttl#this";
-    let message = new SolidMessage(user, content)
-    this.chat.postMessage(message, url, user);
-    (<HTMLInputElement>document.getElementById("message")).value = "";
-    this.messages.push(message.authorId + ':' + message.content);
+    if (this.friendActive) {
+      var content = (<HTMLInputElement>document.getElementById("message")).value;
+      if (!(content == "")) {
+        let user = this.getUsername();
+        let message = new SolidMessage(user, content,(new Date()).toISOString());
+        this.chat.postMessage(message);
+        (<HTMLInputElement>document.getElementById("message")).value = "";
+        this.messages.push(message);
+      }
+    }
+  }
+
+  private async loadMessages() {
+    
+    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
+    
+    await chat.messages.sort(function(a,b) {
+      if(a.time > b.time)
+        return 1;
+      if(b.time > a.time)
+        return -1
+      else
+        return 0;
+    });
+
+    await chat.messages.forEach(message => {
+      if (message.content && message.content.length > 0) {
+        if (!this.checkExistingMessage(message)) {
+          this.messages.push(message);
+          console.log(message.content);
+          console.log(message.authorId);
+          let realDate = new Date(message.time);
+          realDate.setHours(new Date(message.time).getHours()+2);
+          this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
+          if(new Date().getTime()- realDate.getTime()<30000){
+             this.toastr.info("You have a new message from " + message.authorId);
+             let sound = new Howl({
+                 src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
+             });
+             Howler.volume(1);
+             sound.play();
+          }
+
+        }
+      }
+    });
+  }
+
+  refreshMessages() {
+    try {
+      setInterval(() => {
+        this.loadMessages();
+      }, 1000);
+    } catch (error) { }
+
+  }
+
+  checkExistingMessage(m: SolidMessage) {
+    let i;
+    for (i = 0; i < this.messages.length; i++) {
+      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
+        return true;
+      }
+      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId=== escapeRegExp(this.messages[i].authorId)) {
+        return true;
+      }
+
+    }
+    return false;
+
+
   }
 
   handleSubmit(event) {
@@ -73,27 +192,119 @@ export class ChatComponent implements OnInit {
     }
   }
 
-
-
- getUsername(): string {
-
-    let id = this.rdf.session.webId;
+  getUsernameFromId(id): string {
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
-
   }
 
-  private async loadMessages(){
-    var chat = await this.chat.loadMessages(this.getUsername());
-    chat.messages.forEach(message => {
-      if(message.content && message.content.length > 0){
-        this.messages.push(message.authorId + ': '+message.content);
-        console.log(message.content);
+  getUsername(): string {
+    let id = this.auth.getOldWebId();
+    let username = id.replace('https://', '');
+    let user = username.split('.')[0];
+    return user;
+  }
+  
+  logout() {
+    this.auth.solidSignOut();
+  }
+
+  goToChat() {
+    this.router.navigateByUrl('/chat');
+  }
+
+  async loadProfile() {
+    try {
+      const profile = await this.rdf.getProfile();
+      if (profile) {
+        this.profile = profile;
+        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
       }
-    });
+      else {
+        this.profileImage = '/dechat_es4a/assets/images/profile.png';
+      }
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+
+  changeChat(name: string, photo: string) {
+    //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    
+    this.loadMessages();
+  }
+
+  getFriendActive() {
+    //devuelve el amigo del chat que se esta mostrando en pantalla
+    return this.friendActive;
+  }
+  getFriendPhotoActive() {
+    //devuelve la foto del amigo del chat que se esta mostrando en pantalla
+    return this.friendPhotoActive;
+  }
+
+  URL:string;
+  _changeDetection;
+
+  changeBackground(event) {
+    console.log("CAMBIAR BACKGROUND");
+    /*const fd = new FormData();
+    const img = event.target.files[0];
+    console.log("imagen: " + img);
+    fd.append('image', event.target.files[0]);
+    this.http.post('/assets/images/background/',fd,  {
+            headers:{'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                      'Access-Control-Allow-Origin': 'http://localhost:4200/'}
+          }).subscribe(response => console.log("Upload ok"));*/
+
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // Read file as data url
+      reader.onloadend = (e) => { // function call once readAsDataUrl is completed
+        this.URL = e.target['result']; // Set image in element
+        this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
+      };
   }
 }
+
+  changeColorAppearance() {
+    console.log("CAMBIAR COLOR");
+  }
+
+  getStringChat(): String {
+    //Imprime el mensaje si no se eligió ningún contacto para chatear
+    if (!this.friendActive) {
+      return "Select contact to start chatting";
+    }
+    else {
+      return;
+    }
+  }
+
+  getChatUrl(user:string, friend: string){
+      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
+
+      return chatUrl;
+  }
+  isContactMessage(m:SolidMessage){
+    let contact = this.friendActive;
+    let messageAuthor = m.authorId;
+    if(messageAuthor.match(contact)){
+        return false;
+      }
+    else{
+        return true;
+    }
+  }
+
+}
+
 
 
 /**

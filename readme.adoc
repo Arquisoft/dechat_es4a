@@ -32,6 +32,15 @@ The skeleton project is a simple
 
 Once executed, the application should be available at: http://localhost:4200
 
+== Deployment
+To be deployed in github pages, you need to do the following commands:
+
+----
+ npm i -g angular-cli-pages
+ ng build --prod --base-href "https://arquisoft.github.io/dechat_es4a/"
+ angular-cli-ghpages
+----
+
 == Testing
 
 There are some test implemented at our app with the extension .ts.

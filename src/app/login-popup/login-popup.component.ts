@@ -17,7 +17,7 @@ export class LoginPopupComponent implements OnInit {
   runScript () {
     const s = document.createElement('script');
     s.type = 'text/javascript';
-    s.src = '/assets/js/libs/popup.js';
+    s.src = '/dechat_es4a/assets/js/libs/popup.js';
     this.elementRef.nativeElement.appendChild(s);
     // s.onload = () => this.triggerDuo();
   }

@@ -3,8 +3,12 @@ node_js:
   - "10.15"
 before_script:
   - npm install -g @angular/cli
+  - npm install --save howler
 script: 
   - ng build --prod
+  - npm run test -- --no-watch --no-progress
 after_success:
+  - npm run coverage
   - bash <(curl -s https://codecov.io/bash)
+
 
