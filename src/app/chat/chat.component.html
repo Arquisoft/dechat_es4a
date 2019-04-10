@@ -10,6 +10,10 @@
                 {{getUsername()}}
             </div>
         </div>
+        <div id="search">
+			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+			<input type="text" placeholder="Search contacts..." (keyup.enter)="searchContact($event.target.value)"/>
+		</div>
         <div id="contacts"> 
             <p class= "friendText">Contacts</p>
                 <ul>

@@ -69,10 +69,10 @@ export class ChatComponent implements OnInit {
       for (i = 0; i < this.amigos.length; i++) {
         const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
         if (profile) {
-          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
+          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
         }
         else {
-          profileImage = '/dechat_es4a/assets/images/profile.png';
+          profileImage = '/assets/images/profile.png';
         }
         let transformIm = profileImage.toString();
         if (transformIm.match('>')) {
@@ -126,39 +126,48 @@ export class ChatComponent implements OnInit {
   }
 
   private async loadMessages() {
-    
-    var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
-    
-    await chat.messages.sort(function(a,b) {
-      if(a.time > b.time)
-        return 1;
-      if(b.time > a.time)
-        return -1
-      else
-        return 0;
-    });
 
-    await chat.messages.forEach(message => {
-      if (message.content && message.content.length > 0) {
-        if (!this.checkExistingMessage(message)) {
-          this.messages.push(message);
-          console.log(message.content);
-          console.log(message.authorId);
-          let realDate = new Date(message.time);
-          realDate.setHours(new Date(message.time).getHours()+2);
-          this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
-          if(new Date().getTime()- realDate.getTime()<30000){
-             this.toastr.info("You have a new message from " + message.authorId);
-             let sound = new Howl({
-                 src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-             });
-             Howler.volume(1);
-             sound.play();
+    try{
+
+      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
+    
+      await chat.messages.sort(function(a,b) {
+        if(a.time > b.time)
+          return 1;
+        if(b.time > a.time)
+          return -1
+        else
+          return 0;
+      });
+  
+      await chat.messages.forEach(message => {
+        if (message.content && message.content.length > 0) {
+          if (!this.checkExistingMessage(message)) {
+            this.messages.push(message);
+            console.log(message.content);
+            console.log(message.authorId);
+            let realDate = new Date(message.time);
+            realDate.setHours(new Date(message.time).getHours()+2);
+            this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
+            if(new Date().getTime()- realDate.getTime()<30000){
+               this.toastr.info("You have a new message from " + message.authorId);
+               let sound = new Howl({
+                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
+               });
+               Howler.volume(1);
+               sound.play();
+            }
+  
           }
-
         }
-      }
-    });
+      });
+
+    }
+    catch(error){
+      console.log("No messages founded")
+    }
+    
+
   }
 
   refreshMessages() {
@@ -218,10 +227,10 @@ export class ChatComponent implements OnInit {
       const profile = await this.rdf.getProfile();
       if (profile) {
         this.profile = profile;
-        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
       }
       else {
-        this.profileImage = '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = '/assets/images/profile.png';
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -300,6 +309,16 @@ export class ChatComponent implements OnInit {
       }
     else{
         return true;
+    }
+  }
+
+  searchContact(friend:string){
+    let cloneMapFriends = this.mapFriends;
+    this.mapFriends.clear;
+    for (var key in cloneMapFriends){
+      if(key.match(friend)){
+        this.mapFriends.set(key, cloneMapFriends[key]);
+      }
     }
   }
 

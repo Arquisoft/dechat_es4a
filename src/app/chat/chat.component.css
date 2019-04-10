@@ -110,6 +110,46 @@ ul {
     align: center;
   }
 
+  /*Search button*/
+  #frame #sidepanel #search {
+    border-top: 1px solid #404479dc;
+    border-bottom: 1px solid #404479dc;
+    font-weight: 300;
+  }
+  @media screen and (max-width: 735px) {
+    #frame #sidepanel #search {
+      display: none;
+    }
+  }
+  #frame #sidepanel #search label {
+    position: absolute;
+    margin: 20px 0 0 20px;
+  }
+  #frame #sidepanel #search input {
+    font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+    padding: 10px 0 10px 46px;
+    width: calc(100% - 25px);
+    border: none;
+    background: #404479dc;
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:focus {
+    outline: none;
+    background: #6264bd;
+  }
+  #frame #sidepanel #search input::-webkit-input-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input::-moz-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:-ms-input-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:-moz-placeholder {
+    color: #f5f5f5;
+  }
+
 /*Contact*/
   #frame #sidepanel #contacts {
     height: calc(100% - 150px);
@@ -146,7 +186,7 @@ ul {
   }
 
   #frame #sidepanel #contacts li.contact:active {
-    background: #32465a;
+    background: #6264bd;
   }
 
   #frame #sidepanel #contacts ul li.contact .wrap {
