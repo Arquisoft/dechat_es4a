@@ -3,17 +3,25 @@
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
-            <div class="wrap">
-                <div class="profile-image"> 
-                    <img [src]="profileImage" alt=""/>
+            <div id="search">
+                <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+                <input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)"/>  
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+                    <div class="wrap">
+                       <div class="profile-image"> 
+                            <img [src]="profileImage" alt=""/>
+                        </div>
+                        {{getUsername()}}
+                    </div>
+                    <a href="#">New group</a>
+                    <a href="#">Feature 1</a>
+                    <a href="#">Feature 2</a>
+                    <a href="#">Feature 3</a>
                 </div>
-                {{getUsername()}}
+                <span class="fa fa-bars" (click)="openNav()"> </span>  
             </div>
         </div>
-        <div id="search">
-			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-			<input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)"/>
-		</div>
         <div id="contacts"> 
             <p class= "friendText">Contacts</p>
                 <ul>

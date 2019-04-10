@@ -93,7 +93,9 @@ ul {
   /*Profile*/
   #frame #sidepanel #profile {
     width: 80%;
-    margin: 25px auto;
+    margin: -30px;
+    display: inline-block;
+    position: relative; 
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #profile {
@@ -110,11 +112,59 @@ ul {
     align: center;
   }
 
+  /*SidePanel*/
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #282341;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .fa-bars{
+    font-size:20px;
+    cursor:pointer;
+    float:left;
+    margin: 20px 20px 50px -17px;
+  } 
+
   /*Search button*/
   #frame #sidepanel #search {
     /*border-top: 1px solid #686eb6dc;
     border-bottom: 1px solid #686eb6dc;*/
     font-weight: 300;
+    padding: 30px 0 0px 5px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #search {
@@ -152,7 +202,7 @@ ul {
 
 /*Contact*/
   #frame #sidepanel #contacts {
-    height: calc(100% - 150px);
+    height: calc(100% - 70px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #404479dc;
