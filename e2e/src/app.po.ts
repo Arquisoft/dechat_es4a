@@ -11,6 +11,7 @@ export class AppPage {
     getTitleText() {
        // return element(by.css('app-root h1')).getText();
         return element(by.css('h1')).getText();
+       //return $('h1').getText();
     }
     getDescriptionLogin() {
         return element(by.css('h2')).getText();

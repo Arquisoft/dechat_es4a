@@ -18,8 +18,12 @@ exports.config = {
   baseUrl: 'http://localhost:4200/',
 
     cucumberOpts: {
-        require: ['test/acceptance/steps/*.steps.js'],
+        require: ['e2e/src/steps/*.steps.js'],
         strict: true
+    },
+    specs: ['e2e/src/features/*.feature'],
+    capabilities: {
+        browserName: 'chrome',
     },
   onPrepare() {
     require('ts-node').register({
