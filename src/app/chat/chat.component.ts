@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
   profile: SolidProfile;
   friendActive: string;
   friendPhotoActive: string;
-  chatUsers = []; //contiene lista de chat users
+  chatUsers = []; //contiene lista de solid chat users 
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
     private router: Router, private toastr: ToastrService) {
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
       const list_friends = this.rdf.getFriends();
       this.auth.saveFriends(this.rdf.getFriends());
       if (list_friends) {
-        console.log("friends list: " + list_friends);
+        //console.log("friends list: " + list_friends);
         let i = 0;
         this.amigos = list_friends;
       }
@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit {
     else {
       const list_friends = this.auth.getOldFriends();
       if (list_friends) {
-        console.log("friends list: " + list_friends);
+        //console.log("friends list: " + list_friends);
         let i = 0;
         this.amigos = list_friends;
       }
@@ -144,8 +144,8 @@ export class ChatComponent implements OnInit {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
             this.messages.push(message);
-            console.log(message.content);
-            console.log(message.authorId);
+            //console.log(message.content);
+            //console.log(message.authorId);
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours()+2);
             this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
@@ -173,8 +173,13 @@ export class ChatComponent implements OnInit {
   refreshMessages() {
     try {
       setInterval(() => {
-        this.loadMessages();
-      }, 1000);
+        try{
+          this.loadMessages().catch((error) => {
+            throw new Error('Higher-level error. ' + error.message);
+          });
+        }
+        catch(error){}
+      }, 8000);
     } catch (error) { }
 
   }
@@ -313,15 +318,19 @@ export class ChatComponent implements OnInit {
   }
 
   searchContact(friend:string){
-    let cloneMapFriends = this.mapFriends;
-    this.mapFriends.clear;
-    for (var key in cloneMapFriends){
-      if(key.match(friend)){
-        this.mapFriends.set(key, cloneMapFriends[key]);
-      }
+    let cloneMapFriends = new Map(this.mapFriends);
+    this.mapFriends.clear();
+    if(friend != ""){
+      cloneMapFriends.forEach((value:string,key: string) => {
+        if(key.includes(friend)){
+          this.mapFriends.set(key, value);
+        }
+      });
+    }
+    else{
+      this.loadFriends();
     }
   }
-
 }
 
 

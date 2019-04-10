@@ -155,10 +155,13 @@ export class ChatService implements OnInit {
   }
 
   async loadMessages(user,friend) {
-    await this.getMessagesFromPOD(user);
-    await this.getMessagesFromPOD(friend);
-
-    return this.chat;
+    try{
+      await this.getMessagesFromPOD(user);
+      await this.getMessagesFromPOD(friend);
+      return this.chat;
+    }
+    catch(err){}
+    
   }
 
   resetChat(){
@@ -166,27 +169,32 @@ export class ChatService implements OnInit {
   }
 
   getMessagesFromPOD(url){
-    var chatcontent: any;
+    try{
+      var chatcontent: any;
+
+      //console.log("loadMessages url: " + url);
+  
+      try{
+        this.fileClient.readFile(url).then(body => {
+          chatcontent = body;
     
-
-    console.log("loadMessages url: " + url);
-
-    this.fileClient.readFile(url).then(body => {
-      chatcontent = body;
-
-      var split = chatcontent.split(':Msg');
-
-      split.forEach(async str => {
-        var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
-        var maker = this.getUsername(url);
-        var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
-        var time_array = time_not_parsed.split("T").join(".").split(".");
-        var time = time_array[0]+ " "+ time_array[1];
-        this.addToChat(content, maker,time);
-      })
-    });
-
-
+          var split = chatcontent.split(':Msg');
+    
+          split.forEach(async str => {
+            var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+            var maker = this.getUsername(url);
+            var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+            var time_array = time_not_parsed.split("T").join(".").split(".");
+            var time = time_array[0]+ " "+ time_array[1];
+            this.addToChat(content, maker,time);
+          })
+        });
+      }
+      catch(err){}
+    }
+    catch(error){
+      console.log("Not getting messages from POD");
+    }
   }
 
   private addToChat(msg: string, maker: string,time = "") {

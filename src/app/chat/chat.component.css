@@ -112,8 +112,8 @@ ul {
 
   /*Search button*/
   #frame #sidepanel #search {
-    border-top: 1px solid #404479dc;
-    border-bottom: 1px solid #404479dc;
+    /*border-top: 1px solid #686eb6dc;
+    border-bottom: 1px solid #686eb6dc;*/
     font-weight: 300;
   }
   @media screen and (max-width: 735px) {
