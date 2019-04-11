@@ -160,7 +160,6 @@ export class ChatService implements OnInit {
   async loadMessages(user,friend) {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
-    console.log("---------> friend: "  + name);
       if(name != "undefined"){
         await this.getMessagesFromPOD(user);
         await this.getMessagesFromPOD(friend);
