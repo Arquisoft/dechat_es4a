@@ -48,7 +48,7 @@ export class ChatService implements OnInit {
 
   createInboxChat(submitterWebId: string, destinataryWebId: string) {
 
-    var d = new Date().toISOString();
+    var d = new Date().toISOString(); //esto es la fecha de creacion
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID,this.friendID);
@@ -94,6 +94,7 @@ export class ChatService implements OnInit {
 
     var chatcontent = "";
 
+    //Lee el ttl:
     this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
       console.log(chatcontent);
@@ -118,6 +119,7 @@ export class ChatService implements OnInit {
       } else {
         dm = d.getMonth();
       }
+      //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
       console.log("numero de mensaje: " + msgnb);
@@ -139,6 +141,7 @@ export class ChatService implements OnInit {
   }
 
   createBaseChat(url: String) {
+    //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
       console.log('Chat exists, no action needed');
@@ -155,13 +158,14 @@ export class ChatService implements OnInit {
   }
 
   async loadMessages(user,friend) {
-    try{
-      await this.getMessagesFromPOD(user);
-      await this.getMessagesFromPOD(friend);
+    let username = friend.replace('https://', '');
+    let name = username.split('.')[0];
+    console.log("---------> friend: "  + name);
+      if(name != "undefined"){
+        await this.getMessagesFromPOD(user);
+        await this.getMessagesFromPOD(friend);
+      }
       return this.chat;
-    }
-    catch(err){}
-    
   }
 
   resetChat(){
