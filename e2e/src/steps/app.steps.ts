@@ -1,36 +1,20 @@
 import { Before, Given, Then, When } from 'cucumber';
 import { expect } from 'chai';
 
-import { AppPage } from '../app.po';
+import { LoginPage } from '../page/app.e2e-spec';
 
-let page: AppPage;
+let page: LoginPage;
 
 Before(() => {
-    page = new AppPage();
+  page = new LoginPage();
 });
 
-// Go to the login - Display the title
-Given(/^I am on the login page$/, { timeout: 5 * 1000 }, async () => {
-    await page.navigateToLogin();
-});
-When(/^I do nothing$/, () => {});
-Then(/^I should see the login description$/, async () => {
-    expect(await page.getDescriptionLogin()).to.equal('Login with Solid Identity');
+Given(/^I am on the login page$/, async () => {
+  await page.navigateTo();
 });
 
-// Go to the card - Display the title
-Given(/^I am on the card page$/, async () => {
-    await page.navigateToCard();
-});
-Then(/^I should see the card title$/, async () => {
-    // expect(await page.getTitleText()).to.equal('Welcome to angular-cli-cucumber-demo!');
-    expect(await page.getTitleText()).to.equal('Login with Solid Identity');
-});
+When(/^I do nothing \(home page\)$/, () => {});
 
-
-// Click on login button - Display anything
-When(/^I click on register button$/, async () => {
-    await page.clickOnRegisterButton();
+Then(/^I should see the title \(home page\)$/, async () => {
+  expect(await page.getParagraphText()).to.equal('ASW Chat');
 });
-Then(/^It should happen anything$/, () => {});
-
