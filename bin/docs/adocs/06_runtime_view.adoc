@@ -1,45 +1,28 @@
 [[section-runtime-view]]
 == Runtime View [TODO]
 
-
-[role="arc42help"]
-****
-.Contents
-The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:
-
-* important use cases or features: how do building blocks execute them?
-* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
-* operation and administration: launch, start-up, stop
-* error and exception scenarios
-
-Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance*. It is *not* important to describe a large number of scenarios. You should rather document a representative selection.
-
-.Motivation
-You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).
-
-.Form
-There are many notations for describing scenarios, e.g.
-
-* numbered list of steps (in natural language)
-* activity diagrams or flow charts
-* sequence diagrams
-* BPMN or EPCs (event process chains)
-* state machines
-* ...
-
-****
-
 === Log in
 
-* An user can log in into the deChat app through his own private SOLID POD provided by either Inrupt or the SOLID community.
+    1. The user runs the application:
+        
+        1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)
+        
+        1.2. Subscenario 2: The user does already have a POD, but they are not logged in, then they select their provider and enter the credentials.
+        
+        1.3. Subscenario 3: The user has a POD and is logged in, in this case the user can use the application from the get-go.
 
-=== Add friends
+=== Send messages
 
-* An user can send a request to his friends POD using that POD url, then the requested user can choose to 
-  either grant the requester access to the POD data or deny it. 
+    In order to send a message the user has to be logged in and have friends added.
 
-=== Send and recieve messages
+    1. The user opens the app, logs in, and then they can go to the chat page.
 
-* The messages sent must be encrypted in the users' PODs to ensure privacy over the data.
+    2. The chat page has two main sections, the friends list and the chat box.
+        
+        2.1. To chat with a friend the user selects a user from the list.
 
+        2.2. If there is already a chat selected it will load the previous messages.
+
+    3. When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.
+
+    4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter's POD. Then the other user application can read the messages from the submitter's POD and display them
