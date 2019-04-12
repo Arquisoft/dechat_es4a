@@ -1,20 +1,20 @@
 import { Before, Given, Then, When } from 'cucumber';
 import { expect } from 'chai';
 
-import { LoginPage } from '../page/app.e2e-spec';
+import { AppPage } from '../page/app.po';
 
-let page: LoginPage;
+let page: AppPage;
 
 Before(() => {
-  page = new LoginPage();
+  page = new AppPage();
 });
 
-Given(/^I am on the login page$/, async () => {
+Given(/^I am on the home page$/, async () => {
   await page.navigateTo();
 });
 
-When(/^I do nothing \(home page\)$/, () => {});
+When(/^I do nothing \(login page\)$/, () => {});
 
-Then(/^I should see the title \(home page\)$/, async () => {
-  expect(await page.getParagraphText()).to.equal('ASW Chat');
+Then(/^I should see the title \(login page\)$/, async () => {
+  expect(await page.getParagraphText()).to.equal('ASW CHAT');
 });
