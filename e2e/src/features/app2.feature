@@ -1,9 +1,8 @@
-@loginDescription-feature
-Feature: See login description
-  Display the login button
 
-  @loginDescription-scenario
-  Scenario: Login Page
+Feature: Go to the login page
+  Display the title
+
+  Scenario: Login page
     Given I am on the login page
-    When I do nothing
-    Then I should see the login description
+    When I do nothing (login page)
+    Then I should see the title (login page)
