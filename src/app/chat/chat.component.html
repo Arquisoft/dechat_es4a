@@ -58,13 +58,18 @@
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
                             <img [src]="profileImage" alt=""/>
-					        <p>{{string.content}}</p>
+                            <div *ngIf="isImage(string.content)">
+                                <img [src]="getTrustedUrl(string.content)" alt="" border-radius="8px" height="102" width="102"/>
+                            </div>
+                            <p *ngIf="!isImage(string)">{{string.content}}</p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
                         <li class="sent">
-                            <img src={{friendPhotoActive}} alt="" />
-                            <p>{{string.content}}</p>
+                            <div *ngIf="isImage(string.content)">
+                                <img [src]="getTrustedUrl(string.content)" alt="" border-radius="8px" height="102" width="102"/>
+                            </div>
+                            <p *ngIf="!isImage(string)">{{string.content}}</p>
                         </li>
                     </div>
                 </div>

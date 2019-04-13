@@ -5,7 +5,6 @@ import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
-import {escapeRegExp} from 'tslint/lib/utils';
 
 declare let solid: any;
 
@@ -204,7 +203,7 @@ export class ChatService implements OnInit {
     
     message = new SolidMessage(maker, content,time);
     if(content != "" && content.length > 0 && content != "Chat Started"){
-      this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
+      this.chat.messages.push(new SolidMessage(maker, content, time));
     }
 
   }

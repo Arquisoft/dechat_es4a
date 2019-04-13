@@ -1,17 +1,14 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { Router } from "@angular/router";
-import { ChatService } from '../services/chat.service';
-import { RdfService } from '../services/rdf.service';
-import { AuthService } from '../services/solid.auth.service';
-import { SolidChat } from '../models/solid-chat.model';
-import { SolidMessage } from '../models/solid-message.model';
-import { SolidProfile } from '../models/solid-profile.model';
-import { ToastrService } from 'ngx-toastr';
-import { SolidChatUser } from '../models/solid-chat-user.model';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { Howl, Howler } from 'howler';
-import {escapeRegExp} from 'tslint/lib/utils';
+import {Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {ChatService} from '../services/chat.service';
+import {RdfService} from '../services/rdf.service';
+import {AuthService} from '../services/solid.auth.service';
+import {SolidMessage} from '../models/solid-message.model';
+import {SolidProfile} from '../models/solid-profile.model';
+import {ToastrService} from 'ngx-toastr';
+import {SolidChatUser} from '../models/solid-chat-user.model';
+import {Howl, Howler} from 'howler';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -31,7 +28,7 @@ export class ChatComponent implements OnInit {
   chatUsers = []; //contiene lista de solid chat users 
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService) {
+    private router: Router, private toastr: ToastrService, private sanitizer :DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -148,7 +145,6 @@ export class ChatComponent implements OnInit {
             //console.log(message.authorId);
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours()+2);
-            this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
             if(new Date().getTime()- realDate.getTime()<30000){
                this.toastr.info("You have a new message from " + message.authorId);
                let sound = new Howl({
@@ -188,9 +184,6 @@ export class ChatComponent implements OnInit {
     let i;
     for (i = 0; i < this.messages.length; i++) {
       if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
-        return true;
-      }
-      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId=== escapeRegExp(this.messages[i].authorId)) {
         return true;
       }
 
@@ -339,6 +332,19 @@ export class ChatComponent implements OnInit {
   
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+  }
+
+   isImage(str: string) : boolean {
+    str = str +'';
+    if(str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
+      return true;
+    }
+    return false;
+  }
+
+  getTrustedUrl(str : string) : SafeResourceUrl{
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
 
