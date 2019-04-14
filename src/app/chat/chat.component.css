@@ -236,7 +236,7 @@ ul {
   }
 
   #frame #sidepanel #contacts li.contact:active {
-    background: #6264bd;
+    background: #41437e;
   }
 
   #frame #sidepanel #contacts ul li.contact .wrap {
@@ -361,7 +361,7 @@ ul {
     margin: 6px 0 0 8px;
   }
   #frame #content .messages ul li.sent p {
-    background: #435f7a;
+    background: #41437e;
     color: #f5f5f5;
     margin: 15px 15px 5px 45px;
   }
