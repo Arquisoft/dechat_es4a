@@ -30,6 +30,10 @@ export class ChatComponent implements OnInit {
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de solid chat users 
 
+  //Para los emojis:
+  text: string = '';
+  openPopup: Function;
+
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
     private router: Router, private toastr: ToastrService) {
   }
@@ -112,17 +116,25 @@ export class ChatComponent implements OnInit {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
-  send() {
+  send(content:string,event){
+    //var content = (<HTMLInputElement>document.getElementById("message")).value;
     if (this.friendActive) {
-      var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
         let user = this.getUsername();
         let message = new SolidMessage(user, content,(new Date()).toISOString());
         this.chat.postMessage(message);
-        (<HTMLInputElement>document.getElementById("message")).value = "";
+        //(<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
       }
     }
+    this.cleanInput();
+  }
+
+  cleanInput(){
+    var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
+    console.log("-------------------------------->: value " + value);
+    (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
+    console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
   }
 
   private async loadMessages() {
@@ -200,11 +212,11 @@ export class ChatComponent implements OnInit {
 
   }
 
-  handleSubmit(event) {
+  /*handleSubmit(event) {
     if (event.keyCode === 13) {
       this.send();
     }
-  }
+  }*/
 
   getUsernameFromId(id): string {
     let username = id.replace('https://', '');
@@ -241,7 +253,6 @@ export class ChatComponent implements OnInit {
       console.log(`Error: ${error}`);
     }
   }
-
 
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
@@ -341,7 +352,10 @@ export class ChatComponent implements OnInit {
     document.getElementById("mySidenav").style.width = "0";
   }
 
-
+  setPopupAction(fn: any) {
+    console.log('setPopupAction: ');
+    this.openPopup = fn;
+  }
 }
 
 

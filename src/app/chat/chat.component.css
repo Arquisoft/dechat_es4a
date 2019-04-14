@@ -400,7 +400,7 @@ ul {
     background: #b4b9e9dc;
 }
 
-input[type=text], select {
+input, select {
   width: 70%;
   padding: 12px 20px;
   margin: 11px 0;
@@ -417,6 +417,21 @@ input[type=text], select {
 #frame #content .message-input .wrap input:focus {
   outline: none;
 }
+
+#frame #content .message-input .wrap .fa-smile {
+  border: none;
+  opacity: .5;
+  width: 50px;
+  margin: 15px 10px 5px 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #435f7a;
+}
+
+#frame #content .message-input .wrap .fa-smile:hover {
+  opacity: 1;
+}
+
 #frame #content .message-input .wrap .attachment {
   border: none;
   opacity: .5;
