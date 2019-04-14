@@ -31,6 +31,16 @@ input[type=text].wide-text {
   color: #666;
 }
 
+input, select {
+  width: 800px;
+  height: 35px;
+  margin: 11px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 
 /* Styling custom dropdown */
 

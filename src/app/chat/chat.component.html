@@ -72,9 +72,19 @@
         </div>
         <div class="message-input">
             <div class="wrap">
-                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                <i class="far fa-smile" (click)="openPopup()"></i>
+                <emoji-input
+                inputClass="emojiInput"
+                [popupAnchor]="'bottom'"
+                [(model)]="text"
+                style="display: inline-block;"
+                [closeAfterSelection]="false"
+                (click)="openPopup(false)"
+                (setPopupAction)="setPopupAction($event)"
+                (keyup.enter)="send(text,$event)">
+                </emoji-input>
                 <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button class="chatButton" type="submit" (click)=send()>
+                <button class="chatButton" type="submit" (click)=send(text,$event)>
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>

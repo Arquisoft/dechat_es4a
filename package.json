@@ -53,7 +53,8 @@
     "text-encoding": "^0.6.4",
     "webcrypto": "^0.1.1",
     "whatwg-url": "^7.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "ng-emoji-picker": "^6.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.4",
