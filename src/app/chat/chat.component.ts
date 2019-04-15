@@ -23,7 +23,8 @@ export class ChatComponent implements OnInit {
 
   amigos = [];
   namesFriends = [];
-  mapFriends = new Map<String, String>();
+  mapFriendsTotal = new Map<String, String>();
+  mapContacts = new Map<String, String>();
   profileImage: string;
   profile: SolidProfile;
   friendActive: string;
@@ -49,16 +50,12 @@ export class ChatComponent implements OnInit {
       const list_friends = this.rdf.getFriends();
       this.auth.saveFriends(this.rdf.getFriends());
       if (list_friends) {
-        //console.log("friends list: " + list_friends);
-        let i = 0;
         this.amigos = list_friends;
       }
     }
     else {
       const list_friends = this.auth.getOldFriends();
       if (list_friends) {
-        //console.log("friends list: " + list_friends);
-        let i = 0;
         this.amigos = list_friends;
       }
     }
@@ -87,7 +84,12 @@ export class ChatComponent implements OnInit {
         }
         let username = profile.url.replace('https://', '');
         let user = username.split('.')[0];
-        this.mapFriends.set(user, transformIm);
+        this.mapFriendsTotal.set(user, transformIm);
+        
+        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
+        if(bool){
+          this.mapContacts.set(user, transformIm);
+        }
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
       }
@@ -260,7 +262,6 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    
     this.loadMessages();
   }
 
@@ -314,7 +315,6 @@ export class ChatComponent implements OnInit {
 
   getChatUrl(user:string, friend: string){
       let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
-
       return chatUrl;
   }
   isContactMessage(m:SolidMessage){
@@ -328,13 +328,13 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  searchContact(friend:string){
-    let cloneMapFriends = new Map(this.mapFriends);
-    this.mapFriends.clear();
+  searchNewContact(friend:string){
+    let cloneMapFriends = new Map(this.mapFriendsTotal);
+    this.mapFriendsTotal.clear();
     if(friend != ""){
       cloneMapFriends.forEach((value:string,key: string) => {
         if(key.includes(friend)){
-          this.mapFriends.set(key, value);
+          this.mapFriendsTotal.set(key, value);
         }
       });
     }
@@ -343,8 +343,33 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  searchContact(friend:string){
+    let cloneMapFriends = new Map(this.mapContacts);
+    this.mapContacts.clear();
+    if(friend != ""){
+      cloneMapFriends.forEach((value:string,key: string) => {
+        if(key.includes(friend)){
+          this.mapContacts.set(key, value);
+        }
+      });
+    }
+    else{
+      this.loadFriends();
+    }
+  }
+  
+  async isChatCreated(user: string){
+    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
+    return bool;
+  }
+
+  createChat(name: string, photo: string){
+    this.closeNav();
+    this.loadFriends();
+    this.changeChat(name,photo);
+  }
+
   openNav() {
-    console.log("---------> trying to open");
     document.getElementById("mySidenav").style.width = "250px";
   }
   
@@ -353,7 +378,6 @@ export class ChatComponent implements OnInit {
   }
 
   setPopupAction(fn: any) {
-    console.log('setPopupAction: ');
     this.openPopup = fn;
   }
 }

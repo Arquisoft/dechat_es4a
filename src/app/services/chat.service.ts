@@ -6,6 +6,7 @@ import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
 import {escapeRegExp} from 'tslint/lib/utils';
+import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
 
 declare let solid: any;
 
@@ -140,6 +141,18 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
+  isChatCreated = async (userID:string,friendID: string) =>{
+    //si existe el ttl:
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
+    try{
+      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
+        return true;
+      }, function(error) {
+          return false;
+      });
+    } catch(err){}
+
+  }
   createBaseChat(url: String) {
     //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
