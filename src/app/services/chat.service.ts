@@ -98,21 +98,19 @@ export class ChatService implements OnInit {
     //Lee el ttl:
     this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
-      console.log(chatcontent);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent);
+      //console.log("---------------------------------------------------------");
       var chatcontentsplit = chatcontent.split(":this");
       var chatcontent1 = chatcontentsplit[0];
-      console.log(chatcontentsplit[0]);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontentsplit[0]);
+      //console.log("---------------------------------------------------------");
       var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
-      console.log(chatcontent2);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent2);
+      //console.log("---------------------------------------------------------");
       var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
-      console.log(chatcontent3);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent3);
+      //console.log("---------------------------------------------------------");
       const d = new Date();
-
-
 
       var dm
       if (d.getMonth() < 10) {
@@ -123,7 +121,7 @@ export class ChatService implements OnInit {
       //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
-      console.log("numero de mensaje: " + msgnb);
+      //console.log("numero de mensaje: " + msgnb);
 
       const message = chatcontent1 + `
         :Msg${msgnb}
@@ -139,6 +137,63 @@ export class ChatService implements OnInit {
       }, (err: any) => console.log(err));
 
     }, err => this.createBaseChat(this.chatuserUrl));
+  }
+
+  async removeMessage(msg: SolidMessage){
+    var urlfile = this.chatuserUrl + "index.ttl#this";
+    var chatcontent = "";
+    this.fileClient.readFile(urlfile).then(body => {
+      chatcontent = body;
+      var chatcontentsplit = chatcontent.split(":this");
+      var chatcontent2 = chatcontentsplit[1].split("flow:message"); //es la parte de flow:message
+      var time = msg.time.split(" ");
+      let nameMessage; //name of the message
+      for (let i = 1; i < chatcontentsplit[0].split("n0:maker c:me.").length; i++) {
+        //console.log("msg.time: " + time[2]); //para q coja la hora (el [1] es el terms:created con la fecha)
+        if(chatcontentsplit[0].split("n0:maker c:me.")[i].includes(msg.content) && 
+        chatcontentsplit[0].split("n0:maker c:me.")[i].includes(time[2])){
+             nameMessage = chatcontentsplit[0].split("n0:maker c:me.")[i].split("terms:created ")[0];
+             nameMessage = nameMessage.replace(/\s/g,'');
+        }
+      }
+      let message = chatcontentsplit[0].split("n0:maker c:me.")[0]+"n0:maker c:me.";
+      for (let i = 1; i < chatcontentsplit[0].split("n0:maker c:me.").length; i++) {
+        if(!chatcontentsplit[0].split("n0:maker c:me.")[i].includes(msg.content) && !chatcontentsplit[0].split("n0:maker c:me.")[i].includes(time[2])){
+          message += chatcontentsplit[0].split("n0:maker c:me.")[i];
+          if(i < chatcontentsplit[0].split("n0:maker c:me.").length-1){
+            message += "n0:maker c:me.";
+          }
+        }
+      }
+
+      message += ":this";
+      chatcontent2[0] = chatcontent2[0].replace(/^\s*[\r\n]/gm, '');
+      message += chatcontent2[0];
+      message += "flow:message ";
+      var names = chatcontent2[1].split(",");
+      for (let i = 0; i < names.length; i++) {
+        if(names[i].includes(":Msg")){
+          if(names[i].includes(".")){
+            let n = names[i].split(".");
+            names[i] = n[0];
+          }
+          names[i] = names[i].replace(/\s/g,'');
+          if(!names[i].includes(nameMessage) ){
+            message += names[i];
+            if(i < names.length - 1){
+              message += ", ";
+            }
+            else{
+              message += ".";
+            }
+          }
+        }
+      }
+      console.log(message);
+      this.fileClient.updateFile(urlfile, message).then(success => {
+        console.log('message has been removed');
+      }, (err: any) => console.log(err));
+    }, err => null);
   }
 
   isChatCreated = async (userID:string,friendID: string) =>{

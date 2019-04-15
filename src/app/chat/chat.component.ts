@@ -13,7 +13,6 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { Howl, Howler } from 'howler';
 import {escapeRegExp} from 'tslint/lib/utils';
 
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -31,9 +30,20 @@ export class ChatComponent implements OnInit {
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de solid chat users 
 
+  waitingTime = 5000;
+
   //Para los emojis:
   text: string = '';
   openPopup: Function;
+
+  URL:string;
+  _changeDetection;
+
+  /** message: string = '';*/
+  fileClient: any;
+  messages: Array<SolidMessage> = new Array();
+
+  @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
     private router: Router, private toastr: ToastrService) {
@@ -108,11 +118,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  /** message: string = '';*/
-  fileClient: any;
-  messages: Array<SolidMessage> = new Array();
 
-  @ViewChild('chatbox') chatbox: ElementRef;
 
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
@@ -134,13 +140,12 @@ export class ChatComponent implements OnInit {
 
   cleanInput(){
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
-    console.log("-------------------------------->: value " + value);
+    //console.log("-------------------------------->: value " + value);
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
-    console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
+    //console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
   }
 
   private async loadMessages() {
-
     try{
 
       var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
@@ -180,7 +185,6 @@ export class ChatComponent implements OnInit {
     catch(error){
       console.log("No messages founded")
     }
-    
 
   }
 
@@ -193,9 +197,8 @@ export class ChatComponent implements OnInit {
           });
         }
         catch(error){}
-      }, 8000);
+      }, this.waitingTime);
     } catch (error) { }
-
   }
 
   checkExistingMessage(m: SolidMessage) {
@@ -210,8 +213,6 @@ export class ChatComponent implements OnInit {
 
     }
     return false;
-
-
   }
 
   /*handleSubmit(event) {
@@ -273,9 +274,6 @@ export class ChatComponent implements OnInit {
     //devuelve la foto del amigo del chat que se esta mostrando en pantalla
     return this.friendPhotoActive;
   }
-
-  URL:string;
-  _changeDetection;
 
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
@@ -380,6 +378,16 @@ export class ChatComponent implements OnInit {
   setPopupAction(fn: any) {
     this.openPopup = fn;
   }
+
+	async removeMessage(event) {
+    await this.chat.removeMessage(event.data);
+    for(let i = 0; i < this.messages.length; i++){
+      if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
+        && this.messages[i].time == event.data.time){
+          this.messages.splice(i--, 1);
+     }
+    }
+	}
 }
 
 
