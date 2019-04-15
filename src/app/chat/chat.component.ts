@@ -13,6 +13,9 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { Howl, Howler } from 'howler';
 import {escapeRegExp} from 'tslint/lib/utils';
 
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-chat',
@@ -33,6 +36,9 @@ export class ChatComponent implements OnInit {
   //Para los emojis:
   text: string = '';
   openPopup: Function;
+
+  //Subida de imagenes
+  selectedFile: ImageSnippet;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
     private router: Router, private toastr: ToastrService) {
@@ -355,6 +361,18 @@ export class ChatComponent implements OnInit {
   setPopupAction(fn: any) {
     console.log('setPopupAction: ');
     this.openPopup = fn;
+  }
+
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+      this.chat.uploadImage(this.selectedFile.file);
+    });
+
+    reader.readAsDataURL(file);
   }
 }
 

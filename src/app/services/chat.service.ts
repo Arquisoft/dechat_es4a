@@ -212,4 +212,10 @@ export class ChatService implements OnInit {
 
   }
 
+  uploadImage(image:File){
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/"+image.name;
+    this.fileClient.createFile(url,image);
+    this.postMessage(new SolidMessage(this.userID,url));
+  }
+
 }
