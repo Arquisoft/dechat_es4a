@@ -57,7 +57,7 @@
     "ng-emoji-picker": "^6.0.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.4",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/cli": "^6.2.3",
     "@angular/compiler-cli": "^7.2.7",
     "@angular/language-service": "^6.0.3",

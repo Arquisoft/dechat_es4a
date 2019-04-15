@@ -1,0 +1,84 @@
+
+<body>
+<div id="frame">
+    <div id="sidepanel">
+        <div id="profile">
+            <div id="search">
+                <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+                <input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)"/>  
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+                    <div class="wrap">
+                       <div class="profile-image"> 
+                            <img [src]="profileImage" alt=""/>
+                        </div>
+                        {{getUsername()}}
+                    </div>
+                    <a href="#">New group</a>
+                    <a href="#">Feature 1</a>
+                    <a href="#">Feature 2</a>
+                    <a href="#">Feature 3</a>
+                </div>
+                <span class="fa fa-bars" (click)="openNav()"> </span>  
+            </div>
+        </div>
+        <div id="contacts"> 
+            <p class= "friendText">Contacts</p>
+                <ul>
+                    <div *ngFor="let entry of mapFriends | keyvalue" (click)="changeChat(entry.key,entry.value)">
+                        <hr>
+                        <li class="contact">
+                            <div class="wrap">
+                                <img src={{entry.value}} alt="" /> {{entry.key}}
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="contact-profile">
+            <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
+            <div class="profile-option">
+                <div class="dropdown">
+                    <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <label class="dropdown-item" id="#bb"> Background
+                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg" size="60" >
+                        </label> 
+                        <a class="dropdown-item" (click)="changeColorAppearance()">Appearance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <p>{{getStringChat()}}</p>
+            <ul>
+                <div *ngFor="let string of messages">
+                    <div *ngIf="isContactMessage(string)">
+                        <li class="replies">
+                            <img [src]="profileImage" alt=""/>
+					        <p>{{string.content}}</p>
+                        </li>
+                    </div>
+                    <div *ngIf="!isContactMessage(string)">
+                        <li class="sent">
+                            <img src={{friendPhotoActive}} alt="" />
+                            <p>{{string.content}}</p>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div class="message-input">
+            <div class="wrap">
+                <input type="text" id="message" placeholder="Write your message..." class="usermsg" (keydown)="handleSubmit($event)" size="90"/>
+                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <button class="chatButton" type="submit" (click)=send()>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
