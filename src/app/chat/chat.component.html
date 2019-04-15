@@ -84,7 +84,7 @@
                 (keyup.enter)="send(text,$event)">
                 </emoji-input>
                 <i class="fa fa-paperclip attachment" aria-hidden="true">
-                    <input type="file" id="File" (change)="processFile($event)" accept=".png,.jpeg,.jpg" size="60" >
+                    <input #imageInput type="file" id="File" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg" size="60" >
                 </i>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
