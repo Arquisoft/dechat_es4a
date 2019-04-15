@@ -83,11 +83,13 @@
                 (setPopupAction)="setPopupAction($event)"
                 (keyup.enter)="send(text,$event)">
                 </emoji-input>
-                <i class="fa fa-paperclip attachment" aria-hidden="true">
-                    <input #imageInput type="file" id="File" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg" size="60" >
-                </i>
+                <label for="image-input">
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" >
+                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
+                    </i>
+                </label>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
         </div>

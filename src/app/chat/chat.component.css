@@ -446,6 +446,10 @@ input, select {
   opacity: 1;
 }
 
+#frame #content .message-input .wrap .image-upload{
+  display: none;
+}
+
 #frame #content .message-input .wrap button {
   border: none;
   width: 50px;

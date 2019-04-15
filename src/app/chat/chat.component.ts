@@ -185,7 +185,7 @@ export class ChatComponent implements OnInit {
       console.log("No messages founded")
     }
     
-
+    this.chat.resetChat();
   }
 
   refreshMessages() {
