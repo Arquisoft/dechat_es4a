@@ -127,9 +127,9 @@ export class ChatComponent implements OnInit {
   }
 
   send(content: string, event) {
-    //var content = (<HTMLInputElement>document.getElementById("message")).value;
+    var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     if (this.friendActive) {
-      if (!(content == "")) {
+      if (!(content == "") && value) {
         let user = this.getUsername();
         let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
@@ -406,7 +406,11 @@ export class ChatComponent implements OnInit {
           this.messages.splice(i--, 1);
      }
     }
-	}
+  }
+  
+  createGroup(){
+    console.log("Create group");
+  }
 }
 
 
