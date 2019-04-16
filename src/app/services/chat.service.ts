@@ -53,8 +53,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -141,16 +141,16 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
-  isChatCreated = async (userID:string,friendID: string) =>{
+  isChatCreated = async (userID: string, friendID: string) => {
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
-    try{
-      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/private/Chat" + friendID + "/"
+    try {
+      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function (result) {
         return true;
-      }, function(error) {
-          return false;
+      }, function (error) {
+        return false;
       });
-    } catch(err){}
+    } catch (err) { }
 
   }
   createBaseChat(url: String) {
@@ -176,7 +176,7 @@ export class ChatService implements OnInit {
     let name = username.split('.')[0];
     if (name != "undefined") {
       await this.getMessagesFromPOD(user);
-      // await this.getMessagesFromPOD(friend);
+      await this.getMessagesFromPOD(friend);
     }
     return this.chat;
   }
@@ -217,9 +217,9 @@ export class ChatService implements OnInit {
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
 
-    let message;    
-    message = new SolidMessage(maker, content,time);
-    if(content != "" && content.length > 0 && content != "Chat Started"){
+    let message;
+    message = new SolidMessage(maker, content, time);
+    if (content != "" && content.length > 0 && content != "Chat Started") {
       this.chat.messages.push(new SolidMessage(maker, content, time));
 
     }
