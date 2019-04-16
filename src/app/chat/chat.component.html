@@ -54,7 +54,7 @@
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             <p>{{getStringChat()}}</p>
             <ul>
-                <div *ngFor="let string of messages">
+                <div *ngFor="let string of messages" [shAttachMenu]="menu" [shMenuData]="string">
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
                             <img [src]="profileImage" alt=""/>
@@ -129,6 +129,11 @@
     </div>
     </div>
 </div>
+
+<!-- Context Menu (Messages) -->
+<sh-context-menu #menu>
+    <ng-template shContextMenuItem let-string (click)="removeMessage($event)">Remove</ng-template>
+</sh-context-menu>
 
 
 
