@@ -405,7 +405,11 @@ export class ChatComponent implements OnInit {
           this.messages.splice(i--, 1);
      }
     }
-	}
+  }
+  
+  createGroup(){
+    console.log("Create group");
+  }
 }
 
 
