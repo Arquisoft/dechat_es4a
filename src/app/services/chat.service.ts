@@ -5,10 +5,8 @@ import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
-import {escapeRegExp} from 'tslint/lib/utils';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 
 declare let solid: any;
 
@@ -275,11 +273,11 @@ export class ChatService implements OnInit {
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
 
-    let message;
+    let message;    
+    message = new SolidMessage(maker, content,time);
+    if(content != "" && content.length > 0 && content != "Chat Started"){
+      this.chat.messages.push(new SolidMessage(maker, content, time));
 
-    message = new SolidMessage(maker, content, time);
-    if (content != "" && content.length > 0 && content != "Chat Started") {
-      this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
     }
 
   }
