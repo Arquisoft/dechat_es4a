@@ -59,7 +59,7 @@
                         <li class="replies">
                             <img [src]="profileImage" alt=""/>
                             <div *ngIf="isImage(string.content)">
-                                <img [src]="getTrustedUrl(string.content)" alt="" border-radius="8px" height="102" width="102"/>
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <p *ngIf="!isImage(string)">{{string.content}}</p>
                         </li>
@@ -67,7 +67,7 @@
                     <div *ngIf="!isContactMessage(string)">
                         <li class="sent">
                             <div *ngIf="isImage(string.content)">
-                                <img [src]="getTrustedUrl(string.content)" alt="" border-radius="8px" height="102" width="102"/>
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt=""/>
                             </div>
                             <p *ngIf="!isImage(string)">{{string.content}}</p>
                         </li>
