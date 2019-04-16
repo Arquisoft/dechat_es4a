@@ -43,7 +43,7 @@ export class RdfService {
    */
   updateManager = $rdf.UpdateManager;
 
-  constructor (private toastr: ToastrService) {
+  constructor(private toastr: ToastrService) {
     const fetcherOptions = {};
     this.fetcher = new $rdf.Fetcher(this.store, fetcherOptions);
     this.updateManager = new $rdf.UpdateManager(this.store);
@@ -53,7 +53,7 @@ export class RdfService {
   /**
    * Fetches the session from Solid, and store results in localStorage
    */
-  getSession = async() => {
+  getSession = async () => {
     this.session = await solid.auth.currentSession(localStorage);
   }
 
@@ -81,7 +81,7 @@ export class RdfService {
   getValueFromFoaf = (node: string, webId?: string) => {
     return this.getValueFromNamespace(node, FOAF, webId);
   };
- 
+
   transformDataForm = (form: NgForm, me: any, doc: any) => {
     const insertions = [];
     const deletions = [];
@@ -103,7 +103,7 @@ export class RdfService {
       let oldFieldValue = this.getOldFieldValue(field, oldProfileData);
 
       // if there's no existing home phone number or email address, we need to add one, then add the link for hasTelephone or hasEmail
-      if(!oldFieldValue && fieldValue && (field === 'phone' || field==='email')) {
+      if (!oldFieldValue && fieldValue && (field === 'phone' || field === 'email')) {
         this.addNewLinkedField(field, insertions, predicate, fieldValue, why, me);
       } else {
 
@@ -157,16 +157,16 @@ export class RdfService {
     let uriString: string;
     let uri: any;
 
-    switch(field) {
+    switch (field) {
       case 'phone':
         uriString = this.getValueFromVcard('hasTelephone');
-        if(uriString) {
+        if (uriString) {
           uri = $rdf.sym(uriString);
         }
         break;
       case 'email':
         uriString = this.getValueFromVcard('hasEmail');
-        if(uriString) {
+        if (uriString) {
           uri = $rdf.sym(uriString);
         }
         break;
@@ -187,16 +187,16 @@ export class RdfService {
   private getFieldValue(form: NgForm, field: string): any {
     let fieldValue: any;
 
-    if(!form.value[field]) {
+    if (!form.value[field]) {
       return;
     }
 
-    switch(field) {
+    switch (field) {
       case 'phone':
-        fieldValue = $rdf.sym('tel:+'+form.value[field]);
+        fieldValue = $rdf.sym('tel:+' + form.value[field]);
         break;
       case 'email':
-        fieldValue = $rdf.sym('mailto:'+form.value[field]);
+        fieldValue = $rdf.sym('mailto:' + form.value[field]);
         break;
       default:
         fieldValue = form.value[field];
@@ -209,16 +209,16 @@ export class RdfService {
   private getOldFieldValue(field, oldProfile): any {
     let oldValue: any;
 
-    if(!oldProfile || !oldProfile[field]) {
+    if (!oldProfile || !oldProfile[field]) {
       return;
     }
 
-    switch(field) {
+    switch (field) {
       case 'phone':
-        oldValue = $rdf.sym('tel:+'+oldProfile[field]);
+        oldValue = $rdf.sym('tel:+' + oldProfile[field]);
         break;
       case 'email':
-        oldValue = $rdf.sym('mailto:'+oldProfile[field]);
+        oldValue = $rdf.sym('mailto:' + oldProfile[field]);
         break;
       default:
         oldValue = oldProfile[field];
@@ -246,14 +246,14 @@ export class RdfService {
     const data = this.transformDataForm(form, me, doc);
 
     //Update existing values
-    if(data.insertions.length > 0 || data.deletions.length > 0) {
+    if (data.insertions.length > 0 || data.deletions.length > 0) {
       this.updateManager.update(data.deletions, data.insertions, (response, success, message) => {
-        if(success) {
+        if (success) {
           this.toastr.success('Your Solid profile has been successfully updated', 'Success!');
           form.form.markAsPristine();
           form.form.markAsTouched();
         } else {
-          this.toastr.error('Message: '+ message, 'An error has occurred');
+          this.toastr.error('Message: ' + message, 'An error has occurred');
         }
       });
     }
@@ -285,48 +285,46 @@ export class RdfService {
 
     return '';
   }
-  
+
   // Function to list friends
-  
-  getFriends = () => 
-    {
-        const user = this.session.webId;
-        const friends = this.store.each($rdf.sym(user), FOAF('knows'));
-        const list_friends = [];
-        let contacts = new Map();
-        try {
-            let i=0;
-            for (i=0; i<friends.length; i++)
-            {
-              let person = friends[i].value;
-              list_friends.push(person);
-            }
-            return list_friends;
-        } catch (error) {
-            console.log(`Error fetching data: ${error}`);
-        }
+
+  getFriends = () => {
+    const user = this.session.webId;
+    const friends = this.store.each($rdf.sym(user), FOAF('knows'));
+    const list_friends = [];
+    let contacts = new Map();
+    try {
+      let i = 0;
+      for (i = 0; i < friends.length; i++) {
+        let person = friends[i].value;
+        list_friends.push(person);
       }
+      return list_friends;
+    } catch (error) {
+      console.log(`Error fetching data: ${error}`);
+    }
+  }
 
   getPhotoFriend = async (person: string) => {
     const me = this.store.sym(person);
     const profile = me.doc();
-    try{
+    try {
       await this.fetcher.load(profile);
-      return{
+      return {
         url: person,
         image: this.store.any(me, VCARD('hasPhoto'))
       };
-    } 
+    }
     catch (error) {
       console.log(`Error fetching data: ${error}`);
     }
-    };
+  };
 
 
   //Function to get phone number. This returns only the first phone number, which is temporary. It also ignores the type.
   getPhone = () => {
     const linkedUri = this.getValueFromVcard('hasTelephone');
-    if(linkedUri) {
+    if (linkedUri) {
       return this.getValueFromVcard('value', linkedUri).split('tel:+')[1];
     }
   };
@@ -340,8 +338,8 @@ export class RdfService {
     try {
       await this.fetcher.load(this.session.webId);
       return {
-        fn : this.getValueFromVcard('fn'),
-        company : this.getValueFromVcard('organization-name'),
+        fn: this.getValueFromVcard('fn'),
+        company: this.getValueFromVcard('organization-name'),
         phone: this.getPhone(),
         role: this.getValueFromVcard('role'),
         image: this.getValueFromVcard('hasPhoto'),

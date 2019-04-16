@@ -11,7 +11,7 @@ import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { Howl, Howler } from 'howler';
-import {escapeRegExp} from 'tslint/lib/utils';
+import { escapeRegExp } from 'tslint/lib/utils';
 
 
 @Component({
@@ -118,12 +118,12 @@ export class ChatComponent implements OnInit {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
-  send(content:string,event){
+  send(content: string, event) {
     //var content = (<HTMLInputElement>document.getElementById("message")).value;
     if (this.friendActive) {
       if (!(content == "")) {
         let user = this.getUsername();
-        let message = new SolidMessage(user, content,(new Date()).toISOString());
+        let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
         //(<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
@@ -132,7 +132,7 @@ export class ChatComponent implements OnInit {
     this.cleanInput();
   }
 
-  cleanInput(){
+  cleanInput() {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     console.log("-------------------------------->: value " + value);
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
@@ -141,19 +141,19 @@ export class ChatComponent implements OnInit {
 
   private async loadMessages() {
 
-    try{
+    try {
 
-      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
-    
-      await chat.messages.sort(function(a,b) {
-        if(a.time > b.time)
+      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId)));
+
+      await chat.messages.sort(function (a, b) {
+        if (a.time > b.time)
           return 1;
-        if(b.time > a.time)
+        if (b.time > a.time)
           return -1
         else
           return 0;
       });
-  
+
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -161,38 +161,38 @@ export class ChatComponent implements OnInit {
             //console.log(message.content);
             //console.log(message.authorId);
             let realDate = new Date(message.time);
-            realDate.setHours(new Date(message.time).getHours()+2);
-            this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
-            if(new Date().getTime()- realDate.getTime()<30000){
-               this.toastr.info("You have a new message from " + message.authorId);
-               let sound = new Howl({
-                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-               });
-               Howler.volume(1);
-               sound.play();
+            realDate.setHours(new Date(message.time).getHours() + 2);
+            this.toastr.info("You have a new message from " + (new Date() + " " + realDate));
+            if (new Date().getTime() - realDate.getTime() < 30000) {
+              this.toastr.info("You have a new message from " + message.authorId);
+              let sound = new Howl({
+                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+              });
+              Howler.volume(1);
+              sound.play();
             }
-  
+
           }
         }
       });
 
     }
-    catch(error){
+    catch (error) {
       console.log("No messages founded")
     }
-    
+
 
   }
 
   refreshMessages() {
     try {
       setInterval(() => {
-        try{
+        try {
           this.loadMessages().catch((error) => {
             throw new Error('Higher-level error. ' + error.message);
           });
         }
-        catch(error){}
+        catch (error) { }
       }, 8000);
     } catch (error) { }
 
@@ -201,10 +201,10 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
+      if (m.content === this.messages[i].content && m.authorId === this.messages[i].authorId) {
         return true;
       }
-      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId=== escapeRegExp(this.messages[i].authorId)) {
+      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId === escapeRegExp(this.messages[i].authorId)) {
         return true;
       }
 
@@ -232,7 +232,7 @@ export class ChatComponent implements OnInit {
     let user = username.split('.')[0];
     return user;
   }
-  
+
   logout() {
     this.auth.solidSignOut();
   }
@@ -274,7 +274,7 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
-  URL:string;
+  URL: string;
   _changeDetection;
 
   changeBackground(event) {
@@ -296,8 +296,8 @@ export class ChatComponent implements OnInit {
         this.URL = e.target['result']; // Set image in element
         this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
       };
+    }
   }
-}
 
   changeColorAppearance() {
     console.log("CAMBIAR COLOR");
@@ -313,18 +313,19 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getChatUrl(user:string, friend: string){
-      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
-      return chatUrl;
+  getChatUrl(user: string, friend: string) {
+    let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
+
+    return chatUrl;
   }
-  isContactMessage(m:SolidMessage){
+  isContactMessage(m: SolidMessage) {
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
-    if(messageAuthor.match(contact)){
-        return false;
-      }
-    else{
-        return true;
+    if (messageAuthor.match(contact)) {
+      return false;
+    }
+    else {
+      return true;
     }
   }
 
@@ -353,7 +354,7 @@ export class ChatComponent implements OnInit {
         }
       });
     }
-    else{
+    else {
       this.loadFriends();
     }
   }
@@ -372,7 +373,7 @@ export class ChatComponent implements OnInit {
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
   }
-  
+
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
