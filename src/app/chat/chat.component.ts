@@ -30,8 +30,6 @@ export class ChatComponent implements OnInit {
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de solid chat users 
 
-  waitingTime = 5000;
-
   //Para los emojis:
   text: string = '';
   openPopup: Function;
@@ -45,6 +43,9 @@ export class ChatComponent implements OnInit {
 
   //Para parar el intervalo de carga de mensajes
   refreshIntervalId: any;
+
+  //Array de mensajes borrados -> para que no aparezca en pantalla de nuevo
+  msgRemoved: Array<SolidMessage> = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
@@ -121,8 +122,6 @@ export class ChatComponent implements OnInit {
     }
   }
 
-
-
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
@@ -165,25 +164,21 @@ export class ChatComponent implements OnInit {
 
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
-          if (!this.checkExistingMessage(message)) {
-            this.messages.push(message);
-            //console.log(message.content);
-            //console.log(message.authorId);
-            let realDate = new Date(message.time);
-            realDate.setHours(new Date(message.time).getHours()+2);
-            if(new Date().getTime()- realDate.getTime()<30000){
-               this.toastr.info("You have a new message from " + message.authorId);
-               let sound = new Howl({
-                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-               });
-               Howler.volume(1);
-               sound.play();
+            if (!this.checkExistingMessage(message)) {
+              this.messages.push(message);
+              let realDate = new Date(message.time);
+              realDate.setHours(new Date(message.time).getHours()+2);
+              if(new Date().getTime()- realDate.getTime()<30000){
+                 this.toastr.info("You have a new message from " + message.authorId);
+                 let sound = new Howl({
+                     src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
+                 });
+                 Howler.volume(1);
+                 sound.play();
+              }
             }
-
           }
-        }
       });
-
     }
     catch (error) {
       console.log("No messages founded")
@@ -206,6 +201,15 @@ export class ChatComponent implements OnInit {
 
   checkExistingMessage(m: SolidMessage) {
     let i;
+    let a = 0;
+    this.msgRemoved.forEach(msg => {
+      if(m.content.includes(msg.content)){
+        a += 1;
+      }
+    });
+    if( a > 0){
+      return true;
+    }
     for (i = 0; i < this.messages.length; i++) {
       if (m.content === this.messages[i].content && m.authorId === this.messages[i].authorId) {
         return true;
@@ -393,16 +397,14 @@ export class ChatComponent implements OnInit {
   }
 
 	async removeMessage(event) {
-    clearInterval(this.refreshIntervalId); //paramos el setInterval para q le de tiempo a borrar el mensaje bien
     await this.chat.removeMessage(event.data);
     for(let i = 0; i < this.messages.length; i++){
       if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
         && this.messages[i].time == event.data.time){
+          this.msgRemoved.push(this.messages[i]);
           this.messages.splice(i--, 1);
      }
     }
-    //setTimeout(() => this.refreshMessages(), 10000);
-    //this.refreshMessages(); //volvemos a ejecutar el setInterval
 	}
 }
 
