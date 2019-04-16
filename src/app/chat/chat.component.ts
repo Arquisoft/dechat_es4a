@@ -394,10 +394,14 @@ export class ChatComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.chat.uploadImage(this.selectedFile.file);
     });
 
     reader.readAsDataURL(file);
+  }
+
+  sendImage(imageInput: any){
+    this.processFile(imageInput);
+    this.chat.sendImage(this.selectedFile.file);
   }
 }
 
