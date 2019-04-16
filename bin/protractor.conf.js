@@ -6,7 +6,8 @@
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    "test/acceptance/features/*.feature"
+    "test/acceptance/features/*.feature" ,
+    "e2e/src/features/*.feature"
   ],
 
   framework: 'custom',
@@ -18,7 +19,6 @@ exports.config = {
     require: ["e2e/src/steps/*.steps.js"],
     strict: true
   },
-  specs: ["e2e/src/features/*.feature"],
   capabilities: {
     browserName: "chrome",
   },
