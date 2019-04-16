@@ -7,6 +7,8 @@ import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
 import {escapeRegExp} from 'tslint/lib/utils';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 declare let solid: any;
 
@@ -14,7 +16,7 @@ declare let solid: any;
   providedIn: 'root',
 })
 export class ChatService implements OnInit {
-  
+
 
 
   fileClient: any;
@@ -52,9 +54,9 @@ export class ChatService implements OnInit {
     var d = new Date().toISOString(); //esto es la fecha de creacion
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
-    this.chat = new SolidChat(this.userID,this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.chat = new SolidChat(this.userID, this.friendID);
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -146,29 +148,30 @@ export class ChatService implements OnInit {
       chatcontent = body;
       var chatcontentsplit = chatcontent.split(":this");
       var chatcontent2 = chatcontentsplit[1].split("flow:message"); //es la parte de flow:message
-      var time = msg.time.split(" ");
+      var chatcontent3 = chatcontentsplit[0].split("n0:maker c:me.");
       let nameMessage; //name of the message
-      for (let i = 1; i < chatcontentsplit[0].split("n0:maker c:me.").length; i++) {
-        //console.log("msg.time: " + time[2]); //para q coja la hora (el [1] es el terms:created con la fecha)
-        if(chatcontentsplit[0].split("n0:maker c:me.")[i].includes(msg.content) && 
-        chatcontentsplit[0].split("n0:maker c:me.")[i].includes(time[2])){
-             nameMessage = chatcontentsplit[0].split("n0:maker c:me.")[i].split("terms:created ")[0];
-             nameMessage = nameMessage.replace(/\s/g,'');
+      for (let i = 1; i < chatcontent3.length; i++) {
+        let value = chatcontent3[i]
+        let valueMsg = msg.content
+        value=chatcontent3[i].replace(/\s/g,'');
+        valueMsg=msg.content.replace(/\s/g,'');
+        if(value.includes(valueMsg)){
+            nameMessage = value.split("terms:created")[0];
+            nameMessage = nameMessage.replace(/\s/g,'');
         }
       }
-      let message = chatcontentsplit[0].split("n0:maker c:me.")[0]+"n0:maker c:me.";
-      for (let i = 1; i < chatcontentsplit[0].split("n0:maker c:me.").length; i++) {
-        if(!chatcontentsplit[0].split("n0:maker c:me.")[i].includes(msg.content) && !chatcontentsplit[0].split("n0:maker c:me.")[i].includes(time[2])){
-          message += chatcontentsplit[0].split("n0:maker c:me.")[i];
-          if(i < chatcontentsplit[0].split("n0:maker c:me.").length-1){
+      let message = chatcontent3[0]+"n0:maker c:me.";
+      for (let i = 1; i < chatcontent3.length; i++) {
+        if(!chatcontent3[i].includes(msg.content)){
+          message += chatcontent3[i];
+          if(i < chatcontent3.length-1){
             message += "n0:maker c:me.";
           }
         }
       }
-
       message += ":this";
-      chatcontent2[0] = chatcontent2[0].replace(/^\s*[\r\n]/gm, '');
-      message += chatcontent2[0];
+      chatcontent2[0] = chatcontent2[0].replace(/^\s*[\r\n]/gm, ''); //quito lineas en blanco q sobran
+      message += '\n\n' + chatcontent2[0];
       message += "flow:message ";
       var names = chatcontent2[1].split(",");
       for (let i = 0; i < names.length; i++) {
@@ -189,7 +192,7 @@ export class ChatService implements OnInit {
           }
         }
       }
-      console.log(message);
+      //console.log(message);
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been removed');
       }, (err: any) => console.log(err));
@@ -198,7 +201,7 @@ export class ChatService implements OnInit {
 
   isChatCreated = async (userID:string,friendID: string) =>{
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/private/Chat" + friendID + "/"
     try{
       return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
         return true;
@@ -209,6 +212,7 @@ export class ChatService implements OnInit {
 
   }
   createBaseChat(url: String) {
+
     //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
@@ -225,56 +229,56 @@ export class ChatService implements OnInit {
         }, err => console.log(err)));
   }
 
-  async loadMessages(user,friend) {
+  async loadMessages(user, friend) {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
-      if(name != "undefined"){
-        await this.getMessagesFromPOD(user);
-        await this.getMessagesFromPOD(friend);
-      }
-      return this.chat;
+    if (name != "undefined") {
+      await this.getMessagesFromPOD(user);
+      await this.getMessagesFromPOD(friend);
+    }
+    return this.chat;
   }
 
-  resetChat(){
-    this.chat = new SolidChat(this.userID,this.friendID);
+  resetChat() {
+    this.chat = new SolidChat(this.userID, this.friendID);
   }
 
-  getMessagesFromPOD(url){
-    try{
+  getMessagesFromPOD(url) {
+    try {
       var chatcontent: any;
 
       //console.log("loadMessages url: " + url);
-  
-      try{
+
+      try {
         this.fileClient.readFile(url).then(body => {
           chatcontent = body;
-    
+
           var split = chatcontent.split(':Msg');
-    
+
           split.forEach(async str => {
             var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
             var maker = this.getUsername(url);
             var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
             var time_array = time_not_parsed.split("T").join(".").split(".");
-            var time = time_array[0]+ " "+ time_array[1];
-            this.addToChat(content, maker,time);
+            var time = time_array[0] + " " + time_array[1];
+            this.addToChat(content, maker, time);
           })
         });
       }
-      catch(err){}
+      catch (err) { }
     }
-    catch(error){
+    catch (error) {
       console.log("Not getting messages from POD");
     }
   }
 
-  private addToChat(msg: string, maker: string,time = "") {
+  private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    
+
     let message;
-    
-    message = new SolidMessage(maker, content,time);
-    if(content != "" && content.length > 0 && content != "Chat Started"){
+
+    message = new SolidMessage(maker, content, time);
+    if (content != "" && content.length > 0 && content != "Chat Started") {
       this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
     }
 
