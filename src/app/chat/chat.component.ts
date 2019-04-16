@@ -262,6 +262,7 @@ export class ChatComponent implements OnInit {
 
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
