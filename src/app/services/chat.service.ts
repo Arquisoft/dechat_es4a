@@ -5,6 +5,8 @@ import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
+import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare let solid: any;
 
@@ -12,7 +14,7 @@ declare let solid: any;
   providedIn: 'root',
 })
 export class ChatService implements OnInit {
-  
+
 
 
   fileClient: any;
@@ -47,12 +49,12 @@ export class ChatService implements OnInit {
 
   createInboxChat(submitterWebId: string, destinataryWebId: string) {
 
-    var d = new Date().toISOString();
+    var d = new Date().toISOString(); //esto es la fecha de creacion
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
-    this.chat = new SolidChat(this.userID,this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.chat = new SolidChat(this.userID, this.friendID);
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -93,6 +95,7 @@ export class ChatService implements OnInit {
 
     var chatcontent = "";
 
+    //Lee el ttl:
     this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
       console.log(chatcontent);
@@ -117,6 +120,7 @@ export class ChatService implements OnInit {
       } else {
         dm = d.getMonth();
       }
+      //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
       console.log("numero de mensaje: " + msgnb);
@@ -137,7 +141,21 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
+  isChatCreated = async (userID:string,friendID: string) =>{
+    //si existe el ttl:
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
+    try{
+      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
+        return true;
+      }, function(error) {
+          return false;
+      });
+    } catch(err){}
+
+  }
   createBaseChat(url: String) {
+
+    //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
       console.log('Chat exists, no action needed');
@@ -153,57 +171,57 @@ export class ChatService implements OnInit {
         }, err => console.log(err)));
   }
 
-  async loadMessages(user,friend) {
-    try{
+  async loadMessages(user, friend) {
+    let username = friend.replace('https://', '');
+    let name = username.split('.')[0];
+    if (name != "undefined") {
       await this.getMessagesFromPOD(user);
-      await this.getMessagesFromPOD(friend);
-      return this.chat;
+      // await this.getMessagesFromPOD(friend);
     }
-    catch(err){}
-    
+    return this.chat;
   }
 
-  resetChat(){
-    this.chat = new SolidChat(this.userID,this.friendID);
+  resetChat() {
+    this.chat = new SolidChat(this.userID, this.friendID);
   }
 
-  getMessagesFromPOD(url){
-    try{
+  getMessagesFromPOD(url) {
+    try {
       var chatcontent: any;
 
       //console.log("loadMessages url: " + url);
-  
-      try{
+
+      try {
         this.fileClient.readFile(url).then(body => {
           chatcontent = body;
-    
+
           var split = chatcontent.split(':Msg');
-    
+
           split.forEach(async str => {
             var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
             var maker = this.getUsername(url);
             var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
             var time_array = time_not_parsed.split("T").join(".").split(".");
-            var time = time_array[0]+ " "+ time_array[1];
-            this.addToChat(content, maker,time);
+            var time = time_array[0] + " " + time_array[1];
+            this.addToChat(content, maker, time);
           })
         });
       }
-      catch(err){}
+      catch (err) { }
     }
-    catch(error){
+    catch (error) {
       console.log("Not getting messages from POD");
     }
   }
 
-  private addToChat(msg: string, maker: string,time = "") {
+  private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
-    
-    let message;
-    
+
+    let message;    
     message = new SolidMessage(maker, content,time);
     if(content != "" && content.length > 0 && content != "Chat Started"){
       this.chat.messages.push(new SolidMessage(maker, content, time));
+
     }
 
   }

@@ -9,6 +9,9 @@ import {ToastrService} from 'ngx-toastr';
 import {SolidChatUser} from '../models/solid-chat-user.model';
 import {Howl, Howler} from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SolidChat } from '../models/solid-chat.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 
 @Component({
@@ -20,12 +23,17 @@ export class ChatComponent implements OnInit {
 
   amigos = [];
   namesFriends = [];
-  mapFriends = new Map<String, String>();
+  mapFriendsTotal = new Map<String, String>();
+  mapContacts = new Map<String, String>();
   profileImage: string;
   profile: SolidProfile;
   friendActive: string;
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de solid chat users 
+
+  //Para los emojis:
+  text: string = '';
+  openPopup: Function;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
     private router: Router, private toastr: ToastrService, private sanitizer :DomSanitizer) {
@@ -42,16 +50,12 @@ export class ChatComponent implements OnInit {
       const list_friends = this.rdf.getFriends();
       this.auth.saveFriends(this.rdf.getFriends());
       if (list_friends) {
-        //console.log("friends list: " + list_friends);
-        let i = 0;
         this.amigos = list_friends;
       }
     }
     else {
       const list_friends = this.auth.getOldFriends();
       if (list_friends) {
-        //console.log("friends list: " + list_friends);
-        let i = 0;
         this.amigos = list_friends;
       }
     }
@@ -80,7 +84,12 @@ export class ChatComponent implements OnInit {
         }
         let username = profile.url.replace('https://', '');
         let user = username.split('.')[0];
-        this.mapFriends.set(user, transformIm);
+        this.mapFriendsTotal.set(user, transformIm);
+        
+        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
+        if(bool){
+          this.mapContacts.set(user, transformIm);
+        }
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
       }
@@ -109,34 +118,42 @@ export class ChatComponent implements OnInit {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
-  send() {
+  send(content: string, event) {
+    //var content = (<HTMLInputElement>document.getElementById("message")).value;
     if (this.friendActive) {
-      var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
         let user = this.getUsername();
-        let message = new SolidMessage(user, content,(new Date()).toISOString());
+        let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
-        (<HTMLInputElement>document.getElementById("message")).value = "";
+        //(<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
       }
     }
+    this.cleanInput();
+  }
+
+  cleanInput() {
+    var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
+    console.log("-------------------------------->: value " + value);
+    (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
+    console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
   }
 
   private async loadMessages() {
 
-    try{
+    try {
 
-      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
-    
-      await chat.messages.sort(function(a,b) {
-        if(a.time > b.time)
+      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId)));
+
+      await chat.messages.sort(function (a, b) {
+        if (a.time > b.time)
           return 1;
-        if(b.time > a.time)
+        if (b.time > a.time)
           return -1
         else
           return 0;
       });
-  
+
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -153,28 +170,28 @@ export class ChatComponent implements OnInit {
                Howler.volume(1);
                sound.play();
             }
-  
+
           }
         }
       });
 
     }
-    catch(error){
+    catch (error) {
       console.log("No messages founded")
     }
-    
+
 
   }
 
   refreshMessages() {
     try {
       setInterval(() => {
-        try{
+        try {
           this.loadMessages().catch((error) => {
             throw new Error('Higher-level error. ' + error.message);
           });
         }
-        catch(error){}
+        catch (error) { }
       }, 8000);
     } catch (error) { }
 
@@ -183,21 +200,20 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
+      if (m.content === this.messages[i].content && m.authorId === this.messages[i].authorId) {
         return true;
       }
-
     }
     return false;
 
 
   }
 
-  handleSubmit(event) {
+  /*handleSubmit(event) {
     if (event.keyCode === 13) {
       this.send();
     }
-  }
+  }*/
 
   getUsernameFromId(id): string {
     let username = id.replace('https://', '');
@@ -211,7 +227,7 @@ export class ChatComponent implements OnInit {
     let user = username.split('.')[0];
     return user;
   }
-  
+
   logout() {
     this.auth.solidSignOut();
   }
@@ -235,14 +251,12 @@ export class ChatComponent implements OnInit {
     }
   }
 
-
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    
     this.loadMessages();
   }
 
@@ -255,7 +269,7 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
-  URL:string;
+  URL: string;
   _changeDetection;
 
   changeBackground(event) {
@@ -277,8 +291,8 @@ export class ChatComponent implements OnInit {
         this.URL = e.target['result']; // Set image in element
         this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
       };
+    }
   }
-}
 
   changeColorAppearance() {
     console.log("CAMBIAR COLOR");
@@ -294,29 +308,29 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getChatUrl(user:string, friend: string){
-      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
+  getChatUrl(user: string, friend: string) {
+    let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
 
-      return chatUrl;
+    return chatUrl;
   }
-  isContactMessage(m:SolidMessage){
+  isContactMessage(m: SolidMessage) {
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
-    if(messageAuthor.match(contact)){
-        return false;
-      }
-    else{
-        return true;
+    if (messageAuthor.match(contact)) {
+      return false;
+    }
+    else {
+      return true;
     }
   }
 
-  searchContact(friend:string){
-    let cloneMapFriends = new Map(this.mapFriends);
-    this.mapFriends.clear();
+  searchNewContact(friend:string){
+    let cloneMapFriends = new Map(this.mapFriendsTotal);
+    this.mapFriendsTotal.clear();
     if(friend != ""){
       cloneMapFriends.forEach((value:string,key: string) => {
         if(key.includes(friend)){
-          this.mapFriends.set(key, value);
+          this.mapFriendsTotal.set(key, value);
         }
       });
     }
@@ -325,11 +339,36 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  openNav() {
-    console.log("---------> trying to open");
-    document.getElementById("mySidenav").style.width = "250px";
+  searchContact(friend:string){
+    let cloneMapFriends = new Map(this.mapContacts);
+    this.mapContacts.clear();
+    if(friend != ""){
+      cloneMapFriends.forEach((value:string,key: string) => {
+        if(key.includes(friend)){
+          this.mapContacts.set(key, value);
+        }
+      });
+    }
+    else {
+      this.loadFriends();
+    }
   }
   
+  async isChatCreated(user: string){
+    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
+    return bool;
+  }
+
+  createChat(name: string, photo: string){
+    this.closeNav();
+    this.loadFriends();
+    this.changeChat(name,photo);
+  }
+
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
@@ -347,7 +386,9 @@ export class ChatComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
-
+  setPopupAction(fn: any) {
+    this.openPopup = fn;
+  }
 }
 
 

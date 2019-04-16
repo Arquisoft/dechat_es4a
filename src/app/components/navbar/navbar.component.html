@@ -1,50 +1,63 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #3d375c;">
-    <a class="navbar-brand" routerLink="" style="color: #f4f1f7;">
-      <i class="fas fa-comments" style="color: #f4f1f7;"></i>
-      Chat-es4a 
-    </a>
-  
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+  <a class="navbar-brand" routerLink="" style="color: #f4f1f7;">
+    <i class="fas fa-comments" style="color: #f4f1f7;"></i>
+    Chat-es4a
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="" style="color: #f4f1f7;">
+          <i class="fa fa-home" style="color: #f4f1f7;"></i>
+          Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/chat" style="color: #f4f1f7;">
+          <i class="fas fa-comment" style="color: #f4f1f7;"></i>
+          Chat
+        </a>
+      </li>
+      <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" style="color: #f4f1f7;">
+          <i class="fas fa-question-circle" style="color: #f4f1f7;"></i>
+          Help
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/dechat_es4a/assets/statics/docs" target="_blank">Documentation</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://github.com/Arquisoft/dechat_es4a/wiki/home">About us</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">User's Guide</a>
+        </div>
+      </li>
+      <!--
         <li class="nav-item active">
-          <a class="nav-link" routerLink="" style="color: #f4f1f7;">
-            <i class="fa fa-home" style="color: #f4f1f7;"></i>  
-            Home 
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/chat" style="color: #f4f1f7;">
-            <i class="fas fa-comment" style="color: #f4f1f7;"></i>
-            Chat
-          </a>
-        </li>
-        <li class="nav-item active dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f4f1f7;">
-              <i class="fas fa-question-circle" style="color: #f4f1f7;"></i>
-              Help
-            </a> 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/dechat_es4a/assets/statics/docs" target="_blank">Documentation</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">About us</a>
-          </div>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f4f1f7;">
-                <i class="fas fa-user" style="color: #f4f1f7;"></i>
-                {{getUsername()}}
-              </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" routerLink="/login" (click)="logout()">
-              <a class="dropdown-item" href="#">Logout</a>
-            </div>
-          </li>
-      </ul>
-    </div>
-  </nav>
+        <a class="nav-link" routerLink="/chat" id="daltonic">
+          Daltonic Color Scheme
+        </a>
+      </li> 
+    -->
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" style="color: #f4f1f7;">
+          <i class="fas fa-user" style="color: #f4f1f7;"></i>
+          {{getUsername()}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" routerLink="/login"
+          (click)="logout()">
+          <a class="dropdown-item" href="#">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
