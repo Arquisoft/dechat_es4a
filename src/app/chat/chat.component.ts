@@ -42,7 +42,9 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.loadProfile();
     this.loadFriends();
+    this.toastr.info('The messages are being loaded, it will take just a second!');
     this.refreshMessages();
+    this.toastr.info('Thank you for your patience!');
   }
 
   loadFriends() {
