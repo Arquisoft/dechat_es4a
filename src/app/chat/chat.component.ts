@@ -315,7 +315,7 @@ export class ChatComponent implements OnInit {
   }
 
   getChatUrl(user: string, friend: string) {
-    let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
+    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
     return chatUrl;
   }
