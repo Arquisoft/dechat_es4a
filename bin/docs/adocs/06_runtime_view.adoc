@@ -1,0 +1,28 @@
+[[section-runtime-view]]
+== Runtime View [TODO]
+
+=== Log in
+
+    1. The user runs the application:
+        
+        1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)
+        
+        1.2. Subscenario 2: The user does already have a POD, but they are not logged in, then they select their provider and enter the credentials.
+        
+        1.3. Subscenario 3: The user has a POD and is logged in, in this case the user can use the application from the get-go.
+
+=== Send messages
+
+    In order to send a message the user has to be logged in and have friends added.
+
+    1. The user opens the app, logs in, and then they can go to the chat page.
+
+    2. The chat page has two main sections, the friends list and the chat box.
+        
+        2.1. To chat with a friend the user selects a user from the list.
+
+        2.2. If there is already a chat selected it will load the previous messages.
+
+    3. When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.
+
+    4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter's POD. Then the other user application can read the messages from the submitter's POD and display them

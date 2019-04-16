@@ -1,0 +1,30 @@
+[[section-deployment-view]]
+
+== Deployment View
+
+=== Infrastructure Level 1
+
+image:images/07_Deployment.PNG["Basic Deployment View"]
+
+.Deployment nodes and artifact
+|===
+|Node/Artifact |Description
+
+|index.html
+|Html file that contain all information to execute our application in the web browser.
+
+|User Device
+|A browser that can run our application. Chrome or Firefox should work.
+
+|Web Hosting Service
+|Webpage where the application is deployed.
+
+|Home SOLID Server
+|Server created and administrated by the client with his/her own POD.
+
+|Inrupt Provider Web Server
+|Free provider of PODs by the commercial entity established by the Solid founding team.
+
+|SOLID Community Provider Web Server
+|Free provider of PODs for the Solid community, by the Solid community.
+|===

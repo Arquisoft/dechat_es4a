@@ -1,0 +1,30 @@
+[[section-building-block-view]]
+
+
+== Building Block View [TODO]
+
+=== Whitebox Overall System
+
+The decentralized chat app, deChat, is based on SOLID, which is a project led by Tim Berners-Lee, father of the 
+World Wide Web. Its name stands for "SOcial LInked Data". The main goal of SOLID is to give the user full control over their data and 
+who can access it, to achieve this, the SOLID PODs have been created. These PODs also let users decide where their data is stored, 
+it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.
+
+image:images/05_building_block_level1.png["Whitebox Overall System"]
+
+The main elements that make part of the app and will communicate with each other are the following:
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| _User_ | _Users will log in using their POD, from there, they can have conversations and share files with other users_
+| _User POD_ | _They are used to store the data of his owner, then, any user with granted access can interact with it_
+| _deChat app_ | _This app allows users to communicate with each other, provides the functionality and views necessary for that matter_
+|===
+
+=== Level 2[TODO]
+
+
+=== Level 3[TODO]
+
+

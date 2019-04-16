@@ -1,0 +1,17 @@
+[[section-quality-scenarios]]
+== Quality Requirements
+
+=== Quality Tree
+
+image:quality_tree.png[] 
+
+=== Quality Scenarios
+
+.Usage Scenarios:
+* An user attempts to access the porfile of a friend -> the application makes a request to the server to access the porfile's contents of the friend's POD, retrieves them, and shows them to the user within 1 second (multimedia content may vary)
+* An user attempts to access the porfile of a person that has explicitly set their profile to private -> the application makes a request to the server to access the porfile's contents of the person's POD, but due to the lack of permission the access is denied and the requesting user is informed within 1 second 
+* An user changes his/her porfile picture -> The application request the server storing the POD to edit the contents, and upon obtaining permission he changes the picture. from now on people accessing this porfile will see the updated picture
+* An user wants to start a conversation with a friend -> The application makes a request to estabish a line of communication between the current device and the device in which the friend has his app installed within 3 seconds.
+
+.Change Scenarios:
+* The application is modified to be integrated with Github (or any website with social interaction for that matter) -> the Application now can retrieve information from the linked GitHub account, informing the user with each relevant action (Commits, updates in repostories, requests to participate in projectts, etc). If Application friends link their accounts to the application and they allow that information to be shared in settings, the user will be informed that they share platform.

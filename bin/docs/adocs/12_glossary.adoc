@@ -1,0 +1,15 @@
+[[section-glossary]]
+== Glossary
+[options="header"]
+|===
+| Term         | Definition
+| Javascript         | the main clent-side programming language of HTML and the Web. It's the programming language chosen for this project https://en.wikipedia.org/wiki/JavaScript
+| HTML         | HTML stands for Hyper Text Markup Language; HTML describes the structure of Web pages using markup
+| SOLID         | a web decentralization project that aims to separate user's data and applications, led by Tim Berners-Lee, the inventor of the World Wide Web. This is the project in which this project is based on. SOLID It stands for Social Linked Data
+| POD    | An Acronim for 'Personal Online Data', it refers to the personal decentralized storage used in SOLID aplications. Its stores the data from the user outside of the application, allowing the user to retain control and ownership of personal information.
+| REST   | It refers to a software architectural style in web applications in which the full extend of HTTP protocols is used, avoiding abuse of the POST and GET well-known protocols. while HTTP is an application protocol, REST is a set of rules, that when followed, enable you to build a distributed application that has a specific set of desirable constraints.
+|MVC architecture | An architectural pattern that will be used on this application. Commonly used for developing user interfaces that divides an application into three interconnected parts. This is done to separate internal representations of information from the ways information is presented to and accepted from the user. More info: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller https://developer.mozilla.org/en-US/docs/Web/Apps/Fundamentals/Modern_web_app_architecture/MVC_architecture 
+|Decentralized/Decentralization | Within the software context, it refers to the lack of a single entity controling the storage, processing power and/or management of a software entity. within the SOLID aquitecture context in particular, it usually refers to the lack of a single entity to manage the storing of the user's data. This returns the ownership of the user's data to the user itself.
+
+
+|===
