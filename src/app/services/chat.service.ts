@@ -165,7 +165,7 @@ export class ChatService implements OnInit {
     let name = username.split('.')[0];
     if (name != "undefined") {
       await this.getMessagesFromPOD(user);
-      await this.getMessagesFromPOD(friend);
+      // await this.getMessagesFromPOD(friend);
     }
     return this.chat;
   }
