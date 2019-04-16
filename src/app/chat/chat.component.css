@@ -459,8 +459,6 @@ input, select {
 #frame #content .message-input .wrap button:focus {
   outline: none;
 }
-
-/*****MODAL*******/
 .modal{
   overflow-y: scroll;
 }
