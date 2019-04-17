@@ -61,13 +61,16 @@
             <p>{{getStringChat()}}</p>
             <ul>
                 <div *ngFor="let string of messages" [shAttachMenu]="menu" [shMenuData]="string">
+                    <div *ngIf=dateMessages(string.time)>
+                        <a>{{dateLastMessage}}</a>
+                    </div>
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
                             <img [src]="profileImage" alt=""/>
                             <div *ngIf="isImage(string.content)">
                                 <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
-                            <p *ngIf="!isImage(string)">{{string.content}}</p>
+                            <p *ngIf="!isImage(string)">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
@@ -76,7 +79,7 @@
                             <div *ngIf="isImage(string.content)">
                                 <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt=""/>
                             </div>
-                            <p *ngIf="!isImage(string)">{{string.content}}</p>
+                            <p *ngIf="!isImage(string)">{{string.content}} <span id='timeMessage'> {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                 </div>

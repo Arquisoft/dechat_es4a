@@ -47,8 +47,9 @@ export class ChatComponent implements OnInit {
   //Array de mensajes borrados -> para que no aparezca en pantalla de nuevo
   msgRemoved: Array<SolidMessage> = new Array();
 
-  //Para el chat borrado:
-  removingFriend:string;
+  //Fecha del ultimo mensaje
+  dateLastMessage:string;
+  secondMessage = 0;
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
@@ -136,7 +137,13 @@ export class ChatComponent implements OnInit {
         let user = this.getUsername();
         let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
-        this.messages.push(message);
+        //Para añadirlo al array de mensajes, edito el tiempo para que pueda ser mostrado correctamente
+        let time = (new Date()).toISOString();
+        time = time.replace('T', ' ');
+        time = time.replace('Z', '');
+        let noMiliseconds =  time.slice(0, time.length-4);
+        let messageTimeChanged = new SolidMessage(user, content, noMiliseconds);
+        this.messages.push(messageTimeChanged);
       }
     }
     this.cleanInput();
@@ -267,6 +274,7 @@ export class ChatComponent implements OnInit {
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
   }
@@ -426,8 +434,36 @@ export class ChatComponent implements OnInit {
     this.friendActive = null;
     this.friendPhotoActive = null;
     this.messages = [];
+    this.dateLastMessage = undefined;
+    this.secondMessage = 0;
     this.chat.resetChat();
   }
+
+  dateMessages(date:string){
+    let year = date.split(" ");
+    date = year[0];
+    let valueDate = new Date(date);
+    let stringDate = valueDate.toString();
+    let strings = stringDate.split(" ");
+    let fullDate = strings[0] + " " + strings[1] + " " + strings[2] + " " + strings[3];
+    this.secondMessage ++;
+    if(this.secondMessage == this.messages.length){
+      this.secondMessage = 0;
+    }
+    if(this.secondMessage == 1 || !this.dateLastMessage.includes(fullDate)){
+      this.dateLastMessage = fullDate;
+      return true;
+    }
+    return false;
+  }
+
+  hourMessages(date:string){
+    let msgHour = date.split(" ");
+    date = msgHour[1];
+    let noSeconds =  date.slice(0, date.length-3);
+    return noSeconds;
+  }
+
 }
 
 

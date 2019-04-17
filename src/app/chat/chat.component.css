@@ -390,10 +390,10 @@ ul {
   #frame #content .messages ul li {
     display: inline-block;
     clear: both;
-    float: left;
     margin: 15px 15px 5px 15px;
     width: calc(100% - 25px);
     font-size: 0.9em;
+    text-align: left;
   }
   #frame #content .messages ul li.sent img {
     margin: 6px 0 0 8px;
@@ -403,7 +403,8 @@ ul {
   #frame #content .messages ul li.sent p {
     background: #41437e;
     color: #f5f5f5;
-    margin: 15px 15px 5px 45px;
+    margin: 15px 10px 5px 13px;
+    float: left;
   }
   #frame #content .messages ul li.replies img {
     width: 20px;
@@ -417,6 +418,7 @@ ul {
   }
   #frame #content .messages ul li img {
     width: 22px;
+    height: 22px;
     border-radius: 50%;
     float: left;
   }
@@ -431,6 +433,14 @@ ul {
     #frame #content .messages ul li p {
       max-width: 300px;
     }
+  }
+
+  #timeMessage{
+    font-size: 10px;
+    float: right;
+    line-height: 1.5;
+    white-space:nowrap;
+    margin-top: 20px;
   }
 
   /*SendBox*/

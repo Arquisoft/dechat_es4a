@@ -272,14 +272,10 @@ export class ChatService implements OnInit {
 
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
-
-    let message;
-    message = new SolidMessage(maker, content, time);
+    let messageTime = time.substring(time.indexOf("\"") + 1);
     if (content != "" && content.length > 0 && content != "Chat Started") {
-      this.chat.messages.push(new SolidMessage(maker, content, time));
-
+      this.chat.messages.push(new SolidMessage(maker, content, messageTime));
     }
-
   }
 
   removeChat(user:string,nameFriend:string){
