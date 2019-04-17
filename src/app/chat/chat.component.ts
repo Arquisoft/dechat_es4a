@@ -133,7 +133,6 @@ export class ChatComponent implements OnInit {
         let user = this.getUsername();
         let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
-        //(<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
       }
     }
@@ -142,10 +141,9 @@ export class ChatComponent implements OnInit {
 
   cleanInput() {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
-    //console.log("-------------------------------->: value " + value);
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
-    //console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
-  }
+    this.text = "";
+    }
 
   private async loadMessages() {
 
