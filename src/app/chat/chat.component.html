@@ -85,7 +85,7 @@
                 </emoji-input>
                 <label for="image-input">
                     <i class="fa fa-paperclip attachment" aria-hidden="true" >
-                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="sendImage(imageInput)" accept=".png,.jpeg,.jpg"/>
+                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
                     </i>
                 </label>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>
