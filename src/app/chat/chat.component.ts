@@ -368,6 +368,10 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name,photo);
+    this.mapContacts.set(name, photo);
+    //añadimoslo al array
+    
+
   }
 
   openNav() {
