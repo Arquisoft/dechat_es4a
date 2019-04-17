@@ -10,9 +10,14 @@ import { ToastrService } from 'ngx-toastr';
 import { store } from '@angular/core/src/render3/instructions';
 import { StringDecoder } from 'string_decoder';
 
+const aclCheck = require('solid-permissions')
+
+
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
+const TYPE = $rdf.Namespace("https://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
 const LDP = $rdf.Namespace("http://www.w3.org/ns/ldp#");
+const ACL = $rdf.Namespace("http://www.w3.org/ns/auth/acl#");
 
 /**
  * A service layer for RDF data manipulation using rdflib.js
@@ -364,4 +369,48 @@ export class RdfService {
     }
     return '';
   }
+
+  createAclForChat(fileDir:string){
+    let file = $rdf.sym(fileDir);
+    let user = $rdf.sym(this.session.webId);
+    let aclDir = fileDir+'.acl#owner';
+    
+    let aclFile =$rdf.sym(aclDir);
+    
+    $rdf.add(aclFile, TYPE(), ACL("Authorization"), aclFile.doc());
+    $rdf.add(aclFile, ACL("agent"), user, aclFile.doc());
+    $rdf.add(aclFile, ACL("accessTo"), file, aclFile.doc());
+    $rdf.add(aclFile, ACL("defaultForNew"), file, aclFile.doc());
+    $rdf.add(aclFile, ACL("mode"), ACL("Read"), aclFile.doc());
+    $rdf.add(aclFile, ACL("mode"), ACL("Write"), aclFile.doc());
+    $rdf.add(aclFile, ACL("mode"),ACL("Control"),aclFile.doc());
+
+    this.fetcher.putBack(aclFile);
+  }
+
+  giveFriendPermission(userWebId:string,fileDir:string){
+    if(!(userWebId === this.session.webId)){
+      let file = $rdf.sym(fileDir);
+      let user = $rdf.sym(userWebId);
+      let aclDir = fileDir+'.acl#reader';
+    
+      let aclFile =$rdf.sym(aclDir);
+    
+      this.fetcher.load(aclFile.doc()).then(response => {
+        this.store.add(aclFile, TYPE(), ACL("Authorization"), aclFile.doc());
+        this.store.add(aclFile, ACL("agent"), user, aclFile.doc());
+        this.store.add(aclFile, ACL("accessTo"), file, aclFile.doc());
+        this.store.add(aclFile, ACL("defaultForNew"), file, aclFile.doc());
+        this.store.add(aclFile, ACL("mode"), ACL("Read"), aclFile.doc());
+        this.fetcher.putBack(aclFile);
+      });
+    }else{
+      console.log('owner is not a reader');
+    }
+  }
+
+  checkReadAccesForAgent(agent:string,fileUrl:string){
+    return aclCheck.checkAccess(fileUrl,agent, ACL("Read"));
+  }
+
 }

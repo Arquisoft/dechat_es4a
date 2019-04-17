@@ -38,6 +38,7 @@
     "http": "^0.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",
+    "ng-emoji-picker": "^6.0.1",
     "ng-image-input-with-preview": "^1.0.0",
     "ngx-toastr": "^9.0.2",
     "node-fetch": "^2.2.0",
@@ -49,12 +50,12 @@
     "rxjs": "^6.0.0",
     "solid-auth-client": "^2.2.3",
     "solid-file-client": "^0.4.9",
+    "solid-permissions": "^0.6.0",
     "stdio": "^0.2.7",
     "text-encoding": "^0.6.4",
     "webcrypto": "^0.1.1",
     "whatwg-url": "^7.0.0",
-    "zone.js": "^0.8.26",
-    "ng-emoji-picker": "^6.0.1"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.8",
