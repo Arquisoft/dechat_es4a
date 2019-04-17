@@ -47,6 +47,9 @@ export class ChatComponent implements OnInit {
   //Array de mensajes borrados -> para que no aparezca en pantalla de nuevo
   msgRemoved: Array<SolidMessage> = new Array();
 
+  //Para el chat borrado:
+  removingFriend:string;
+
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
@@ -266,7 +269,6 @@ export class ChatComponent implements OnInit {
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
-    
   }
 
   getFriendActive() {
@@ -370,7 +372,6 @@ export class ChatComponent implements OnInit {
     this.loadFriends();
     this.changeChat(name,photo);
     this.mapContacts.set(name, photo);
-    //añadimoslo al array
   }
 
   openNav() {
@@ -414,7 +415,7 @@ export class ChatComponent implements OnInit {
   }
 
   removeChat(friend:string){
-    event.stopImmediatePropagation();
+    confirm("Are you sure you want to delete this chat?");
     console.log("Removing chat....: " + friend);
     this.chat.removeChat(this.getUsername(), friend);
     this.mapContacts.forEach((value:string,key: string) => {
@@ -422,6 +423,10 @@ export class ChatComponent implements OnInit {
         this.mapContacts.delete(key);
       }
     });
+    this.friendActive = null;
+    this.friendPhotoActive = null;
+    this.messages = [];
+    this.chat.resetChat();
   }
 }
 

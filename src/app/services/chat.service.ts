@@ -211,7 +211,6 @@ export class ChatService implements OnInit {
 
   }
   createBaseChat(url: String) {
-
     //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
       console.log('-----------------------------------------------------');
@@ -286,6 +285,9 @@ export class ChatService implements OnInit {
   removeChat(user:string,nameFriend:string){
     let url = "https://" + user + ".solid.community/public/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
+      console.log(`Deleted ${url}.`);
+    }, err => console.log(err) );
+    this.fileClient.deleteFile("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err) );
   }
