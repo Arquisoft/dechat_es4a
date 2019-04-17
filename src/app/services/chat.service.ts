@@ -155,7 +155,7 @@ export class ChatService implements OnInit {
     } catch(err){}
 
   }
-  createBaseChat(url: String) {
+  async createBaseChat(url: String) {
 
     //si existe el ttl:
     this.fileClient.readFile(url + "index.ttl#this").then(body => {
@@ -171,6 +171,9 @@ export class ChatService implements OnInit {
             }, (err: any) => console.log(err));
           }, err => console.log(err));
         }, err => console.log(err)));
+
+    await this.rdf.createAclForChat(url+'index.ttl');
+    this.rdf.giveFriendPermission(this.friendID,url+'index.ttl');
   }
 
   async loadMessages(user, friend) {
