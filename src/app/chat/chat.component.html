@@ -35,6 +35,7 @@
                         <li class="contact">
                             <div class="wrap">
                                 <img src={{entry.value}} alt=""><a>{{entry.key}}</a>
+                                <i class="far fa-trash-alt" (click)="removeChat(entry.key)"></i>
                             </div>
                         </li>
                     </div>

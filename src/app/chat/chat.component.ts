@@ -266,6 +266,7 @@ export class ChatComponent implements OnInit {
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
+    
   }
 
   getFriendActive() {
@@ -370,8 +371,6 @@ export class ChatComponent implements OnInit {
     this.changeChat(name,photo);
     this.mapContacts.set(name, photo);
     //añadimoslo al array
-    
-
   }
 
   openNav() {
@@ -412,6 +411,17 @@ export class ChatComponent implements OnInit {
   
   createGroup(){
     console.log("Create group");
+  }
+
+  removeChat(friend:string){
+    event.stopImmediatePropagation();
+    console.log("Removing chat....: " + friend);
+    this.chat.removeChat(this.getUsername(), friend);
+    this.mapContacts.forEach((value:string,key: string) => {
+      if(key.includes(friend)){
+        this.mapContacts.delete(key);
+      }
+    });
   }
 }
 

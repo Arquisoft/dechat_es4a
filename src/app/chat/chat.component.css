@@ -250,6 +250,10 @@ ul {
     padding: 0;
   }
 
+  #frame #sidepanel #contacts li.contact:hover .fa-trash-alt {
+    display: block;
+  }
+
   #frame #sidepanel #contacts li.contact:active {
     background: #41437e;
   }
@@ -281,6 +285,13 @@ ul {
     float: left;
     margin: 20px 20px 20px 20px;
     font-size: 18px;
+  }
+
+  .fa-trash-alt{
+    float: right;
+    margin: 35px 50px 0px 20px;
+    display: none;
+    cursor:pointer;
   }
 
   /*Profile_Content*/
