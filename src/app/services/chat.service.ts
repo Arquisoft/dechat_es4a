@@ -5,10 +5,8 @@ import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
 import { forEach } from '@angular/router/src/utils/collection';
-import {escapeRegExp} from 'tslint/lib/utils';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 
 declare let solid: any;
 
@@ -55,8 +53,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -100,21 +98,19 @@ export class ChatService implements OnInit {
     //Lee el ttl:
     this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
-      console.log(chatcontent);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent);
+      //console.log("---------------------------------------------------------");
       var chatcontentsplit = chatcontent.split(":this");
       var chatcontent1 = chatcontentsplit[0];
-      console.log(chatcontentsplit[0]);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontentsplit[0]);
+      //console.log("---------------------------------------------------------");
       var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
-      console.log(chatcontent2);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent2);
+      //console.log("---------------------------------------------------------");
       var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
-      console.log(chatcontent3);
-      console.log("---------------------------------------------------------");
+      //console.log(chatcontent3);
+      //console.log("---------------------------------------------------------");
       const d = new Date();
-
-
 
       var dm
       if (d.getMonth() < 10) {
@@ -125,7 +121,7 @@ export class ChatService implements OnInit {
       //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
-      console.log("numero de mensaje: " + msgnb);
+      //console.log("numero de mensaje: " + msgnb);
 
       const message = chatcontent1 + `
         :Msg${msgnb}
@@ -143,16 +139,75 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
+  async removeMessage(msg: SolidMessage){
+    var urlfile = this.chatuserUrl + "index.ttl#this";
+    var chatcontent = "";
+    this.fileClient.readFile(urlfile).then(body => {
+      chatcontent = body;
+      var chatcontentsplit = chatcontent.split(":this");
+      var chatcontent2 = chatcontentsplit[1].split("flow:message"); //es la parte de flow:message
+      var chatcontent3 = chatcontentsplit[0].split("n0:maker c:me.");
+      let nameMessage; //name of the message
+      for (let i = 1; i < chatcontent3.length; i++) {
+        let value = chatcontent3[i]
+        let valueMsg = msg.content
+        value=chatcontent3[i].replace(/\s/g,'');
+        valueMsg=msg.content.replace(/\s/g,'');
+        if(value.includes(valueMsg)){
+            nameMessage = value.split("terms:created")[0];
+            nameMessage = nameMessage.replace(/\s/g,'');
+        }
+      }
+      let message = chatcontent3[0]+"n0:maker c:me.";
+      for (let i = 1; i < chatcontent3.length; i++) {
+        if(!chatcontent3[i].includes(msg.content)){
+          message += chatcontent3[i];
+          if(i < chatcontent3.length-1){
+            message += "n0:maker c:me.";
+          }
+        }
+      }
+      message += ":this";
+      chatcontent2[0] = chatcontent2[0].replace(/^\s*[\r\n]/gm, ''); //quito lineas en blanco q sobran
+      message += '\n\n' + chatcontent2[0];
+      message += "flow:message ";
+      var names = chatcontent2[1].split(",");
+      for (let i = 0; i < names.length; i++) {
+        if(names[i].includes(":Msg")){
+          if(names[i].includes(".")){
+            let n = names[i].split(".");
+            names[i] = n[0];
+          }
+          names[i] = names[i].replace(/\s/g,'');
+          if(!names[i].includes(nameMessage) ){
+            message += names[i];
+            if(i < names.length - 1){
+              message += ", ";
+            }
+            else{
+              message += ".";
+            }
+          }
+        }
+      }
+      console.log(body);
+      console.log(message);
+      this.fileClient.updateFile(urlfile, message).then(success => {
+        console.log('message has been removed');
+      }, (err: any) => console.log(err));
+    }, err => null);
+  }
+
   isChatCreated = async (userID:string,friendID: string) =>{
     //si existe el ttl:
     let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
     try{
       return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
         return true;
-      }, function(error) {
-          return false;
+      }, function (error) {
+        return false;
       });
-    } catch(err){}
+    } catch (err) { }
 
   }
   createBaseChat(url: String) {
@@ -178,7 +233,7 @@ export class ChatService implements OnInit {
     let name = username.split('.')[0];
     if (name != "undefined") {
       await this.getMessagesFromPOD(user);
-      // await this.getMessagesFromPOD(friend);
+      await this.getMessagesFromPOD(friend);
     }
     return this.chat;
   }
@@ -220,10 +275,10 @@ export class ChatService implements OnInit {
     let content = msg.substring(msg.indexOf("\"") + 1);
 
     let message;
-
     message = new SolidMessage(maker, content, time);
     if (content != "" && content.length > 0 && content != "Chat Started") {
-      this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
+      this.chat.messages.push(new SolidMessage(maker, content, time));
+
     }
 
   }

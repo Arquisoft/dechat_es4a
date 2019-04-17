@@ -1,16 +1,17 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { Router } from "@angular/router";
-import { ChatService } from '../services/chat.service';
-import { RdfService } from '../services/rdf.service';
-import { AuthService } from '../services/solid.auth.service';
+import {Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {ChatService} from '../services/chat.service';
+import {RdfService} from '../services/rdf.service';
+import {AuthService} from '../services/solid.auth.service';
+import {SolidMessage} from '../models/solid-message.model';
+import {SolidProfile} from '../models/solid-profile.model';
+import {ToastrService} from 'ngx-toastr';
+import {SolidChatUser} from '../models/solid-chat-user.model';
+import {Howl, Howler} from 'howler';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SolidChat } from '../models/solid-chat.model';
-import { SolidMessage } from '../models/solid-message.model';
-import { SolidProfile } from '../models/solid-profile.model';
-import { ToastrService } from 'ngx-toastr';
-import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { Howl, Howler } from 'howler';
 import { escapeRegExp } from 'tslint/lib/utils';
 
 class ImageSnippet {
@@ -40,9 +41,23 @@ export class ChatComponent implements OnInit {
 
   //Subida de imagenes
   selectedFile: ImageSnippet;
+  URL:string;
+  _changeDetection;
+
+  /** message: string = '';*/
+  fileClient: any;
+  messages: Array<SolidMessage> = new Array();
+
+  //Para parar el intervalo de carga de mensajes
+  refreshIntervalId: any;
+
+  //Array de mensajes borrados -> para que no aparezca en pantalla de nuevo
+  msgRemoved: Array<SolidMessage> = new Array();
+
+  @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService) {
+    private router: Router, private toastr: ToastrService, private sanitizer :DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -114,24 +129,17 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  /** message: string = '';*/
-  fileClient: any;
-  messages: Array<SolidMessage> = new Array();
-
-  @ViewChild('chatbox') chatbox: ElementRef;
-
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
   send(content: string, event) {
-    //var content = (<HTMLInputElement>document.getElementById("message")).value;
+    var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     if (this.friendActive) {
-      if (!(content == "")) {
+      if (!(content == "") && value) {
         let user = this.getUsername();
         let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
-        //(<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
       }
     }
@@ -140,10 +148,9 @@ export class ChatComponent implements OnInit {
 
   cleanInput() {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
-    console.log("-------------------------------->: value " + value);
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
-    console.log("-------------------------------->: " + (<HTMLInputElement>document.querySelector('.emojiInput')).value);
-  }
+    this.text = "";
+    }
 
   private async loadMessages() {
 
@@ -162,62 +169,58 @@ export class ChatComponent implements OnInit {
 
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
-          if (!this.checkExistingMessage(message)) {
-            this.messages.push(message);
-            //console.log(message.content);
-            //console.log(message.authorId);
-            let realDate = new Date(message.time);
-            realDate.setHours(new Date(message.time).getHours() + 2);
-            this.toastr.info("You have a new message from " + (new Date() + " " + realDate));
-            if (new Date().getTime() - realDate.getTime() < 30000) {
-              this.toastr.info("You have a new message from " + message.authorId);
-              let sound = new Howl({
-                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
-              });
-              Howler.volume(1);
-              sound.play();
+            if (!this.checkExistingMessage(message)) {
+              this.messages.push(message);
+              let realDate = new Date(message.time);
+              realDate.setHours(new Date(message.time).getHours()+2);
+              if(new Date().getTime()- realDate.getTime()<30000){
+                 this.toastr.info("You have a new message from " + message.authorId);
+                 let sound = new Howl({
+                     src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
+                 });
+                 Howler.volume(1);
+                 sound.play();
+              }
             }
-
           }
-        }
       });
-
     }
     catch (error) {
       console.log("No messages founded")
     }
 
-
   }
 
   refreshMessages() {
     try {
-      setInterval(() => {
+      this.refreshIntervalId = setInterval(() => {
         try {
           this.loadMessages().catch((error) => {
             throw new Error('Higher-level error. ' + error.message);
           });
         }
         catch (error) { }
-      }, 8000);
+      }, 1000);
     } catch (error) { }
-
   }
 
   checkExistingMessage(m: SolidMessage) {
     let i;
+    let a = 0;
+    this.msgRemoved.forEach(msg => {
+      if(m.content.includes(msg.content)){
+        a += 1;
+      }
+    });
+    if( a > 0){
+      return true;
+    }
     for (i = 0; i < this.messages.length; i++) {
       if (m.content === this.messages[i].content && m.authorId === this.messages[i].authorId) {
         return true;
       }
-      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId === escapeRegExp(this.messages[i].authorId)) {
-        return true;
-      }
-
     }
     return false;
-
-
   }
 
   /*handleSubmit(event) {
@@ -264,6 +267,7 @@ export class ChatComponent implements OnInit {
 
   changeChat(name: string, photo: string) {
     //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
+    this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
@@ -279,9 +283,6 @@ export class ChatComponent implements OnInit {
     //devuelve la foto del amigo del chat que se esta mostrando en pantalla
     return this.friendPhotoActive;
   }
-
-  URL: string;
-  _changeDetection;
 
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
@@ -320,7 +321,7 @@ export class ChatComponent implements OnInit {
   }
 
   getChatUrl(user: string, friend: string) {
-    let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
+    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
     return chatUrl;
   }
@@ -374,6 +375,10 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name,photo);
+    this.mapContacts.set(name, photo);
+    //añadimoslo al array
+    
+
   }
 
   openNav() {
@@ -382,6 +387,19 @@ export class ChatComponent implements OnInit {
 
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+  }
+
+   isImage(str: string) : boolean {
+    str = str +'';
+    if(str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
+      return true;
+    }
+    return false;
+  }
+
+  getTrustedUrl(str : string) : SafeResourceUrl{
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
   setPopupAction(fn: any) {
@@ -398,6 +416,20 @@ export class ChatComponent implements OnInit {
     });
 
     reader.readAsDataURL(file);
+  }
+	async removeMessage(event) {
+    await this.chat.removeMessage(event.data);
+    for(let i = 0; i < this.messages.length; i++){
+      if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
+        && this.messages[i].time == event.data.time){
+          this.msgRemoved.push(this.messages[i]);
+          this.messages.splice(i--, 1);
+     }
+    }
+  }
+  
+  createGroup(){
+    console.log("Create group");
   }
 }
 
