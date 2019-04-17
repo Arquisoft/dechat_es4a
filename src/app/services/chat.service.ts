@@ -190,7 +190,8 @@ export class ChatService implements OnInit {
           }
         }
       }
-      //console.log(message);
+      console.log(body);
+      console.log(message);
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been removed');
       }, (err: any) => console.log(err));
@@ -199,7 +200,7 @@ export class ChatService implements OnInit {
 
   isChatCreated = async (userID:string,friendID: string) =>{
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/private/Chat" + friendID + "/"
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
     try{
       return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
         return true;
