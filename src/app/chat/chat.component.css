@@ -122,6 +122,128 @@ ul {
     float: right;;
   } 
 
+  /*Tooltips*/
+  #frame #sidepanel #profile .wrap .profile-image .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: -15%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .profile-image .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .profile-image:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  #frame #sidepanel #profile .wrap .drop .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 82%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .drop .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .drop:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  #frame #sidepanel #profile .wrap .newContact .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 60%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .newContact .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .newContact:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(46, 46, 46);
+    background-position: center 100px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    top: 80%;
+    right: -70%;
+    font-size: 14px;
+  }
+  
+  #frame #content .contact-profile .profile-option .dropdown .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #content .contact-profile .profile-option .dropdown:hover .tooltiptext {
+    visibility: visible;
+  }
+
 
   /*Search button*/
   #frame #sidepanel #search {
@@ -250,6 +372,10 @@ ul {
     padding: 0;
   }
 
+  #frame #sidepanel #contacts li.contact:hover .fa-trash-alt {
+    display: block;
+  }
+
   #frame #sidepanel #contacts li.contact:active {
     background: #41437e;
   }
@@ -281,6 +407,13 @@ ul {
     float: left;
     margin: 20px 20px 20px 20px;
     font-size: 18px;
+  }
+
+  .fa-trash-alt{
+    float: right;
+    margin: 35px 50px 0px 20px;
+    display: none;
+    cursor:pointer;
   }
 
   /*Profile_Content*/
@@ -335,13 +468,6 @@ ul {
     font-size: 16px;
   }
 
-  #frame #content .contact-profile .profile-option label{
-    color: #0b3153;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    font-size: 16px;
-  }
   #frame #content .contact-profile .profile-option input[type="file"] {
     display: none;
   }
@@ -379,10 +505,10 @@ ul {
   #frame #content .messages ul li {
     display: inline-block;
     clear: both;
-    float: left;
     margin: 15px 15px 5px 15px;
     width: calc(100% - 25px);
     font-size: 0.9em;
+    text-align: left;
   }
   #frame #content .messages ul li.sent img {
     margin: 6px 0 0 8px;
@@ -392,7 +518,8 @@ ul {
   #frame #content .messages ul li.sent p {
     background: #41437e;
     color: #f5f5f5;
-    margin: 15px 15px 5px 45px;
+    margin: 15px 10px 5px 13px;
+    float: left;
   }
   #frame #content .messages ul li.replies img {
     width: 20px;
@@ -406,6 +533,7 @@ ul {
   }
   #frame #content .messages ul li img {
     width: 22px;
+    height: 22px;
     border-radius: 50%;
     float: left;
   }
@@ -420,6 +548,14 @@ ul {
     #frame #content .messages ul li p {
       max-width: 300px;
     }
+  }
+
+  #timeMessage{
+    font-size: 10px;
+    float: right;
+    line-height: 1.5;
+    white-space:nowrap;
+    margin-top: 20px;
   }
 
   /*SendBox*/
@@ -504,7 +640,7 @@ input, select {
   margin: 0px 10px 0px 15px;
   width: 134%;
 }
-/* Important part */
+
 .modal-dialog{
   overflow-y: initial !important
 }

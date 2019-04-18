@@ -54,6 +54,10 @@ export class ChatComponent implements OnInit {
   //Array de mensajes borrados -> para que no aparezca en pantalla de nuevo
   msgRemoved: Array<SolidMessage> = new Array();
 
+  //Fecha del ultimo mensaje
+  dateLastMessage:string;
+  secondMessage = 0;
+
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
@@ -66,6 +70,7 @@ export class ChatComponent implements OnInit {
     this.refreshMessages();
   }
 
+  //Carga los amigos
   loadFriends() {
     if (!this.auth.getOldFriends()) {
       const list_friends = this.rdf.getFriends();
@@ -84,6 +89,7 @@ export class ChatComponent implements OnInit {
     this.getPhotoFriends();
   }
 
+  //Guarda la url de la imagen de perfil de cada amigo
   async getPhotoFriends() {
     try {
       let i = 0;
@@ -120,6 +126,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  //Añade a un array los nombres de lo contactos
   getNamesFriends() {
     let i = 0;
     for (i = 0; i < this.amigos.length; i++) {
@@ -129,10 +136,12 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  //Crea el inbox del chat
   createInboxChat(submitterWebId: string, destinataryWebId: string): any {
     this.chat.createInboxChat(submitterWebId, destinataryWebId);
   }
 
+  //Envía mensajes y los guarda
   send(content: string, event) {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     if (this.friendActive) {
@@ -140,18 +149,26 @@ export class ChatComponent implements OnInit {
         let user = this.getUsername();
         let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
-        this.messages.push(message);
+        //Para añadirlo al array de mensajes, edito el tiempo para que pueda ser mostrado correctamente
+        let time = (new Date()).toISOString();
+        time = time.replace('T', ' ');
+        time = time.replace('Z', '');
+        let noMiliseconds =  time.slice(0, time.length-4);
+        let messageTimeChanged = new SolidMessage(user, content, noMiliseconds);
+        this.messages.push(messageTimeChanged);
       }
     }
     this.cleanInput();
   }
 
+  //Limpia el input de texto
   cleanInput() {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
     this.text = "";
   }
 
+    //Carga mensajes en el array de mensajes para mostrarlos en pantalla
   private async loadMessages() {
 
     try {
@@ -191,6 +208,7 @@ export class ChatComponent implements OnInit {
 
   }
 
+  //Busca por nuevos mensajes
   refreshMessages() {
     try {
       this.refreshIntervalId = setInterval(() => {
@@ -204,6 +222,7 @@ export class ChatComponent implements OnInit {
     } catch (error) { }
   }
 
+  //Chequea si ya existe mensajes en el array (para que no los imprima en bucle por pantalla)
   checkExistingMessage(m: SolidMessage) {
     let i;
     let a = 0;
@@ -229,12 +248,14 @@ export class ChatComponent implements OnInit {
     }
   }*/
 
+  //Devuelve el nombre de usuario según el id
   getUsernameFromId(id): string {
     let username = id.replace('https://', '');
     let user = username.split('.')[0];
     return user;
   }
 
+  //Devuelve el nombre de usuario loggeado
   getUsername(): string {
     let id = this.auth.getOldWebId();
     let username = id.replace('https://', '');
@@ -242,14 +263,17 @@ export class ChatComponent implements OnInit {
     return user;
   }
 
+  //Sale de sesión
   logout() {
     this.auth.solidSignOut();
   }
 
+  //Redirecciona al chat
   goToChat() {
     this.router.navigateByUrl('/chat');
   }
 
+  //Asigna una imagen por defecto cuando las cuentas no tienen imagen de perfil
   async loadProfile() {
     try {
       const profile = await this.rdf.getProfile();
@@ -265,53 +289,37 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
   changeChat(name: string, photo: string) {
-    //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
     this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
   }
 
+  //Devuelve el amigo del chat que se esta mostrando en pantalla
   getFriendActive() {
-    //devuelve el amigo del chat que se esta mostrando en pantalla
     return this.friendActive;
   }
+
+  //Devuelve la foto del amigo del chat que se esta mostrando en pantalla
   getFriendPhotoActive() {
-    //devuelve la foto del amigo del chat que se esta mostrando en pantalla
     return this.friendPhotoActive;
   }
 
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
-    /*const fd = new FormData();
-    const img = event.target.files[0];
-    console.log("imagen: " + img);
-    fd.append('image', event.target.files[0]);
-    this.http.post('/assets/images/background/',fd,  {
-            headers:{'Content-Type': 'application/json',
-                      'Accept': 'application/json',
-                      'Access-Control-Allow-Origin': 'http://localhost:4200/'}
-          }).subscribe(response => console.log("Upload ok"));*/
-
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // Read file as data url
-      reader.onloadend = (e) => { // function call once readAsDataUrl is completed
-        this.URL = e.target['result']; // Set image in element
-        this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
-      };
-    }
   }
 
   changeColorAppearance() {
     console.log("CAMBIAR COLOR");
   }
 
+  //Imprime el mensaje si no se eligió ningún contacto para chatear
   getStringChat(): String {
-    //Imprime el mensaje si no se eligió ningún contacto para chatear
     if (!this.friendActive) {
       return "Select contact to start chatting";
     }
@@ -320,11 +328,14 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  //Devuelve el url del chat del amigo en la cuenta loggeada 
   getChatUrl(user: string, friend: string) {
     let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
     return chatUrl;
   }
+
+  //Devuelve true si el mensaje es nuestro (de la cuenta loggeada) o del amigo
   isContactMessage(m: SolidMessage) {
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
@@ -336,7 +347,8 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  searchNewContact(friend: string) {
+  //Buscador de amigos en la lista de amigos sin chat creado
+  searchNewContact(friend:string){
     let cloneMapFriends = new Map(this.mapFriendsTotal);
     this.mapFriendsTotal.clear();
     if (friend != "") {
@@ -351,7 +363,8 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  searchContact(friend: string) {
+  //Buscador de contactos de la lista de contactos con chat creado
+  searchContact(friend:string){
     let cloneMapFriends = new Map(this.mapContacts);
     this.mapContacts.clear();
     if (friend != "") {
@@ -365,43 +378,45 @@ export class ChatComponent implements OnInit {
       this.loadFriends();
     }
   }
-
-  async isChatCreated(user: string) {
-    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
+  
+  //Para saber si el chat ya ha sido creado
+  async isChatCreated(user: string){
+    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
     return bool;
   }
 
-  createChat(name: string, photo: string) {
+  //Añade al array de contactos al amigo seleccionado y crea un chat nuevo
+  createChat(name: string, photo: string){
     this.closeNav();
     this.loadFriends();
     this.changeChat(name, photo);
     this.mapContacts.set(name, photo);
-    //añadimoslo al array
-
-
   }
 
+  //Abre el panel vertical
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
   }
 
+  //Cierra el panel vertical
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
 
-  isImage(str: string): boolean {
-    str = str + '';
-    if (str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg') != -1) {
+  //Devuelve true si es imagen
+   isImage(str: string) : boolean {
+    str = str +'';
+    if(str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
       return true;
     }
     return false;
   }
 
-  getTrustedUrl(str: string): SafeResourceUrl {
-
+  getTrustedUrl(str : string) : SafeResourceUrl{
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
+  //Para el popup de los emojis
   setPopupAction(fn: any) {
     this.openPopup = fn;
   }
@@ -409,7 +424,6 @@ export class ChatComponent implements OnInit {
   processFile(imageInput: any) {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
-
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
       this.chat.uploadImage(this.selectedFile.file);
@@ -417,6 +431,8 @@ export class ChatComponent implements OnInit {
 
     reader.readAsDataURL(file);
   }
+
+  //Elimina el mensaje de la POD
   async removeMessage(event) {
     await this.chat.removeMessage(event.data);
     for (let i = 0; i < this.messages.length; i++) {
@@ -431,6 +447,56 @@ export class ChatComponent implements OnInit {
   createGroup() {
     console.log("Create group");
   }
+
+  //Para eliminar todo el chat (incluido de la POD)
+  removeChat(friend:string){
+    confirm("Are you sure you want to delete this chat?");
+    console.log("Removing chat....: " + friend);
+    this.chat.removeChat(this.getUsername(), friend);
+    this.mapContacts.forEach((value:string,key: string) => {
+      if(key.includes(friend)){
+        this.mapContacts.delete(key);
+      }
+    });
+    this.friendActive = null;
+    this.friendPhotoActive = null;
+    this.messages = [];
+    this.dateLastMessage = undefined;
+    this.secondMessage = 0;
+    this.chat.resetChat();
+  }
+
+  //Para determinar cuando mostrar la fecha en pantalla
+  dateMessages(date:string){
+    let year = date.split(" ");
+    date = year[0];
+    let valueDate = new Date(date);
+    let stringDate = valueDate.toString();
+    let strings = stringDate.split(" ");
+    let fullDate = strings[0] + " " + strings[1] + " " + strings[2] + " " + strings[3];
+    this.secondMessage ++;
+    if(this.secondMessage == this.messages.length){
+      this.secondMessage = 0;
+    }
+    if(this.messages.length == 1){
+      this.dateLastMessage = fullDate;
+      return true;
+    }
+    if(this.secondMessage == 1 || !this.dateLastMessage.includes(fullDate)){
+      this.dateLastMessage = fullDate;
+      return true;
+    }
+    return false;
+  }
+
+  //Devuelve la hora y minuto del mensaje
+  hourMessages(date:string){
+    let msgHour = date.split(" ");
+    date = msgHour[1];
+    let noSeconds =  date.slice(0, date.length-3);
+    return noSeconds;
+  }
+
 }
 
 
