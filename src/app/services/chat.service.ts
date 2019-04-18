@@ -53,8 +53,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
