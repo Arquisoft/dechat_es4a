@@ -1,13 +1,13 @@
-import {Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {ChatService} from '../services/chat.service';
-import {RdfService} from '../services/rdf.service';
-import {AuthService} from '../services/solid.auth.service';
-import {SolidMessage} from '../models/solid-message.model';
-import {SolidProfile} from '../models/solid-profile.model';
-import {ToastrService} from 'ngx-toastr';
-import {SolidChatUser} from '../models/solid-chat-user.model';
-import {Howl, Howler} from 'howler';
+import { Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChatService } from '../services/chat.service';
+import { RdfService } from '../services/rdf.service';
+import { AuthService } from '../services/solid.auth.service';
+import { SolidMessage } from '../models/solid-message.model';
+import { SolidProfile } from '../models/solid-profile.model';
+import { ToastrService } from 'ngx-toastr';
+import { SolidChatUser } from '../models/solid-chat-user.model';
+import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -15,7 +15,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { escapeRegExp } from 'tslint/lib/utils';
 
 class ImageSnippet {
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) { }
 }
 
 @Component({
@@ -41,7 +41,7 @@ export class ChatComponent implements OnInit {
 
   //Subida de imagenes
   selectedFile: ImageSnippet;
-  URL:string;
+  URL: string;
   _changeDetection;
 
   /** message: string = '';*/
@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService, private sanitizer :DomSanitizer) {
+    private router: Router, private toastr: ToastrService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -112,9 +112,9 @@ export class ChatComponent implements OnInit {
         let username = profile.url.replace('https://', '');
         let user = username.split('.')[0];
         this.mapFriendsTotal.set(user, transformIm);
-        
-        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
-        if(bool){
+
+        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
+        if (bool) {
           this.mapContacts.set(user, transformIm);
         }
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
@@ -166,7 +166,7 @@ export class ChatComponent implements OnInit {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
     this.text = "";
-    }
+  }
 
     //Carga mensajes en el array de mensajes para mostrarlos en pantalla
   private async loadMessages() {
@@ -186,20 +186,20 @@ export class ChatComponent implements OnInit {
 
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
-            if (!this.checkExistingMessage(message)) {
-              this.messages.push(message);
-              let realDate = new Date(message.time);
-              realDate.setHours(new Date(message.time).getHours()+2);
-              if(new Date().getTime()- realDate.getTime()<30000){
-                 this.toastr.info("You have a new message from " + message.authorId);
-                 let sound = new Howl({
-                     src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-                 });
-                 Howler.volume(1);
-                 sound.play();
-              }
+          if (!this.checkExistingMessage(message)) {
+            this.messages.push(message);
+            let realDate = new Date(message.time);
+            realDate.setHours(new Date(message.time).getHours() + 2);
+            if (new Date().getTime() - realDate.getTime() < 30000) {
+              this.toastr.info("You have a new message from " + message.authorId);
+              let sound = new Howl({
+                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+              });
+              Howler.volume(1);
+              sound.play();
             }
           }
+        }
       });
     }
     catch (error) {
@@ -227,11 +227,11 @@ export class ChatComponent implements OnInit {
     let i;
     let a = 0;
     this.msgRemoved.forEach(msg => {
-      if(m.content.includes(msg.content)){
+      if (m.content.includes(msg.content)) {
         a += 1;
       }
     });
-    if( a > 0){
+    if (a > 0) {
       return true;
     }
     for (i = 0; i < this.messages.length; i++) {
@@ -312,24 +312,6 @@ export class ChatComponent implements OnInit {
 
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
-    /*const fd = new FormData();
-    const img = event.target.files[0];
-    console.log("imagen: " + img);
-    fd.append('image', event.target.files[0]);
-    this.http.post('/assets/images/background/',fd,  {
-            headers:{'Content-Type': 'application/json',
-                      'Accept': 'application/json',
-                      'Access-Control-Allow-Origin': 'http://localhost:4200/'}
-          }).subscribe(response => console.log("Upload ok"));*/
-
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // Read file as data url
-      reader.onloadend = (e) => { // function call once readAsDataUrl is completed
-        this.URL = e.target['result']; // Set image in element
-        this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
-      };
-    }
   }
 
   changeColorAppearance() {
@@ -348,7 +330,7 @@ export class ChatComponent implements OnInit {
 
   //Devuelve el url del chat del amigo en la cuenta loggeada 
   getChatUrl(user: string, friend: string) {
-    let chatUrl = "https://" + user + ".solid.community/public/dechat_es4a/Chat" + friend + "/index.ttl#this";
+    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
     return chatUrl;
   }
@@ -369,14 +351,14 @@ export class ChatComponent implements OnInit {
   searchNewContact(friend:string){
     let cloneMapFriends = new Map(this.mapFriendsTotal);
     this.mapFriendsTotal.clear();
-    if(friend != ""){
-      cloneMapFriends.forEach((value:string,key: string) => {
-        if(key.includes(friend)){
+    if (friend != "") {
+      cloneMapFriends.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
           this.mapFriendsTotal.set(key, value);
         }
       });
     }
-    else{
+    else {
       this.loadFriends();
     }
   }
@@ -385,9 +367,9 @@ export class ChatComponent implements OnInit {
   searchContact(friend:string){
     let cloneMapFriends = new Map(this.mapContacts);
     this.mapContacts.clear();
-    if(friend != ""){
-      cloneMapFriends.forEach((value:string,key: string) => {
-        if(key.includes(friend)){
+    if (friend != "") {
+      cloneMapFriends.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
           this.mapContacts.set(key, value);
         }
       });
@@ -407,7 +389,7 @@ export class ChatComponent implements OnInit {
   createChat(name: string, photo: string){
     this.closeNav();
     this.loadFriends();
-    this.changeChat(name,photo);
+    this.changeChat(name, photo);
     this.mapContacts.set(name, photo);
   }
 
@@ -453,16 +435,16 @@ export class ChatComponent implements OnInit {
   //Elimina el mensaje de la POD
   async removeMessage(event) {
     await this.chat.removeMessage(event.data);
-    for(let i = 0; i < this.messages.length; i++){
-      if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
-        && this.messages[i].time == event.data.time){
-          this.msgRemoved.push(this.messages[i]);
-          this.messages.splice(i--, 1);
-     }
+    for (let i = 0; i < this.messages.length; i++) {
+      if (this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
+        && this.messages[i].time == event.data.time) {
+        this.msgRemoved.push(this.messages[i]);
+        this.messages.splice(i--, 1);
+      }
     }
   }
-  
-  createGroup(){
+
+  createGroup() {
     console.log("Create group");
   }
 
