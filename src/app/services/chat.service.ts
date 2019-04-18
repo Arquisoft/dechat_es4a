@@ -53,8 +53,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -200,7 +200,7 @@ export class ChatService implements OnInit {
 
   isChatCreated = async (userID:string,friendID: string) =>{
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/dechat_es4a/Chat" + friendID + "/"
     try{
       return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
         return true;
@@ -224,7 +224,7 @@ export class ChatService implements OnInit {
               console.log('chat has been started');
             }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
           }, err => console.log(err)).catch(error => console.log("File not created"));
-        }, err => console.log(err))).catch(error => console.log("Not able to read file"));
+        }, err => console.log(err))).catch(error => console.log("Not able to create folder"));
   }
 
   async loadMessages(user, friend) {
@@ -280,13 +280,19 @@ export class ChatService implements OnInit {
   }
 
   removeChat(user:string,nameFriend:string){
-    let url = "https://" + user + ".solid.community/public/Chat" + nameFriend + "/index.ttl#this"
+    let url = "https://" + user + ".solid.community/public/dechat_es4a/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFile("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
+    this.fileClient.deleteFile("https://" + user + ".solid.community/public/dechat_es4a/Chat" + nameFriend + "/").then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
+  }
+
+  uploadImage(image:File){
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/"+image.name;
+    this.fileClient.createFile(url,image);
+    this.postMessage(new SolidMessage(this.userID,this.uploadImage(image)));
   }
 
 }

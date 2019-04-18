@@ -6,12 +6,19 @@
             <div class="wrap">
                 <div class="profile-image"> 
                     <img [src]="profileImage" alt="" (click)="openNav()"/>
+                    <span class="tooltiptext">Profile</span>
                 </div>
-                <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
-                </div> 
-                <i class="fas fa-user-plus" data-toggle="modal" href="#contactList"></i>
+                <div class="drop">
+                    <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
+                    <span class="tooltiptext">Settings</span>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
+                    </div> 
+                </div>
+                <div class="newContact">
+                    <i class="fas fa-user-plus" data-toggle="modal" href="#contactList"></i>
+                    <span class="tooltiptext">New contact</span>
+                </div>
             </div>
             <div id="search">
                 <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
@@ -48,11 +55,12 @@
             <div class="profile-option">
                 <div class="dropdown">
                     <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
+                    <span class="tooltiptext">Chat settings</span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <label class="dropdown-item" id="#bb"> Background
+                        <label class="dropdown-item" id="#bb" style="color: #0b3153;cursor: pointer;font-size: 16px;"> Background
                             <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg" size="60" >
                         </label> 
-                        <a class="dropdown-item" (click)="changeColorAppearance()">Appearance</a>
+                        <a class="dropdown-item" (click)="changeColorAppearance()" style="color: #0b3153;cursor: pointer;font-size: 16px;">Appearance</a>
                     </div>
                 </div>
             </div>
@@ -98,9 +106,13 @@
                 (setPopupAction)="setPopupAction($event)"
                 (keyup.enter)="send(text,$event)">
                 </emoji-input>
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <label for="image-input">
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" >
+                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
+                    </i>
+                </label>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
         </div>

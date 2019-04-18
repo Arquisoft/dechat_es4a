@@ -12,6 +12,11 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { escapeRegExp } from 'tslint/lib/utils';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-chat',
@@ -34,6 +39,8 @@ export class ChatComponent implements OnInit {
   text: string = '';
   openPopup: Function;
 
+  //Subida de imagenes
+  selectedFile: ImageSnippet;
   URL:string;
   _changeDetection;
 
@@ -341,7 +348,8 @@ export class ChatComponent implements OnInit {
 
   //Devuelve el url del chat del amigo en la cuenta loggeada 
   getChatUrl(user: string, friend: string) {
-    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
+    let chatUrl = "https://" + user + ".solid.community/public/dechat_es4a/Chat" + friend + "/index.ttl#this";
+
     return chatUrl;
   }
 
@@ -431,8 +439,19 @@ export class ChatComponent implements OnInit {
     this.openPopup = fn;
   }
 
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+      this.chat.uploadImage(this.selectedFile.file);
+    });
+
+    reader.readAsDataURL(file);
+  }
+
   //Elimina el mensaje de la POD
-	async removeMessage(event) {
+  async removeMessage(event) {
     await this.chat.removeMessage(event.data);
     for(let i = 0; i < this.messages.length; i++){
       if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
@@ -477,14 +496,13 @@ export class ChatComponent implements OnInit {
     if(this.secondMessage == this.messages.length){
       this.secondMessage = 0;
     }
-    if(this.dateLastMessage != undefined){
-      if(this.secondMessage == 1 || !this.dateLastMessage.includes(fullDate)){
-        this.dateLastMessage = fullDate;
-        return true;
-      }
-    }
-    else{
+    if(this.messages.length == 1){
       this.dateLastMessage = fullDate;
+      return true;
+    }
+    if(this.secondMessage == 1 || !this.dateLastMessage.includes(fullDate)){
+      this.dateLastMessage = fullDate;
+      return true;
     }
     return false;
   }
