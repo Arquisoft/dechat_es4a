@@ -3,23 +3,28 @@
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
+            <div class="wrap">
+                <div class="profile-image"> 
+                    <img [src]="profileImage" alt="" (click)="openNav()"/>
+                </div>
+                <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
+                </div> 
+                <i class="fas fa-user-plus" data-toggle="modal" href="#contactList"></i>
+            </div>
             <div id="search">
                 <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
                 <input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)"/>  
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-                    <div class="wrap">
-                       <div class="profile-image"> 
-                            <img [src]="profileImage" alt=""/>
-                        </div>
-                        {{getUsername()}}
+                    <div class="prof">
+                        <h1>Profile</h1>
+                        <hr>
+                        <div class="img"><img [src]="profileImage" alt=""/></div>
+                        <p>{{getUsername()}}</p>
                     </div>
-                    <a href="#">New group</a>
-                    <a href="#contactList" data-toggle="modal">Contacts</a>
-                    <a href="#">Feature 2</a>
-                    <a href="#">Feature 3</a>
                 </div>
-                <span class="fa fa-bars" (click)="openNav()"> </span>  
             </div>
         </div>
         <div id="contacts"> 
@@ -29,7 +34,7 @@
                         <hr>
                         <li class="contact">
                             <div class="wrap">
-                                <img src={{entry.value}} alt="" /> {{entry.key}}
+                                <img src={{entry.value}} alt=""><a>{{entry.key}}</a>
                             </div>
                         </li>
                     </div>
@@ -54,7 +59,7 @@
         <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             <p>{{getStringChat()}}</p>
             <ul>
-                <div *ngFor="let string of messages">
+                <div *ngFor="let string of messages" [shAttachMenu]="menu" [shMenuData]="string">
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
                             <img [src]="profileImage" alt=""/>
@@ -66,6 +71,7 @@
                     </div>
                     <div *ngIf="!isContactMessage(string)">
                         <li class="sent">
+                            <img src={{friendPhotoActive}} alt="" />
                             <div *ngIf="isImage(string.content)">
                                 <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt=""/>
                             </div>
@@ -88,16 +94,20 @@
                 (setPopupAction)="setPopupAction($event)"
                 (keyup.enter)="send(text,$event)">
                 </emoji-input>
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <label for="image-input">
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" >
+                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
+                    </i>
+                </label>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal New Contact -->
 <div class="modal fade" id="contactList">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -129,6 +139,44 @@
     </div>
     </div>
 </div>
+
+<!-- Modal New Group -->
+<div class="modal fade" id="contactGroupList">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">New group</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <div class="modal-search">
+                <input type="text" placeholder="Search contacts..." (keyup)="searchNewContact($event.target.value)"/>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                
+                <div *ngFor="let entry of mapFriendsTotal | keyvalue">
+                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="createChat(entry.key,entry.value)">
+                        {{entry.key}}</button>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mr-auto">Add new contact</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<!-- Context Menu (Messages) -->
+<sh-context-menu #menu>
+    <ng-template shContextMenuItem let-string (click)="removeMessage($event)">Remove</ng-template>
+</sh-context-menu>
 
 
 

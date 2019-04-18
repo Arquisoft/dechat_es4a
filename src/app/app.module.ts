@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
+import {ShContextMenuModule} from 'ng2-right-click-menu'
 
 
 const routes: Routes = [
@@ -75,7 +76,8 @@ const routes: Routes = [
     NgSelectModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule, //required for toastr
-    EmojiPickerModule
+    EmojiPickerModule,
+    ShContextMenuModule //For right click menu
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
