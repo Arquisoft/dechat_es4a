@@ -98,19 +98,21 @@ export class ChatService implements OnInit {
     //Lee el ttl:
     this.fileClient.readFile(urlfile).then(body => {
       chatcontent = body;
-      //console.log(chatcontent);
-      //console.log("---------------------------------------------------------");
+      console.log(chatcontent);
+      console.log("---------------------------------------------------------");
       var chatcontentsplit = chatcontent.split(":this");
       var chatcontent1 = chatcontentsplit[0];
-      //console.log(chatcontentsplit[0]);
-      //console.log("---------------------------------------------------------");
+      console.log(chatcontentsplit[0]);
+      console.log("---------------------------------------------------------");
       var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
-      //console.log(chatcontent2);
-      //console.log("---------------------------------------------------------");
+      console.log(chatcontent2);
+      console.log("---------------------------------------------------------");
       var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
-      //console.log(chatcontent3);
-      //console.log("---------------------------------------------------------");
+      console.log(chatcontent3);
+      console.log("---------------------------------------------------------");
       const d = new Date();
+
+
 
       var dm
       if (d.getMonth() < 10) {
@@ -121,7 +123,7 @@ export class ChatService implements OnInit {
       //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
       const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
-      //console.log("numero de mensaje: " + msgnb);
+      console.log("numero de mensaje: " + msgnb);
 
       const message = chatcontent1 + `
         :Msg${msgnb}
@@ -139,70 +141,11 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
-  async removeMessage(msg: SolidMessage){
-    var urlfile = this.chatuserUrl + "index.ttl#this";
-    var chatcontent = "";
-    this.fileClient.readFile(urlfile).then(body => {
-      chatcontent = body;
-      var chatcontentsplit = chatcontent.split(":this");
-      var chatcontent2 = chatcontentsplit[1].split("flow:message"); //es la parte de flow:message
-      var chatcontent3 = chatcontentsplit[0].split("n0:maker c:me.");
-      let nameMessage; //name of the message
-      for (let i = 1; i < chatcontent3.length; i++) {
-        let value = chatcontent3[i]
-        let valueMsg = msg.content
-        value=chatcontent3[i].replace(/\s/g,'');
-        valueMsg=msg.content.replace(/\s/g,'');
-        if(value.includes(valueMsg)){
-            nameMessage = value.split("terms:created")[0];
-            nameMessage = nameMessage.replace(/\s/g,'');
-        }
-      }
-      let message = chatcontent3[0]+"n0:maker c:me.";
-      for (let i = 1; i < chatcontent3.length; i++) {
-        if(!chatcontent3[i].includes(msg.content)){
-          message += chatcontent3[i];
-          if(i < chatcontent3.length-1){
-            message += "n0:maker c:me.";
-          }
-        }
-      }
-      message += ":this";
-      chatcontent2[0] = chatcontent2[0].replace(/^\s*[\r\n]/gm, ''); //quito lineas en blanco q sobran
-      message += '\n\n' + chatcontent2[0];
-      message += "flow:message ";
-      var names = chatcontent2[1].split(",");
-      for (let i = 0; i < names.length; i++) {
-        if(names[i].includes(":Msg")){
-          if(names[i].includes(".")){
-            let n = names[i].split(".");
-            names[i] = n[0];
-          }
-          names[i] = names[i].replace(/\s/g,'');
-          if(!names[i].includes(nameMessage) ){
-            message += names[i];
-            if(i < names.length - 1){
-              message += ", ";
-            }
-            else{
-              message += ".";
-            }
-          }
-        }
-      }
-      console.log(body);
-      console.log(message);
-      this.fileClient.updateFile(urlfile, message).then(success => {
-        console.log('message has been removed');
-      }, (err: any) => console.log(err));
-    }, err => null);
-  }
-
-  isChatCreated = async (userID:string,friendID: string) =>{
+  isChatCreated = async (userID: string, friendID: string) => {
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
-    try{
-      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/private/Chat" + friendID + "/"
+    try {
+      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function (result) {
         return true;
       }, function (error) {
         return false;
@@ -281,12 +224,6 @@ export class ChatService implements OnInit {
 
     }
 
-  }
-
-  uploadImage(image:File){
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/"+image.name;
-    this.fileClient.createFile(url,image);
-    this.postMessage(new SolidMessage(this.userID,this.uploadImage(image)));
   }
 
 }

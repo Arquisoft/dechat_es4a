@@ -21,7 +21,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.6",
-    "@angular/cdk": "^7.3.7",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
     "@angular/core": "^6.0.3",
@@ -39,9 +38,7 @@
     "http": "^0.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",
-    "ng-emoji-picker": "^6.0.1",
     "ng-image-input-with-preview": "^1.0.0",
-    "ng2-right-click-menu": "^1.1.1",
     "ngx-toastr": "^9.0.2",
     "node-fetch": "^2.2.0",
     "path": "^0.12.7",
@@ -56,7 +53,8 @@
     "text-encoding": "^0.6.4",
     "webcrypto": "^0.1.1",
     "whatwg-url": "^7.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "ng-emoji-picker": "^6.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.8",
