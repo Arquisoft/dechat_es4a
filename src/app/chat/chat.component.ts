@@ -1,13 +1,13 @@
-import {Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {ChatService} from '../services/chat.service';
-import {RdfService} from '../services/rdf.service';
-import {AuthService} from '../services/solid.auth.service';
-import {SolidMessage} from '../models/solid-message.model';
-import {SolidProfile} from '../models/solid-profile.model';
-import {ToastrService} from 'ngx-toastr';
-import {SolidChatUser} from '../models/solid-chat-user.model';
-import {Howl, Howler} from 'howler';
+import { Component, ElementRef, OnInit, Renderer2, SecurityContext, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChatService } from '../services/chat.service';
+import { RdfService } from '../services/rdf.service';
+import { AuthService } from '../services/solid.auth.service';
+import { SolidMessage } from '../models/solid-message.model';
+import { SolidProfile } from '../models/solid-profile.model';
+import { ToastrService } from 'ngx-toastr';
+import { SolidChatUser } from '../models/solid-chat-user.model';
+import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -15,7 +15,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { escapeRegExp } from 'tslint/lib/utils';
 
 class ImageSnippet {
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) { }
 }
 
 @Component({
@@ -41,7 +41,7 @@ export class ChatComponent implements OnInit {
 
   //Subida de imagenes
   selectedFile: ImageSnippet;
-  URL:string;
+  URL: string;
   _changeDetection;
 
   /** message: string = '';*/
@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
-    private router: Router, private toastr: ToastrService, private sanitizer :DomSanitizer) {
+    private router: Router, private toastr: ToastrService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -106,9 +106,9 @@ export class ChatComponent implements OnInit {
         let username = profile.url.replace('https://', '');
         let user = username.split('.')[0];
         this.mapFriendsTotal.set(user, transformIm);
-        
-        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
-        if(bool){
+
+        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
+        if (bool) {
           this.mapContacts.set(user, transformIm);
         }
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
@@ -150,7 +150,7 @@ export class ChatComponent implements OnInit {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     (<HTMLInputElement>document.querySelector('.emojiInput')).value = null;
     this.text = "";
-    }
+  }
 
   private async loadMessages() {
 
@@ -169,20 +169,20 @@ export class ChatComponent implements OnInit {
 
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
-            if (!this.checkExistingMessage(message)) {
-              this.messages.push(message);
-              let realDate = new Date(message.time);
-              realDate.setHours(new Date(message.time).getHours()+2);
-              if(new Date().getTime()- realDate.getTime()<30000){
-                 this.toastr.info("You have a new message from " + message.authorId);
-                 let sound = new Howl({
-                     src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-                 });
-                 Howler.volume(1);
-                 sound.play();
-              }
+          if (!this.checkExistingMessage(message)) {
+            this.messages.push(message);
+            let realDate = new Date(message.time);
+            realDate.setHours(new Date(message.time).getHours() + 2);
+            if (new Date().getTime() - realDate.getTime() < 30000) {
+              this.toastr.info("You have a new message from " + message.authorId);
+              let sound = new Howl({
+                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+              });
+              Howler.volume(1);
+              sound.play();
             }
           }
+        }
       });
     }
     catch (error) {
@@ -208,11 +208,11 @@ export class ChatComponent implements OnInit {
     let i;
     let a = 0;
     this.msgRemoved.forEach(msg => {
-      if(m.content.includes(msg.content)){
+      if (m.content.includes(msg.content)) {
         a += 1;
       }
     });
-    if( a > 0){
+    if (a > 0) {
       return true;
     }
     for (i = 0; i < this.messages.length; i++) {
@@ -321,7 +321,7 @@ export class ChatComponent implements OnInit {
   }
 
   getChatUrl(user: string, friend: string) {
-    let chatUrl = "https://" + user + ".solid.community/public/dechat_es4a/Chat" + friend + "/index.ttl#this";
+    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
     return chatUrl;
   }
@@ -336,27 +336,27 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  searchNewContact(friend:string){
+  searchNewContact(friend: string) {
     let cloneMapFriends = new Map(this.mapFriendsTotal);
     this.mapFriendsTotal.clear();
-    if(friend != ""){
-      cloneMapFriends.forEach((value:string,key: string) => {
-        if(key.includes(friend)){
+    if (friend != "") {
+      cloneMapFriends.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
           this.mapFriendsTotal.set(key, value);
         }
       });
     }
-    else{
+    else {
       this.loadFriends();
     }
   }
 
-  searchContact(friend:string){
+  searchContact(friend: string) {
     let cloneMapFriends = new Map(this.mapContacts);
     this.mapContacts.clear();
-    if(friend != ""){
-      cloneMapFriends.forEach((value:string,key: string) => {
-        if(key.includes(friend)){
+    if (friend != "") {
+      cloneMapFriends.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
           this.mapContacts.set(key, value);
         }
       });
@@ -365,19 +365,19 @@ export class ChatComponent implements OnInit {
       this.loadFriends();
     }
   }
-  
-  async isChatCreated(user: string){
-    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(),user);
+
+  async isChatCreated(user: string) {
+    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
     return bool;
   }
 
-  createChat(name: string, photo: string){
+  createChat(name: string, photo: string) {
     this.closeNav();
     this.loadFriends();
-    this.changeChat(name,photo);
+    this.changeChat(name, photo);
     this.mapContacts.set(name, photo);
     //añadimoslo al array
-    
+
 
   }
 
@@ -389,15 +389,15 @@ export class ChatComponent implements OnInit {
     document.getElementById("mySidenav").style.width = "0";
   }
 
-   isImage(str: string) : boolean {
-    str = str +'';
-    if(str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
+  isImage(str: string): boolean {
+    str = str + '';
+    if (str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg') != -1) {
       return true;
     }
     return false;
   }
 
-  getTrustedUrl(str : string) : SafeResourceUrl{
+  getTrustedUrl(str: string): SafeResourceUrl {
 
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
@@ -417,18 +417,18 @@ export class ChatComponent implements OnInit {
 
     reader.readAsDataURL(file);
   }
-	async removeMessage(event) {
+  async removeMessage(event) {
     await this.chat.removeMessage(event.data);
-    for(let i = 0; i < this.messages.length; i++){
-      if(this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
-        && this.messages[i].time == event.data.time){
-          this.msgRemoved.push(this.messages[i]);
-          this.messages.splice(i--, 1);
-     }
+    for (let i = 0; i < this.messages.length; i++) {
+      if (this.messages[i].content == event.data.content && this.messages[i].authorId == event.data.authorId
+        && this.messages[i].time == event.data.time) {
+        this.msgRemoved.push(this.messages[i]);
+        this.messages.splice(i--, 1);
+      }
     }
   }
-  
-  createGroup(){
+
+  createGroup() {
     console.log("Create group");
   }
 }

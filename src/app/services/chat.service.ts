@@ -53,8 +53,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/dechat_es4a/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -139,7 +139,7 @@ export class ChatService implements OnInit {
     }, err => this.createBaseChat(this.chatuserUrl));
   }
 
-  async removeMessage(msg: SolidMessage){
+  async removeMessage(msg: SolidMessage) {
     var urlfile = this.chatuserUrl + "index.ttl#this";
     var chatcontent = "";
     this.fileClient.readFile(urlfile).then(body => {
@@ -151,18 +151,18 @@ export class ChatService implements OnInit {
       for (let i = 1; i < chatcontent3.length; i++) {
         let value = chatcontent3[i]
         let valueMsg = msg.content
-        value=chatcontent3[i].replace(/\s/g,'');
-        valueMsg=msg.content.replace(/\s/g,'');
-        if(value.includes(valueMsg)){
-            nameMessage = value.split("terms:created")[0];
-            nameMessage = nameMessage.replace(/\s/g,'');
+        value = chatcontent3[i].replace(/\s/g, '');
+        valueMsg = msg.content.replace(/\s/g, '');
+        if (value.includes(valueMsg)) {
+          nameMessage = value.split("terms:created")[0];
+          nameMessage = nameMessage.replace(/\s/g, '');
         }
       }
-      let message = chatcontent3[0]+"n0:maker c:me.";
+      let message = chatcontent3[0] + "n0:maker c:me.";
       for (let i = 1; i < chatcontent3.length; i++) {
-        if(!chatcontent3[i].includes(msg.content)){
+        if (!chatcontent3[i].includes(msg.content)) {
           message += chatcontent3[i];
-          if(i < chatcontent3.length-1){
+          if (i < chatcontent3.length - 1) {
             message += "n0:maker c:me.";
           }
         }
@@ -173,18 +173,18 @@ export class ChatService implements OnInit {
       message += "flow:message ";
       var names = chatcontent2[1].split(",");
       for (let i = 0; i < names.length; i++) {
-        if(names[i].includes(":Msg")){
-          if(names[i].includes(".")){
+        if (names[i].includes(":Msg")) {
+          if (names[i].includes(".")) {
             let n = names[i].split(".");
             names[i] = n[0];
           }
-          names[i] = names[i].replace(/\s/g,'');
-          if(!names[i].includes(nameMessage) ){
+          names[i] = names[i].replace(/\s/g, '');
+          if (!names[i].includes(nameMessage)) {
             message += names[i];
-            if(i < names.length - 1){
+            if (i < names.length - 1) {
               message += ", ";
             }
-            else{
+            else {
               message += ".";
             }
           }
@@ -198,11 +198,11 @@ export class ChatService implements OnInit {
     }, err => null);
   }
 
-  isChatCreated = async (userID:string,friendID: string) =>{
+  isChatCreated = async (userID: string, friendID: string) => {
     //si existe el ttl:
     let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
-    try{
-      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function(result) {
+    try {
+      return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function (result) {
         return true;
       }, function (error) {
         return false;
@@ -283,10 +283,10 @@ export class ChatService implements OnInit {
 
   }
 
-  uploadImage(image:File){
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/"+image.name;
-    this.fileClient.createFile(url,image);
-    this.postMessage(new SolidMessage(this.userID,this.uploadImage(image)));
+  uploadImage(image: File) {
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/" + image.name;
+    this.fileClient.createFile(url, image);
+    this.postMessage(new SolidMessage(this.userID, this.uploadImage(image)));
   }
 
 }
