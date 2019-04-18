@@ -134,9 +134,9 @@ export class ChatService implements OnInit {
 
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been saved');
-      }, (err: any) => console.log(err));
+      }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
 
-    }, err => this.createBaseChat(this.chatuserUrl));
+    }, err => this.createBaseChat(this.chatuserUrl)).catch(error => console.log("Not able to read file"));
   }
 
   async removeMessage(msg: SolidMessage){
@@ -195,7 +195,7 @@ export class ChatService implements OnInit {
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been removed');
       }, (err: any) => console.log(err));
-    }, err => null);
+    }, err => null).catch(error => console.log("Not able to read file"));
   }
 
   isChatCreated = async (userID:string,friendID: string) =>{
@@ -206,7 +206,7 @@ export class ChatService implements OnInit {
         return true;
       }, function (error) {
         return false;
-      });
+      }).catch(error => console.log("Not able to read file"));
     } catch (err) { }
 
   }
@@ -222,9 +222,9 @@ export class ChatService implements OnInit {
           this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
               console.log('chat has been started');
-            }, (err: any) => console.log(err));
-          }, err => console.log(err));
-        }, err => console.log(err)));
+            }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+          }, err => console.log(err)).catch(error => console.log("File not created"));
+        }, err => console.log(err))).catch(error => console.log("Not able to read file"));
   }
 
   async loadMessages(user, friend) {
@@ -261,9 +261,10 @@ export class ChatService implements OnInit {
             var time = time_array[0] + " " + time_array[1];
             this.addToChat(content, maker, time);
           })
-        });
+        }).catch(error => console.log("File not founded"));
       }
-      catch (err) { }
+      catch (err) { 
+      }
     }
     catch (error) {
       console.log("Not getting messages from POD");
@@ -282,10 +283,10 @@ export class ChatService implements OnInit {
     let url = "https://" + user + ".solid.community/public/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err) );
+    }, err => console.log(err)).catch(error => console.log("File not deleted"));
     this.fileClient.deleteFile("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err) );
+    }, err => console.log(err)).catch(error => console.log("File not deleted"));
   }
 
 }
