@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 import { store } from '@angular/core/src/render3/instructions';
 import { StringDecoder } from 'string_decoder';
 
-const aclCheck = require('solid-permissions')
 
 
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
@@ -370,31 +369,31 @@ export class RdfService {
     return '';
   }
 
-  createAclForChat(fileDir:string){
-    let file = $rdf.sym(fileDir);
-    let user = $rdf.sym(this.session.webId);
+  createAclForChat(fileDir:String){
+    let file = this.store.sym(fileDir);
+    let user = this.store.sym(this.session.webId);
     let aclDir = fileDir+'.acl#owner';
     
-    let aclFile =$rdf.sym(aclDir);
+    let aclFile = this.store.sym(aclDir);
     
-    $rdf.add(aclFile, TYPE(), ACL("Authorization"), aclFile.doc());
-    $rdf.add(aclFile, ACL("agent"), user, aclFile.doc());
-    $rdf.add(aclFile, ACL("accessTo"), file, aclFile.doc());
-    $rdf.add(aclFile, ACL("defaultForNew"), file, aclFile.doc());
-    $rdf.add(aclFile, ACL("mode"), ACL("Read"), aclFile.doc());
-    $rdf.add(aclFile, ACL("mode"), ACL("Write"), aclFile.doc());
-    $rdf.add(aclFile, ACL("mode"),ACL("Control"),aclFile.doc());
+    this.store.add(aclFile, TYPE(), ACL("Authorization"), aclFile.doc());
+    this.store.add(aclFile, ACL("agent"), user, aclFile.doc());
+    this.store.add(aclFile, ACL("accessTo"), file, aclFile.doc());
+    this.store.add(aclFile, ACL("defaultForNew"), file, aclFile.doc());
+    this.store.add(aclFile, ACL("mode"), ACL("Read"), aclFile.doc());
+    this.store.add(aclFile, ACL("mode"), ACL("Write"), aclFile.doc());
+    this.store.add(aclFile, ACL("mode"),ACL("Control"),aclFile.doc());
 
     this.fetcher.putBack(aclFile);
   }
 
-  giveFriendPermission(userWebId:string,fileDir:string){
+  giveFriendPermission(userWebId:string,fileDir:String){
     if(!(userWebId === this.session.webId)){
-      let file = $rdf.sym(fileDir);
-      let user = $rdf.sym(userWebId);
+      let file = this.store.sym(fileDir);
+      let user = this.store.sym(userWebId);
       let aclDir = fileDir+'.acl#reader';
     
-      let aclFile =$rdf.sym(aclDir);
+      let aclFile =this.store.sym(aclDir);
     
       this.fetcher.load(aclFile.doc()).then(response => {
         this.store.add(aclFile, TYPE(), ACL("Authorization"), aclFile.doc());
@@ -410,7 +409,7 @@ export class RdfService {
   }
 
   checkReadAccesForAgent(agent:string,fileUrl:string){
-    return aclCheck.checkAccess(fileUrl,agent, ACL("Read"));
+    /*return aclCheck.checkAccess(fileUrl,agent, ACL("Read"));*/
   }
 
 }

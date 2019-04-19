@@ -24,10 +24,11 @@ export class ChatService implements OnInit {
   chat: SolidChat;
 
   userID: any;
-  friendID: any;
+  friendID: string;
   chatfriendUrl: any;
   chatuserUrl: any;
   basechat: any;
+  baseAcl: any;
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
@@ -167,13 +168,13 @@ export class ChatService implements OnInit {
           console.log('Folder Created');
           this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
+              this.givePermissions(url+'.acl');
               console.log('chat has been started');
             }, (err: any) => console.log(err));
           }, err => console.log(err));
         }, err => console.log(err)));
 
-    await this.rdf.createAclForChat(url+'index.ttl');
-    this.rdf.giveFriendPermission(this.friendID,url+'index.ttl');
+   
   }
 
   async loadMessages(user, friend) {
@@ -181,7 +182,7 @@ export class ChatService implements OnInit {
     let name = username.split('.')[0];
     if (name != "undefined") {
       await this.getMessagesFromPOD(user);
-      // await this.getMessagesFromPOD(friend);
+      await this.getMessagesFromPOD(friend);
     }
     return this.chat;
   }
@@ -229,6 +230,32 @@ export class ChatService implements OnInit {
       this.chat.messages.push(new SolidMessage(escapeRegExp(maker), escapeRegExp(content), time));
     }
 
+  }
+
+  givePermissions(url:string){
+    var id = this.friendID.substring(0,this.friendID.length-2);
+    this.baseAcl = `@prefix : <#>.
+    @prefix n0: <http://www.w3.org/ns/auth/acl#>.
+    @prefix Ch: <./>.
+    @prefix c: </profile/card#>.
+    @prefix c0: <${id}>.
+    
+    :ControlReadWrite
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Control, n0:Read, n0:Write.
+    :Read
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c0:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Read.`;
+    console.log(url);
+    this.fileClient.createFile(url,this.baseAcl).then(success => {
+      console.log('permissions given');
+    }, (err: any) => console.log(err));
   }
 
 }
