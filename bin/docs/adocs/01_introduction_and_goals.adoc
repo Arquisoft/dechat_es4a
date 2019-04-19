@@ -1,6 +1,6 @@
 [[section-introduction-and-goals]]
 == Introduction and Goals
-****
+
 The objective of this project that we will develop further is to create a decentralized chat application based on https://solid.mit.edu/[SOLID] specifications. Our application can resemble any other more popular and commercially successful in the field of instant messaging, except that ours, as we said in the beginning uses a decentralized architecture to store data, providing a more remarkable security than the others.
 Our application aims to help users (two or more) to communicate with each other, sharing all kinds of information without this information being stored on any external server, providing a completely private and therefore secure communication. To do so, users must have a https://solid.inrupt.com/get-a-solid-pod/[POD of SOLID] to store their data. 
 As essential characteristics of our application, we will look for them to be the most similar to those of the most popular, either:
@@ -9,11 +9,11 @@ As essential characteristics of our application, we will look for them to be the
 * Multi-person chat groups
 * Notifications 
 * Etc.
-****
+
 
 === Requirements Overview
 
-****
+
 .Contents
 A brief description of the functional requirements of our application is that it consists of a decentralized chat application based on SOLID, where users using the application must have a SOLID POD, which will allow these users to store their data, to share their files, images, videos, notifications, and so on.
 A more rigorous specification can be found at the following link, which describes the high level requirements of the application. https://labra.solid.community/public/SoftwareArchitecture/EnunciadoPractica/[Requirements].
@@ -23,13 +23,13 @@ As for the general motivation, the aim of the development of the following proje
 
 .Use cases
 Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
-image:Diapositiva0.PNG[] case One (1-1).
-image:Diapositiva1.PNG[] case Two (1-*).
-****
+image:images/Diapos0.png[] *Case One (1-1)*
+image:images/Diapos1.png[] *Case Two (1-*)*
+
 
 === Quality Goals
 
-****
+
 Main characteristics of our application.
 
 .Quality Goals
@@ -61,12 +61,12 @@ Main characteristics of our application.
 |Main objective in accordance with functional requirements, we will use SOLID requirements for this purpose to protect user data.
 
 |===
-****
+
 
 === Stakeholders
 
 
-****
+
 Table with the people involved in the project
 
 .Stakeholders
@@ -90,4 +90,4 @@ Table with the people involved in the project
 |Develop an application that will work and archive the minimum requirements set out in the beginning.
 
 |===
-****
+

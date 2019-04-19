@@ -1,41 +1,42 @@
 <div class="profile-container">
-<div class="split left">
-  <div class="centered">
-    <h1>Welcome to DeChat</h1>
-    <p>Connect with all your friends wherever and whenever you want.</p>
-    <p>Your privacy will always stay with you.</p>
-  </div>
-  <div class="centered button-position">
-    <button class="button button1" routerLink="/chat" (click)="goToChat()">Start chatting!</button>
-  </div>
-  <div class="down">
-    <div class="git">
-      <a href="https://github.com/Arquisoft/dechat_es4a" style="color: rgb(255, 255, 255)">
-      <i class="fab fa-github"></i>
-      <p class="textGit">https://github.com/Arquisoft/dechat_es4a</p></a>
+  <div class="split left">
+    <div class="centered blackShadowGeneric">
+      <h1>Welcome to DeChat</h1>
+      <p>Connect with all your friends wherever and whenever you want.</p>
+      <p>Your privacy will always stay with you.</p>
     </div>
+    <div class="centered button-position">
+      <button class="button button1 blackShadowSmall " routerLink="/chat" (click)="goToChat()">Start chatting!</button>
+    </div>
+    <div class="down">
+      <div class="git">
+        <a href="https://github.com/Arquisoft/dechat_es4a" style="color: rgb(255, 255, 255)">
+          <i class="fab fa-github"></i>
+          <p class="textGit blackShadowSmall">https://github.com/Arquisoft/dechat_es4a</p>
+        </a>
+      </div>
+    </div>
+
   </div>
-  
-</div>
-  
-<a (mouseenter) ="rotate()"> 
-  <div class="split right">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"  
-    style="position:fixed; right:50px; bottom:50px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"  
-    style="position:fixed; right:40%; bottom:10px; top:80px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"  
-    style="position:fixed; right:35%; bottom:180px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"  
-    style="position:fixed; right:150px; top:80px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"  
-    style="position:fixed; right:42%; bottom:80px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"  
-    style="position:fixed; right:20%; bottom:20px; width:50px; height:50px; border:none;">
-    <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"  
-    style="position:fixed; right:5%; top:175px; width:50px; height:50px; border:none;">
-  </div>
-</a>
+
+  <a (mouseenter)="rotate()">
+    <div class="split right">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"
+        style="position:fixed; right:50px; bottom:50px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"
+        style="position:fixed; right:40%; bottom:10px; top:80px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"
+        style="position:fixed; right:35%; bottom:180px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"
+        style="position:fixed; right:150px; top:80px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"
+        style="position:fixed; right:42%; bottom:80px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble2.png"
+        style="position:fixed; right:20%; bottom:20px; width:50px; height:50px; border:none;">
+      <img [@rotatedState]='state' src="/dechat_es4a/assets/images/messageBubble.png"
+        style="position:fixed; right:5%; top:175px; width:50px; height:50px; border:none;">
+    </div>
+  </a>
 
 
 

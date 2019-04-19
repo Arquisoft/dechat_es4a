@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~@angular/cdk/overlay-prebuilt.css";
+
+.SizeIncrease{
+  font-size: 300%
+}
+
 
 button.wide-button {
   width: 360px;
@@ -29,6 +35,16 @@ input[type=text].wide-text {
   border: 1px solid #89969F;
   font-size: 14px;
   color: #666;
+}
+
+input, select {
+  width: 800px;
+  height: 35px;
+  margin: 11px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 
@@ -72,8 +88,25 @@ input[type=text].wide-text {
 
 }
 
+.blackShadowGeneric{
+  text-shadow: 2px 2px  black;
+}
+
+.blackShadowSmall{
+  text-shadow: 1px 1px  black;
+}
+
+.whiteShadowGeneric{
+  text-shadow: 2px 2px #ffbedf;
+}
+
+.whiteShadowSmall{
+  text-shadow: 1px 1px #ffbedf;
+}
+
+
 html {
-  background-image: linear-gradient(#fc8a8c, #585ef6);
+  background-image: linear-gradient(#db797a, #4b4fce);
   -webkit-background-size: cover;
   background-position: center center;
   background-size: cover;

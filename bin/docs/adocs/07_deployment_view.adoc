@@ -6,40 +6,25 @@
 
 image:images/07_Deployment.PNG["Basic Deployment View"]
 
-Motivation::
-
-This is a basic overview of our project. It is basically using a Solid Pod Server where we have the information and our application will use this server to get the costumer data. Web Browser allow us to execute the application and to connect to the server.
-
-Quality and/or Performance Features::
-
-SOLID Server will allow us to use our application as decentralized and the client will be the only one who can administrate his/her own personal data.
-
-Mapping of Building Blocks to Infrastructure::
-
 .Deployment nodes and artifact
 |===
 |Node/Artifact |Description
 
-|myChat.html
+|index.html
 |Html file that contain all information to execute our application in the web browser.
 
-|Costumer Pod
-|This is a place located in a SOLID Pod Server where costumer can save all personal data.
-
-|Web Browser
+|User Device
 |A browser that can run our application. Chrome or Firefox should work.
 
-|SOLID Server
-|Server where our decentralized app will be build.
+|Web Hosting Service
+|Webpage where the application is deployed.
+
+|Home SOLID Server
+|Server created and administrated by the client with his/her own POD.
+
+|Inrupt Provider Web Server
+|Free provider of PODs by the commercial entity established by the Solid founding team.
+
+|SOLID Community Provider Web Server
+|Free provider of PODs for the Solid community, by the Solid community.
 |===
-
-
-=== Infrastructure Level 2 [TO DO]
-
-Here you can include the internal structure of (some) infrastructure elements from level 1.
-
-Please copy the structure from level 1 for each selected element.
-
-==== Infrastructure Element 1 [TO DO]
-
-_<diagram + explanation>_ [TO DO]
