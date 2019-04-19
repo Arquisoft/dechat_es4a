@@ -9,9 +9,9 @@ Before(() => {
   page = new LoginPage();
 });
 
-Given(/^I am on the login page$/, async () => {
+/*Given(/^I am on the login page$/, async () => {
   await page.navigateTo();
-});
+});*/
 
 When(/^I do nothing \(home page\)$/, () => {});
 
