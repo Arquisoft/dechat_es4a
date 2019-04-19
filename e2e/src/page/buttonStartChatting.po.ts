@@ -3,7 +3,7 @@ import {browser, by, element} from 'protractor';
 export class AppPage {
 
     navigateToCard() {
-        this.sleep(30000);
+        //this.sleep(30000);
         return browser.get('/card');
     }
     getCardTitleText() {
@@ -13,8 +13,8 @@ export class AppPage {
     }
 
     clickOnStartChattingButton() {
-        this.sleep(3000);
-        return element(by.id('b')).click();
+        //this.sleep(3000);
+        return element(by.id('button-start')).click();
     }
     private sleep(milliseconds: number): void {
         const start = new Date().getTime();
