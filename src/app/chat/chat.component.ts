@@ -397,7 +397,6 @@ export class ChatComponent implements OnInit {
 @prefix c: </profile/card#>.
 @prefix n1: <http://purl.org/dc/elements/1.1/>.
 @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
-
 :Msg1552577190108
     terms:created "2019-03-14T15:26:30Z"^^XML:dateTime;
     n:content "1\n";
@@ -412,5 +411,4 @@ export class ChatComponent implements OnInit {
     n1:created "2019-03-14T15:26:06Z"^^XML:dateTime;
     n1:title "Chat";
     flow:message :Msg1552577190108, :Msg1552577190972.
-
  */
