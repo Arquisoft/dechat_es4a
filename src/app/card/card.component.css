@@ -3,8 +3,8 @@
 }
 
 .split {
-  width: 50%;
   height: 100%;
+  width: 50%;
   position: fixed;
   z-index: 1;
 }
@@ -21,6 +21,7 @@
 p {
   font-size: 20px;
   margin: 40px;
+  
 }
 
 @media only screen and (max-width: 1100px) {
@@ -59,6 +60,8 @@ p {
   white-space: nowrap;
 }
 
+
+
 .button-position{
   top: 55%;
 }
@@ -75,11 +78,11 @@ p {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
-
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
   border: 2px solid #e7e7e7;
   border-radius: 5px;
+  
 }
 
 .button:hover {

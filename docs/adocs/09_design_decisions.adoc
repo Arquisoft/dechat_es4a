@@ -1,33 +1,26 @@
 [[section-design-decisions]]
 == Design Decisions
 
+The main and actual decisions are further explained at the fourth
+section of this document, Solution
+Strategy, but an index of these is:
 
-
-The key of this project is the decentralization of data.
-
-For working with data decentralization we will be using Solid, a project by Prof. Tim Berners-Lee, as is one of the
-prerequisites of this project, has and intuitive form of use and works very well with different programming languages
-allowing us to have had more alternatives about this choice the first weeks of our planning.
-
-Angular was the framework chosen to program with as it counts with different libraries, as RDFLib or solid-auth-client
-for example, that makes working with solid a lot easier and way more secure; it is also a high demanded and used
-framework and it gives us the opportunity to learn more about it and about TypeScript.
-The last reason is Angular will make our code more valuable for the community as there are not so many applications
-for Solid+Angular for now.
-
-We are going to use WebStorm for coding and editing our documentation as it is an IDE that provides both functionalities
-,most of us are used to it and has many funcionalities and plugins for Angular. Also, it is compatible with Github, the
-version control manager we are going o use, as is the one used in our university and one of the leader platforms
-to share free source code.
-
-Regarding design we will be using the MVC pattern that Angular already provides.
-Solid provides by itself a modular design form by different pods containing the client data, and we want to keep the
-decentralization of that data as clear as possible so by structuring the project with this pattern we will have the
-exact responsibilities of each layer separated and the way they communicate to each other will be very clear and visual.
-
-To achieve all this we will be following the agile methodology SCRUM with some modifications. As all of us will have
-the software architect role so there won't be a SCRUM master and everybody will have the same level and responsibility.
-We will document and follow this methodology by the different funcionalities of Github as the Dashboard, milestones,
-issues,etc.
-
-Finally for testing we will be using Cucumber for the acceptance testing and Karma and Jasmine for the login testing.
+[upperroman]
+. Architecture and design decisions
+[upperroman]
+.. MVC by Angular
+.. Modular Desing by Solid
+. Programing languages
+[upperroman]
+.. Angular [TypeScript]
+. Technologies
+[upperroman]
+.. WebStorm by Jetbrains
+.. Github
+. Methodologies
+[upperroman]
+.. Scrum
+. Testing
+[upperroman]
+.. Cucumber
+.. Karma and Jasmine

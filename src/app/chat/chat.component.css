@@ -58,12 +58,11 @@ ul {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
     -webkit-font-smoothing: antialiased;
     min-height: 100px;
-    width: 100%;
     padding: 0;
     margin: 0;
     overflow: auto;
     position: fixed;
-    flex: auto;
+    flex:auto;
   }
 
   @media screen and (max-width: 360px) {
@@ -84,18 +83,18 @@ ul {
     overflow: hidden;
     position: relative;
   }
-  /*@media screen and (max-width: 735px) {
+ /* @media screen and (max-width: 735px) {
     #frame #sidepanel {
       width: 58px;
       min-width: 58px;
     }
-  }
+  }*/
   /*Profile*/
   #frame #sidepanel #profile {
     width: 80%;
     height: 17%;
     display: inline-block;
-    position: relative;
+    position: relative; 
   }
 
   #frame #sidepanel #profile .wrap .profile-image img {
@@ -340,16 +339,25 @@ ul {
 
 /*Contact*/
   #frame #sidepanel #contacts {
+    /*height: calc(100% - 100px);*/
     height: 85%;
     overflow-y: scroll;
     overflow-x: hidden;
     background: #404479dc;
   }
-
-  /*#frame #sidepanel #contacts.expanded {
+  /*@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts {
+      height: calc(100% - 149px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    #frame #sidepanel #contacts::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  #frame #sidepanel #contacts.expanded {
     height: calc(100% - 334px);
   }*/
-
   #frame #sidepanel #contacts::-webkit-scrollbar {
     width: 8px;
     background: #2c3e50;
@@ -380,13 +388,22 @@ ul {
     margin-left: 25px; 
     display: inline-block;
   }
-
+  /*@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap {
+      width: 100%;
+    }
+  }*/
   #frame #sidepanel #contacts ul li.contact .wrap img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     float: left;
   }
+  /*@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap img {
+      margin-right: 0px;
+    }
+  }*/
 
   #frame #sidepanel #contacts ul li.contact a {
     float: left;
@@ -465,7 +482,11 @@ ul {
     overflow-y: scroll;
     overflow-x: hidden;
   }
-
+  /*@media screen and (max-width: 735px) {
+    #frame #content .messages {
+      max-height: calc(100% - 105px);
+    }
+  }*/
   #frame #content .messages p1{
     font-size: 40px;
     text-align: center;    
@@ -560,8 +581,8 @@ input, select {
 
 /*#frame #content .message-input .wrap {
     position: relative;
+    align: center;
 }*/
-
 #frame #content .message-input .wrap input:focus {
   outline: none;
 }

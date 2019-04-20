@@ -38,7 +38,7 @@ input[type=text].wide-text {
 }
 
 input, select {
-  width: 700px;
+  width: 800px;
   height: 35px;
   margin: 11px 0;
   display: inline-block;
@@ -81,6 +81,11 @@ input, select {
   font-size: 16px;
   color: #666;
   margin-top: 6px;
+}
+
+/* This selector is for the dropdown arrow */
+.ng-select.login-select .ng-arrow:after {
+
 }
 
 .blackShadowGeneric{
