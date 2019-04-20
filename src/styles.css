@@ -38,7 +38,7 @@ input[type=text].wide-text {
 }
 
 input, select {
-  width: 800px;
+  width: 700px;
   height: 35px;
   margin: 11px 0;
   display: inline-block;
@@ -83,11 +83,6 @@ input, select {
   margin-top: 6px;
 }
 
-/* This selector is for the dropdown arrow */
-.ng-select.login-select .ng-arrow:after {
-
-}
-
 .blackShadowGeneric{
   text-shadow: 2px 2px  black;
 }
@@ -115,7 +110,7 @@ html {
 
 body{
   background-color: transparent !important;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 #toast-container > div {
