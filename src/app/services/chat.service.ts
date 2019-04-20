@@ -284,9 +284,9 @@ export class ChatService implements OnInit {
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFolder("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
+    this.fileClient.deleteFile("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("Folder not deleted"));
+    }, err => console.log(err)).catch(error => console.log("File not deleted"));
   }
 
   uploadImage(image: File) {

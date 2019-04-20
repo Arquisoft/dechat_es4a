@@ -111,12 +111,11 @@ html {
   background-position: center center;
   background-size: cover;
   height: 100vh;
-  overflow-x: hidden;
 }
 
 body{
   background-color: transparent !important;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 #toast-container > div {

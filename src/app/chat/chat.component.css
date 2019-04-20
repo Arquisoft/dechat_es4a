@@ -61,6 +61,7 @@ ul {
     width: 100%;
     padding: 0;
     margin: 0;
+    overflow: auto;
     position: fixed;
   }
 
@@ -68,6 +69,7 @@ ul {
     #frame {
       width: 100%;
       height: 100vh;
+      overflow-y: scroll;
     }
   }
   #frame #sidepanel {
@@ -420,7 +422,7 @@ ul {
     float: right;
     width: 60%;
     height: 100%;
-    /*overflow: hidden;*/
+    overflow: hidden;
     position: relative;
   }
 
