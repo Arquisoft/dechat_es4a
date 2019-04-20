@@ -62,7 +62,6 @@ ul {
     padding: 0;
     margin: 0;
     position: fixed;
-    flex: auto;
   }
 
   @media screen and (max-width: 360px) {
@@ -82,7 +81,7 @@ ul {
     overflow: hidden;
     position: relative;
   }
-  /*@media screen and (max-width: 735px) {
+  @media screen and (max-width: 735px) {
     #frame #sidepanel {
       width: 58px;
       min-width: 58px;
@@ -93,7 +92,7 @@ ul {
     width: 80%;
     height: 17%;
     display: inline-block;
-    position: relative;
+    position: relative; 
   }
 
   #frame #sidepanel #profile .wrap .profile-image img {
@@ -252,11 +251,11 @@ ul {
     margin-top: 10px;
     
   }
-  /*@media screen and (max-width: 735px) {
+  @media screen and (max-width: 735px) {
     #frame #sidepanel #search {
       display: none;
     }
-  }*/
+  }
   #frame #sidepanel #search label {
     position: absolute;
     margin: 20px 0 0 -10px;
@@ -338,16 +337,24 @@ ul {
 
 /*Contact*/
   #frame #sidepanel #contacts {
-    height: 85%;
+    height: calc(100% - 100px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #404479dc;
   }
-
-  /*#frame #sidepanel #contacts.expanded {
+  @media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts {
+      height: calc(100% - 149px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    #frame #sidepanel #contacts::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  #frame #sidepanel #contacts.expanded {
     height: calc(100% - 334px);
-  }*/
-
+  }
   #frame #sidepanel #contacts::-webkit-scrollbar {
     width: 8px;
     background: #2c3e50;
@@ -374,16 +381,25 @@ ul {
 
   #frame #sidepanel #contacts ul li.contact .wrap {
     width: 100%;
-    /*height: 100%;*/
+    height: 100%;
     margin-left: 25px; 
     display: inline-block;
   }
-
+  @media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap {
+      width: 100%;
+    }
+  }
   #frame #sidepanel #contacts ul li.contact .wrap img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     float: left;
+  }
+  @media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap img {
+      margin-right: 0px;
+    }
   }
 
   #frame #sidepanel #contacts ul li.contact a {
@@ -463,7 +479,11 @@ ul {
     overflow-y: scroll;
     overflow-x: hidden;
   }
-
+  @media screen and (max-width: 735px) {
+    #frame #content .messages {
+      max-height: calc(100% - 105px);
+    }
+  }
   #frame #content .messages p1{
     font-size: 40px;
     text-align: center;    
@@ -556,10 +576,10 @@ input, select {
   box-sizing: border-box;
 }
 
-/*#frame #content .message-input .wrap {
+#frame #content .message-input .wrap {
     position: relative;
-}*/
-
+    align: center;
+}
 #frame #content .message-input .wrap input:focus {
   outline: none;
 }
