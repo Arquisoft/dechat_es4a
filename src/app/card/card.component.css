@@ -7,10 +7,6 @@
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  /*padding-top: 20px;*/
-  margin-top: 55px;
 }
 
 /* Control the left side */
@@ -18,13 +14,8 @@
   left: 0;
   color: #fff;
   font-style: normal;
-  line-height: 1.5;
   overflow: hidden;
-}
-
-h1{
-  font-size: 50px;
-  margin-top: 10%;
+  line-height: 2;
 }
 
 p {
@@ -33,14 +24,24 @@ p {
   
 }
 
+@media only screen and (max-width: 1100px) {
+  h1{
+    white-space: initial;
+    line-height: 1.2;
+  }
+  
+  p {
+    white-space: initial;
+    line-height: 1.2;
+  }
+}
+
 /* Control the right side */
 .right {
   right: 0;
   color: rgb(255, 255, 255);
   font-style: normal;
-  line-height: 1.5;
   overflow: hidden;
-  height: 100%;
   background-image: url("/assets/images/chat.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -50,7 +51,7 @@ p {
 /* If you want the content centered horizontally and vertically */
 .centered {
   position: absolute;
-  top: 25%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -77,9 +78,6 @@ p {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
-}
-
-.button1 {
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
   border: 2px solid #e7e7e7;
@@ -87,7 +85,7 @@ p {
   
 }
 
-.button1:hover {
+.button:hover {
   background-color: #e7e7e7;
   color: black;
 }
