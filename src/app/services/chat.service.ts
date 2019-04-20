@@ -22,10 +22,11 @@ export class ChatService implements OnInit {
   chat: SolidChat;
 
   userID: any;
-  friendID: any;
+  friendID: string;
   chatfriendUrl: any;
   chatuserUrl: any;
   basechat: any;
+  baseAcl: any;
 
   constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
 
@@ -53,8 +54,8 @@ export class ChatService implements OnInit {
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
     this.chat = new SolidChat(this.userID, this.friendID);
-    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/public/Chat" + this.getUsername(this.userID) + "/"
-    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/public/Chat" + this.getUsername(this.friendID) + "/"
+    this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
+    this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
 @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
 @prefix terms: <http://purl.org/dc/terms/>.
@@ -200,7 +201,7 @@ export class ChatService implements OnInit {
 
   isChatCreated = async (userID: string, friendID: string) => {
     //si existe el ttl:
-    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/public/Chat" + friendID + "/"
+    let chatuserUrl = "https://" + this.getUsername(userID) + ".solid.community/private/Chat" + friendID + "/"
     try {
       return await this.fileClient.readFile(chatuserUrl + "index.ttl#this").then(function (result) {
         return true;
@@ -221,6 +222,7 @@ export class ChatService implements OnInit {
           console.log('Folder Created');
           this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
+              this.givePermissions(url+'.acl');
               console.log('chat has been started');
             }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
           }, err => console.log(err)).catch(error => console.log("File not created"));
@@ -280,19 +282,45 @@ export class ChatService implements OnInit {
   }
 
   removeChat(user:string,nameFriend:string){
-    let url = "https://" + user + ".solid.community/public/Chat" + nameFriend + "/index.ttl#this"
+    let url = "https://" + user + ".solid.community/private/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFile("https://" + user + ".solid.community/public/Chat" + nameFriend + "/").then(success => {
+    this.fileClient.deleteFile("https://" + user + ".solid.community/private/Chat" + nameFriend + "/").then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
   }
 
   uploadImage(image: File) {
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/public/" + image.name;
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/" + image.name;
     this.fileClient.createFile(url, image);
-    this.postMessage(new SolidMessage(this.userID, this.uploadImage(image)));
+    this.postMessage(new SolidMessage(this.userID, url));
+  }
+
+  givePermissions(url:string){
+    var id = this.friendID.substring(0,this.friendID.length-2);
+    this.baseAcl = `@prefix : <#>.
+    @prefix n0: <http://www.w3.org/ns/auth/acl#>.
+    @prefix Ch: <./>.
+    @prefix c: </profile/card#>.
+    @prefix c0: <${id}>.
+    
+    :ControlReadWrite
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Control, n0:Read, n0:Write.
+    :Read
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c0:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Read.`;
+    console.log(url);
+    this.fileClient.createFile(url,this.baseAcl).then(success => {
+      console.log('permissions given');
+    }, (err: any) => console.log(err));
   }
 
 }

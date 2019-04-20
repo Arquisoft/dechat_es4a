@@ -10,9 +10,13 @@ import { ToastrService } from 'ngx-toastr';
 import { store } from '@angular/core/src/render3/instructions';
 import { StringDecoder } from 'string_decoder';
 
+
+
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
+const TYPE = $rdf.Namespace("https://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
 const LDP = $rdf.Namespace("http://www.w3.org/ns/ldp#");
+const ACL = $rdf.Namespace("http://www.w3.org/ns/auth/acl#");
 
 /**
  * A service layer for RDF data manipulation using rdflib.js
