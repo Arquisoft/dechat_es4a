@@ -49,7 +49,7 @@
                 </ul>
         </div>
     </div>
-    <div id="content">
+    <div id="content" style="height: 100%">
         <div class="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
@@ -106,7 +106,7 @@
                 (setPopupAction)="setPopupAction($event)"
                 (keyup.enter)="send(text,$event)">
                 </emoji-input>
-                <label for="image-input">
+                <label for="image-input" >
                     <i class="fa fa-paperclip attachment" aria-hidden="true" >
                         <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
                     </i>
