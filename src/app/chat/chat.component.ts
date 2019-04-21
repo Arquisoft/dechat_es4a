@@ -514,7 +514,15 @@ export class ChatComponent implements OnInit {
     let msgHour = date.split(" ");
     date = msgHour[1];
     let noSeconds =  date.slice(0, date.length-3);
-    return noSeconds;
+    let hour : number = parseInt(noSeconds.split(':')[0],10)+2;
+    let finalHour= '00:00';
+    if(hour===24){
+      finalHour='00:'+ noSeconds.split(':')[1];
+    }
+    else{
+      finalHour=hour+':'+ noSeconds.split(':')[1];
+    }
+    return finalHour;
   }
 
 }
