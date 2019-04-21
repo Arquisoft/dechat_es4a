@@ -370,7 +370,7 @@ export class ChatComponent implements OnInit {
     this.mapContacts.clear();
     if (friend != "") {
       cloneMapFriends.forEach((value: string, key: string) => {
-        if (key.includes(friend)) {
+        if (key.toLowerCase().includes(friend.toLowerCase())) {
           this.mapContacts.set(key, value);
         }
       });
