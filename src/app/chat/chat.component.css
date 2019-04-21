@@ -531,8 +531,8 @@ ul {
   /*Messages*/
   #frame #content .messages {
     height: auto;
-    min-height: calc(100% - 130px); 
-    max-height: calc(100% - 130px);
+    min-height: calc(100% - 180px);
+    max-height: calc(100% - 180px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -624,7 +624,7 @@ ul {
 }
 
 input, select {
-  width: 70%;
+  width: 50%;
   padding: 12px 20px;
   margin: 11px 0;
   display: inline-block;
@@ -654,6 +654,7 @@ input, select {
 #frame #content .message-input .wrap .fa-smile:hover {
   opacity: 1;
 }
+
 
 #frame #content .message-input .wrap .attachment {
   border: none;
@@ -698,7 +699,7 @@ input, select {
 }
 
 .modal-dialog{
-  overflow-y: initial !important
+  overflow-y: initial;
 }
 .modal-body{
   height: 250px;
