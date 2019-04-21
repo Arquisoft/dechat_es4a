@@ -33,7 +33,8 @@ export class ChatComponent implements OnInit {
   profile: SolidProfile;
   friendActive: string;
   friendPhotoActive: string;
-  chatUsers = []; //contiene lista de solid chat users 
+  chatUsers = []; //contiene lista de solid chat users
+  videosSafesURL = {};
 
   //Para los emojis:
   text: string = '';
@@ -404,9 +405,20 @@ export class ChatComponent implements OnInit {
   }
 
   //Devuelve true si es imagen
-   isImage(str: string) : boolean {
+  isImage(str: string) : boolean {
     str = str +'';
-    if(str.indexOf('http') != -1 || str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
+    if(str.indexOf('jpg') != -1 || str.indexOf('png') != -1 || str.indexOf('jpeg' )!= -1  ){
+      return true;
+    }
+    return false;
+  }
+  isVideo(str: string) : boolean {
+    str = str +'';
+    if( str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov' )!= -1
+        || str.indexOf('.avi' )!= -1 || str.indexOf('.mp4' )!= -1  ){
+      if(!this.videosSafesURL[str]){
+        this.videosSafesURL[str]= this.getVideoTrustedUrl(str);
+      }
       return true;
     }
     return false;
@@ -414,6 +426,14 @@ export class ChatComponent implements OnInit {
 
   getTrustedUrl(str : string) : SafeResourceUrl{
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
+  }
+
+  getVideoTrustedUrl(str : string) : SafeResourceUrl{
+    let url  = str.split('&')[0];
+    url = url.replace('/youtu.be/', '/youtu.be/embed/');
+    url = url.replace('watch?v=', 'embed/');
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
   }
 
   //Para el popup de los emojis
