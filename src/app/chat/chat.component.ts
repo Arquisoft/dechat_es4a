@@ -525,6 +525,14 @@ export class ChatComponent implements OnInit {
     return finalHour;
   }
 
+  hasContactsChats(){
+    if(this.mapContacts.size > 0){
+      return true;
+    }
+    else 
+      return false;
+  }
+
 }
 
 

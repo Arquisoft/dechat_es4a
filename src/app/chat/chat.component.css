@@ -107,21 +107,36 @@ ul {
     margin-top: 7px;
   }
 
-  .fa-user-plus{
+  #frame #sidepanel #profile .wrap .fa-user-plus{
     font-size: 20px;
     float:right;
     margin-top: 15px;
     margin-right: 25px;
     cursor:pointer;
+    color: #fff !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #sidepanel #profile .wrap .fa-user-plus:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
   }
   
-  .fa-bars{
+  #frame #sidepanel #profile .wrap .fa-bars{
     font-size: 20px;
     margin-top: 15px;
     margin: 15px 0px -10px 0px;;
     cursor:pointer;
-    float: right;;
+    float: right;
+    color: #fff !important;
+    text-transform: uppercase;
+    border: none;
   } 
+  #frame #sidepanel #profile .wrap .fa-bars:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
+    }
 
   /*Tooltips*/
   #frame #sidepanel #profile .wrap .profile-image .tooltiptext {
@@ -214,7 +229,7 @@ ul {
     visibility: visible;
   }
 
-  #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
+ #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: rgb(46, 46, 46);
@@ -243,8 +258,7 @@ ul {
   
   #frame #content .contact-profile .profile-option .dropdown:hover .tooltiptext {
     visibility: visible;
-  }
-
+  } 
 
   /*Search button*/
   #frame #sidepanel #search {
@@ -345,6 +359,34 @@ ul {
     overflow-x: hidden;
     background: #404479dc;
   }
+
+  #frame #sidepanel #contacts .textAdd p{
+    font-size: 20px;
+  }
+
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus {
+    float:center;
+    cursor:pointer;
+    font-size: 40px;
+    color: rgba(187, 220, 245, 0.75);
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid rgba(187, 220, 245, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+    border-radius: 60px;
+    box-shadow: 0px 0px 10px #888;
+    padding: 0.5em 0.6em;
+    margin-top:5%;
+  }
+  
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus:hover {
+    color: #FFF;
+    background: rgba(58, 133, 191, 0.75);
+    border: 2px solid rgba(58, 133, 191, 0.75);
+  }
+
   /*@media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
       height: calc(100% - 149px);
@@ -472,6 +514,18 @@ ul {
 
   #frame #content .contact-profile .profile-option input[type="file"] {
     display: none;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v{
+    cursor:pointer;
+    color: #41437e !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v:hover {
+    text-shadow: 0px 0px 12px #1c1d4e;
+    transition: all 0.4s ease 0s;
   }
 
   /*Messages*/
@@ -650,4 +704,11 @@ input, select {
 .modal-body{
   height: 250px;
   overflow-y: auto;
+}
+
+.modal-notify .modal-header {
+  border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+  border-radius: 3px;
 }
