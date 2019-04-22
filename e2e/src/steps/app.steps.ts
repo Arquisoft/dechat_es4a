@@ -1,6 +1,7 @@
 import { Before, Given, Then, When } from 'cucumber';
 import { expect } from 'chai';
 
+
 import { AppPage } from '../page/app.po';
 
 let page: AppPage;
@@ -39,6 +40,14 @@ Given(/^I am on the card page$/, async () => {
 When(/^I do nothing$/, () => {
 });
 
-  Then(/^I should see the card title$/, async () => {
+Then(/^I should see the card title$/, async () => {
     expect(await page.getCardTitleText()).to.equal('ASW CHAT');
+});
+
+//click_login.feature
+When(/^I click on the login select menu$/, async () => {
+  await page.clickOnLoginSelectMenu();
+});
+
+Then(/^It should happen anything$/, () => {
 });
