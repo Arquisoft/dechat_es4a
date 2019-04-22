@@ -13,9 +13,10 @@ export class AppPage {
   }
 
   getParagraphText() {
+    this.sleep(3000);
     return element(by.css('app-root h1')).getText();
   }
-
+  //este método privado nos permite salvar el error de tiempo expirado
   private sleep(milliseconds: number): void {
     const start = new Date().getTime();
     for (let i = 0; i < 1e7; i++) {
