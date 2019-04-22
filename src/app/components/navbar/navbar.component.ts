@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from 'src/app/services/solid.auth.service';
 import { RdfService } from 'src/app/services/rdf.service';
+import { ChatComponent } from 'src/app/chat/chat.component';
 
 
 @Component({
@@ -10,8 +11,11 @@ import { RdfService } from 'src/app/services/rdf.service';
   styles: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  fileClient: any;
+  constructor(private router: Router, private auth: AuthService, private rdf: RdfService) {
+    this.fileClient = require('solid-file-client');
 
-  constructor(private router: Router, private auth: AuthService, private rdf: RdfService) { }
+  }
 
   ngOnInit() {
   }
@@ -36,6 +40,14 @@ export class NavbarComponent implements OnInit {
     this.auth.solidSignOut();
   }
   addFriend() {
-    console.log("friend added! (all lies, it's not implemented yet)");
+
+    this.fileClient.readFile("https://testfriends.solid.community/profile/card#me").then(body => {
+      console.log(body);
+    }, (err: any) => console.log(err)).catch(error => console.log("Unable to read card"));
+
+    /*
+        ChatComponent.addfriend("https://albertong.solid.community/profile/card#me");
+        console.log("friend added! (all lies, it's not implemented yet)");
+      */
   }
 }
