@@ -74,10 +74,6 @@ export class CardComponent implements OnInit {
     this.auth.solidSignOut();
   }
 
-  addFriend() {
-    console.log("friend added! (all lies, it's not implemented yet)");
-  }
-
   goToChat() {
     this.router.navigateByUrl('/chat');
   }

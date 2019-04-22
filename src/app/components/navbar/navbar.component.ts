@@ -35,5 +35,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.solidSignOut();
   }
-
+  addFriend() {
+    console.log("friend added! (all lies, it's not implemented yet)");
+  }
 }
