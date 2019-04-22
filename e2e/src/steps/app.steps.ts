@@ -30,3 +30,15 @@ When(/^I do nothing \(login page\)$/, () => {});
 Then(/^I should see the title \(login page\)$/, async () => {
   expect(await page.getParagraphText()).to.equal('ASW CHAT');
 });
+
+//card_page.feature
+Given(/^I am on the card page$/, async () => {
+  await page.navigateToCard();
+});
+
+When(/^I do nothing$/, () => {
+});
+
+  Then(/^I should see the card title$/, async () => {
+    expect(await page.getCardTitleText()).to.equal('ASW CHAT');
+});
