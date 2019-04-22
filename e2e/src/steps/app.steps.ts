@@ -56,3 +56,13 @@ Then(/^It should happen anything$/, () => {
 When(/^I click on register button$/, async () => {
   await page.clickRegisterButton();
 });
+
+//click_send.feature
+Given(/^I am on the chat page$/, async () => {
+  await page.navigateToChat();
+});
+
+
+When(/^I click on send button$/, async () => {
+  await page.clickSendButton();
+});

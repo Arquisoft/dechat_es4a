@@ -17,6 +17,10 @@ export class AppPage {
     this.sleep(50000);
     return browser.get('/card');
     }
+  navigateToChat() {
+    this.sleep(50000);
+    return browser.get('/chat');
+    }  
 
   getParagraphText() {
     this.sleep(50000);
@@ -37,6 +41,10 @@ export class AppPage {
   clickRegisterButton() {
     this.sleep(50000);
     return element(by.id('register')).click();
+}
+  clickSendButton() {
+    this.sleep(50000);
+    return element(by.id('send')).click();
 }
 
   //este método privado nos permite salvar el error de tiempo expirado
