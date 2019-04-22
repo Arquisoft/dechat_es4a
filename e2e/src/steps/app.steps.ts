@@ -51,3 +51,8 @@ When(/^I click on the login select menu$/, async () => {
 
 Then(/^It should happen anything$/, () => {
 });
+
+//click_register.feature
+When(/^I click on register button$/, async () => {
+  await page.clickRegisterButton();
+});
