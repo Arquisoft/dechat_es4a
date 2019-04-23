@@ -44,7 +44,8 @@ export class NavbarComponent implements OnInit {
 
     this.fileClient.readFile("https://testfriends.solid.community/profile/card#me").then(body => {
       console.log(body);
-      var internalnamevar = "addedfriendmiau";
+      var friendname = "miau"
+      var internalnamevar = "addedfriend" + friendname;
 
 
       if (body.indexOf('knows') >= 0) {
