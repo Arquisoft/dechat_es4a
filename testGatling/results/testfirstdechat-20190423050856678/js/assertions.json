@@ -1,0 +1,10 @@
+{
+  "simulation": "computerdatabase.TestFirstDechat",
+  "simulationId": "testfirstdechat",
+  "start": 1555996136678,
+  "description": "",
+  "scenarios": ["TestFirstDechat"],
+  "assertions": [
+
+  ]
+}
