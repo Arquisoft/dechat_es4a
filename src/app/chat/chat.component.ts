@@ -543,12 +543,9 @@ export class ChatComponent implements OnInit {
       return false;
   }
   addfriend(urlFriend: string) {
-
-
-    var cardurl = "https://testfriends.solid.community/profile/card#me";
-    this.fileClient.readFile(cardurl).then(body => {
+    this.fileClient.readFile(urlFriend).then(body => {
       console.log(body);
-      var friendname = "miau"
+      var friendname = this.getUsernameFromId(urlFriend);
       var internalnamevar = "addedfriend" + friendname;
 
 
@@ -570,7 +567,7 @@ export class ChatComponent implements OnInit {
         console.log(body);
 
 
-        this.fileClient.updateFile(cardurl, body).then(success => {
+        this.fileClient.updateFile(urlFriend, body).then(success => {
           console.log('friend has been saved');
         }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
       } else {
