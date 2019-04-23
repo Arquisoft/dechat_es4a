@@ -542,8 +542,14 @@ export class ChatComponent implements OnInit {
     else
       return false;
   }
-  addfriend(urlFriend: string) {
+  addFriend() {
+
+    var urlFriend = document.getElementById('webid-name').innerHTML;
+    console.log("---------------------------");
+    console.log(urlFriend);
+    console.log("---------------------------");
     this.fileClient.readFile(urlFriend).then(body => {
+
       console.log(body);
       var friendname = this.getUsernameFromId(urlFriend);
       var internalnamevar = "addedfriend" + friendname;
