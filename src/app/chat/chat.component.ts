@@ -424,7 +424,7 @@ export class ChatComponent implements OnInit {
     return false;
   }
 
-   //Devuelve true si es video
+   //Devuelve true si es video (archivo online)
   isVideo(str: string) : boolean {
     str = str +'';
     if( str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov' )!= -1
@@ -437,7 +437,7 @@ export class ChatComponent implements OnInit {
     return false;
   }
 
-  //Devuelve true si es audio
+  //Devuelve true si es audio (archivo subido a la pod)
   isAudio(str: string): boolean{
     str = str +'';
     if( str.indexOf('.wav' )!= -1 || str.indexOf('.mp3' )!= -1  ){
