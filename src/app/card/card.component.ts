@@ -6,7 +6,7 @@ import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
 import { SolidChat } from '../models/solid-chat.model';
 import { FileClient } from 'solid-file-client';
-import {trigger, state, style, animate, transition} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-card',
@@ -19,8 +19,8 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
       state('rotated', style({ transform: 'rotate(-360deg)' })),
       transition('rotated => default', animate('1000ms ease-out')),
       transition('default => rotated', animate('400ms ease-in'))
-  ])
-]
+    ])
+  ]
 })
 export class CardComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class CardComponent implements OnInit {
     this.loadingProfile = true;
     this.loadProfile();
   }
-  
+
   // Loads the profile from the rdf service and handles the response
   async loadProfile() {
     try {
@@ -80,5 +80,5 @@ export class CardComponent implements OnInit {
 
   rotate() {
     this.state = (this.state === 'default' ? 'rotated' : 'default');
-}
+  }
 }
