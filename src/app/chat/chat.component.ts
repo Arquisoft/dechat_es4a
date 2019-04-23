@@ -552,20 +552,25 @@ export class ChatComponent implements OnInit {
     console.log(clientid);
     this.fileClient.readFile(clientid).then(body => {
 
-      if (!(urlFriend.indexOf('.solid.community/profile/card') >= 0)) {
-        throw Error('not a valid input');
+      if (!(urlFriend.indexOf('.solid.community/profile/card') >= 0) || !(urlFriend.indexOf('https://') >= 0)) {
+
+        this.toastr.info('not a valid webid input');
+        throw Error();
       } else {
         console.log(body);
         var friendname = this.getUsernameFromId(urlFriend);
         var internalnamevar = "addedfriend" + friendname;
-
+        if (body.indexOf(internalnamevar) >= 0) {
+          this.toastr.info('friend already exists in this card');
+          throw Error();
+        }
 
         if (body.indexOf('knows') >= 0) {
           // Found know
           var splitbody1 = body.split("pro:card")[0];
           var splitbody2 = body.split("pro:card")[1];
           splitbody2 = `
-        @prefix `+ internalnamevar + `: <https://` + friendname + `.solid.community/profile/card#>.
+          @prefix `+ internalnamevar + `: <https://` + friendname + `.solid.community/profile/card#>.
 
         pro:card` + splitbody2
 
