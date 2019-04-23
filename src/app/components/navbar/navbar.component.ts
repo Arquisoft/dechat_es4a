@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
         splitbody2 = `
         @prefix `+ internalnamevar + `: <https://miau.solid.community/profile/card#>.
 
-        ` + splitbody2
+        pro:card` + splitbody2
 
         body = splitbody1 + splitbody2;
         splitbody1 = body.split(":knows")[0];
