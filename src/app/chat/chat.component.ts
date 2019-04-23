@@ -594,7 +594,7 @@ export class ChatComponent implements OnInit {
       }
     }, (err: any) => console.log(err)).catch(error => this.toastr.info('we were unable to read the WebID given'));
 
-    this.loadFriends();
+    //  this.loadFriends();
     /*
         ChatComponent.addfriend("https://albertong.solid.community/profile/card#me");
         console.log("friend added! (all lies, it's not implemented yet)");
