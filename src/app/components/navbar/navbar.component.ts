@@ -42,7 +42,8 @@ export class NavbarComponent implements OnInit {
   }
   addFriend() {
 
-    this.fileClient.readFile("https://testfriends.solid.community/profile/card#me").then(body => {
+    var cardurl = "https://testfriends.solid.community/profile/card#me";
+    this.fileClient.readFile(cardurl).then(body => {
       console.log(body);
       var friendname = "miau"
       var internalnamevar = "addedfriend" + friendname;
@@ -63,11 +64,15 @@ export class NavbarComponent implements OnInit {
 
         splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
         body = splitbody1 + splitbody2;
+        console.log(body);
 
 
+        this.fileClient.updateFile(cardurl, body).then(success => {
+          console.log('friend has been saved');
+        }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
       } else {
 
-        console.log("adding frineds to friendless cards not yet implemented, sorry!");
+        console.log("adding friends to friendless cards not yet implemented, sorry!");
 
 
 
