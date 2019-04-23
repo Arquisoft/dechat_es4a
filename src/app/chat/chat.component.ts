@@ -548,40 +548,48 @@ export class ChatComponent implements OnInit {
     console.log("---------------------------");
     console.log(urlFriend);
     console.log("---------------------------");
-    this.fileClient.readFile(urlFriend).then(body => {
+    var clientid = this.rdf.session.webId;
+    console.log(clientid);
+    this.fileClient.readFile(clientid).then(body => {
 
-      console.log(body);
-      var friendname = this.getUsernameFromId(urlFriend);
-      var internalnamevar = "addedfriend" + friendname;
+      if (!(urlFriend.indexOf('.solid.community/profile/card') >= 0)) {
+        throw Error('not a valid input');
+      } else {
+        console.log(body);
+        var friendname = this.getUsernameFromId(urlFriend);
+        var internalnamevar = "addedfriend" + friendname;
 
 
-      if (body.indexOf('knows') >= 0) {
-        // Found know
-        var splitbody1 = body.split("pro:card")[0];
-        var splitbody2 = body.split("pro:card")[1];
-        splitbody2 = `
-        @prefix `+ internalnamevar + `: <https://miau.solid.community/profile/card#>.
+        if (body.indexOf('knows') >= 0) {
+          // Found know
+          var splitbody1 = body.split("pro:card")[0];
+          var splitbody2 = body.split("pro:card")[1];
+          splitbody2 = `
+        @prefix `+ internalnamevar + `: <https://` + friendname + `.solid.community/profile/card#>.
 
         pro:card` + splitbody2
 
-        body = splitbody1 + splitbody2;
-        splitbody1 = body.split(":knows")[0];
-        splitbody2 = body.split(":knows")[1];
+          body = splitbody1 + splitbody2;
+          splitbody1 = body.split(":knows")[0];
+          splitbody2 = body.split(":knows")[1];
 
-        splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
-        body = splitbody1 + splitbody2;
-        console.log(body);
+          splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
+          body = splitbody1 + splitbody2;
+          console.log(body);
 
 
-        this.fileClient.updateFile(urlFriend, body).then(success => {
-          console.log('friend has been saved');
-        }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
-      } else {
+          this.fileClient.updateFile(clientid, body).then(success => {
 
-        console.log("adding friends to friendless cards not yet implemented, sorry!");
+            this.toastr.info('new friend has been saved');
+          }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+        } else {
+          this.toastr.info('adding friends to friendless cards not yet implemented, sorry!');
+
+        }
       }
-    }, (err: any) => console.log(err)).catch(error => console.log("Unable to read card"));
+    }, (err: any) => console.log(err)).catch(error => this.toastr.info('we were unable to read the WebID given'));
 
+    this.loadFriends();
     /*
         ChatComponent.addfriend("https://albertong.solid.community/profile/card#me");
         console.log("friend added! (all lies, it's not implemented yet)");
