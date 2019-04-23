@@ -89,7 +89,7 @@
                                 <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string)&& !isVideo(string)">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
+                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
@@ -124,7 +124,7 @@
                 </emoji-input>
                 <label for="image-input" >
                     <i class="fa fa-paperclip attachment" aria-hidden="true" >
-                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
+                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg,.mp4,.mp3"/>
                     </i>
                 </label>
                 <button class="chatButton" type="submit" (click)=send(text,$event)>

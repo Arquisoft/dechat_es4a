@@ -412,6 +412,8 @@ export class ChatComponent implements OnInit {
     }
     return false;
   }
+
+   //Devuelve true si es video
   isVideo(str: string) : boolean {
     str = str +'';
     if( str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov' )!= -1
@@ -419,6 +421,15 @@ export class ChatComponent implements OnInit {
       if(!this.videosSafesURL[str]){
         this.videosSafesURL[str]= this.getVideoTrustedUrl(str);
       }
+      return true;
+    }
+    return false;
+  }
+
+  //Devuelve true si es audio
+  isAudio(str: string): boolean{
+    str = str +'';
+    if( str.indexOf('.wav' )!= -1 || str.indexOf('.mp3' )!= -1  ){
       return true;
     }
     return false;
@@ -525,6 +536,7 @@ export class ChatComponent implements OnInit {
     return finalHour;
   }
 
+  //Para saber si la lista con chats esta vacia para mostrar o no el boton de añadir amigo con mensaje 
   hasContactsChats(){
     if(this.mapContacts.size > 0){
       return true;
@@ -532,6 +544,8 @@ export class ChatComponent implements OnInit {
     else 
       return false;
   }
+
+
 
 }
 

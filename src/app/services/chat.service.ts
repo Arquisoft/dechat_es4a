@@ -285,9 +285,9 @@ export class ChatService implements OnInit {
     let url = "https://" + user + ".solid.community/private/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFile("https://" + user + ".solid.community/private/Chat" + nameFriend + "/").then(success => {
-      console.log(`Deleted ${url}.`);
+      this.fileClient.deleteFolder("https://" + user + ".solid.community/private/Chat" + nameFriend + "/").then(success => {
+        console.log(`Deleted ${url}.`);
+      }, err => console.log(err)).catch(error => console.log("Folder not deleted"));
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
   }
 
