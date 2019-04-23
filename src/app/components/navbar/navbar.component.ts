@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { AuthService } from 'src/app/services/solid.auth.service';
 import { RdfService } from 'src/app/services/rdf.service';
 import { ChatComponent } from 'src/app/chat/chat.component';
+import { stringify } from '@angular/core/src/render3/util';
 
 
 @Component({
@@ -43,6 +44,40 @@ export class NavbarComponent implements OnInit {
 
     this.fileClient.readFile("https://testfriends.solid.community/profile/card#me").then(body => {
       console.log(body);
+      var internalnamevar = "addedfriendmiau";
+
+
+      if (body.indexOf('knows') >= 0) {
+        // Found know
+        var splitbody1 = body.split("pro:card")[0];
+        var splitbody2 = body.split("pro:card")[1];
+        splitbody2 = `
+        @prefix `+ internalnamevar + `: <https://miau.solid.community/profile/card#>.
+
+        ` + splitbody2
+
+        body = splitbody1 + splitbody2;
+        splitbody1 = body.split(":knows")[0];
+        splitbody2 = body.split(":knows")[1];
+
+        splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
+        body = splitbody1 + splitbody2;
+
+
+      } else {
+
+        console.log("adding frineds to friendless cards not yet implemented, sorry!");
+
+
+
+      }
+
+
+
+
+
+
+
     }, (err: any) => console.log(err)).catch(error => console.log("Unable to read card"));
 
     /*
