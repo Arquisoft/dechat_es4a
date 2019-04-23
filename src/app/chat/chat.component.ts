@@ -544,7 +544,7 @@ export class ChatComponent implements OnInit {
   }
   addFriend() {
 
-    var urlFriend = document.getElementById('webid-name').innerHTML;
+    var urlFriend = (<HTMLInputElement>document.getElementById('webid-name')).value;
     console.log("---------------------------");
     console.log(urlFriend);
     console.log("---------------------------");
