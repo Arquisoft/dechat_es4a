@@ -1,19 +1,18 @@
-
-
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
             <div class="wrap">
-                <div class="profile-image"> 
-                    <img [src]="profileImage" alt="" (click)="openNav()"/>
+                <div class="profile-image">
+                    <img [src]="profileImage" alt="" (click)="openNav()" />
                     <span class="tooltiptext">Profile</span>
                 </div>
                 <div class="drop">
                     <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
                     <span class="tooltiptext">Settings</span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
-                    </div> 
+                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList"
+                            style="cursor:pointer; color: #0b3153;">New group</a>
+                    </div>
                 </div>
                 <div class="newContact">
                     <i class="fas fa-user-plus" data-toggle="modal" href="#contactList"></i>
@@ -22,20 +21,20 @@
             </div>
             <div id="search">
                 <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-                <input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)"/>  
+                <input type="text" placeholder="Search contacts..." (keyup)="searchContact($event.target.value)" />
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
                     <div class="prof">
                         <h1>Profile</h1>
                         <hr>
-                        <div class="img"><img [src]="profileImage" alt=""/></div>
+                        <div class="img"><img [src]="profileImage" alt="" /></div>
                         <p>{{getUsername()}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="contacts"> 
-            <p class= "friendText">Chat list</p>
+        <div id="contacts">
+            <p class="friendText">Chat list</p>
             <div class="textAdd" *ngIf="!hasContactsChats()">
                 <hr>
                 <p>Add new friends to your chat list!</p>
@@ -43,17 +42,17 @@
                     <button class="fas fa-user-plus" data-toggle="modal" href="#contactList"></button>
                 </div>
             </div>
-                <ul>
-                    <div *ngFor="let entry of mapContacts | keyvalue" (click)="changeChat(entry.key,entry.value)">
-                        <hr>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src={{entry.value}} alt=""><a>{{entry.key}}</a>
-                                <i class="far fa-trash-alt" (click)="removeChat(entry.key)"></i>
-                            </div>
-                        </li>
-                    </div>
-                </ul>
+            <ul>
+                <div *ngFor="let entry of mapContacts | keyvalue" (click)="changeChat(entry.key,entry.value)">
+                    <hr>
+                    <li class="contact">
+                        <div class="wrap">
+                            <img src={{entry.value}} alt=""><a>{{entry.key}}</a>
+                            <i class="far fa-trash-alt" (click)="removeChat(entry.key)"></i>
+                        </div>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
     <div id="content" style="height: 100%">
@@ -64,10 +63,13 @@
                     <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
                     <span class="tooltiptext">Chat settings</span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <label class="dropdown-item" id="#bb" style="color: #0b3153;cursor: pointer;font-size: 16px;"> Background
-                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg" size="60" >
-                        </label> 
-                        <a class="dropdown-item" (click)="changeColorAppearance()" style="color: #0b3153;cursor: pointer;font-size: 16px;">Appearance</a>
+                        <label class="dropdown-item" id="#bb" style="color: #0b3153;cursor: pointer;font-size: 16px;">
+                            Background
+                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg"
+                                size="60">
+                        </label>
+                        <a class="dropdown-item" (click)="changeColorAppearance()"
+                            style="color: #0b3153;cursor: pointer;font-size: 16px;">Appearance</a>
                     </div>
                 </div>
             </div>
@@ -81,29 +83,32 @@
                     </div>
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">
-                            <img [src]="profileImage" alt=""/>
+                            <img [src]="profileImage" alt="" />
                             <div *ngIf="isImage(string.content)">
-                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt="" />
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;"
+                                    [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
                                 <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string)&& !isVideo(string)">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
+                            <p *ngIf="!isImage(string)&& !isVideo(string)">{{string.content}} <span
+                                    id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
                         <li class="sent">
                             <img src={{friendPhotoActive}} alt="" />
                             <div *ngIf="isImage(string.content)">
-                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt=""/>
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;"
+                                    [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
-                                <iframe width="520" height="345"
-                                        [src]="this.videosSafesURL[string.content]">
+                                <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) ">{{string.content}} <span id='timeMessage'> {{hourMessages(string.time)}}</span></p>
+                            <p *ngIf="!isImage(string) && !isVideo(string) ">{{string.content}} <span id='timeMessage'>
+                                    {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                 </div>
@@ -112,23 +117,18 @@
         <div class="message-input">
             <div class="wrap">
                 <i class="far fa-smile" (click)="openPopup()"></i>
-                <emoji-input
-                inputClass="emojiInput"
-                [popupAnchor]="'bottom'"
-                [(model)]="text"
-                style="display: inline-block;"
-                [closeAfterSelection]="false"
-                (click)="openPopup(false)"
-                (setPopupAction)="setPopupAction($event)"
-                (keyup.enter)="send(text,$event)">
+                <emoji-input inputClass="emojiInput" [popupAnchor]="'bottom'" [(model)]="text"
+                    style="display: inline-block;" [closeAfterSelection]="false" (click)="openPopup(false)"
+                    (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
                 </emoji-input>
-                <label for="image-input" >
-                    <i class="fa fa-paperclip attachment" aria-hidden="true" >
-                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg"/>
+                <label for="image-input">
+                    <i class="fa fa-paperclip attachment" aria-hidden="true">
+                        <input #imageInput class="image-upload" type="file" id="image-input"
+                            (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg" />
                     </i>
                 </label>
                 <button id="send" class="chatButton" type="submit" (click)=send(text,$event)>
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -138,33 +138,35 @@
 <!-- Modal New Contact -->
 <div class="modal fade" id="contactList">
     <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Contacts</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
+        <div class="modal-content">
 
-        <div class="modal-search">
-            <input type="text" placeholder="Search contacts..." (keyup)="searchNewContact($event.target.value)"/>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-            
-            <div *ngFor="let entry of mapFriendsTotal | keyvalue">
-                <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="createChat(entry.key,entry.value)">
-                    {{entry.key}}</button>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Contacts</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-search">
+                <input type="text" placeholder="Search contacts..." (keyup)="searchNewContact($event.target.value)" />
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div *ngFor="let entry of mapFriendsTotal | keyvalue">
+                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
+                        (click)="createChat(entry.key,entry.value)">
+                        {{entry.key}}</button>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
+                    data-target="#orangeModalSubscription">Add new contact</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal" data-target="#orangeModalSubscription">Add new contact</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-    </div>
     </div>
 </div>
 
@@ -172,57 +174,59 @@
 <div class="modal fade" id="contactGroupList">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-        
+
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">New group</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-    
+
             <div class="modal-search">
-                <input type="text" placeholder="Search contacts..." (keyup)="searchNewContact($event.target.value)"/>
+                <input type="text" placeholder="Search contacts..." (keyup)="searchNewContact($event.target.value)" />
             </div>
-            
+
             <!-- Modal body -->
             <div class="modal-body">
-                
+
                 <div *ngFor="let entry of mapFriendsTotal | keyvalue">
-                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="createChat(entry.key,entry.value)">
+                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
+                        (click)="createChat(entry.key,entry.value)">
                         {{entry.key}}</button>
                 </div>
             </div>
-            
+
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary mr-auto">Add new contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
-        </div>
     </div>
+</div>
 
-    <!--Modal new friend-->
-<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--Modal new friend-->
+<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Add new contact</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form>
-            <div class="form-group">
-                <label for="webid-name" class="col-form-label">WebId:</label>
-                <input type="text" class="form-control" id="webid-name">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Add new contact</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary mr-auto">Add</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="webid-name" class="col-form-label">WebId:</label>
+                        <input type="text" class="form-control" id="webid-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mr-auto" (click)="removeMessage($event)">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -231,6 +235,3 @@
 <sh-context-menu #menu>
     <ng-template shContextMenuItem let-string (click)="removeMessage($event)">Remove</ng-template>
 </sh-context-menu>
-
-
-
