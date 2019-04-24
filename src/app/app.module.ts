@@ -9,6 +9,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChatComponent } from './chat/chat.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+
 // Services
 import { AuthService } from './services/solid.auth.service';
 import { AuthGuard } from './services/auth.guard.service';
@@ -77,7 +82,11 @@ const routes: Routes = [
     ToastrModule.forRoot(),
     BrowserAnimationsModule, //required for toastr
     EmojiPickerModule,
-    ShContextMenuModule //For right click menu
+    ShContextMenuModule, //For right click menu
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

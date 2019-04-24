@@ -41,6 +41,7 @@ export class ChatComponent implements OnInit {
   friendPhotoActive: string;
   chatUsers = []; //contiene lista de solid chat users
   videosSafesURL = {};
+  audiosSafesURL = {};
   fileClient: any;
   //Para los emojis:
   text: string = '';
@@ -422,19 +423,33 @@ export class ChatComponent implements OnInit {
     }
     return false;
   }
-  isVideo(str: string): boolean {
-    str = str + '';
-    if (str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov') != -1
-      || str.indexOf('.avi') != -1 || str.indexOf('.mp4') != -1) {
-      if (!this.videosSafesURL[str]) {
-        this.videosSafesURL[str] = this.getVideoTrustedUrl(str);
+
+   //Devuelve true si es video (archivo online)
+  isVideo(str: string) : boolean {
+    str = str +'';
+    if( str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov' )!= -1
+        || str.indexOf('.avi' )!= -1 || str.indexOf('.mp4' )!= -1  ){
+      if(!this.videosSafesURL[str]){
+        this.videosSafesURL[str]= this.getVideoTrustedUrl(str);
       }
       return true;
     }
     return false;
   }
 
-  getTrustedUrl(str: string): SafeResourceUrl {
+  //Devuelve true si es audio (archivo subido a la pod)
+  isAudio(str: string): boolean{
+    str = str +'';
+    if( str.indexOf('.wav' )!= -1 || str.indexOf('.mp3' )!= -1  ){
+      if(!this.audiosSafesURL[str]){
+        this.audiosSafesURL[str]= this.getTrustedUrl(str);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  getTrustedUrl(str : string) : SafeResourceUrl{
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
@@ -443,7 +458,6 @@ export class ChatComponent implements OnInit {
     url = url.replace('/youtu.be/', '/youtu.be/embed/');
     url = url.replace('watch?v=', 'embed/');
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
   }
 
   //Para el popup de los emojis
@@ -535,8 +549,9 @@ export class ChatComponent implements OnInit {
     return finalHour;
   }
 
-  hasContactsChats() {
-    if (this.mapContacts.size > 0) {
+  //Para saber si la lista con chats esta vacia para mostrar o no el boton de añadir amigo con mensaje 
+  hasContactsChats(){
+    if(this.mapContacts.size > 0){
       return true;
     }
     else
@@ -601,6 +616,8 @@ export class ChatComponent implements OnInit {
       */
 
   }
+
+
 
 }
 
