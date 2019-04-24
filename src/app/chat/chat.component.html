@@ -168,21 +168,31 @@
         </div>
         <div class="message-input">
             <div class="wrap">
-                <i class="far fa-smile" (click)="openPopup()"></i>
-                <emoji-input inputClass="emojiInput" [popupAnchor]="'bottom'" [(model)]="text"
-                    style="display: inline-block;" [closeAfterSelection]="false" (click)="openPopup(false)"
-                    (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
-                </emoji-input>
-
-                <label for="image-input" >
-                    <i class="fa fa-paperclip attachment" aria-hidden="true" >
-                        <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg,.mp4,.mov,.avi,.mp3"/>
-
-                    </i>
-                </label>
-                <button id="send" class="chatButton" type="submit" (click)=send(text,$event)>
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                </button>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width: 20px;">
+                            <i class="far fa-smile" (click)="openPopup()"></i>
+                        </td>
+                        <td>
+                            <emoji-input inputClass="emojiInput" [popupAnchor]="'bottom'" [(model)]="text"
+                                [closeAfterSelection]="false" (click)="openPopup(false)"
+                            (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
+                            </emoji-input>
+                        </td>
+                        <td style="width: 20px;"> 
+                            <label for="image-input" >
+                                <i class="fa fa-paperclip attachment" aria-hidden="true" >
+                                <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg,.mp4,.mov,.avi,.mp3"/>
+                                </i>
+                            </label>
+                        </td>
+                        <td style="width: 20px;">
+                            <button id="send" class="chatButton" type="submit" (click)=send(text,$event)>
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
