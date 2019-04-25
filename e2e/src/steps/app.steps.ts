@@ -84,3 +84,8 @@ When(/^I click on the emoji$/, async () => {
   // Write code here that turns the phrase above into concrete actions
   await page.clickOnEmoji();
 });
+//click_open.feature
+When(/^I click on the open$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnOpenPopUp();
+});
