@@ -104,7 +104,17 @@ input, select {
 .whiteShadowSmall{
   text-shadow: 1px 1px #ffbedf;
 }
-
+.modal-header{
+  background-color: #484C82;
+}
+#webid-name{
+  width: 360px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #89969F;
+  font-size: 14px;
+  color: #666;
+}
 
 html {
   background-image: linear-gradient(#db797a, #4b4fce);
