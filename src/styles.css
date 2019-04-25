@@ -38,7 +38,8 @@ input[type=text].wide-text {
 }
 
 input, select {
-  width: 800px;
+  width: 100%;
+  min-width: 60px;
   height: 35px;
   margin: 11px 0;
   display: inline-block;
@@ -122,4 +123,9 @@ body{
   opacity:1;
   color:black;
   background-color: #DA81F5;
+}
+.nav-input{
+max-width: 300px;
+max-height: 30px;
+align-content: center;
 }
