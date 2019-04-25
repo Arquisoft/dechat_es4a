@@ -229,7 +229,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
-                    data-target="#orangeModalSubscription">Add new contact</button>
+                    data-target="#AddNewContactWindow">Add new contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -271,7 +271,7 @@
 </div>
 
 <!--Modal new friend-->
-<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="AddNewContactWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -292,7 +292,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary mr-auto">Add existing contact</button>
+                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
+                    data-target="#contactList">Add existing contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
