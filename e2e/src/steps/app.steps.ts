@@ -78,3 +78,9 @@ When(/^I click on the start chatting$/, async () => {
   // Write code here that turns the phrase above into concrete actions
   await page.clickOnStartChatting();
 });
+
+//click_url.feature
+When(/^I click on the emoji$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnEmoji();
+});

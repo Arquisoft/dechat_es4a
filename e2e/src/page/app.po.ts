@@ -56,6 +56,11 @@ export class AppPage {
     //return element(by.buttonText('Start chatting!')).click();
     return element(by.css('button')).click();
 }
+  clickOnEmoji() {
+    this.sleep(50000);
+    //return element(by.id('git')).click();
+    return element(by.id('emoji')).click();
+  }
 
   //este método privado nos permite salvar el error de tiempo expirado
   private sleep(milliseconds: number): void {

@@ -174,7 +174,7 @@
                             <i class="far fa-smile" (click)="openPopup()"></i>
                         </td>
                         <td>
-                            <emoji-input inputClass="emojiInput" [popupAnchor]="'bottom'" [(model)]="text"
+                            <emoji-input inputClass="emojiInput" id="emoji"[popupAnchor]="'bottom'" [(model)]="text"
                                 [closeAfterSelection]="false" (click)="openPopup(false)"
                             (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
                             </emoji-input>
