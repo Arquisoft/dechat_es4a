@@ -46,9 +46,15 @@ export class AppPage {
     this.sleep(50000);
     return element(by.id('send')).click();
 }
-clickOnAddFriend() {
-  this.sleep(50000);
-  return element(by.id('add')).click();
+  clickOnAddFriend() {
+    this.sleep(50000);
+    return element(by.id('add')).click();
+}
+  clickOnStartChatting() {
+    this.sleep(50000);
+    //return element(by.id('start')).click();
+    //return element(by.buttonText('Start chatting!')).click();
+    return element(by.css('button')).click();
 }
 
   //este método privado nos permite salvar el error de tiempo expirado

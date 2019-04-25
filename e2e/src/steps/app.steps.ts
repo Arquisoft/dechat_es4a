@@ -73,3 +73,8 @@ When(/^I click on the add friend$/, async () => {
   await page.clickOnAddFriend();
 });
 
+//click_start.feature
+When(/^I click on the start chatting$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnStartChatting();
+});
