@@ -46,6 +46,10 @@ export class AppPage {
     this.sleep(50000);
     return element(by.id('send')).click();
 }
+clickOnAddFriend() {
+  this.sleep(50000);
+  return element(by.id('add')).click();
+}
 
   //este método privado nos permite salvar el error de tiempo expirado
   private sleep(milliseconds: number): void {
