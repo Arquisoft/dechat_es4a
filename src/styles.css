@@ -115,7 +115,9 @@ input, select {
   font-size: 14px;
   color: #666;
 }
-
+#addFriendButton{
+  margin: 5px
+}
 html {
   background-image: linear-gradient(#db797a, #4b4fce);
   -webkit-background-size: cover;
