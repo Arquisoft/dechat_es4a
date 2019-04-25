@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from 'src/app/services/solid.auth.service';
 import { RdfService } from 'src/app/services/rdf.service';
+import { ChatComponent } from 'src/app/chat/chat.component';
+import { stringify } from '@angular/core/src/render3/util';
 
 
 @Component({
@@ -10,8 +12,11 @@ import { RdfService } from 'src/app/services/rdf.service';
   styles: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  fileClient: any;
+  constructor(private router: Router, private auth: AuthService, private rdf: RdfService) {
+    this.fileClient = require('solid-file-client');
 
-  constructor(private router: Router, private auth: AuthService, private rdf: RdfService) { }
+  }
 
   ngOnInit() {
   }
@@ -35,5 +40,4 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.solidSignOut();
   }
-
 }
