@@ -191,7 +191,7 @@ export class ChatService implements OnInit {
           }
         }
       }
-      console.log(body);
+      /*console.log(body);*/
       console.log(message);
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been removed');
@@ -286,14 +286,18 @@ export class ChatService implements OnInit {
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFile("https://" + user + ".solid.community/private/Chat" + nameFriend + "/").then(success => {
+    /*this.fileClient.deleteFolder("https://" + user + ".solid.community/private/Chat" + nameFriend).then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("File not deleted"));
+    }, err => console.log(err)).catch(error => console.log("Folder not deleted"));*/
   }
 
   uploadImage(image: File) {
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/" + image.name;
-    this.fileClient.createFile(url, image);
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
+    
+    if(this.fileClient.readFile(url) != null){
+      this.fileClient.createFile(url, image);
+    }
+    
     this.postMessage(new SolidMessage(this.userID, url));
   }
 
