@@ -97,28 +97,28 @@
                                     <vg-controls>
                                         <vg-play-pause></vg-play-pause>
                                         <vg-playback-button></vg-playback-button>
-                                
+
                                         <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-                                
+
                                         <vg-scrub-bar>
                                             <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
                                             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                         </vg-scrub-bar>
-                                
+
                                         <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
                                         <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-                                
+
                                         <vg-mute></vg-mute>
-                                
+
                                         <vg-fullscreen></vg-fullscreen>
                                     </vg-controls>
-                                
+
                                     <audio #media [vgMedia]="media" id="myAudio" preload="auto">
                                         <source [src]="this.audiosSafesURL[string.content]" type="audio/mp3">
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}} 
+                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}}
                                 <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
@@ -138,28 +138,29 @@
                                     <vg-controls>
                                         <vg-play-pause></vg-play-pause>
                                         <vg-playback-button></vg-playback-button>
-                                
+
                                         <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-                                
+
                                         <vg-scrub-bar>
                                             <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
                                             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                         </vg-scrub-bar>
-                                
+
                                         <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
                                         <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-                                
+
                                         <vg-mute></vg-mute>
-                                
+
                                         <vg-fullscreen></vg-fullscreen>
                                     </vg-controls>
-                                
+
                                     <audio #media [vgMedia]="media" id="myAudio" preload="auto">
                                         <source [src]="this.audiosSafesURL[string.content]" type="audio/mp3">
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span id='timeMessage'>
+                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span
+                                    id='timeMessage'>
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
@@ -176,13 +177,15 @@
                         <td>
                             <emoji-input inputClass="emojiInput" [popupAnchor]="'bottom'" [(model)]="text"
                                 [closeAfterSelection]="false" (click)="openPopup(false)"
-                            (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
+                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
                             </emoji-input>
                         </td>
-                        <td style="width: 20px;"> 
-                            <label for="image-input" >
-                                <i class="fa fa-paperclip attachment" aria-hidden="true" >
-                                <input #imageInput class="image-upload" type="file" id="image-input" (change)="processFile(imageInput)" accept=".png,.jpeg,.jpg,.mp4,.mov,.avi,.mp3"/>
+                        <td style="width: 20px;">
+                            <label for="image-input">
+                                <i class="fa fa-paperclip attachment" aria-hidden="true">
+                                    <input #imageInput class="image-upload" type="file" id="image-input"
+                                        (change)="processFile(imageInput)"
+                                        accept=".png,.jpeg,.jpg,.mp4,.mov,.avi,.mp3" />
                                 </i>
                             </label>
                         </td>
@@ -226,7 +229,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
-                    data-target="#orangeModalSubscription">Add new contact</button>
+                    data-target="#AddNewContactWindow">Add new contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -268,7 +271,7 @@
 </div>
 
 <!--Modal new friend-->
-<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="AddNewContactWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -281,13 +284,17 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="webid-name" class="col-form-label" id="testid">WebId:</label>
-                        <input type="text" class="form-control" id="webid-name" value="">
+                        <label for="webid-name" class="col-form-label">WebId:</label><br>
+                        <input type="text" class="form-control" id="webid-name" value=""
+                            placeholder="https://[insert friend id].solid.community/profile/card#me"><button
+                            type="button" class="btn btn-primary mr-auto" (click)="addFriend()"
+                            id="addFriendButton">Add</button>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary mr-auto" (click)="addFriend()">Add</button>
+                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
+                    data-target="#contactList">Add existing contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
