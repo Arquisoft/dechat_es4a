@@ -106,7 +106,7 @@ ul {
     margin-top: 15px;
     margin-right: 25px;
     cursor:pointer;
-    color: #fff !important;
+    /*color: #fff !important;*/
     text-transform: uppercase;
     border: none;
   }
@@ -122,7 +122,7 @@ ul {
     margin: 15px 0px -10px 0px;;
     cursor:pointer;
     float: right;
-    color: #fff !important;
+    /*color: #fff !important;*/
     text-transform: uppercase;
     border: none;
   } 
@@ -409,6 +409,7 @@ ul {
 
   #frame #sidepanel #contacts li.contact:hover .fa-trash-alt {
     display: block;
+    size: 60px;
   }
 
   #frame #sidepanel #contacts li.contact:active {
@@ -726,4 +727,12 @@ input, select {
 }
 .modal-notify .modal-content {
   border-radius: 3px;
+}
+
+#colorPicker{
+display:none;
+position: absolute;
+z-index: 1;
+top: 260px;
+right: 140px;
 }

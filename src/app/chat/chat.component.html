@@ -56,7 +56,7 @@
         </div>
     </div>
     <div id="content" style="height: 100%" [ngStyle]="{'background-image': getUrlBackground(), 'background-position': 'center center', 'background-size': 'cover' }">
-        <div class="contact-profile">
+        <div class="contact-profile" id="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
                 <div class="dropdown">
@@ -67,8 +67,10 @@
                             Background
                             <input #backgroundInput type="file" (change)="changeBackground(backgroundInput)" accept=".jpeg,.jpg"/>
                         </label>
-                        <a class="dropdown-item" (click)="changeColorAppearance()"
-                            style="color: #0b3153;cursor: pointer;font-size: 16px;">Color</a>
+                        <a class="dropdown-item" (click)="openColorPicker()"
+                            style="color: #0b3153;cursor: pointer;font-size: 16px;">
+                            Color
+                        </a>
                     </div>
                 </div>
             </div>
@@ -166,7 +168,7 @@
                 </div>
             </ul>
         </div>
-        <div class="message-input">
+        <div class="message-input" id="message-input">
             <div class="wrap">
                 <table style="width:100%">
                     <tr>
@@ -208,7 +210,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Contacts</h4>
+                <h4 class="modal-title" style="color:white;">Contacts</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -243,7 +245,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">New group</h4>
+                <h4 class="modal-title" style="color:white;">New group</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -276,7 +278,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Add new contact</h4>
+                <h4 class="modal-title" id="exampleModalLabel" style="color:white;">Add new contact</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -305,3 +307,13 @@
 <sh-context-menu #menu>
     <ng-template shContextMenuItem let-string (click)="removeMessage($event)">Remove</ng-template>
 </sh-context-menu>
+
+<!-- Color Picker -->
+<div id="colorPicker">
+    <color-twitter
+    color="#fff"
+    triangle="top-right"
+    (onChangeComplete)="changeComplete($event)"
+    (onChange)="changeComplete($event)"
+    ></color-twitter>
+</div>

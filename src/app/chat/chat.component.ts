@@ -13,6 +13,7 @@ import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
+import { ColorEvent } from 'ngx-color';
 
 class ImageSnippet {
 
@@ -352,8 +353,10 @@ export class ChatComponent implements OnInit {
     return "url('/assets/images/cosmos.jpg')";
   }
 
-  changeColorAppearance() {
-    console.log("CAMBIAR COLOR");
+  openColorPicker() {
+    console.log("CAMBIANDO COLOR...");
+    event.stopPropagation();
+    document.getElementById('colorPicker').style.display = "block";
   }
 
   //Imprime el mensaje si no se eligió ningún contacto para chatear
@@ -643,7 +646,102 @@ export class ChatComponent implements OnInit {
 
   }
 
+  //Para cambiar los colores del chat
+  changeComplete($event: ColorEvent) {
+    this.changeLetterColor("fa-user-plus","#0b3153");
+    this.changeLetterColor("fa-bars","#0b3153");
+    this.changeLetterColor("friendText","#0b3153");
+    this.changeLetterColor("wrap","#0b3153");
+    if($event.color.hex == "#ff6900"){
+      document.getElementById('contacts').style.backgroundColor = "#C55F15";
+      document.getElementById('sidepanel').style.backgroundColor = "#FF8632";
+      document.getElementById('contact-profile').style.backgroundColor = "#FFA669";
+      document.getElementById('message-input').style.backgroundColor = "#FFA669";
+      this.changeLetterColor("fa-user-plus","#fff");
+      this.changeLetterColor("fa-bars","#fff");
+      this.changeLetterColor("friendText","#fff");
+      this.changeLetterColor("wrap","#fff");
+    }
+    else if($event.color.hex == "#fcb900"){
+      document.getElementById('contacts').style.backgroundColor = "#FCB900";
+      document.getElementById('sidepanel').style.backgroundColor = "#FFCB3C";
+      document.getElementById('contact-profile').style.backgroundColor = "#FFDD7F";
+      document.getElementById('message-input').style.backgroundColor = "#FFDD7F";
+    }
+    else if($event.color.hex == "#7bdcb5"){
+      document.getElementById('contacts').style.backgroundColor = "#7BDCB5";
+      document.getElementById('sidepanel').style.backgroundColor = "#A9DCC7";
+      document.getElementById('contact-profile').style.backgroundColor = "#D5F8EA";
+      document.getElementById('message-input').style.backgroundColor = "#D5F8EA";
+    }
+    else if($event.color.hex == "#00d084"){
+      document.getElementById('contacts').style.backgroundColor = "#11AC74";
+      document.getElementById('sidepanel').style.backgroundColor = "#39CF99";
+      document.getElementById('contact-profile').style.backgroundColor = "#8AD1B7";
+      document.getElementById('message-input').style.backgroundColor = "#8AD1B7";
+      this.changeLetterColor("fa-user-plus","#fff");
+      this.changeLetterColor("fa-bars","#fff");
+      this.changeLetterColor("friendText","#fff");
+      this.changeLetterColor("wrap","#fff");
+    }
+    else if($event.color.hex == "#8ed1fc"){
+      document.getElementById('contacts').style.backgroundColor = "#7CB8DE";
+      document.getElementById('sidepanel').style.backgroundColor = "#B0DBF7";
+      document.getElementById('contact-profile').style.backgroundColor = "#C6DBE8";
+      document.getElementById('message-input').style.backgroundColor = "#C6DBE8";
+    }
+    else if($event.color.hex == "#0693e3"){
+      document.getElementById('contacts').style.backgroundColor = "#1F8AC7";
+      document.getElementById('sidepanel').style.backgroundColor = "#55B6ED";
+      document.getElementById('contact-profile').style.backgroundColor = "#A1C7DD";
+      document.getElementById('message-input').style.backgroundColor = "#A1C7DD";
+      this.changeLetterColor("fa-user-plus","#fff");
+      this.changeLetterColor("fa-bars","#fff");
+      this.changeLetterColor("friendText","#fff");
+      this.changeLetterColor("wrap","#fff");
+    }
+    else if($event.color.hex == "#abb8c3"){
+      document.getElementById('contacts').style.backgroundColor = "#ABB8C3";
+      document.getElementById('sidepanel').style.backgroundColor = "#CCD9E5";
+      document.getElementById('contact-profile').style.backgroundColor = "#E0E3E6";
+      document.getElementById('message-input').style.backgroundColor = "#E0E3E6";
+    }
+    else if($event.color.hex == "#eb144c"){
+      document.getElementById('contacts').style.backgroundColor = "#BC254C";
+      document.getElementById('sidepanel').style.backgroundColor = "#EA5A80";
+      document.getElementById('contact-profile').style.backgroundColor = "#E6B0BE";
+      document.getElementById('message-input').style.backgroundColor = "#E6B0BE";
+      this.changeLetterColor("fa-user-plus","#fff");
+      this.changeLetterColor("fa-bars","#fff");
+      this.changeLetterColor("friendText","#fff");
+      this.changeLetterColor("wrap","#fff");
+    }
+    else if($event.color.hex == "#f78da7"){
+      document.getElementById('contacts').style.backgroundColor = "#F78DA7";
+      document.getElementById('sidepanel').style.backgroundColor = "#EAB3C0";
+      document.getElementById('contact-profile').style.backgroundColor = "#EFE2E5";
+      document.getElementById('message-input').style.backgroundColor = "#EFE2E5";
+    }
+    else if($event.color.hex == "#9900ef"){
+      document.getElementById('contacts').style.backgroundColor = "#8C2EC1";
+      document.getElementById('sidepanel').style.backgroundColor = "#C36BF4";
+      document.getElementById('contact-profile').style.backgroundColor = "#DEC0F0";
+      document.getElementById('message-input').style.backgroundColor = "#DEC0F0";
+      this.changeLetterColor("fa-user-plus","#fff");
+      this.changeLetterColor("fa-bars","#fff");
+      this.changeLetterColor("friendText","#fff");
+      this.changeLetterColor("wrap","#fff");
+    }
+    document.getElementById('colorPicker').style.display = "none";
+  }
 
+  private changeLetterColor(className:string, color:string){
+    var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
+    var i;
+    for (i = 0; i < list.length; i++) {
+        list[i].style.color = color;
+    }
+  }
 
 }
 
