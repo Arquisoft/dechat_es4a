@@ -4,21 +4,21 @@ import { browser, by, element } from 'protractor';
 export class AppPage {
 
   navigateTo() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/');
   }
 
   navigateToLogin() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/login');
   }
 
   navigateToCard() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/card');
     }
   navigateToChat() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/chat');
     }  
 
