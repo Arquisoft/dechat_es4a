@@ -55,7 +55,7 @@
             </ul>
         </div>
     </div>
-    <div id="content" style="height: 100%">
+    <div id="content" style="height: 100%" [ngStyle]="{'background-image': getUrlBackground(), 'background-position': 'center center', 'background-size': 'cover' }">
         <div class="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
@@ -65,11 +65,10 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <label class="dropdown-item" id="#bb" style="color: #0b3153;cursor: pointer;font-size: 16px;">
                             Background
-                            <input type="file" id="File" (change)="changeBackground($event)" accept=".png,.jpeg,.jpg"
-                                size="60">
+                            <input #backgroundInput type="file" (change)="changeBackground(backgroundInput)" accept=".jpeg,.jpg"/>
                         </label>
                         <a class="dropdown-item" (click)="changeColorAppearance()"
-                            style="color: #0b3153;cursor: pointer;font-size: 16px;">Appearance</a>
+                            style="color: #0b3153;cursor: pointer;font-size: 16px;">Color</a>
                     </div>
                 </div>
             </div>
@@ -191,6 +190,7 @@
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             </button>
                         </td>
+
                     </tr>
                 </table>
             </div>

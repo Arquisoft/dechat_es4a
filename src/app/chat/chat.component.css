@@ -637,7 +637,7 @@ input, select {
   border: none;
   opacity: .5;
   width: 50px;
-  margin: 15px 10px 5px 10px;
+  margin: 5px 10px 5px 10px;
   cursor: pointer;
   font-size: 1.5em;
   color: #435f7a;
@@ -664,6 +664,20 @@ input, select {
 
 #frame #content .message-input .wrap .image-upload{
   display: none;
+}
+
+#frame #content .message-input .wrap .fa-microphone {
+  border: none;
+  opacity: .5;
+  width: 50px;
+  margin: 15px 10px 5px 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #435f7a;
+}
+
+#frame #content .message-input .wrap .fa-microphone:hover {
+  opacity: 1;
 }
 
 #frame #content .message-input .wrap button {

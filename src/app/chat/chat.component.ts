@@ -322,8 +322,27 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
-  changeBackground(event) {
-    console.log("CAMBIAR BACKGROUND");
+  //Procesar imagen background chat.
+  changeBackground(imageInput: any) {
+    console.log("CAMBIANDO BACKGROUND...");
+    const file: File = imageInput.files[0];
+    let type = file.type.split("/");
+    const myNewFile = new File([file], 'background.'+ type[1], {type: file.type});
+    console.log("myNewFile.name: " + myNewFile.name);
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, myNewFile);
+      this.chat.uploadBackground(this.selectedFile.file);
+    });
+    reader.readAsDataURL(file);
+  }
+
+  getUrlBackground(){
+    let url = "https://" + this.getUsername() + ".solid.community/private/Chat" + this.friendActive + "/background.jpeg";
+    if(this.friendActive != undefined){
+         return "url('"+ url + "')"; 
+    }
+    return null;
   }
 
   changeColorAppearance() {

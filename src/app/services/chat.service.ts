@@ -40,7 +40,7 @@ export class ChatService implements OnInit {
     return profile;
   };
 
-  private getUsername(webId: string): string {
+  getUsername(webId: string): string {
     let username = webId.replace('https://', '');
     let user = username.split('.')[0];
 
@@ -299,6 +299,18 @@ export class ChatService implements OnInit {
     }
     
     this.postMessage(new SolidMessage(this.userID, url));
+  }
+
+  async uploadBackground(image: File){
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
+    console.log("url: " + url);
+    try{
+      this.fileClient.updateFile(url,image).then(success => {
+        console.log(`Deleted ${url}.`);
+      }, err => console.log(err)).catch(error => console.log("File not updated"));
+    }
+    catch(error){}
+
   }
 
   givePermissions(url:string){
