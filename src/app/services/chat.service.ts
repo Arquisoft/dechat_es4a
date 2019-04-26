@@ -366,8 +366,16 @@ export class ChatService implements OnInit {
     :Read
         a n0:Authorization;
         n0:accessTo Ch:;
-        n0:agent c0:me;
-        n0:defaultForNew Ch:;
+        n0:agent`; 
+    for(let i in users){
+      if(Number(i) < users.length)
+        this.baseAcl += `c${i}:me,`
+      else
+        this.baseAcl += `c${i}:me.
+        `
+    }
+    this.baseAcl+=
+       `n0:defaultForNew Ch:
         n0:mode n0:Read.`;
    
     
