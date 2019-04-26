@@ -340,4 +340,40 @@ export class ChatService implements OnInit {
     }, (err: any) => console.log(err));
   }
 
+
+  giveGroupPermissions(users: Array<string>,url:string){
+    var id = "";
+    
+    this.baseAcl = `@prefix : <#>.
+    @prefix n0: <http://www.w3.org/ns/auth/acl#>.
+    @prefix Ch: <./>.
+    @prefix c: </profile/card#>.
+    `;
+    
+    users.forEach(user => {
+      id = user.substring(0,user.length-2);
+      this.baseAcl += `@prefix c0: <${id}>.
+      `;
+    });
+    
+    this.baseAcl += 
+   `:ControlReadWrite
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Control, n0:Read, n0:Write.
+    :Read
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c0:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Read.`;
+   
+    
+    this.fileClient.createFile(url,this.baseAcl).then(success => {
+      console.log('permissions given');
+    }, (err: any) => console.log(err));
+  }
+
 }
