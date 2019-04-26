@@ -337,6 +337,7 @@ export class ChatComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  //Devuelve la url del background chat si hay un amigo elegido
   getUrlBackground(){
     let url = "https://" + this.getUsername() + ".solid.community/private/Chat" + this.friendActive + "/background.jpeg";
     if(this.friendActive != undefined){

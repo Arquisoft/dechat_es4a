@@ -34,7 +34,7 @@ Then(/^I should see the title \(login page\)$/, async () => {
 
 //card_page.feature
 Given(/^I am on the card page$/, async () => {
-  await page.navigateToCard();
+  await page.navigateToCard() ;
 });
 
 When(/^I do nothing$/, () => {
@@ -65,4 +65,27 @@ Given(/^I am on the chat page$/, async () => {
 
 When(/^I click on send button$/, async () => {
   await page.clickSendButton();
+});
+
+//click_newFriends.feature
+When(/^I click on the add friend$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnAddFriend();
+});
+
+//click_start.feature
+When(/^I click on the start chatting$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnStartChatting();
+});
+
+//click_url.feature
+When(/^I click on the emoji$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnEmoji();
+});
+//click_open.feature
+When(/^I click on the open$/, async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await page.clickOnOpenPopUp();
 });

@@ -4,21 +4,21 @@ import { browser, by, element } from 'protractor';
 export class AppPage {
 
   navigateTo() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/');
   }
 
   navigateToLogin() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/login');
   }
 
   navigateToCard() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/card');
     }
   navigateToChat() {
-    this.sleep(50000);
+    this.sleep(500000);
     return browser.get('/chat');
     }  
 
@@ -46,6 +46,26 @@ export class AppPage {
     this.sleep(50000);
     return element(by.id('send')).click();
 }
+  clickOnAddFriend() {
+    this.sleep(50000);
+    return element(by.id('add')).click();
+}
+  clickOnStartChatting() {
+    this.sleep(50000);
+    //return element(by.id('start')).click();
+    //return element(by.buttonText('Start chatting!')).click();
+    return element(by.css('button')).click();
+}
+  clickOnEmoji() {
+    this.sleep(50000);
+    //return element(by.id('git')).click();
+    return element(by.id('emoji')).click();
+  }
+  clickOnOpenPopUp() {
+    this.sleep(50000);
+    //return element(by.id('git')).click();
+    return element(by.id('open')).click();
+  }
 
   //este método privado nos permite salvar el error de tiempo expirado
   private sleep(milliseconds: number): void {
