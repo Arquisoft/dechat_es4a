@@ -78,7 +78,7 @@
             <ul>
                 <div *ngFor="let string of messages" [shAttachMenu]="menu" [shMenuData]="string">
                     <div *ngIf=dateMessages(string.time)>
-                        <a>{{dateLastMessage}}</a>
+                        <a class="msgDate">{{dateLastMessage}}</a>
                     </div>
                     <div *ngIf="isContactMessage(string)">
                         <li class="replies">

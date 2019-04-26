@@ -73,9 +73,6 @@ export class ChatComponent implements OnInit {
     this.fileClient = require('solid-file-client');
   }
 
-
-
-
   ngOnInit(): void {
     this.loadProfile();
     this.loadFriends();
@@ -323,7 +320,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Procesar imagen background chat.
-  changeBackground(imageInput: any) {
+  async changeBackground(imageInput: any) {
     console.log("CAMBIANDO BACKGROUND...");
     const file: File = imageInput.files[0];
     let type = file.type.split("/");
@@ -333,8 +330,17 @@ export class ChatComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, myNewFile);
       this.chat.uploadBackground(this.selectedFile.file);
+      this.setBackground(reader.result);
     });
     reader.readAsDataURL(file);
+  }
+
+  //Coloca la imagen del input como background
+  setBackground(imageURL){
+    document.getElementById("content").style.backgroundImage = "url(" + imageURL + ")";
+    document.getElementById("content").style.backgroundRepeat = "no-repeat";
+    document.getElementById("content").style.backgroundPosition = "center";
+    document.getElementById("content").style.backgroundSize= "cover";
   }
 
   //Devuelve la url del background chat si hay un amigo elegido
@@ -343,7 +349,7 @@ export class ChatComponent implements OnInit {
     if(this.friendActive != undefined){
          return "url('"+ url + "')"; 
     }
-    return null;
+    return "url('/assets/images/cosmos.jpg')";
   }
 
   changeColorAppearance() {
@@ -513,7 +519,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Para eliminar todo el chat (incluido de la POD)
-  removeChat(friend: string) {
+  async removeChat(friend: string) {
     confirm("Are you sure you want to delete this chat?");
     console.log("Removing chat....: " + friend);
     this.chat.removeChat(this.getUsername(), friend);

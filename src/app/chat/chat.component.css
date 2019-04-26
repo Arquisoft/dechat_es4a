@@ -598,6 +598,15 @@ ul {
     }
   }
 
+  #frame #content .messages .msgDate {
+    
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 205px;
+    line-height: 130%;
+    background: #ebe7f0;
+  }
+
   #timeMessage{
     font-size: 10px;
     float: right;
