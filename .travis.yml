@@ -5,6 +5,7 @@ before_script:
   - npm install -g @angular/cli
   - npm install
   - npm install --save howler
+  - npm solid-auth-client
   - npm audit fix
 script: 
   - ng build --prod
