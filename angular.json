@@ -34,6 +34,7 @@
                         ],
                         "scripts": [
                             "node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
+                            "node_modules/solid-file-client/dist/browser/solid-file-client.bundle.js",
                             "src/assets/js/libs/rdflib.min.js",
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/popper.js/dist/umd/popper.min.js",
