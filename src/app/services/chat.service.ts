@@ -4,9 +4,9 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
-import { forEach } from '@angular/router/src/utils/collection';
+/*import { forEach } from '@angular/router/src/utils/collection';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';*/
 
 declare let solid: any;
 
