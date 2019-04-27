@@ -7,7 +7,6 @@ before_script:
   - npm install --save howler
   - npm install solid-auth-client
   - npm install solid-file-client@0.4.9
-  - npm audit fix
 script: 
   - ng build --prod
 after_success:
