@@ -27,6 +27,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
+import {AgoraConfig, AngularAgoraRtcModule} from "angular-agora-rtc";
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 
 const routes: Routes = [
@@ -63,8 +65,14 @@ const routes: Routes = [
   {
     path: 'navbar',
     component: NavbarComponent
+  },
+  {
+    path: 'videoChat',
+    component: VideoChatComponent
   }
 ];
+
+const agoraConfig: AgoraConfig = { AppID: '9474fbbc318f4821853cdaaa2c7924eb' };
 
 @NgModule({
   declarations: [
@@ -76,6 +84,7 @@ const routes: Routes = [
     RegisterComponent,
     ChatComponent,
     NavbarComponent,
+    VideoChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +100,8 @@ const routes: Routes = [
     VgOverlayPlayModule,
     VgBufferingModule,
     ColorSketchModule,
-    ColorTwitterModule
+    ColorTwitterModule,
+    AngularAgoraRtcModule.forRoot(agoraConfig)
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
