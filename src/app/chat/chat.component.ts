@@ -67,6 +67,9 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
+  //Invitaciones aceptadas
+  acceptedInvitations = [];
+
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
@@ -78,6 +81,9 @@ export class ChatComponent implements OnInit {
     this.loadProfile();
     this.loadFriends();
     this.refreshMessages();
+    //crear carpeta para notificaciones
+    this.createFolderNotifications();
+    this.lookForInvitations();
   }
 
   //Carga los amigos
@@ -431,7 +437,7 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name, photo);
-    this.mapContacts.set(name, photo);
+    this.mapContacts.set(name, photo);    
   }
 
   //Abre el panel vertical
@@ -523,20 +529,21 @@ export class ChatComponent implements OnInit {
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
-    confirm("Are you sure you want to delete this chat?");
-    console.log("Removing chat....: " + friend);
-    this.chat.removeChat(this.getUsername(), friend);
-    this.mapContacts.forEach((value: string, key: string) => {
-      if (key.includes(friend)) {
-        this.mapContacts.delete(key);
-      }
-    });
-    this.friendActive = null;
-    this.friendPhotoActive = null;
-    this.messages = [];
-    this.dateLastMessage = undefined;
-    this.secondMessage = 0;
-    this.chat.resetChat();
+    if(confirm("Are you sure you want to delete this chat?")){
+      console.log("Removing chat....: " + friend);
+      this.chat.removeChat(this.getUsername(), friend);
+      this.mapContacts.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
+          this.mapContacts.delete(key);
+        }
+      });
+      this.friendActive = null;
+      this.friendPhotoActive = null;
+      this.messages = [];
+      this.dateLastMessage = undefined;
+      this.secondMessage = 0;
+      this.chat.resetChat();
+    }
   }
 
   //Para determinar cuando mostrar la fecha en pantalla
@@ -741,6 +748,43 @@ export class ChatComponent implements OnInit {
     for (i = 0; i < list.length; i++) {
         list[i].style.color = color;
     }
+  }
+
+  createFolderNotifications(){
+    this.chat.createFolderNotifications(this.getUsername());
+  }
+
+  //Busca por nuevas invitaciones
+  lookForInvitations(){
+    setInterval(() => {
+      let invitationURL = "https://" + this.getUsername() + ".solid.community/public/chatInvitation/invitation.txt";
+      this.fileClient.readFile(invitationURL).then(body => {
+        let content = body;
+        let names = content.split(",");
+        for(let i = 0; i < names.length; i++){
+          let count = 0;
+          for(let j = 0; j < this.mapContacts.size; j++){
+            if(this.acceptedInvitations[j] == names[i]){
+              count++;
+            }
+          }
+          this.mapContacts.forEach((value: string, key: string) => {
+            if (key.includes(names[i])) {
+              count++;
+            }
+          });
+          if(count == 0){
+            if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
+              this.loadFriends();
+              let photo = this.mapFriendsTotal.get(names[i]);
+              this.changeChat(names[i], photo.toString());
+              this.mapContacts.set(names[i], photo); 
+              this.acceptedInvitations.push(names[i]);
+            }
+          }
+        }
+      }, (err: any) => console.log(err));
+    }, 8000);
   }
 
 }

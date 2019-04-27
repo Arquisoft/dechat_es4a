@@ -4,6 +4,8 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { text } from '@angular/core/src/render3/instructions';
 /*import { forEach } from '@angular/router/src/utils/collection';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';*/
@@ -27,8 +29,9 @@ export class ChatService implements OnInit {
   chatuserUrl: any;
   basechat: any;
   baseAcl: any;
+  chatNotFounded = false;
 
-  constructor(private rdf: RdfService) { this.fileClient = require('solid-file-client'); }
+  constructor(private rdf: RdfService, private sanitizer: DomSanitizer) { this.fileClient = require('solid-file-client'); }
 
   ngOnInit() { }
 
@@ -224,6 +227,11 @@ export class ChatService implements OnInit {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
               this.givePermissions(url+'.acl');
               console.log('chat has been started');
+              if(this.chatNotFounded){
+                alert("Invitation sent to your friend!");
+                this.sendInvitation();
+              }
+              this.chatNotFounded = false;
             }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
           }, err => console.log(err)).catch(error => console.log("File not created"));
         }, err => console.log(err))).catch(error => console.log("Not able to create folder"));
@@ -252,6 +260,7 @@ export class ChatService implements OnInit {
       //console.log("loadMessages url: " + url);
 
       try {
+        this.chatNotFounded = false;
         this.fileClient.readFile(url).then(body => {
           chatcontent = body;
 
@@ -265,10 +274,12 @@ export class ChatService implements OnInit {
             var time = time_array[0] + " " + time_array[1];
             this.addToChat(content, maker, time);
           })
-        }).catch(error => console.log("File not founded"));
+        }).catch(error => {
+          console.log("File not founded -> sending invitation...");
+          this.chatNotFounded = true;
+          });
       }
-      catch (err) { 
-      }
+      catch (err) {}
     }
     catch (error) {
       console.log("Not getting messages from POD");
@@ -349,6 +360,60 @@ export class ChatService implements OnInit {
         n0:mode n0:Read.`;
     console.log(url);
     this.fileClient.createFile(url,this.baseAcl).then(success => {
+      console.log('permissions given');
+    }, (err: any) => console.log(err));
+  }
+
+  //escribe una notificacion en forma de .txt en la pod de con quien quiere chatear
+  sendInvitation(){
+    let invitationURL = "https://" + this.getUsername(this.friendID) + ".solid.community/public/chatInvitation/invitation.txt";
+    this.fileClient.readFile(invitationURL).then(body => {
+      let content = body;
+      content = content + "," + this.getUsername(this.userID);
+      this.fileClient.updateFile(invitationURL,content).then(success => {
+        console.log('invitation given');
+      }, (err: any) => console.log('not invitation given'))
+    }, err =>
+      this.fileClient.createFile(invitationURL,this.getUsername(this.userID)).then(success => {
+        console.log('invitation given');
+      }, (err: any) => console.log('not invitation given'))).catch(error => console.log("Not able to give invitation"));
+    /*this.fileClient.createFile(invitationURL,this.getUsername(this.userID)).then(success => {
+      console.log('invitation given');
+    }, (err: any) => console.log('not created'));*/
+  }
+
+  createFolderNotifications(user:string){
+    let invitationURL = "https://" + user + ".solid.community/public/chatInvitation/";
+    this.fileClient.readFolder(invitationURL).then(body => {
+      console.log('Folder already created');
+      this.givePermissionsInvitations(invitationURL+'.acl');
+    }, err =>
+        this.fileClient.createFolder(invitationURL).then(success => {
+          console.log('Folder Created');
+          this.givePermissionsInvitations(invitationURL+'.acl');
+        }, err => console.log(err))).catch(error => console.log("Not able to create folder"));
+  }
+
+  givePermissionsInvitations(url:string){
+    let baseAcl = `@prefix : <#>.
+    @prefix n0: <http://www.w3.org/ns/auth/acl#>.
+    @prefix ch: <./>.
+    @prefix n1: <http://xmlns.com/foaf/0.1/>.
+    @prefix c: </profile/card#>.
+    
+    :Append
+        a n0:Authorization;
+        n0:accessTo ch:;
+        n0:agentClass n1:Agent;
+        n0:defaultForNew ch:;
+        n0:mode n0:Append.
+    :ControlReadWrite
+        a n0:Authorization;
+        n0:accessTo ch:;
+        n0:agent c:me;
+        n0:defaultForNew ch:;
+        n0:mode n0:Control, n0:Read, n0:Write.`;
+    this.fileClient.createFile(url,baseAcl).then(success => {
       console.log('permissions given');
     }, (err: any) => console.log(err));
   }
