@@ -1,26 +1,5 @@
 /* CSS Document */
 
-body {
-    font: 12px arial;
-    color: #222;
-    text-align: center;    
-    display: flex;
-    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
-    font-size: 1em;
-    letter-spacing: 0.1px;
-    color: #32465a;
-    text-rendering: optimizeLegibility;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-    -webkit-font-smoothing: antialiased;
-    min-height: 100%;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    overflow: auto;
-    position: fixed;
-}
-
 a {
     color: #0000FF;
     text-decoration: none;
@@ -31,7 +10,7 @@ a:hover {
 }
 
 p {
-    font-size: 20px;
+    font-size: 25px;
     margin: 10px;
     padding: 10px;
     margin-top: 0.6em; 
@@ -55,6 +34,7 @@ form{
 ul {
     list-style-type: none;
     padding: 0;
+    position: relative;
 }
 
 
@@ -65,12 +45,30 @@ ul {
     background: #E6EAEA;
     min-height: 100px;
     overflow: hidden;
+    font: 12px arial;
+    color: #222;
+    text-align: center;    
+    display: flex;
+    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1px;
+    color: #32465a;
+    text-rendering: optimizeLegibility;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100px;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    /*position: fixed;*/
+    flex:auto;
   }
 
   @media screen and (max-width: 360px) {
     #frame {
       width: 100%;
       height: 100vh;
+      overflow-y: scroll;
     }
   }
   #frame #sidepanel {
@@ -82,35 +80,220 @@ ul {
     background: #686eb6dc;
     color: #f5f5f5;
     overflow: hidden;
-    position: relative;
   }
-  @media screen and (max-width: 735px) {
-    #frame #sidepanel {
-      width: 58px;
-      min-width: 58px;
-    }
-  }
+
   /*Profile*/
   #frame #sidepanel #profile {
     width: 80%;
-    margin: -30px;
+    height: 100px;
     display: inline-block;
     position: relative; 
   }
-  @media screen and (max-width: 735px) {
-    #frame #sidepanel #profile {
-      width: 100%;
-      margin: 0 auto;
-      padding: 5px 0 0 0;
-      background: #686eb6dc;
-    }
-  }
 
   #frame #sidepanel #profile .wrap .profile-image img {
-    width: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    align: center;
+    cursor:pointer;
+    float:left;
+    margin-left: -20px;
+    margin-top: 7px;
   }
+
+  #frame #sidepanel #profile .wrap .fa-user-plus{
+    font-size: 20px;
+    float:right;
+    margin-top: 15px;
+    margin-right: 25px;
+    cursor:pointer;
+    color: #fff !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #sidepanel #profile .wrap .fa-user-plus:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
+  }
+  
+  #frame #sidepanel #profile .wrap .fa-bars{
+    font-size: 20px;
+    margin-top: 15px;
+    margin: 15px 0px -10px 0px;;
+    cursor:pointer;
+    float: right;
+    color: #fff !important;
+    text-transform: uppercase;
+    border: none;
+  } 
+  #frame #sidepanel #profile .wrap .fa-bars:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
+    }
+
+  /*Tooltips*/
+  #frame #sidepanel #profile .wrap .profile-image .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: -15%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .profile-image .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .profile-image:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  #frame #sidepanel #profile .wrap .drop .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 82%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .drop .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .drop:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  #frame #sidepanel #profile .wrap .newContact .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(46, 46, 46);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 60%;
+    font-size: 14px;
+  }
+  
+  #frame #sidepanel #profile .wrap .newContact .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #sidepanel #profile .wrap .newContact:hover .tooltiptext {
+    visibility: visible;
+  }
+
+ #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(46, 46, 46);
+    background-position: center 100px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    top: 80%;
+    right: -70%;
+    font-size: 14px;
+  }
+  
+  #frame #content .contact-profile .profile-option .dropdown .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #content .contact-profile .profile-option .dropdown:hover .tooltiptext {
+    visibility: visible;
+  } 
+
+  /*Search button*/
+  #frame #sidepanel #search {
+    font-weight: 300;
+    padding: 30px 0 0px 5px;
+    margin-top: 10px;
+  }
+  /*@media screen and (max-width: 735px) {
+    #frame #sidepanel #search {
+      display: none;
+    }
+  }*/
+  #frame #sidepanel #search label {
+    position: absolute;
+    margin: 20px 0 0 -10px;
+  }
+  #frame #sidepanel #search input {
+    font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+    padding: 10px 0 10px 46px;
+    width: calc(127% - 25px);
+    margin-left: -25px;
+    border: none;
+    background: #404479dc;
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:focus {
+    outline: none;
+    background: #6264bd;
+  }
+  #frame #sidepanel #search input::-webkit-input-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input::-moz-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:-ms-input-placeholder {
+    color: #f5f5f5;
+  }
+  #frame #sidepanel #search input:-moz-placeholder {
+    color: #f5f5f5;
+  }
+
 
   /*SidePanel*/
   .sidenav {
@@ -124,6 +307,14 @@ ul {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+  }
+
+  .sidenav .prof .img img{
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    float:center;
   }
   
   .sidenav a {
@@ -152,62 +343,42 @@ ul {
     .sidenav a {font-size: 18px;}
   }
 
-  .fa-bars{
-    font-size:20px;
-    cursor:pointer;
-    float:left;
-    margin: 20px 20px 50px -17px;
-  } 
-
-  /*Search button*/
-  #frame #sidepanel #search {
-    /*border-top: 1px solid #686eb6dc;
-    border-bottom: 1px solid #686eb6dc;*/
-    font-weight: 300;
-    padding: 30px 0 0px 5px;
-  }
-  @media screen and (max-width: 735px) {
-    #frame #sidepanel #search {
-      display: none;
-    }
-  }
-  #frame #sidepanel #search label {
-    position: absolute;
-    margin: 20px 0 0 20px;
-  }
-  #frame #sidepanel #search input {
-    font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
-    padding: 10px 0 10px 46px;
-    width: calc(100% - 25px);
-    border: none;
-    background: #404479dc;
-    color: #f5f5f5;
-  }
-  #frame #sidepanel #search input:focus {
-    outline: none;
-    background: #6264bd;
-  }
-  #frame #sidepanel #search input::-webkit-input-placeholder {
-    color: #f5f5f5;
-  }
-  #frame #sidepanel #search input::-moz-placeholder {
-    color: #f5f5f5;
-  }
-  #frame #sidepanel #search input:-ms-input-placeholder {
-    color: #f5f5f5;
-  }
-  #frame #sidepanel #search input:-moz-placeholder {
-    color: #f5f5f5;
-  }
-
 /*Contact*/
   #frame #sidepanel #contacts {
-    height: calc(100% - 70px);
+    height: calc(100% - 100px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #404479dc;
   }
-  @media screen and (max-width: 735px) {
+
+  #frame #sidepanel #contacts .textAdd p{
+    font-size: 20px;
+  }
+
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus {
+    float:center;
+    cursor:pointer;
+    font-size: 40px;
+    color: rgba(187, 220, 245, 0.75);
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid rgba(187, 220, 245, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+    border-radius: 60px;
+    box-shadow: 0px 0px 10px #888;
+    padding: 0.5em 0.6em;
+    margin-top:5%;
+  }
+  
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus:hover {
+    color: #FFF;
+    background: rgba(58, 133, 191, 0.75);
+    border: 2px solid rgba(58, 133, 191, 0.75);
+  }
+
+  /*@media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
       height: calc(100% - 149px);
       overflow-y: scroll;
@@ -219,7 +390,7 @@ ul {
   }
   #frame #sidepanel #contacts.expanded {
     height: calc(100% - 334px);
-  }
+  }*/
   #frame #sidepanel #contacts::-webkit-scrollbar {
     width: 8px;
     background: #2c3e50;
@@ -229,36 +400,55 @@ ul {
   }
 
   #frame #sidepanel #contacts li.contact {
-    position: relative;
-    padding: 10px 50px 6px 90px;
+    /*padding: 10px 50px 6px 90px;*/
     font-size: 0.9em;
     cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  #frame #sidepanel #contacts li.contact:hover .fa-trash-alt {
+    display: block;
   }
 
   #frame #sidepanel #contacts li.contact:active {
-    background: #6264bd;
+    background: #41437e;
   }
 
   #frame #sidepanel #contacts ul li.contact .wrap {
-    width: 90%;
-    margin: 0 auto;
-    position: relative;
-    left: -100px;
+    width: 100%;
+    /*height: 100%;*/
+    margin-left: 25px; 
+    display: inline-block;
   }
-  @media screen and (max-width: 735px) {
+  /*@media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap {
       width: 100%;
     }
-  }
+  }*/
   #frame #sidepanel #contacts ul li.contact .wrap img {
-    width: 65px;
+    width: 60px;
     height: 60px;
     border-radius: 50%;
+    float: left;
   }
-  @media screen and (max-width: 735px) {
+  /*@media screen and (max-width: 735px) {
     #frame #sidepanel #contacts ul li.contact .wrap img {
       margin-right: 0px;
     }
+  }*/
+
+  #frame #sidepanel #contacts ul li.contact a {
+    float: left;
+    margin: 20px 20px 20px 20px;
+    font-size: 18px;
+  }
+
+  .fa-trash-alt{
+    float: right;
+    margin: 35px 50px 0px 20px;
+    display: none;
+    cursor:pointer;
   }
 
   /*Profile_Content*/
@@ -268,6 +458,7 @@ ul {
     height: 100%;
     overflow: hidden;
     position: relative;
+    min-width: 300px;
   }
 
   @media screen and (min-width: 900px) {
@@ -289,6 +480,7 @@ ul {
   }
   #frame #content .contact-profile img {
     width: 40px;
+    height: 40px;
     border-radius: 50%;
     float: left;
     margin: 10px 12px 0 30px;
@@ -312,35 +504,44 @@ ul {
     font-size: 16px;
   }
 
-  #frame #content .contact-profile .profile-option label{
-    color: #0b3153;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    font-size: 16px;
-  }
   #frame #content .contact-profile .profile-option input[type="file"] {
     display: none;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v{
+    cursor:pointer;
+    color: #41437e !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v:hover {
+    text-shadow: 0px 0px 12px #1c1d4e;
+    transition: all 0.4s ease 0s;
   }
 
   /*Messages*/
   #frame #content .messages {
     height: auto;
-    min-height: calc(100% - 130px); 
+    min-height: calc(100% - 130px);
     max-height: calc(100% - 130px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
-  @media screen and (max-width: 735px) {
+  /*@media screen and (max-width: 735px) {
     #frame #content .messages {
       max-height: calc(100% - 105px);
     }
-  }
+  }*/
   #frame #content .messages p1{
     font-size: 40px;
     text-align: center;    
     margin: 0;
     justify-content: center;
+  }
+
+  #frame #content .messages p{
+    font-size: 22px;
   }
   #frame #content .messages::-webkit-scrollbar {
     width: 8px;
@@ -352,20 +553,25 @@ ul {
   #frame #content .messages ul li {
     display: inline-block;
     clear: both;
-    float: left;
     margin: 15px 15px 5px 15px;
     width: calc(100% - 25px);
     font-size: 0.9em;
+    text-align: left;
   }
   #frame #content .messages ul li.sent img {
     margin: 6px 0 0 8px;
+    width: 20px;
+    height: 20px;
   }
   #frame #content .messages ul li.sent p {
-    background: #435f7a;
+    background: #41437e;
     color: #f5f5f5;
-    margin: 15px 15px 5px 45px;
+    margin: 15px 10px 5px 13px;
+    float: left;
   }
   #frame #content .messages ul li.replies img {
+    width: 20px;
+    height: 20px;
     float: right;
     margin: 6px 0 0 8px;
   }
@@ -375,6 +581,7 @@ ul {
   }
   #frame #content .messages ul li img {
     width: 22px;
+    height: 22px;
     border-radius: 50%;
     float: left;
   }
@@ -391,6 +598,14 @@ ul {
     }
   }
 
+  #timeMessage{
+    font-size: 10px;
+    float: right;
+    line-height: 1.5;
+    white-space:nowrap;
+    margin-top: 20px;
+  }
+
   /*SendBox*/
 #frame #content .message-input {
     position: absolute;
@@ -400,8 +615,8 @@ ul {
     background: #b4b9e9dc;
 }
 
-input[type=text], select {
-  width: 70%;
+input, select {
+  width: 50%;
   padding: 12px 20px;
   margin: 11px 0;
   display: inline-block;
@@ -410,13 +625,29 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-#frame #content .message-input .wrap {
+/*#frame #content .message-input .wrap {
     position: relative;
     align: center;
-}
+}*/
 #frame #content .message-input .wrap input:focus {
   outline: none;
 }
+
+#frame #content .message-input .wrap .fa-smile {
+  border: none;
+  opacity: .5;
+  width: 50px;
+  margin: 15px 10px 5px 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #435f7a;
+}
+
+#frame #content .message-input .wrap .fa-smile:hover {
+  opacity: 1;
+}
+
+
 #frame #content .message-input .wrap .attachment {
   border: none;
   opacity: .5;
@@ -429,6 +660,10 @@ input[type=text], select {
 
 #frame #content .message-input .wrap .attachment:hover {
   opacity: 1;
+}
+
+#frame #content .message-input .wrap .image-upload{
+  display: none;
 }
 
 #frame #content .message-input .wrap button {
@@ -446,4 +681,26 @@ input[type=text], select {
 }
 #frame #content .message-input .wrap button:focus {
   outline: none;
+}
+.modal{
+  overflow-y: scroll;
+}
+.modal-search{
+  margin: 0px 10px 0px 15px;
+  width: 134%;
+}
+
+.modal-dialog{
+  overflow-y: initial;
+}
+.modal-body{
+  height: 250px;
+  overflow-y: auto;
+}
+
+.modal-notify .modal-header {
+  border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+  border-radius: 3px;
 }

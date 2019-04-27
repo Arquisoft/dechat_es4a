@@ -6,7 +6,7 @@
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    "test/acceptance/features/*.feature" ,
+    "test/acceptance/features/*.feature",
     "e2e/src/features/*.feature"
   ],
 
@@ -15,13 +15,13 @@ exports.config = {
   directConnect: true,
   baseUrl: "http://localhost:4200/",
 
-  cucumberOpts: {
-    require: ["e2e/src/steps/*.steps.js"],
-    strict: true
-  },
-  capabilities: {
-    browserName: "chrome",
-  },
+    cucumberOpts: {
+        require: ["e2e/src/steps/*.steps.js"],
+        strict: true
+    },
+    capabilities: {
+        browserName: "chrome",
+    },
   onPrepare() {
     require('ts-node').register({
       project: require('path').join(__dirname, "./tsconfig.e2e.json")

@@ -3,7 +3,6 @@ node_js:
   - "10.15"
 before_script:
   - npm install -g @angular/cli
-  - npm i solid-file-client
   - npm install
   - npm install --save howler
   - npm audit fix

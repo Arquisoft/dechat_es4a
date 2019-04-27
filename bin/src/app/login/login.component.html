@@ -1,4 +1,3 @@
-
 <div class="login-page">
 
   <!-- APP LOGO -->
@@ -7,26 +6,21 @@
   </div>
 
   <!-- APP NAME -->
-  <h1>
+  <h1 class="whiteShadowGeneric">
     ASW Chat
   </h1>
 
   <!-- LOGIN TITLE -->
-  <h2>
+  <h2 class="whiteShadowSmall ">
     Login with Solid Identity
   </h2>
 
   <!-- PROVIDER SELECTION -->
-<!--  <div style="margin-top: 10px;"> -->
-    <div id="provider" style="margin-top: 10px; ">
-    <ng-select class="login-select"
-               bindLabel="name"
-               bindValue="loginUrl"
-               placeholder="Select ID Provider"
-               dropdownPosition="bottom"
-               [items]="identityProviders"
-               [(ngModel)]="selectedProviderUrl"
-               style="width: 360px; height: 48px; margin-left: auto; margin-right: auto;">
+  <!--  <div style="margin-top: 10px;"> -->
+  <div id="provider" style="margin-top: 10px; ">
+    <ng-select class="login-select" id="login-select-menu" bindLabel="name" bindValue="loginUrl" placeholder="Select ID Provider"
+      dropdownPosition="bottom" [items]="identityProviders" [(ngModel)]="selectedProviderUrl"
+      style="width: 360px; height: 48px; margin-left: auto; margin-right: auto;">
 
       <!-- DROPDOWN TEMPLATE -->
       <ng-template ng-option-tmp let-item="item">
@@ -39,31 +33,28 @@
       </ng-template>
 
     </ng-select>
-    <input type="text"
-           class="wide-text"
-           *ngIf="selectedProviderUrl===null"
-           placeholder="Enter WebID"
-           style="margin-top:10px; padding: 12px 10px; width: 340px; height: 16px; display: block; margin-left: auto; margin-right: auto;"
-           [(ngModel)]="customProviderUrl" />
-  <!--   <button class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
-  -->  <button id="goLogin" class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
- 
+    <input type="text" class="wide-text" *ngIf="selectedProviderUrl===null" placeholder="Enter WebID"
+      style="margin-top:10px; padding: 12px 10px; width: 340px; height: 16px; display: block; margin-left: auto; margin-right: auto;"
+      [(ngModel)]="customProviderUrl" />
+    <!--   <button class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
+  --> <button class="wide-button" id="goLoginp" (click)="onLogin()"
+      *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined"
+      [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
+
   </div>
 
   <!-- REGISTRATION -->
   <div class="registration-link">
-    <p style="margin: 12px;">Don't have a Solid Identity?</p>
-  <!--  <button class="wide-button" (click)="goToRegistration()">Register</button>-->
+    <p style="margin: 12px;" class="whiteShadowSmall ">Don't have a Solid Identity?</p>
+    <!--  <button class="wide-button" (click)="goToRegistration()">Register</button>-->
     <button id="register" class="wide-button" (click)="goToRegistration()">Register</button>
   </div>
 
   <!-- HELP -->
   <div style="margin-top: 48px;">
-    <a href="https://solid.mit.edu" target="_blank" class="small-link">
-      <i class="fas fa-info-circle"></i> What is a Solid Identity?
+    <a href="https://solid.mit.edu" target="_blank" class="small-link whiteShadowSmall ">
+      <i class="fas fa-info-circle "></i> What is a Solid Identity?
     </a>
   </div>
 
 </div>
-  
-
