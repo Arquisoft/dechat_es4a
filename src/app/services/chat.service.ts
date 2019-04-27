@@ -342,8 +342,9 @@ export class ChatService implements OnInit {
 
 
   giveGroupPermissions(users: Array<string>,url:string){
-    var id = "";
-    
+    let id = "";
+    let i = 0;
+
     this.baseAcl = `@prefix : <#>.
     @prefix n0: <http://www.w3.org/ns/auth/acl#>.
     @prefix Ch: <./>.
@@ -352,8 +353,9 @@ export class ChatService implements OnInit {
     
     users.forEach(user => {
       id = user.substring(0,user.length-2);
-      this.baseAcl += `@prefix c0: <${id}>.
+      this.baseAcl += `@prefix c${i}: <${id}>.
       `;
+      i++;
     });
     
     this.baseAcl += 
