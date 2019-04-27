@@ -1,0 +1,16 @@
+#video_streaming{
+    margin: 20px;
+    display: inline-flex;
+}
+#agora_local{
+    height: 500px;
+    width: 500px;
+}
+
+.remote-containers div{
+    float:right;
+    margin-top: 20px;
+    margin-left: 50px;
+    height: 250px;
+    width: 250px;
+}
