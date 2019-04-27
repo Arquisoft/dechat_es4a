@@ -82,7 +82,7 @@
                                 <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string)&& !isVideo(string)">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
+                            <p *ngIf="!isImage(string)&& !isVideo(string) ">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
