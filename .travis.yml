@@ -4,6 +4,7 @@ node_js:
 before_script:
   - npm install -g @angular/cli
   - npm install
+  - npm i solid-file-client
   - npm install --save howler
   - npm audit fix
 script: 
