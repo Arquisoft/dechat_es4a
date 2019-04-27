@@ -90,9 +90,10 @@
                                     [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
-                                <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
+                                <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
+                            <p *ngIf="!isImage(string)&& !isVideo(string) ">{{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 42%;">
                                     <vg-controls>
@@ -131,7 +132,9 @@
                                     [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
-                                <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
+                                <iframe style="margin-right:0" width="520" height="345"
+                                        [src]="this.videosSafesURL[string.content]">
+                          <iframe width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
                             <div *ngIf="isAudio(string.content)">
