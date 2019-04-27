@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { popupLogin } from 'solid-auth-client/dist-lib/solid-auth-client.bundle.js';
 import {
   transition,
@@ -8,7 +8,7 @@ import {
   animate,
   group
 } from '@angular/animations';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './services/solid.auth.service';
 
 
@@ -24,30 +24,32 @@ import { AuthService } from './services/solid.auth.service';
           [style({ position: 'fixed', opacity: 1 })],
           { optional: true }
         ),
-        group([ 
+        group([
           query(':enter', [
-            style({ position: 'fixed',opacity:0 }),
-            animate('400ms ease-in-out', style({ opacity:1 }))
-          ],{ optional: true }),
+            style({ position: 'fixed', opacity: 0 }),
+            animate('400ms ease-in-out', style({ opacity: 1 }))
+          ], { optional: true }),
           query(':leave', [
-            style({ position: 'fixed', opacity:1 }),
-            animate('400ms ease-in-out', style({ opacity:0 }))],{ optional: true }),
+            style({ position: 'fixed', opacity: 1 }),
+            animate('400ms ease-in-out', style({ opacity: 0 }))], { optional: true }),
         ])
       ])
-    ])    
-    ] // register the animations
+    ])
+  ] // register the animations
+  ,
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   title = 'app';
   public inLogin;
 
-  constructor(private _router: ActivatedRoute,private auth: AuthService){
-    if(localStorage.getItem('solid-auth-client') == null){
-      this.inLogin = true ;
+  constructor(private _router: ActivatedRoute, private auth: AuthService) {
+    if (localStorage.getItem('solid-auth-client') == null) {
+      this.inLogin = true;
     }
-    else{
+    else {
       this.inLogin = false;
     }
   }
- 
+
 }

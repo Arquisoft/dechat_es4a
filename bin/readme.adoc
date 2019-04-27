@@ -1,0 +1,101 @@
+= dechat_es4a
+
+image:https://travis-ci.org/Arquisoft/dechat_es4a.svg?branch=master["Build Status", link="https://travis-ci.org/Arquisoft/dechat_es4a"]
+image:https://codecov.io/gh/Arquisoft/dechat_es4a/branch/master/graph/badge.svg["Codecov",link="https://codecov.io/gh/Arquisoft/dechat_es4a"]
+image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_es4a?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_es4a&utm_campaign=Badge_Grade"]
+
+
+== Build documentation
+
+The documentation is done in http://asciidoc.org/[AsciiDoc]
+using the https://arc42.org/[arc42] templates.
+The source documents are located at
+ https://github.com/Arquisoft/dechat_es4a/tree/master/src/docs[src/docs].
+
+Using https://maven.apache.org/[Maven] and the
+https://asciidoctor.org/[AsciiDoctor plugin] it is possible to generate
+the documentation running:
+
+----
+mvn generate-resources
+----
+
+== Compile and run
+
+The skeleton project is a simple
+ https://angular.io/ [Angular] application which can be run as:
+
+----
+ npm install
+ ng serve --open
+----
+
+Once executed, the application should be available at: http://localhost:4200
+
+== Deployment
+To be deployed in github pages, you need to do the following commands:
+
+----
+ npm i -g angular-cli-pages
+ ng build --prod --base-href "https://arquisoft.github.io/dechat_es4a/"
+ angular-cli-ghpages
+----
+
+== Testing
+
+There are some test implemented at our app with the extension .ts.
+We have 2 files to run the test:
+https://github.com/Arquisoft/dechat_es4a/tree/master/dechat/e2e [e2e]
+https://github.com/Arquisoft/dechat_es4a/blob/master/dechat/src/test.ts [test.ts]
+
+To run tests execute:
+----
+ng -e2e or ng test
+----
+
+== Testing Cucumber
+
+To pass the cucumber test, follow these instructions:
+
+----
+cd src/test/dechatCucumber
+npm install cucumber --save-dev
+npm test
+----
+
+Scenarios are available in https://github.com/Arquisoft/dechat_es4a/tree/master/src/test/dechatCucumber/features[features].
+
+There is another way to pass a test with cucumber in our project, still in development. Follow the instructions:
+
+----
+ng e2e
+----
+
+Scenarios are available in https://github.com/Arquisoft/dechat_es4a/tree/master/e2e/src/features[features].
+
+== Site documentation
+
+The https://github.com/Arquisoft/dechat_es4a/tree/master/pom.xml[pom.xml] file
+ has also been configured to generate site project documentation running:
+
+----
+mvn site
+----
+
+== Contributors
+
+- https://github.com/Lisa159[Aida María González].
+- https://github.com/davidcanle[David Canle Roza].
+- https://github.com/protojaime[Jaime Fernández Suárez].
+- https://github.com/elenappuga[Elena Puga Pascual].
+- https://github.com/giramos[Germán Iglesias Ramos].
+- https://github.com/albertong98[Alberto Núñez García].
+
+
+
+
+
+
+
+
+
