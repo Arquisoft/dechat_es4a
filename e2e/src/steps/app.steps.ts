@@ -1,36 +1,68 @@
 import { Before, Given, Then, When } from 'cucumber';
 import { expect } from 'chai';
 
-import { AppPage } from '../app.po';
+
+import { AppPage } from '../page/app.po';
 
 let page: AppPage;
 
 Before(() => {
-    page = new AppPage();
+  page = new AppPage();
 });
 
-// Go to the login - Display the title
-Given(/^I am on the login page$/, { timeout: 5 * 1000 }, async () => {
-    await page.navigateToLogin();
-});
-When(/^I do nothing$/, () => {});
-Then(/^I should see the login description$/, async () => {
-    expect(await page.getDescriptionLogin()).to.equal('Login with Solid Identity');
+//home_page.feature
+Given(/^I am on the home page$/, async () => {
+  await page.navigateTo();
 });
 
-// Go to the card - Display the title
+When(/^I do nothing \(home page\)$/, () => {});
+
+Then(/^I should see the title \(home page\)$/, async () => {
+  expect(await page.getParagraphText()).to.equal('ASW CHAT');
+});
+
+//login_page.feature
+Given(/^I am on the login page$/, async () => {
+  await page.navigateToLogin();
+});
+
+When(/^I do nothing \(login page\)$/, () => {});
+
+Then(/^I should see the title \(login page\)$/, async () => {
+  expect(await page.getParagraphText()).to.equal('ASW CHAT');
+});
+
+//card_page.feature
 Given(/^I am on the card page$/, async () => {
-    await page.navigateToCard();
+  await page.navigateToCard();
 });
+
+When(/^I do nothing$/, () => {
+});
+
 Then(/^I should see the card title$/, async () => {
-    // expect(await page.getTitleText()).to.equal('Welcome to angular-cli-cucumber-demo!');
-    expect(await page.getTitleText()).to.equal('Login with Solid Identity');
+    expect(await page.getCardTitleText()).to.equal('ASW CHAT');
 });
 
+//click_login.feature
+When(/^I click on the login select menu$/, async () => {
+  await page.clickOnLoginSelectMenu();
+});
 
-// Click on login button - Display anything
+Then(/^It should happen anything$/, () => {
+});
+
+//click_register.feature
 When(/^I click on register button$/, async () => {
-    await page.clickOnRegisterButton();
+  await page.clickRegisterButton();
 });
-Then(/^It should happen anything$/, () => {});
 
+//click_send.feature
+Given(/^I am on the chat page$/, async () => {
+  await page.navigateToChat();
+});
+
+
+When(/^I click on send button$/, async () => {
+  await page.clickSendButton();
+});
