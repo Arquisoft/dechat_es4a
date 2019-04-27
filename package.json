@@ -55,6 +55,7 @@
     "solid-permissions": "^0.6.0",
     "stdio": "^0.2.7",
     "text-encoding": "^0.6.4",
+    "videogular2": "^6.4.0",
     "webcrypto": "^0.1.1",
     "whatwg-url": "^7.0.0",
     "zone.js": "^0.8.26"
