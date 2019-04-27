@@ -4,9 +4,9 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
-import { forEach } from '@angular/router/src/utils/collection';
+/*import { forEach } from '@angular/router/src/utils/collection';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';*/
 
 declare let solid: any;
 
@@ -40,7 +40,7 @@ export class ChatService implements OnInit {
     return profile;
   };
 
-  private getUsername(webId: string): string {
+  getUsername(webId: string): string {
     let username = webId.replace('https://', '');
     let user = username.split('.')[0];
 
@@ -308,6 +308,19 @@ export class ChatService implements OnInit {
     
     this.postMessage(new SolidMessage(this.userID, url));
   }
+
+  //Sube y acualiza la imagen de background del chat
+  async uploadBackground(image: File){
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
+    try{
+      this.fileClient.updateFile(url,image).then(success => {
+        console.log(`Deleted ${url}.`);
+      }, err => console.log(err)).catch(error => console.log("File not updated"));
+    }
+    catch(error){}
+
+  }
+
   /*
     Método que recibe la url del amigo al que quieres dar permisos a la carpeta de chat.
     Se crea una base para el .acl, @prefix c: es el propio usuario, y para dar permiso a
