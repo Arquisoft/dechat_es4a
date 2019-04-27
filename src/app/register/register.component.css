@@ -72,11 +72,19 @@
   font-size: 12px;
   line-height: 16px;
 }
-body {
+/*body {
   background-image: linear-gradient(rebeccapurple, mediumpurple);
   -webkit-background-size: cover;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+}**/
+.registration .inrupt {
+  display: inline-block;
+  margin: 50px;
+}
+.registration .solid {
+  display: inline-block;
+  margin: 50px;
 }

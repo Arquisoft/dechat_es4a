@@ -38,7 +38,8 @@ input[type=text].wide-text {
 }
 
 input, select {
-  width: 800px;
+  width: 100%;
+  min-width: 60px;
   height: 35px;
   margin: 11px 0;
   display: inline-block;
@@ -103,8 +104,20 @@ input, select {
 .whiteShadowSmall{
   text-shadow: 1px 1px #ffbedf;
 }
-
-
+.modal-header{
+  background-color: #484C82;
+}
+#webid-name{
+  width: 360px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #89969F;
+  font-size: 14px;
+  color: #666;
+}
+#addFriendButton{
+  margin: 5px
+}
 html {
   background-image: linear-gradient(#db797a, #4b4fce);
   -webkit-background-size: cover;
@@ -122,4 +135,9 @@ body{
   opacity:1;
   color:black;
   background-color: #DA81F5;
+}
+.nav-input{
+max-width: 300px;
+max-height: 30px;
+align-content: center;
 }

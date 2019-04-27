@@ -4,9 +4,9 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
-import { forEach } from '@angular/router/src/utils/collection';
+/*import { forEach } from '@angular/router/src/utils/collection';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';*/
 
 declare let solid: any;
 
@@ -40,7 +40,7 @@ export class ChatService implements OnInit {
     return profile;
   };
 
-  private getUsername(webId: string): string {
+  getUsername(webId: string): string {
     let username = webId.replace('https://', '');
     let user = username.split('.')[0];
 
@@ -191,7 +191,7 @@ export class ChatService implements OnInit {
           }
         }
       }
-      console.log(body);
+      /*console.log(body);*/
       console.log(message);
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been removed');
@@ -243,6 +243,8 @@ export class ChatService implements OnInit {
     this.chat = new SolidChat(this.userID, this.friendID);
   }
 
+  /* Método que recibe la url de la POD de la que se quiere recuperar los mensajes
+  */
   getMessagesFromPOD(url) {
     try {
       var chatcontent: any;
@@ -272,7 +274,10 @@ export class ChatService implements OnInit {
       console.log("Not getting messages from POD");
     }
   }
-
+  /*
+    Método que añade el contenido del mensaje al objeto SolidChat. En caso de que este vacío
+    o su contenido sea "Chat Started" este no lo añade. 
+  */
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     let messageTime = time.substring(time.indexOf("\"") + 1);
@@ -286,17 +291,42 @@ export class ChatService implements OnInit {
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    this.fileClient.deleteFile("https://" + user + ".solid.community/private/Chat" + nameFriend + "/").then(success => {
+    /*this.fileClient.deleteFolder("https://" + user + ".solid.community/private/Chat" + nameFriend).then(success => {
       console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("File not deleted"));
+    }, err => console.log(err)).catch(error => console.log("Folder not deleted"));*/
   }
-
+  /* 
+    Método que sube la imagen a la POD y envia un mensaje con la URL para que sea posible
+    mostrarla. En caso de que ya exista la imagen únicamente envia la URL, no trata de subirla de nuevo.
+  */
   uploadImage(image: File) {
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/" + image.name;
-    this.fileClient.createFile(url, image);
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
+    
+    if(this.fileClient.readFile(url) != null){
+      this.fileClient.createFile(url, image);
+    }
+    
     this.postMessage(new SolidMessage(this.userID, url));
   }
 
+  //Sube y acualiza la imagen de background del chat
+  async uploadBackground(image: File){
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
+    try{
+      this.fileClient.updateFile(url,image).then(success => {
+        console.log(`Deleted ${url}.`);
+      }, err => console.log(err)).catch(error => console.log("File not updated"));
+    }
+    catch(error){}
+
+  }
+
+  /*
+    Método que recibe la url del amigo al que quieres dar permisos a la carpeta de chat.
+    Se crea una base para el .acl, @prefix c: es el propio usuario, y para dar permiso a
+    más usuarios se pone un @prefix cn: + el ID, por cada uno, que en este caso será una
+    sola persona.
+  */
   givePermissions(url:string){
     var id = this.friendID.substring(0,this.friendID.length-2);
     this.baseAcl = `@prefix : <#>.

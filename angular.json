@@ -29,7 +29,8 @@
               "node_modules/purecss/build/grids-min.css",
               "node_modules/purecss/build/grids-responsive-min.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/videogular2/fonts/videogular.css"
             ],
             "scripts": [
               "node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",

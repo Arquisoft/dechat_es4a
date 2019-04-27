@@ -18,7 +18,7 @@
   <!-- PROVIDER SELECTION -->
   <!--  <div style="margin-top: 10px;"> -->
   <div id="provider" style="margin-top: 10px; ">
-    <ng-select class="login-select" bindLabel="name" bindValue="loginUrl" placeholder="Select ID Provider"
+    <ng-select class="login-select" id="login-select-menu" bindLabel="name" bindValue="loginUrl" placeholder="Select ID Provider"
       dropdownPosition="bottom" [items]="identityProviders" [(ngModel)]="selectedProviderUrl"
       style="width: 360px; height: 48px; margin-left: auto; margin-right: auto;">
 
@@ -37,7 +37,7 @@
       style="margin-top:10px; padding: 12px 10px; width: 340px; height: 16px; display: block; margin-left: auto; margin-right: auto;"
       [(ngModel)]="customProviderUrl" />
     <!--   <button class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
-  --> <button id="goLogin" class="wide-button" (click)="onLogin()"
+  --> <button class="wide-button" id="goLoginp" (click)="onLogin()"
       *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined"
       [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
 
