@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - "10.15"
 before_script:
-  - npm install
   - npm install -g @angular/cli
+  - npm install
   - npm install --save howler
   - npm audit fix
 script: 
