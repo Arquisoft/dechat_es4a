@@ -14,6 +14,9 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
+import { ColorSketchModule } from 'ngx-color/sketch';
+import { ColorTwitterModule } from 'ngx-color/twitter'; // <color-twitter></color-twitter>
+
 // Services
 import { AuthService } from './services/solid.auth.service';
 import { AuthGuard } from './services/auth.guard.service';
@@ -86,7 +89,9 @@ const routes: Routes = [
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    ColorSketchModule,
+    ColorTwitterModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
