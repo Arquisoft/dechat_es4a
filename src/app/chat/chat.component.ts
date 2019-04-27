@@ -742,6 +742,7 @@ export class ChatComponent implements OnInit {
     document.getElementById('colorPicker').style.display = "none";
   }
 
+  //Cambia de color las letras
   private changeLetterColor(className:string, color:string){
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
@@ -750,11 +751,12 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  //Crea la carpeta para las notificaciones con sus permisos correspondientes
   createFolderNotifications(){
     this.chat.createFolderNotifications(this.getUsername());
   }
 
-  //Busca por nuevas invitaciones
+  //Busca por nuevas invitaciones en el .txt
   lookForInvitations(){
     setInterval(() => {
       let invitationURL = "https://" + this.getUsername() + ".solid.community/public/chatInvitation/invitation.txt";
@@ -763,7 +765,7 @@ export class ChatComponent implements OnInit {
         let names = content.split(",");
         for(let i = 0; i < names.length; i++){
           let count = 0;
-          for(let j = 0; j < this.mapContacts.size; j++){
+          for(let j = 0; j < this.acceptedInvitations.length; j++){
             if(this.acceptedInvitations[j] == names[i]){
               count++;
             }
@@ -781,10 +783,13 @@ export class ChatComponent implements OnInit {
               this.mapContacts.set(names[i], photo); 
               this.acceptedInvitations.push(names[i]);
             }
+            else{
+              this.acceptedInvitations.push(names[i]);
+            }
           }
         }
-      }, (err: any) => console.log(err));
-    }, 8000);
+      }, (err: any) => console.log("No invitations founded"));
+    }, 5000);
   }
 
 }
