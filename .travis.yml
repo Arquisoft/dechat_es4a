@@ -6,7 +6,7 @@ before_script:
   - npm install
   - npm install --save howler
   - npm audit fix
-script: 
+script:
   - ng build --prod
 after_success:
   - node_modules\.bin\cucumber-js src\test\dechatCucumber\features -r src\test\dechatCucumber\features\step_definitions

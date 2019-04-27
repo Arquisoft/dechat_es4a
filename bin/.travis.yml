@@ -3,8 +3,10 @@ node_js:
   - "10.15"
 before_script:
   - npm install -g @angular/cli
+  - npm install
   - npm install --save howler
-script: 
+  - npm audit fix
+script:
   - ng build --prod
 after_success:
   - node_modules\.bin\cucumber-js src\test\dechatCucumber\features -r src\test\dechatCucumber\features\step_definitions
