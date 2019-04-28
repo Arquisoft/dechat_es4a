@@ -404,14 +404,6 @@ export class ChatService implements OnInit {
     else{
       this.givePermissionsInvitations(invitationURL+'.acl');
     }
-    /*this.fileClient.readFolder(invitationURL).then(body => {
-      console.log('Folder already created');
-      this.givePermissionsInvitations(invitationURL+'.acl');
-    }, err =>
-        this.fileClient.createFolder(invitationURL).then(success => {
-          console.log('Folder Created');
-          this.givePermissionsInvitations(invitationURL+'.acl');
-        }, err => console.log(err))).catch(error => console.log("Not able to create folder"));*/
   }
 
   //Da permisos para el .txt de las notificaciones

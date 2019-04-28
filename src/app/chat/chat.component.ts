@@ -778,6 +778,17 @@ export class ChatComponent implements OnInit {
           });
           if(count == 0){
             if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
+              //Miramos si es una amigo o un desconocido
+              let count = 0;
+              this.mapFriendsTotal.forEach((value: string, key: string) => {
+                if (key.includes(names[i])) {
+                  count++;
+                }
+              });
+              if(count == 0){ //Si es desconocido se añade
+                this.addFriendFromInvitation(names[i]);
+              }
+              
               this.loadFriends();
               let photo = this.mapFriendsTotal.get(names[i]);
               this.changeChat(names[i], photo.toString());
@@ -792,6 +803,45 @@ export class ChatComponent implements OnInit {
         }
       }, (err: any) => console.log("No invitations founded"));
     }, 5000);
+  }
+
+  addFriendFromInvitation(friend:string) {
+    var clientid = this.rdf.session.webId;
+    this.fileClient.readFile(clientid).then(body => {
+      var friendname = friend;
+      var internalnamevar = "addedfriend" + friendname;
+      if (body.indexOf(internalnamevar) >= 0) {
+        this.toastr.info('friend already exists in this card');
+        throw Error();
+      }
+
+      if (body.indexOf('knows') >= 0) {
+        // Found know
+        var splitbody1 = body.split("pro:card")[0];
+        var splitbody2 = body.split("pro:card")[1];
+        splitbody2 = `
+        @prefix `+ internalnamevar + `: <https://` + friendname + `.solid.community/profile/card#>.
+
+      pro:card` + splitbody2
+
+        body = splitbody1 + splitbody2;
+        splitbody1 = body.split(":knows")[0];
+        splitbody2 = body.split(":knows")[1];
+
+        splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
+        body = splitbody1 + splitbody2;
+        console.log(body);
+
+
+        this.fileClient.updateFile(clientid, body).then(success => {
+
+          this.toastr.info('new friend has been saved');
+        }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+      } else {
+        this.toastr.info('adding friends to friendless cards not yet implemented, sorry!');
+
+      }
+    }, (err: any) => console.log(err)).catch(error => console.log("Not friend correct"));
   }
 
 }
