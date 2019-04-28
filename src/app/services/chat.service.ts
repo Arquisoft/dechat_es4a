@@ -359,18 +359,21 @@ export class ChatService implements OnInit {
     let i = 0;
     let j = 0;
     let d = new Date();
-    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/GroupChat" + groupName + "/";
+    let url = "https://albertong.solid.community/private/GroupChat" + groupName + "/";
 
     this.basechat = 
-    `@prefix : <#>.
+    `
+    @prefix : <#>.
     @prefix ic: <http://www.w3.org/2002/12/cal/ical#>.
     @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
     @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
-    @prefix c: </profile/card#>.`;
+    @prefix c: </profile/card#>.
+    `;
     
     users.forEach(user => {
       this.basechat+=
-      `@prefix c${i}: <${user.substring(0,this.friendID.length-2)}>.`;
+    `@prefix c${i}: <${user.substring(0,user.length-2)}>.
+    `;
       i++;
     });
 
@@ -382,19 +385,23 @@ export class ChatService implements OnInit {
     :id${this.randomInt()}
         ic:dtstart "2019-04-28T14:15:26Z"^^XML:dateTime;
         flow:participant c:me;
-        ui:backgroundColor "#c1f1f7".`;
+        ui:backgroundColor "#c1f1f7".
+        `;
 
     users.forEach(user => {
       this.basechat+=
-      `:id${this.randomInt()}
-          ic:dtstart "${d.toISOString()}"^^XML:dateTime;
-          flow:participant c${j}:me;
-          ui:backgroundColor "#c1f1f7".`;
+    `
+    :id${this.randomInt()}
+        ic:dtstart "${d.toISOString()}"^^XML:dateTime;
+        flow:participant c${j}:me;
+        ui:backgroundColor "#c1f1f7".
+        `;
       j++;
     });
 
     this.basechat+=
-    `:this
+    `
+    :this
         a mee:LongChat;
         n0:author c:me;
         n0:created "2019-04-28T14:15:23Z"^^XML:dateTime;
@@ -413,7 +420,7 @@ export class ChatService implements OnInit {
   }
 
   randomInt(){
-    return Math.floor(Math.random()*(Number.MAX_VALUE-Number.MIN_VALUE))+Number.MIN_VALUE;
+    return Math.floor(Math.random()*(Number.MAX_SAFE_INTEGER-Number.MIN_SAFE_INTEGER))+Number.MIN_SAFE_INTEGER;
   }
 
 }
