@@ -367,55 +367,98 @@ export class ChatService implements OnInit {
   //escribe una notificacion en forma de .txt en la pod de con quien quiere chatear
   sendInvitation(){
     let invitationURL = "https://" + this.getUsername(this.friendID) + ".solid.community/public/chatInvitation/invitation.txt";
+    this.givePermissionsInvitations(invitationURL+'.acl');
     this.fileClient.readFile(invitationURL).then(body => {
       let content = body;
-      content = content + "," + this.getUsername(this.userID);
+      let names = content.split(",");
+      let count = 0;
+      for(let i = 0; i < names.length; i++){ //para q no meta el mismo nombre dos veces
+        if(names[i] == this.getUsername(this.userID)){
+          count++;
+        }
+      }
+      if(count == 0){
+        if(content == ""){
+          content = this.getUsername(this.userID);
+        }
+        else{
+          content = content + "," + this.getUsername(this.userID);
+        }
+      }
       this.fileClient.updateFile(invitationURL,content).then(success => {
-        console.log('invitation given');
+        console.log('invitation given (updated)');
       }, (err: any) => console.log('not invitation given'))
     }, err =>
-      this.fileClient.createFile(invitationURL,this.getUsername(this.userID)).then(success => {
-        console.log('invitation given');
+      this.fileClient.updateFile(invitationURL,this.getUsername(this.userID)).then(success => {
+        console.log('invitation given (created)');
       }, (err: any) => console.log('not invitation given'))).catch(error => console.log("Not able to give invitation"));
-    /*this.fileClient.createFile(invitationURL,this.getUsername(this.userID)).then(success => {
-      console.log('invitation given');
-    }, (err: any) => console.log('not created'));*/
   }
 
   createFolderNotifications(user:string){
     let invitationURL = "https://" + user + ".solid.community/public/chatInvitation/";
-    this.fileClient.readFolder(invitationURL).then(body => {
+    if(this.fileClient.readFolder(invitationURL) != null){
+      console.log('Folder already created');
+      this.givePermissionsInvitations(invitationURL+'.acl');
+      this.fileClient.createFolder(invitationURL);
+    }
+    else{
+      this.givePermissionsInvitations(invitationURL+'.acl');
+    }
+    /*this.fileClient.readFolder(invitationURL).then(body => {
       console.log('Folder already created');
       this.givePermissionsInvitations(invitationURL+'.acl');
     }, err =>
         this.fileClient.createFolder(invitationURL).then(success => {
           console.log('Folder Created');
           this.givePermissionsInvitations(invitationURL+'.acl');
-        }, err => console.log(err))).catch(error => console.log("Not able to create folder"));
+        }, err => console.log(err))).catch(error => console.log("Not able to create folder"));*/
   }
 
+  //Da permisos para el .txt de las notificaciones
   givePermissionsInvitations(url:string){
     let baseAcl = `@prefix : <#>.
     @prefix n0: <http://www.w3.org/ns/auth/acl#>.
     @prefix ch: <./>.
-    @prefix n1: <http://xmlns.com/foaf/0.1/>.
     @prefix c: </profile/card#>.
+    @prefix n1: <http://xmlns.com/foaf/0.1/>.
     
-    :Append
-        a n0:Authorization;
-        n0:accessTo ch:;
-        n0:agentClass n1:Agent;
-        n0:defaultForNew ch:;
-        n0:mode n0:Append.
     :ControlReadWrite
         a n0:Authorization;
         n0:accessTo ch:;
         n0:agent c:me;
         n0:defaultForNew ch:;
-        n0:mode n0:Control, n0:Read, n0:Write.`;
+        n0:mode n0:Control, n0:Read, n0:Write.
+    :ReadWrite
+        a n0:Authorization;
+        n0:accessTo ch:;
+        n0:agentClass n1:Agent;
+        n0:defaultForNew ch:;
+        n0:mode n0:Read, n0:Write.`;
     this.fileClient.createFile(url,baseAcl).then(success => {
       console.log('permissions given');
     }, (err: any) => console.log(err));
   }
 
+  //Borra el nombre de la persona de la invitacion
+  removeInvitation(invitationURL:string, friend:string){
+    this.fileClient.readFile(invitationURL).then(body => {
+      let content = body;
+      let names = content.split(",");
+      content = "";
+      for(let i = 0; i < names.length; i++){
+        console.log("names[i]: " + names[i], "friend: " + friend);
+        if(names[i] != friend){
+          if(content == ""){
+            content = names[i];
+          }
+          else{
+            content = content + "," + names[i];
+          }
+        }
+      }
+      this.fileClient.updateFile(invitationURL,content).then(success => {
+        console.log('invitation removed (updated)');
+      }, (err: any) => console.log('not invitation removed'))
+    }, err => console.log("Not able to read invitation"));
+  }
 }

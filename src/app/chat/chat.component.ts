@@ -756,12 +756,13 @@ export class ChatComponent implements OnInit {
     this.chat.createFolderNotifications(this.getUsername());
   }
 
-  //Busca por nuevas invitaciones en el .txt
+  //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
   lookForInvitations(){
     setInterval(() => {
       let invitationURL = "https://" + this.getUsername() + ".solid.community/public/chatInvitation/invitation.txt";
       this.fileClient.readFile(invitationURL).then(body => {
         let content = body;
+        console.log("content: " + content);
         let names = content.split(",");
         for(let i = 0; i < names.length; i++){
           let count = 0;
@@ -786,6 +787,7 @@ export class ChatComponent implements OnInit {
             else{
               this.acceptedInvitations.push(names[i]);
             }
+            this.chat.removeInvitation(invitationURL,names[i]);
           }
         }
       }, (err: any) => console.log("No invitations founded"));
