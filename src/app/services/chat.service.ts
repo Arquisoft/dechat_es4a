@@ -353,4 +353,67 @@ export class ChatService implements OnInit {
     }, (err: any) => console.log(err));
   }
 
+  /*Recibe como parametros la lista de usuarios que formarán parte del grupo y un nombre, se crea una carpeta con el nombre del grupo 
+  y posteriormente un archivo index.ttl  que contiene los mensajes*/
+  createGroupChat(users:Array<string>,groupName:string){
+    let i = 0;
+    let j = 0;
+    let d = new Date();
+    let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/GroupChat" + groupName + "/";
+
+    this.basechat = 
+    `@prefix : <#>.
+    @prefix ic: <http://www.w3.org/2002/12/cal/ical#>.
+    @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+    @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+    @prefix c: </profile/card#>.`;
+    
+    users.forEach(user => {
+      this.basechat+=
+      `@prefix c${i}: <${user.substring(0,this.friendID.length-2)}>.`;
+      i++;
+    });
+
+   this.basechat+= 
+   `@prefix ui: <http://www.w3.org/ns/ui#>.
+    @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
+    @prefix n0: <http://purl.org/dc/elements/1.1/>.
+    
+    :id${this.randomInt()}
+        ic:dtstart "2019-04-28T14:15:26Z"^^XML:dateTime;
+        flow:participant c:me;
+        ui:backgroundColor "#c1f1f7".`;
+
+    users.forEach(user => {
+      this.basechat+=
+      `:id${this.randomInt()}
+          ic:dtstart "${d.toISOString()}"^^XML:dateTime;
+          flow:participant c${j}:me;
+          ui:backgroundColor "#c1f1f7".`;
+      j++;
+    });
+
+    this.basechat+=
+    `:this
+        a mee:LongChat;
+        n0:author c:me;
+        n0:created "2019-04-28T14:15:23Z"^^XML:dateTime;
+        n0:title "Chat channel";
+        flow:participation :id1556460926376;
+        ui:sharedPreferences :SharedPreferences.`;
+
+    this.fileClient.createFolder(url).then(success => {
+      console.log('Folder Created');
+        this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
+          this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
+            console.log('chat has been started');
+          }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+        }, err => console.log(err)).catch(error => console.log("File not created"));
+    });
+  }
+
+  randomInt(){
+    return Math.floor(Math.random()*(Number.MAX_VALUE-Number.MIN_VALUE))+Number.MIN_VALUE;
+  }
+
 }
