@@ -743,6 +743,15 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  createNewGroup(){
+    let users = new Array<string>();
+
+    users.push("https://elringo.solid.community/profile/card#me");
+    users.push("https://masterhacker.solid.community/profile/card#me");
+    
+    this.chat.createGroupChat(users,"grupoPrueba");
+  }
+
 }
 
 
