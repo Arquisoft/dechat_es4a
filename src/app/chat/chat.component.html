@@ -10,7 +10,7 @@
                     <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
                     <span class="tooltiptext">Settings</span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;" (click)="createNewGroup()">New group</a>
+                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
                     </div>
                 </div>
                 <div class="newContact">
@@ -250,9 +250,9 @@
             <!-- Modal body -->
             <div class="modal-body">
 
-                <div *ngFor="let entry of mapFriendsTotal | keyvalue">
-                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="createChat(entry.key,entry.value)">
-                        {{entry.key}}</button>
+                <div *ngFor="let entry of amigos">
+                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="addContactToGroup(entry)">
+                        {{getUsername(entry)}}</button>
                 </div>
             </div>
 

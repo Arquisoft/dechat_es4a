@@ -67,6 +67,8 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
+  groupUsers: Array<string> = new Array();
+
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
@@ -743,13 +745,14 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  createNewGroup(){
-    let users = new Array<string>();
+  createNewGroup(groupName:string){
+    this.chat.createGroupChat(this.groupUsers,groupName);
 
-    users.push("https://elringo.solid.community/profile/card#me");
-    users.push("https://masterhacker.solid.community/profile/card#me");
-    
-    this.chat.createGroupChat(users,"grupoPrueba");
+    this.groupUsers = new Array();
+  }
+
+  addContactToGroup(user:string){
+    this.groupUsers.push(user);
   }
 
 }
