@@ -460,7 +460,7 @@ export class ChatService implements OnInit {
     let ttlUrl = this.chatuserUrl + "index.ttl#this";
     let time_parsed;
     
-    this.fileClient.readFile(body => {
+    this.fileClient.readFile(ttlUrl).then(body => {
       let thisContent = body.substring(body.indexOf(":this"),body.length);
       let time_not_parsed = thisContent.substring(thisContent.indexOf("n0:created"),thisContent.indexOf("\"^"));
       time_parsed = time_not_parsed.split("T")[0];
