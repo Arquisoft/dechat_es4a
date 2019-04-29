@@ -19,7 +19,7 @@ describe('CardComponent',() =>{
 			declarations: [
                 CardComponent
             ],
-			providers: [ToastrService ]
+			providers: [ToastrService , ToastrService ]
 		}).compileComponents();
 	}));
 	
@@ -32,11 +32,4 @@ describe('CardComponent',() =>{
 	it('should create',async(()=>{
 		expect(component).toBeTruthy();
 	}));
-
-	afterEach(() => {
-		if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
-			(fixture.nativeElement as HTMLElement).remove();
-		}
-	});
-
 });

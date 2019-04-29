@@ -29,7 +29,6 @@ import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
 import {RdfService} from "./services/rdf.service";
 import {ChatService} from "../../bin/src/app/services/chat.service";
-import {VgStreamingModule} from "videogular2/streaming";
 
 
 const routes: Routes = [
@@ -96,9 +95,7 @@ const routes: Routes = [
     VgBufferingModule,
     ColorSketchModule,
     ColorTwitterModule,
-    BrowserAnimationsModule,
-    VgStreamingModule
-
+    BrowserAnimationsModule
   ],
   providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
   bootstrap: [AppComponent],
