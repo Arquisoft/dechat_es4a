@@ -355,7 +355,7 @@ export class ChatService implements OnInit {
 
   /*Recibe como parametros la lista de usuarios que formarán parte del grupo y un nombre, se crea una carpeta con el nombre del grupo 
   y posteriormente un archivo index.ttl  que contiene los mensajes*/
-  createGroupChat(users:Array<string>,groupName:string){
+  async  createGroupChat(users:Array<string>,groupName:string){
     let i = 0;
     let j = 0;
     let d = new Date();
@@ -370,7 +370,7 @@ export class ChatService implements OnInit {
     @prefix c: </profile/card#>.
     `;
     
-    users.forEach(user => {
+    await users.forEach(user => {
       this.basechat+=
     `@prefix c${i}: <${user.substring(0,user.length-2)}>.
     `;

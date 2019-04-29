@@ -251,9 +251,14 @@
             <div class="modal-body">
 
                 <div *ngFor="let entry of amigos">
-                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="addContactToGroup(entry)">
-                        {{getUsername(entry)}}</button>
+                    <button type="button" class="list-group-item list-group-item-action" (click)="addContactToGroup(entry)">
+                        {{getUsernameFromId(entry)}}</button>
                 </div>
+            </div>
+
+            <div class="modal-search">
+                <input #name type="text" placeholder="Group name" (keyup.enter)="createNewGroup($event.target.value)" />
+                <button type="button" class="btn btn-primary" (click)="createNewGroup(name.value)">Create group</button>
             </div>
 
             <!-- Modal footer -->
