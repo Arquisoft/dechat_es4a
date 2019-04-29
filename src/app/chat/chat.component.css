@@ -271,7 +271,7 @@ ul {
   #frame #sidepanel #search input {
     font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
     padding: 10px 0 10px 46px;
-    width: calc(127% - 25px);
+    width: 100%;
     margin-left: -25px;
     border: none;
     background: #404479dc;
