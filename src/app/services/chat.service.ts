@@ -53,7 +53,9 @@ export class ChatService implements OnInit {
     var d = new Date().toISOString(); //esto es la fecha de creacion
     this.userID = submitterWebId;
     this.friendID = destinataryWebId;
-    this.chat = new SolidChat(this.userID, this.friendID);
+    let friends = new Array<string>();
+    friends.push(this.friendID);
+    this.chat = new SolidChat(this.getUsername(this.userID),this.userID, friends);
     this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
     this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
@@ -233,14 +235,15 @@ export class ChatService implements OnInit {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
     if (name != "undefined") {
-      await this.getMessagesFromPOD(user);
-      await this.getMessagesFromPOD(friend);
+      this.chat.friendsId.forEach(friendId =>{
+        this.getMessagesFromPOD(this.getChatUrl(friendId));
+      });
     }
     return this.chat;
   }
 
   resetChat() {
-    this.chat = new SolidChat(this.userID, this.friendID);
+    this.chat = new SolidChat(this.chat.chatName, this.userID,this.chat.friendsId);
   }
 
   /* Método que recibe la url de la POD de la que se quiere recuperar los mensajes
@@ -356,11 +359,14 @@ export class ChatService implements OnInit {
   /*Recibe como parametros la lista de usuarios que formarán parte del grupo y un nombre, se crea una carpeta con el nombre del grupo 
   y posteriormente un archivo index.ttl  que contiene los mensajes*/
   async  createGroupChat(users:Array<string>,groupName:string){
+    this.chat = new SolidChat(groupName,this.rdf.session.webId,users);
+    
     let i = 0;
     let j = 0;
     let d = new Date();
-    let url = "https://albertong.solid.community/private/GroupChat" + groupName + "/";
-
+    let url = "https://"+this.getUsername(this.rdf.session.webId)+".solid.community/private/GroupChat" + groupName + "/";
+    this.chatuserUrl = url;
+    
     this.basechat = 
     `
     @prefix : <#>.
@@ -421,6 +427,15 @@ export class ChatService implements OnInit {
 
   randomInt(){
     return Math.floor(Math.random()*(Number.MAX_SAFE_INTEGER-Number.MIN_SAFE_INTEGER))+Number.MIN_SAFE_INTEGER;
+  }
+
+  getChatUrl(id:string){
+    let folder = "";
+
+    this.chat.isGroup ? folder = "/private/GroupChat" : folder = "/private/Chat"
+    folder += this.chat.chatName;
+   
+    return id.replace("/profile/card#me",folder+"/index.ttl#this");
   }
 
 }

@@ -746,8 +746,12 @@ export class ChatComponent implements OnInit {
   }
 
   createNewGroup(groupName:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = groupName;
+    this.dateLastMessage = undefined; 
     this.chat.createGroupChat(this.groupUsers,groupName);
-
+    this.loadMessages();
     this.groupUsers = new Array();
   }
 
