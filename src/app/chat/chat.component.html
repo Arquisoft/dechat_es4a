@@ -224,11 +224,11 @@
 
             <!-- Modal body -->
             <div class="modal-body">
+
                 <div *ngFor="let entry of mapFriendsTotal | keyvalue">
                     <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
                         (click)="createChat(entry.key,entry.value)">
-                        {{entry.key}}
-                    </button>
+                        {{entry.key}}</button>
                 </div>
             </div>
 
