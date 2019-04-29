@@ -777,26 +777,28 @@ export class ChatComponent implements OnInit {
             }
           });
           if(count == 0){
-            if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
-              //Miramos si es una amigo o un desconocido
-              let count = 0;
-              this.mapFriendsTotal.forEach((value: string, key: string) => {
-                if (key.includes(names[i])) {
-                  count++;
+            if(names[i] != ""){
+              if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
+                //Miramos si es una amigo o un desconocido
+                let count = 0;
+                this.mapFriendsTotal.forEach((value: string, key: string) => {
+                  if (key.includes(names[i])) {
+                    count++;
+                  }
+                });
+                if(count == 0){ //Si es desconocido se añade
+                  this.addFriendFromInvitation(names[i]);
                 }
-              });
-              if(count == 0){ //Si es desconocido se añade
-                this.addFriendFromInvitation(names[i]);
+                
+                this.loadFriends();
+                let photo = this.mapFriendsTotal.get(names[i]);
+                this.changeChat(names[i], photo.toString());
+                this.mapContacts.set(names[i], photo); 
+                this.acceptedInvitations.push(names[i]);
               }
-              
-              this.loadFriends();
-              let photo = this.mapFriendsTotal.get(names[i]);
-              this.changeChat(names[i], photo.toString());
-              this.mapContacts.set(names[i], photo); 
-              this.acceptedInvitations.push(names[i]);
-            }
-            else{
-              this.acceptedInvitations.push(names[i]);
+              else{
+                this.acceptedInvitations.push(names[i]);
+              }
             }
             this.chat.removeInvitation(invitationURL,names[i]);
           }
