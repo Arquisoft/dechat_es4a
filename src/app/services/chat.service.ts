@@ -138,7 +138,7 @@ export class ChatService implements OnInit {
             `+ `:this
             `+ `
              `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
-
+      console.log(message);
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been saved');
       }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
@@ -451,14 +451,15 @@ export class ChatService implements OnInit {
     let month = time_parsed[1];
     let year = time_parsed[0];
 
-    let chatUrl = this.chatuserUrl +year+"/"+month+"/"+day+"/chat.ttl";
+    let chatUrl = this.chatuserUrl +year+"/"+month+"/"+day+"/chat.ttl#this";
 
     return chatUrl;
   }
 
   getDateFromTtl(){
-    let ttlUrl = this.chatuserUrl + "index.ttl";
+    let ttlUrl = this.chatuserUrl + "index.ttl#this";
     let time_parsed;
+    
     this.fileClient.readFile(body => {
       let thisContent = body.substring(body.indexOf(":this"),body.length);
       let time_not_parsed = thisContent.substring(thisContent.indexOf("n0:created"),thisContent.indexOf("\"^"));
@@ -468,7 +469,7 @@ export class ChatService implements OnInit {
     return time_parsed;
   }
 
-  createBaseChatForGroup(url:string){
+  async createBaseChatForGroup(url:string){
     var d = new Date().toISOString();
     let groupBaseChat = 
     `
@@ -487,8 +488,27 @@ export class ChatService implements OnInit {
         n0:maker c:me.
     ind:this flow:message :Msg0000000000001 .
     `;
+    console.log(url);
+    console.log(groupBaseChat);
 
-    this.fileClient.updateFile(url,groupBaseChat);
+    let yearFolder = url.replace("/04/29/chat.ttl#this", "");
+    
+    await this.fileClient.createFolder(yearFolder).then(() => {
+      console.log('year');
+      let monthFolder = url.replace("/29/chat.ttl#this","");
+      this.fileClient.createFolder(monthFolder).then(()=>{
+        console.log('year');
+        let dayFolder = url.replace("/chat.ttl#this","");
+        this.fileClient.createFolder(dayFolder).then(()=> {
+          console.log('year');
+          this.fileClient.createFile(url).then(fileCreated => {
+            console.log('chat');
+            this.fileClient.updateFile(fileCreated,groupBaseChat);
+          }); 
+        });
+      });
+    });
+    
   }
 
 }
