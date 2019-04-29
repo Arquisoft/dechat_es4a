@@ -291,8 +291,8 @@ export class RdfService {
 
   // Function to list friends
 
-  getFriends = () => {
-    const user = this.session.webId;
+  getFriends = async () => {
+    const user = await auth.session.webId;
     const friends = this.store.each($rdf.sym(user), FOAF('knows'));
     const list_friends = [];
     let contacts = new Map();
