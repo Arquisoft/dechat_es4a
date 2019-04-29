@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
@@ -27,8 +27,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
-import {RdfService} from "./services/rdf.service";
-import {ChatService} from "../../bin/src/app/services/chat.service";
 
 
 const routes: Routes = [
@@ -78,7 +76,6 @@ const routes: Routes = [
     RegisterComponent,
     ChatComponent,
     NavbarComponent,
-    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,8 +93,7 @@ const routes: Routes = [
     ColorSketchModule,
     ColorTwitterModule
   ],
-  providers: [AuthService, ChatService, RdfService, AuthGuard],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [AuthService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
