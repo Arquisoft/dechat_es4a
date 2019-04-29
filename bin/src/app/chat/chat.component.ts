@@ -11,7 +11,7 @@ import { SolidChatUser } from '../models/solid-chat-user.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { Howl, Howler } from 'howler';
-import {escapeRegExp} from 'tslint/lib/utils';
+import { escapeRegExp } from 'tslint/lib/utils';
 
 
 @Component({
@@ -117,7 +117,7 @@ export class ChatComponent implements OnInit {
       var content = (<HTMLInputElement>document.getElementById("message")).value;
       if (!(content == "")) {
         let user = this.getUsername();
-        let message = new SolidMessage(user, content,(new Date()).toISOString());
+        let message = new SolidMessage(user, content, (new Date()).toISOString());
         this.chat.postMessage(message);
         (<HTMLInputElement>document.getElementById("message")).value = "";
         this.messages.push(message);
@@ -127,19 +127,23 @@ export class ChatComponent implements OnInit {
 
   private async loadMessages() {
 
-    try{
+    try {
 
-      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId),this.friendActive),this.getChatUrl(this.friendActive,this.getUsernameFromId(this.rdf.session.webId)));
-    
-      await chat.messages.sort(function(a,b) {
-        if(a.time > b.time)
+      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId)));
+      var FriendChat = this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId));
+
+      await chat.messages.sort(function (a, b) {
+        if (a.time > b.time)
           return 1;
-        if(b.time > a.time)
+        if (b.time > a.time)
           return -1
         else
           return 0;
       });
-  
+
+
+
+
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -147,38 +151,67 @@ export class ChatComponent implements OnInit {
             //console.log(message.content);
             //console.log(message.authorId);
             let realDate = new Date(message.time);
-            realDate.setHours(new Date(message.time).getHours()+2);
-            this.toastr.info("You have a new message from " +(new Date()+ " "+ realDate));
-            if(new Date().getTime()- realDate.getTime()<30000){
-               this.toastr.info("You have a new message from " + message.authorId);
-               let sound = new Howl({
-                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5 :true
-               });
-               Howler.volume(1);
-               sound.play();
-            }
-  
+            realDate.setHours(new Date(message.time).getHours() + 2);
+            this.toastr.info("You have a new message from " + (new Date() + " " + realDate));
+            this.fileClient.readFile(FriendChat).then(body => {
+              // n1:LastTimeChecked "${d}"^^XML:dateTime;
+              if (body.indexof("n1:LastTimeChecked")) {
+
+                var bodysplit = body.split("n1:LastTimeChecked");
+                var bodysplit1 = bodysplit[0]
+                var bodysplit2 = bodysplit[1]
+                var bodysplit3 = bodysplit2.split('\n');
+                var date = Date.parse(bodysplit3[0].split("^^XML:dateTime")[0]);
+
+                if (date < realDate.getTime()) {
+                  this.toastr.info("You have a new message from " + message.authorId);
+                }
+                bodysplit3[0] = "n1:LastTimeChecked " + new Date().toISOString() + "^^XML:dateTime;"
+
+
+                bodysplit3 = bodysplit3.join('\n');
+                body = bodysplit1 + bodysplit2 + bodysplit3;
+
+                this.fileClient.updateFile(FriendChat, body).then(success => {
+                  console.log("checked date updated");
+                }, (err: any) => console.log(err));
+              } else {
+                throw Error()
+              }
+
+
+
+            }, err => {
+              if (new Date().getTime() - realDate.getTime() < 30000) {
+                this.toastr.info("You have a new message from " + message.authorId);
+                let sound = new Howl({
+                  src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                });
+                Howler.volume(1);
+                sound.play();
+              }
+            });
           }
         }
       });
 
     }
-    catch(error){
+    catch (error) {
       console.log("No messages founded")
     }
-    
+
 
   }
 
   refreshMessages() {
     try {
       setInterval(() => {
-        try{
+        try {
           this.loadMessages().catch((error) => {
             throw new Error('Higher-level error. ' + error.message);
           });
         }
-        catch(error){}
+        catch (error) { }
       }, 8000);
     } catch (error) { }
 
@@ -187,10 +220,10 @@ export class ChatComponent implements OnInit {
   checkExistingMessage(m: SolidMessage) {
     let i;
     for (i = 0; i < this.messages.length; i++) {
-      if (m.content === this.messages[i].content && m.authorId===this.messages[i].authorId) {
+      if (m.content === this.messages[i].content && m.authorId === this.messages[i].authorId) {
         return true;
       }
-      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId=== escapeRegExp(this.messages[i].authorId)) {
+      if (m.content === escapeRegExp(this.messages[i].content) && m.authorId === escapeRegExp(this.messages[i].authorId)) {
         return true;
       }
 
@@ -218,7 +251,7 @@ export class ChatComponent implements OnInit {
     let user = username.split('.')[0];
     return user;
   }
-  
+
   logout() {
     this.auth.solidSignOut();
   }
@@ -249,7 +282,7 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    
+
     this.loadMessages();
   }
 
@@ -262,7 +295,7 @@ export class ChatComponent implements OnInit {
     return this.friendPhotoActive;
   }
 
-  URL:string;
+  URL: string;
   _changeDetection;
 
   changeBackground(event) {
@@ -284,8 +317,8 @@ export class ChatComponent implements OnInit {
         this.URL = e.target['result']; // Set image in element
         this._changeDetection.markForCheck(); // Is called because ChangeDetection is set to onPush
       };
+    }
   }
-}
 
   changeColorAppearance() {
     console.log("CAMBIAR COLOR");
@@ -301,33 +334,33 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  getChatUrl(user:string, friend: string){
-      let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend +"/index.ttl#this";
+  getChatUrl(user: string, friend: string) {
+    let chatUrl = "https://" + user + ".solid.community/public/Chat" + friend + "/index.ttl#this";
 
-      return chatUrl;
+    return chatUrl;
   }
-  isContactMessage(m:SolidMessage){
+  isContactMessage(m: SolidMessage) {
     let contact = this.friendActive;
     let messageAuthor = m.authorId;
-    if(messageAuthor.match(contact)){
-        return false;
-      }
-    else{
-        return true;
+    if (messageAuthor.match(contact)) {
+      return false;
+    }
+    else {
+      return true;
     }
   }
 
-  searchContact(friend:string){
+  searchContact(friend: string) {
     let cloneMapFriends = new Map(this.mapFriends);
     this.mapFriends.clear();
-    if(friend != ""){
-      cloneMapFriends.forEach((value:string,key: string) => {
-        if(key.includes(friend)){
+    if (friend != "") {
+      cloneMapFriends.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
           this.mapFriends.set(key, value);
         }
       });
     }
-    else{
+    else {
       this.loadFriends();
     }
   }
@@ -336,7 +369,7 @@ export class ChatComponent implements OnInit {
     console.log("---------> trying to open");
     document.getElementById("mySidenav").style.width = "250px";
   }
-  
+
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
