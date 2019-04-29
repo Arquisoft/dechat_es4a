@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChatComponent } from './chat.component';
-import {ToastrModule, ToastrService} from "ngx-toastr";
 
 describe('ChatComponent', () => {
     let component: ChatComponent;
@@ -9,9 +8,7 @@ describe('ChatComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ChatComponent, ToastrModule],
-            declarations: [ ChatComponent ],
-            providers: [ ToastrService]
+            declarations: [ ChatComponent ]
         })
             .compileComponents();
     }));
