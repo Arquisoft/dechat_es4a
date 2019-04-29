@@ -78,6 +78,7 @@ export class ChatService implements OnInit {
     n1:author c:me;
     n1:created "${d}"^^XML:dateTime;
     n1:title "Chat";
+    n1:LastTimeChecked "${d}"^^XML:dateTime;
     flow:message :Msg0000000000001.
                      
     `
@@ -127,20 +128,38 @@ export class ChatService implements OnInit {
 
       //console.log("numero de mensaje: " + msgnb);
 
-      const message = chatcontent1 + `
+
+      var message = "";
+      if (chatcontent.indexOf(" n1:LastTimeChecked")) {
+        message = chatcontent1 + `
         :Msg${msgnb}
             terms:created "${d.toISOString()}"^^XML:dateTime;
             n:content "${msg.content}";
             n0:maker c:${author}.
             `+ `:this
             `+ `
-             `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
+             `+ chatcontent2 + `
+             flow:message ` + `:Msg${msgnb} ,` + chatcontent3
+      } else {
+        message = chatcontent1 + `
+        :Msg${msgnb}
+            terms:created "${d.toISOString()}"^^XML:dateTime;
+            n:content "${msg.content}";
+            n0:maker c:${author}.
+            `+ `:this
+            `+ `
+             `+ chatcontent2 + `
+             n1:LastTimeChecked "${d.toISOString()}"^^XML:dateTime;
+             flow:message ` + `:Msg${msgnb} ,` + chatcontent3
+      }
+
+
 
       this.fileClient.updateFile(urlfile, message).then(success => {
         console.log('message has been saved');
-      }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+      }, (err: any) => console.log(err));
 
-    }, err => this.createBaseChat(this.chatuserUrl)).catch(error => console.log("Not able to read file"));
+    }, err => this.createBaseChat(this.chatuserUrl));
   }
 
   async removeMessage(msg: SolidMessage) {
@@ -225,9 +244,9 @@ export class ChatService implements OnInit {
           console.log('Folder Created');
           this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
-              this.givePermissions(url+'.acl');
+              this.givePermissions(url + '.acl');
               console.log('chat has been started');
-              if(this.chatNotFounded){
+              if (this.chatNotFounded) {
                 alert("Invitation sent to your friend!");
                 this.sendInvitation();
               }
@@ -277,9 +296,9 @@ export class ChatService implements OnInit {
         }).catch(error => {
           console.log("File not founded -> sending invitation...");
           this.chatNotFounded = true;
-          });
+        });
       }
-      catch (err) {}
+      catch (err) { }
     }
     catch (error) {
       console.log("Not getting messages from POD");
@@ -297,7 +316,7 @@ export class ChatService implements OnInit {
     }
   }
 
-  removeChat(user:string,nameFriend:string){
+  removeChat(user: string, nameFriend: string) {
     let url = "https://" + user + ".solid.community/private/Chat" + nameFriend + "/index.ttl#this"
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
@@ -312,23 +331,23 @@ export class ChatService implements OnInit {
   */
   uploadImage(image: File) {
     let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
-    
-    if(this.fileClient.readFile(url) != null){
+
+    if (this.fileClient.readFile(url) != null) {
       this.fileClient.createFile(url, image);
     }
-    
+
     this.postMessage(new SolidMessage(this.userID, url));
   }
 
   //Sube y acualiza la imagen de background del chat
-  async uploadBackground(image: File){
+  async uploadBackground(image: File) {
     let url = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/" + image.name;
-    try{
-      this.fileClient.updateFile(url,image).then(success => {
+    try {
+      this.fileClient.updateFile(url, image).then(success => {
         console.log(`Deleted ${url}.`);
       }, err => console.log(err)).catch(error => console.log("File not updated"));
     }
-    catch(error){}
+    catch (error) { }
 
   }
 
@@ -338,8 +357,8 @@ export class ChatService implements OnInit {
     más usuarios se pone un @prefix cn: + el ID, por cada uno, que en este caso será una
     sola persona.
   */
-  givePermissions(url:string){
-    var id = this.friendID.substring(0,this.friendID.length-2);
+  givePermissions(url: string) {
+    var id = this.friendID.substring(0, this.friendID.length - 2);
     this.baseAcl = `@prefix : <#>.
     @prefix n0: <http://www.w3.org/ns/auth/acl#>.
     @prefix Ch: <./>.
@@ -359,55 +378,55 @@ export class ChatService implements OnInit {
         n0:defaultForNew Ch:;
         n0:mode n0:Read.`;
     console.log(url);
-    this.fileClient.createFile(url,this.baseAcl).then(success => {
+    this.fileClient.createFile(url, this.baseAcl).then(success => {
       console.log('permissions given');
     }, (err: any) => console.log(err));
   }
 
   //escribe una notificacion en forma de .txt en la pod de con quien quiere chatear
-  sendInvitation(){
+  sendInvitation() {
     let invitationURL = "https://" + this.getUsername(this.friendID) + ".solid.community/public/chatInvitation/invitation.txt";
-    this.givePermissionsInvitations(invitationURL+'.acl');
+    this.givePermissionsInvitations(invitationURL + '.acl');
     this.fileClient.readFile(invitationURL).then(body => {
       let content = body;
       let names = content.split(",");
       let count = 0;
-      for(let i = 0; i < names.length; i++){ //para q no meta el mismo nombre dos veces
-        if(names[i] == this.getUsername(this.userID)){
+      for (let i = 0; i < names.length; i++) { //para q no meta el mismo nombre dos veces
+        if (names[i] == this.getUsername(this.userID)) {
           count++;
         }
       }
-      if(count == 0){
-        if(content == ""){
+      if (count == 0) {
+        if (content == "") {
           content = this.getUsername(this.userID);
         }
-        else{
+        else {
           content = content + "," + this.getUsername(this.userID);
         }
       }
-      this.fileClient.updateFile(invitationURL,content).then(success => {
+      this.fileClient.updateFile(invitationURL, content).then(success => {
         console.log('invitation given (updated)');
       }, (err: any) => console.log('not invitation given'))
     }, err =>
-      this.fileClient.updateFile(invitationURL,this.getUsername(this.userID)).then(success => {
-        console.log('invitation given (created)');
-      }, (err: any) => console.log('not invitation given'))).catch(error => console.log("Not able to give invitation"));
+        this.fileClient.updateFile(invitationURL, this.getUsername(this.userID)).then(success => {
+          console.log('invitation given (created)');
+        }, (err: any) => console.log('not invitation given'))).catch(error => console.log("Not able to give invitation"));
   }
 
-  createFolderNotifications(user:string){
+  createFolderNotifications(user: string) {
     let invitationURL = "https://" + user + ".solid.community/public/chatInvitation/";
-    if(this.fileClient.readFolder(invitationURL) != null){
+    if (this.fileClient.readFolder(invitationURL) != null) {
       console.log('Folder already created');
-      this.givePermissionsInvitations(invitationURL+'.acl');
+      this.givePermissionsInvitations(invitationURL + '.acl');
       this.fileClient.createFolder(invitationURL);
     }
-    else{
-      this.givePermissionsInvitations(invitationURL+'.acl');
+    else {
+      this.givePermissionsInvitations(invitationURL + '.acl');
     }
   }
 
   //Da permisos para el .txt de las notificaciones
-  givePermissionsInvitations(url:string){
+  givePermissionsInvitations(url: string) {
     let baseAcl = `@prefix : <#>.
     @prefix n0: <http://www.w3.org/ns/auth/acl#>.
     @prefix ch: <./>.
@@ -426,29 +445,29 @@ export class ChatService implements OnInit {
         n0:agentClass n1:Agent;
         n0:defaultForNew ch:;
         n0:mode n0:Read, n0:Write.`;
-    this.fileClient.createFile(url,baseAcl).then(success => {
+    this.fileClient.createFile(url, baseAcl).then(success => {
       console.log('permissions given');
     }, (err: any) => console.log(err));
   }
 
   //Borra el nombre de la persona de la invitacion
-  removeInvitation(invitationURL:string, friend:string){
+  removeInvitation(invitationURL: string, friend: string) {
     this.fileClient.readFile(invitationURL).then(body => {
       let content = body;
       let names = content.split(",");
       content = "";
-      for(let i = 0; i < names.length; i++){
+      for (let i = 0; i < names.length; i++) {
         console.log("names[i]: " + names[i], "friend: " + friend);
-        if(names[i] != friend){
-          if(content == ""){
+        if (names[i] != friend) {
+          if (content == "") {
             content = names[i];
           }
-          else{
+          else {
             content = content + "," + names[i];
           }
         }
       }
-      this.fileClient.updateFile(invitationURL,content).then(success => {
+      this.fileClient.updateFile(invitationURL, content).then(success => {
         console.log('invitation removed (updated)');
       }, (err: any) => console.log('not invitation removed'))
     }, err => console.log("Not able to read invitation"));

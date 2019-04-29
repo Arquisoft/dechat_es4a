@@ -130,7 +130,7 @@ export class ChatComponent implements OnInit {
     try {
 
       var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId)));
-      var FriendChat = this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId));
+      var mychat = this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive);
 
       await chat.messages.sort(function (a, b) {
         if (a.time > b.time)
@@ -142,7 +142,7 @@ export class ChatComponent implements OnInit {
       });
 
 
-
+      var bool = true;
 
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
@@ -152,45 +152,48 @@ export class ChatComponent implements OnInit {
             //console.log(message.authorId);
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
-            this.toastr.info("You have a new message from " + (new Date() + " " + realDate));
-            this.fileClient.readFile(FriendChat).then(body => {
-              // n1:LastTimeChecked "${d}"^^XML:dateTime;
-              if (body.indexof("n1:LastTimeChecked")) {
+            //   this.toastr.info("You have a new message from " + (new Date() + " " + realDate));
+            if (bool) {
+              this.fileClient.readFile(mychat).then(body => {
+                // n1:LastTimeChecked "${d}"^^XML:dateTime;
+                if (body.indexof("n1:LastTimeChecked")) {
 
-                var bodysplit = body.split("n1:LastTimeChecked");
-                var bodysplit1 = bodysplit[0]
-                var bodysplit2 = bodysplit[1]
-                var bodysplit3 = bodysplit2.split('\n');
-                var date = Date.parse(bodysplit3[0].split("^^XML:dateTime")[0]);
+                  var bodysplit = body.split("n1:LastTimeChecked");
+                  var bodysplit1 = bodysplit[0]
+                  var bodysplit2 = bodysplit[1]
+                  var bodysplit3 = bodysplit2.split('\n');
+                  var date = Date.parse(bodysplit3[0].split("^^XML:dateTime")[0]);
 
-                if (date < realDate.getTime()) {
-                  this.toastr.info("You have a new message from " + message.authorId);
+                  if (date < realDate.getTime()) {
+                    this.toastr.info("You have a new message from " + message.authorId);
+                    let sound = new Howl({
+                      src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                    });
+                    bool = false;
+                  }
+                  bodysplit3[0] = "n1:LastTimeChecked " + new Date().toISOString() + "^^XML:dateTime;"
+
+
+                  bodysplit3 = bodysplit3.join('\n');
+                  body = bodysplit1 + bodysplit2 + bodysplit3;
+
+                  this.fileClient.updateFile(mychat, body).then(success => {
+                    console.log("checked date updated");
+                  }, (err: any) => console.log(err));
+                } else {
+                  throw Error()
                 }
-                bodysplit3[0] = "n1:LastTimeChecked " + new Date().toISOString() + "^^XML:dateTime;"
-
-
-                bodysplit3 = bodysplit3.join('\n');
-                body = bodysplit1 + bodysplit2 + bodysplit3;
-
-                this.fileClient.updateFile(FriendChat, body).then(success => {
-                  console.log("checked date updated");
-                }, (err: any) => console.log(err));
-              } else {
-                throw Error()
-              }
-
-
-
-            }, err => {
-              if (new Date().getTime() - realDate.getTime() < 30000) {
-                this.toastr.info("You have a new message from " + message.authorId);
-                let sound = new Howl({
-                  src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
-                });
-                Howler.volume(1);
-                sound.play();
-              }
-            });
+              }, err => {
+                if (new Date().getTime() - realDate.getTime() < 30000) {
+                  // this.toastr.info("You have a new message from " + message.authorId);
+                  let sound = new Howl({
+                    src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                  });
+                  Howler.volume(1);
+                  sound.play();
+                }
+              });
+            }
           }
         }
       });
