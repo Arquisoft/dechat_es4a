@@ -1,10 +1,10 @@
 import { SolidMessage } from "./solid-message.model";
 
 export class SolidChat {
-    constructor(name:string, clientId:string,friends:string[]) {
+    constructor(name:string, clientId:string,friends:Array<string>) {
         let i = 0;
         this.clientId = clientId;
-        
+        this.friendsId = new Array<string>();
         friends.forEach(friend => {
             this.friendsId.push(friend);
             i++;

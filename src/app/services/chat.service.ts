@@ -90,7 +90,11 @@ export class ChatService implements OnInit {
  */
   async postMessage(msg: SolidMessage) {
     var author = "me";
-    var urlfile = this.chatuserUrl + "index.ttl#this";
+    
+    
+    let urlfile = "";
+    this.chat.isGroup ? urlfile = this.chatUrlGroup(this.getDateFromTtl().split("-")) : urlfile = this.chatuserUrl + "index.ttl#this";
+
     if (this.userID == msg.authorId) {
       // urlfile = this.chatuserUrl + "index.ttl#this";
       // author = "me";
@@ -235,6 +239,7 @@ export class ChatService implements OnInit {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
     if (name != "undefined") {
+      this.getMessagesFromPOD(this.getChatUrl(this.userID));
       this.chat.friendsId.forEach(friendId =>{
         this.getMessagesFromPOD(this.getChatUrl(friendId));
       });
@@ -366,7 +371,7 @@ export class ChatService implements OnInit {
     let d = new Date();
     let url = "https://"+this.getUsername(this.rdf.session.webId)+".solid.community/private/GroupChat" + groupName + "/";
     this.chatuserUrl = url;
-    
+
     this.basechat = 
     `
     @prefix : <#>.
@@ -423,10 +428,12 @@ export class ChatService implements OnInit {
           }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
         }, err => console.log(err)).catch(error => console.log("File not created"));
     });
+
+    this.createBaseChatForGroup(this.chatUrlGroup(d.toISOString().split("T")[0].split("-")));
   }
 
   randomInt(){
-    return Math.floor(Math.random()*(Number.MAX_SAFE_INTEGER-Number.MIN_SAFE_INTEGER))+Number.MIN_SAFE_INTEGER;
+    return Math.floor(Math.random()*(Number.MAX_SAFE_INTEGER-0))+0;
   }
 
   getChatUrl(id:string){
@@ -436,6 +443,52 @@ export class ChatService implements OnInit {
     folder += this.chat.chatName;
    
     return id.replace("/profile/card#me",folder+"/index.ttl#this");
+  }
+
+  chatUrlGroup(time_parsed:string[]){
+    
+    let day = time_parsed[2];
+    let month = time_parsed[1];
+    let year = time_parsed[0];
+
+    let chatUrl = this.chatuserUrl +year+"/"+month+"/"+day+"/chat.ttl";
+
+    return chatUrl;
+  }
+
+  getDateFromTtl(){
+    let ttlUrl = this.chatuserUrl + "index.ttl";
+    let time_parsed;
+    this.fileClient.readFile(body => {
+      let thisContent = body.substring(body.indexOf(":this"),body.length);
+      let time_not_parsed = thisContent.substring(thisContent.indexOf("n0:created"),thisContent.indexOf("\"^"));
+      time_parsed = time_not_parsed.split("T")[0];
+    });
+
+    return time_parsed;
+  }
+
+  createBaseChatForGroup(url:string){
+    var d = new Date().toISOString();
+    let groupBaseChat = 
+    `
+    @prefix : <#>.
+    @prefix terms: <http://purl.org/dc/terms/>.
+    @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+    @prefix n: <http://rdfs.org/sioc/ns#>.
+    @prefix n0: <http://xmlns.com/foaf/0.1/>.
+    @prefix c: </profile/card#>.
+    @prefix ind: <../../../index.ttl#>.
+    @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+        
+    :Msg0000000000001
+        terms:created "${d}"^^XML:dateTime;
+        n:content "Chat started";
+        n0:maker c:me.
+    ind:this flow:message :Msg0000000000001 .
+    `;
+
+    this.fileClient.updateFile(url,groupBaseChat);
   }
 
 }
