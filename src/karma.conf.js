@@ -13,7 +13,6 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
       files:[
-      'app/**/*.ts',
       "../node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
       'assets/js/libs/rdflib.min.js'
     ],

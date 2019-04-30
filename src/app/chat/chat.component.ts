@@ -274,9 +274,12 @@ export class ChatComponent implements OnInit {
   getUsername(): string {
     try {
       let id = this.auth.getOldWebId();
-      let username = id.replace('https://', '');
-      let user = username.split('.')[0];
-      return user;
+      if(id != null || id != undefined){
+        let username = id.replace('https://', '');
+        let user = username.split('.')[0];
+        return user;
+      }
+      return "";
     }
     catch (error) {
       console.log(`Error webId: ${error}`);
