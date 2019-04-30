@@ -33,7 +33,7 @@ Then(/^I should see the title \(login page\)$/, async () => {
 });
 
 //card_page.feature
-Given(/^I am on the card page$/, async () => {
+Given(/^I am on the card page$/,{timeout: 5 * 5000}, async () => {
   await page.navigateToCard() ;
 });
 
