@@ -177,7 +177,7 @@ FN:850,(anonymous_111)
 FN:855,(anonymous_112)
 FN:855,(anonymous_113)
 FNF:71
-FNH:11
+FNH:12
 FNDA:1,(anonymous_14)
 FNDA:0,ImageSnippet
 FNDA:1,ChatComponent
@@ -189,7 +189,7 @@ FNDA:0,(anonymous_28)
 FNDA:0,(anonymous_32)
 FNDA:0,(anonymous_33)
 FNDA:1,(anonymous_34)
-FNDA:0,(anonymous_35)
+FNDA:1,(anonymous_35)
 FNDA:0,(anonymous_36)
 FNDA:0,(anonymous_37)
 FNDA:0,(anonymous_38)
@@ -336,7 +336,7 @@ DA:182,0
 DA:183,0
 DA:184,0
 DA:188,1
-DA:192,0
+DA:192,1
 DA:194,0
 DA:195,0
 DA:196,0
@@ -352,12 +352,12 @@ DA:211,0
 DA:212,0
 DA:215,0
 DA:216,0
-DA:224,0
+DA:224,1
 DA:230,1
 DA:231,1
 DA:232,1
-DA:233,0
-DA:234,0
+DA:233,1
+DA:234,1
 DA:235,0
 DA:244,1
 DA:246,0
@@ -682,7 +682,7 @@ DA:852,0
 DA:855,0
 DA:858,1
 LF:432
-LH:102
+LH:106
 BRDA:116,0,0,0
 BRDA:116,0,1,0
 BRDA:164,1,0,0
