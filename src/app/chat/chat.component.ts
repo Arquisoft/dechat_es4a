@@ -9,6 +9,10 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SolidChat } from '../models/solid-chat.model';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { escapeRegExp } from 'tslint/lib/utils';
 import { ColorEvent } from 'ngx-color';
 
 class ImageSnippet {
@@ -83,12 +87,12 @@ export class ChatComponent implements OnInit {
   }
 
   //Carga los amigos
-  loadFriends() {
+  async loadFriends() {
     if (!this.auth.getOldFriends()) {
-      const list_friends = this.rdf.getFriends();
-      this.auth.saveFriends(this.rdf.getFriends());
-      if (list_friends) {
-        this.amigos = list_friends;
+      const friends = await this.rdf.getFriends();
+      this.auth.saveFriends(friends.list_friends);
+      if (friends.list_friends) {
+        this.amigos = friends.list_friends;
       }
     }
     else {
@@ -267,12 +271,16 @@ export class ChatComponent implements OnInit {
     return user;
   }
 
-  //Devuelve el nombre de usuario loggeado
   getUsername(): string {
-    let id = this.auth.getOldWebId();
-    let username = id.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
+    try {
+      let id = this.auth.getOldWebId();
+      let username = id.replace('https://', '');
+      let user = username.split('.')[0];
+      return user;
+    }
+    catch (error) {
+      console.log(`Error webId: ${error}`);
+    }
   }
 
   //Sale de sesión
@@ -527,7 +535,8 @@ export class ChatComponent implements OnInit {
   async removeChat(friend: string) {
     if(confirm("Are you sure you want to delete this chat?")){
       console.log("Removing chat....: " + friend);
-      this.chat.removeChat(this.getUsername(), friend);
+      let user = await this.getUsername();
+      this.chat.removeChat(user, friend);
       this.mapContacts.forEach((value: string, key: string) => {
         if (key.includes(friend)) {
           this.mapContacts.delete(key);
@@ -748,8 +757,9 @@ export class ChatComponent implements OnInit {
   }
 
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
-  createFolderNotifications(){
-    this.chat.createFolderNotifications(this.getUsername());
+  async createFolderNotifications(){
+    let user = await this.getUsername();
+    this.chat.createFolderNotifications(user);
   }
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar

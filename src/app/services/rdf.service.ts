@@ -296,18 +296,19 @@ export class RdfService {
 
   // Function to list friends
 
-  getFriends = () => {
+  getFriends = async () => {
     const user = this.session.webId;
     const friends = this.store.each($rdf.sym(user), FOAF('knows'));
     const list_friends = [];
-    let contacts = new Map();
     try {
       let i = 0;
       for (i = 0; i < friends.length; i++) {
         let person = friends[i].value;
         list_friends.push(person);
       }
-      return list_friends;
+      return{
+        list_friends: list_friends
+      } 
     } catch (error) {
       console.log(`Error fetching data: ${error}`);
     }
