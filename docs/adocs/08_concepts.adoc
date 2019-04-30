@@ -2,14 +2,14 @@
 == Cross-cutting Concepts
 
 .Possible topics for crosscutting concepts
-image:images/08-Crosscutting-Concepts-Structure-EN.png[Possible topics for crosscutting concepts, align="center"]
+image:08-Crosscutting-Concepts-Structure-EN.png[Possible topics for crosscutting concepts, align="center"]
 
 === Domain Model
 
 In th following image, we present you the arquitecture of components we are using in this project. 
 
 .Domain Model
-image:images/classDiagram.png[Domain Model, align="center"]
+image:classDiagram.png[Domain Model, align="center"]
 
 === Domain Concept
 
@@ -28,7 +28,7 @@ We are using the architecture design in Angular. It is composed by modules and c
 These are the main modules to run the app:
 
 .Modules
-image:images/modules.png[Modules, align="center"]
+image:modules.png[Modules, align="center"]
 
 === User Experience
 
@@ -38,16 +38,16 @@ Design of the user interface for the app. The user interface is written with Ang
 We have pages for the login, registration, main page and chat.
 
 .Login Page
-image::images/login.png[Login Page,width="30%",height="30%", align="center"]
+image::login.png[Login Page,width="30%",height="30%", align="center"]
 
 .Registration Page
-image::images/login2.png[Registration Page,width="80%",height="80%", align="center"]
+image::login2.png[Registration Page,width="80%",height="80%", align="center"]
 
 .Home Page
-image::images/home.png[Home Page,width="80%",height="80%", align="center"]
+image::home.png[Home Page,width="80%",height="80%", align="center"]
 
 .Chat Page
-image::images/chat.png[Chat Page,width="80%",height="80%", align="center"]
+image::chat.png[Chat Page,width="80%",height="80%", align="center"]
 
 ==== Internationalization
 
@@ -61,7 +61,8 @@ The application will be using the costumer POD as database from the SOLID server
 
 ==== Exception/Error Handling
 
-Description of how we will handle errors and exceptions. To be filled in the future.
+Most of the error handling in the application occurs in the methods of the solid-file-client library: the expected succesful event (reading a file, updating a file, creating it...) is used both as condition of not trowing an exception and the opening of a try statement. Along the whole code of the succesful event we may throw an error at any point, which lets us run the error code of the method
+a prime example of this kind of error handling would be the addFriend() method in chat.component.ts, which handles the WEBID given to add a friend and throwns am error in different parts of the code after sucessfully reading the index.ttl of the user
 
 === Security and Safety
 
@@ -71,7 +72,7 @@ All files and data from client will be contained in the POD so the costumer will
 
 ==== Safety
 
-This application doesn't have anything dangerous.
+This application itself doesn't do anything that poses a threat: it simply reads the pods and whrites on it's own, which leaves it not very open to vulnerabilities. 
 
 === Development Concepts
 

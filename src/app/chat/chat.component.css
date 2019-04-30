@@ -45,7 +45,6 @@ ul {
     background: #E6EAEA;
     min-height: 100px;
     overflow: hidden;
-
     font: 12px arial;
     color: #222;
     text-align: center;    
@@ -61,7 +60,7 @@ ul {
     padding: 0;
     margin: 0;
     overflow: auto;
-    position: fixed;
+    /*position: fixed;*/
     flex:auto;
   }
 
@@ -81,18 +80,12 @@ ul {
     background: #686eb6dc;
     color: #f5f5f5;
     overflow: hidden;
-    position: relative;
   }
- /* @media screen and (max-width: 735px) {
-    #frame #sidepanel {
-      width: 58px;
-      min-width: 58px;
-    }
-  }*/
+
   /*Profile*/
   #frame #sidepanel #profile {
     width: 80%;
-    height: 17%;
+    height: 100px;
     display: inline-block;
     position: relative; 
   }
@@ -107,21 +100,36 @@ ul {
     margin-top: 7px;
   }
 
-  .fa-user-plus{
+  #frame #sidepanel #profile .wrap .fa-user-plus{
     font-size: 20px;
     float:right;
     margin-top: 15px;
     margin-right: 25px;
     cursor:pointer;
+    /*color: #fff !important;*/
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #sidepanel #profile .wrap .fa-user-plus:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
   }
   
-  .fa-bars{
+  #frame #sidepanel #profile .wrap .fa-bars{
     font-size: 20px;
     margin-top: 15px;
     margin: 15px 0px -10px 0px;;
     cursor:pointer;
-    float: right;;
+    float: right;
+    /*color: #fff !important;*/
+    text-transform: uppercase;
+    border: none;
   } 
+  #frame #sidepanel #profile .wrap .fa-bars:hover {
+    text-shadow: 0px 0px 12px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
+    }
 
   /*Tooltips*/
   #frame #sidepanel #profile .wrap .profile-image .tooltiptext {
@@ -214,7 +222,7 @@ ul {
     visibility: visible;
   }
 
-  #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
+ #frame #content .contact-profile .profile-option .dropdown .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: rgb(46, 46, 46);
@@ -226,7 +234,7 @@ ul {
     text-align: center;
     z-index: 1;
     top: 80%;
-    right: -70%;
+    right: -55px;
     font-size: 14px;
   }
   
@@ -243,15 +251,44 @@ ul {
   
   #frame #content .contact-profile .profile-option .dropdown:hover .tooltiptext {
     visibility: visible;
-  }
+  } 
 
+  #frame #content .contact-profile .profile-option .phoneCall .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(46, 46, 46);
+    background-position: center 100px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    top: 48px;
+    right: 40px;
+    font-size: 14px;
+  }
+  
+  #frame #content .contact-profile .profile-option .phoneCall .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(46, 46, 46) transparent;
+  }
+  
+  #frame #content .contact-profile .profile-option .phoneCall:hover .tooltiptext {
+    visibility: visible;
+  } 
 
   /*Search button*/
   #frame #sidepanel #search {
     font-weight: 300;
     padding: 30px 0 0px 5px;
     margin-top: 10px;
-    
   }
   /*@media screen and (max-width: 735px) {
     #frame #sidepanel #search {
@@ -265,7 +302,7 @@ ul {
   #frame #sidepanel #search input {
     font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
     padding: 10px 0 10px 46px;
-    width: calc(127% - 25px);
+    width: 100%;
     margin-left: -25px;
     border: none;
     background: #404479dc;
@@ -339,12 +376,39 @@ ul {
 
 /*Contact*/
   #frame #sidepanel #contacts {
-    /*height: calc(100% - 100px);*/
-    height: 85%;
+    height: calc(100% - 100px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #404479dc;
   }
+
+  #frame #sidepanel #contacts .textAdd p{
+    font-size: 20px;
+  }
+
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus {
+    float:center;
+    cursor:pointer;
+    font-size: 40px;
+    color: rgba(187, 220, 245, 0.75);
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid rgba(187, 220, 245, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+    border-radius: 60px;
+    box-shadow: 0px 0px 10px #888;
+    padding: 0.5em 0.6em;
+    margin-top:5%;
+  }
+  
+  #frame #sidepanel #contacts .textAdd .addContact .fa-user-plus:hover {
+    color: #FFF;
+    background: rgba(58, 133, 191, 0.75);
+    border: 2px solid rgba(58, 133, 191, 0.75);
+  }
+
   /*@media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
       height: calc(100% - 149px);
@@ -376,6 +440,7 @@ ul {
 
   #frame #sidepanel #contacts li.contact:hover .fa-trash-alt {
     display: block;
+    size: 60px;
   }
 
   #frame #sidepanel #contacts li.contact:active {
@@ -425,6 +490,7 @@ ul {
     height: 100%;
     overflow: hidden;
     position: relative;
+    min-width: 300px;
   }
 
   @media screen and (min-width: 900px) {
@@ -455,12 +521,24 @@ ul {
   #frame #content .contact-profile .profile-option{
     float: right;
     border: none;
-    width: 50px;
-    margin-right: 20px;
-    margin-left: 14px;
+    margin-right: 50px;
     cursor: pointer;
     font-size: 1.5em;
     color: #435f7a;
+    display: inline-flex;
+  }
+
+    #frame #content .contact-profile .profile-option .phoneCall .fa-phone{
+    margin-right: 30px;
+    cursor:pointer;
+    color: #41437e !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #content .contact-profile .profile-option .phoneCall .fa-phone:hover {
+    text-shadow: 0px 0px 12px #1c1d4e;
+    transition: all 0.4s ease 0s;
   }
 
   #frame #content .contact-profile .profile-option a{
@@ -474,11 +552,23 @@ ul {
     display: none;
   }
 
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v{
+    cursor:pointer;
+    color: #41437e !important;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  #frame #content .contact-profile .profile-option .dropdown .fa-ellipsis-v:hover {
+    text-shadow: 0px 0px 12px #1c1d4e;
+    transition: all 0.4s ease 0s;
+  }
+
   /*Messages*/
   #frame #content .messages {
     height: auto;
-    min-height: calc(100% - 180px);
-    max-height: calc(100% - 180px);
+    min-height: calc(100% - 130px);
+    max-height: calc(100% - 130px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -552,6 +642,15 @@ ul {
     }
   }
 
+  #frame #content .messages .msgDate {
+    
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 205px;
+    line-height: 130%;
+    background: #ebe7f0;
+  }
+
   #timeMessage{
     font-size: 10px;
     float: right;
@@ -591,7 +690,7 @@ input, select {
   border: none;
   opacity: .5;
   width: 50px;
-  margin: 15px 10px 5px 10px;
+  margin: 5px 10px 5px 10px;
   cursor: pointer;
   font-size: 1.5em;
   color: #435f7a;
@@ -618,6 +717,20 @@ input, select {
 
 #frame #content .message-input .wrap .image-upload{
   display: none;
+}
+
+#frame #content .message-input .wrap .fa-microphone {
+  border: none;
+  opacity: .5;
+  width: 50px;
+  margin: 15px 10px 5px 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #435f7a;
+}
+
+#frame #content .message-input .wrap .fa-microphone:hover {
+  opacity: 1;
 }
 
 #frame #content .message-input .wrap button {
@@ -650,4 +763,19 @@ input, select {
 .modal-body{
   height: 250px;
   overflow-y: auto;
+}
+
+.modal-notify .modal-header {
+  border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+  border-radius: 3px;
+}
+
+#colorPicker{
+display:none;
+position: absolute;
+z-index: 1;
+top: 260px;
+right: 140px;
 }

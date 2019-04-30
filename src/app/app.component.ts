@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { popupLogin } from 'solid-auth-client/dist-lib/solid-auth-client.bundle.js';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import {
   transition,
   trigger,
