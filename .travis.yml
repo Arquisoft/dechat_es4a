@@ -2,16 +2,12 @@ language: node_js
 node_js:
   - "10.15"
 before_script:
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  - sudo apt-get update
-  - sudo apt-get install google-chrome-stable
   - npm install -g @angular/cli
   - npm install
   - npm install --save howler
   - npm install solid-auth-client
   - npm install solid-file-client@0.4.9
-  - ng test --watch=false --code-coverage
+  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   - ng build --prod
 after_success:
   - node_modules\.bin\cucumber-js src\test\dechatCucumber\features -r src\test\dechatCucumber\features\step_definitions
