@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
@@ -23,10 +23,13 @@ import { AuthGuard } from './services/auth.guard.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
-import { ToastrModule } from 'ngx-toastr';
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
+import {RdfService} from "./services/rdf.service";
+import {ChatService} from "../../bin/src/app/services/chat.service";
+import {VgStreamingModule} from "videogular2/streaming";
 
 
 const routes: Routes = [
@@ -91,9 +94,12 @@ const routes: Routes = [
     VgOverlayPlayModule,
     VgBufferingModule,
     ColorSketchModule,
-    ColorTwitterModule
+    ColorTwitterModule,
+    BrowserAnimationsModule,
+    VgStreamingModule
   ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
+  providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -5,6 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { DebugElement } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 
+import { ToastrModule, ToastrService} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 describe('CardComponent',() =>{
 	let component: CardComponent;
@@ -14,7 +17,7 @@ describe('CardComponent',() =>{
 	beforeEach(async(()=>{
 		TestBed.configureTestingModule({
             imports: [    
-                RouterTestingModule    
+                RouterTestingModule, BrowserAnimationsModule, ToastrModule.forRoot()
               ],
 			declarations: [
                 CardComponent
