@@ -59,6 +59,10 @@
         <div class="contact-profile" id="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
+               <div class="phoneCall">
+                    <i class="fas fa-phone" role="button"></i>
+                    <span class="tooltiptext">Call</span>
+                </div>
                 <div class="dropdown">
                     <i class="fa fa-ellipsis-v" role="button" data-toggle="dropdown"></i>
                     <span class="tooltiptext">Chat settings</span>
@@ -93,9 +97,6 @@
                                 <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string)&& !isVideo(string) ">
-                                {{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span>
-                            </p>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 42%;">
                                     <vg-controls>
@@ -123,7 +124,7 @@
                                 </vg-player>
                             </div>
                             <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}}
-                                <span id='timeMessage2'>{{hourMessages(string.time)}}</span></p>
+                                <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
@@ -165,7 +166,7 @@
                                 </vg-player>
                             </div>
                             <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span
-                                    id='timeMessage3'>
+                                    id='timeMessage'>
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
@@ -224,11 +225,11 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-
                 <div *ngFor="let entry of mapFriendsTotal | keyvalue">
                     <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
                         (click)="createChat(entry.key,entry.value)">
-                        {{entry.key}}</button>
+                        {{entry.key}}
+                    </button>
                 </div>
             </div>
 

@@ -67,6 +67,9 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
+  //Invitaciones aceptadas
+  acceptedInvitations = [];
+
   @ViewChild('chatbox') chatbox: ElementRef;
 
   constructor(private rdf: RdfService, private chat: ChatService, private renderer: Renderer2, private auth: AuthService,
@@ -78,6 +81,9 @@ export class ChatComponent implements OnInit {
     this.loadProfile();
     this.loadFriends();
     this.refreshMessages();
+    //crear carpeta para notificaciones
+    this.createFolderNotifications();
+    this.lookForInvitations();
   }
 
   //Carga los amigos
@@ -431,7 +437,7 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name, photo);
-    this.mapContacts.set(name, photo);
+    this.mapContacts.set(name, photo);    
   }
 
   //Abre el panel vertical
@@ -523,20 +529,21 @@ export class ChatComponent implements OnInit {
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
-    confirm("Are you sure you want to delete this chat?");
-    console.log("Removing chat....: " + friend);
-    this.chat.removeChat(this.getUsername(), friend);
-    this.mapContacts.forEach((value: string, key: string) => {
-      if (key.includes(friend)) {
-        this.mapContacts.delete(key);
-      }
-    });
-    this.friendActive = null;
-    this.friendPhotoActive = null;
-    this.messages = [];
-    this.dateLastMessage = undefined;
-    this.secondMessage = 0;
-    this.chat.resetChat();
+    if(confirm("Are you sure you want to delete this chat?")){
+      console.log("Removing chat....: " + friend);
+      this.chat.removeChat(this.getUsername(), friend);
+      this.mapContacts.forEach((value: string, key: string) => {
+        if (key.includes(friend)) {
+          this.mapContacts.delete(key);
+        }
+      });
+      this.friendActive = null;
+      this.friendPhotoActive = null;
+      this.messages = [];
+      this.dateLastMessage = undefined;
+      this.secondMessage = 0;
+      this.chat.resetChat();
+    }
   }
 
   //Para determinar cuando mostrar la fecha en pantalla
@@ -735,12 +742,108 @@ export class ChatComponent implements OnInit {
     document.getElementById('colorPicker').style.display = "none";
   }
 
+  //Cambia de color las letras
   private changeLetterColor(className:string, color:string){
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
     for (i = 0; i < list.length; i++) {
         list[i].style.color = color;
     }
+  }
+
+  //Crea la carpeta para las notificaciones con sus permisos correspondientes
+  createFolderNotifications(){
+    this.chat.createFolderNotifications(this.getUsername());
+  }
+
+  //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
+  lookForInvitations(){
+    setInterval(() => {
+      let invitationURL = "https://" + this.getUsername() + ".solid.community/public/chatInvitation/invitation.txt";
+      this.fileClient.readFile(invitationURL).then(body => {
+        let content = body;
+        console.log("content: " + content);
+        let names = content.split(",");
+        for(let i = 0; i < names.length; i++){
+          let count = 0;
+          for(let j = 0; j < this.acceptedInvitations.length; j++){
+            if(this.acceptedInvitations[j] == names[i]){
+              count++;
+            }
+          }
+          this.mapContacts.forEach((value: string, key: string) => {
+            if (key.includes(names[i])) {
+              count++;
+            }
+          });
+          if(count == 0){
+            if(names[i] != ""){
+              if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
+                //Miramos si es una amigo o un desconocido
+                let count = 0;
+                this.mapFriendsTotal.forEach((value: string, key: string) => {
+                  if (key.includes(names[i])) {
+                    count++;
+                  }
+                });
+                if(count == 0){ //Si es desconocido se añade
+                  this.addFriendFromInvitation(names[i]);
+                }
+                
+                this.loadFriends();
+                let photo = this.mapFriendsTotal.get(names[i]);
+                this.changeChat(names[i], photo.toString());
+                this.mapContacts.set(names[i], photo); 
+                this.acceptedInvitations.push(names[i]);
+              }
+              else{
+                this.acceptedInvitations.push(names[i]);
+              }
+            }
+            this.chat.removeInvitation(invitationURL,names[i]);
+          }
+        }
+      }, (err: any) => console.log("No invitations founded"));
+    }, 5000);
+  }
+
+  addFriendFromInvitation(friend:string) {
+    var clientid = this.rdf.session.webId;
+    this.fileClient.readFile(clientid).then(body => {
+      var friendname = friend;
+      var internalnamevar = "addedfriend" + friendname;
+      if (body.indexOf(internalnamevar) >= 0) {
+        this.toastr.info('friend already exists in this card');
+        throw Error();
+      }
+
+      if (body.indexOf('knows') >= 0) {
+        // Found know
+        var splitbody1 = body.split("pro:card")[0];
+        var splitbody2 = body.split("pro:card")[1];
+        splitbody2 = `
+        @prefix `+ internalnamevar + `: <https://` + friendname + `.solid.community/profile/card#>.
+
+      pro:card` + splitbody2
+
+        body = splitbody1 + splitbody2;
+        splitbody1 = body.split(":knows")[0];
+        splitbody2 = body.split(":knows")[1];
+
+        splitbody2 = ":knows " + internalnamevar + ":me ," + splitbody2;
+        body = splitbody1 + splitbody2;
+        console.log(body);
+
+
+        this.fileClient.updateFile(clientid, body).then(success => {
+
+          this.toastr.info('new friend has been saved');
+        }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+      } else {
+        this.toastr.info('adding friends to friendless cards not yet implemented, sorry!');
+
+      }
+    }, (err: any) => console.log(err)).catch(error => console.log("Not friend correct"));
   }
 
 }
