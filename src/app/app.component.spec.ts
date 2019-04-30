@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './login/login.component';
 import {LoginPopupComponent} from './login-popup/login-popup.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {CardComponent} from './card/card.component';
 import {RegisterComponent} from './register/register.component';
 import {ChatComponent} from './chat/chat.component';
