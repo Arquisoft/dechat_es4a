@@ -5,6 +5,10 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    files:[
+      'app/*/.ts',
+      "../node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
+      'assets/js/libs/rdflib.min.js'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),

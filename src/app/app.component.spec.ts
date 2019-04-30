@@ -2,15 +2,8 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing'
 import {ToastrModule} from 'ngx-toastr';
-import {LoginComponent} from './login/login.component';
-import {LoginPopupComponent} from './login-popup/login-popup.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {CardComponent} from './card/card.component';
-import {RegisterComponent} from './register/register.component';
-import {ChatComponent} from './chat/chat.component';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,7 +12,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
         imports:[
-            RouterTestingModule, ToastrModule.forRoot()
+            RouterTestingModule, ToastrModule.forRoot(),  FormsModule, NgSelectModule
         ]
     }).compileComponents();
 
