@@ -5,6 +5,8 @@ export class SolidChat {
         let i = 0;
         this.clientId = clientId;
         this.friendsId = new Array<string>();
+        this.chatName = name;
+        
         friends.forEach(friend => {
             this.friendsId.push(friend);
             i++;

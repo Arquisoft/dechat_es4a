@@ -55,7 +55,7 @@ export class ChatService implements OnInit {
     this.friendID = destinataryWebId;
     let friends = new Array<string>();
     friends.push(this.friendID);
-    this.chat = new SolidChat(this.getUsername(this.userID),this.userID, friends);
+    this.chat = new SolidChat(this.getUsername(destinataryWebId),this.userID, friends);
     this.chatfriendUrl = "https://" + this.getUsername(this.friendID) + ".solid.community/private/Chat" + this.getUsername(this.userID) + "/"
     this.chatuserUrl = "https://" + this.getUsername(this.userID) + ".solid.community/private/Chat" + this.getUsername(this.friendID) + "/"
     this.basechat = `@prefix : <#>.
@@ -91,59 +91,61 @@ export class ChatService implements OnInit {
   async postMessage(msg: SolidMessage) {
     var author = "me";
     
-    
-    let urlfile = "";
-    this.chat.isGroup ? urlfile = this.chatUrlGroup(this.getDateFromTtl().split("-")) : urlfile = this.chatuserUrl + "index.ttl#this";
+    let urlfile = this.chatuserUrl + "index.ttl#this";
 
-    if (this.userID == msg.authorId) {
-      // urlfile = this.chatuserUrl + "index.ttl#this";
-      // author = "me";
-    }
-
-    var chatcontent = "";
-
-    //Lee el ttl:
-    this.fileClient.readFile(urlfile).then(body => {
-      chatcontent = body;
-      //console.log(chatcontent);
-      //console.log("---------------------------------------------------------");
-      var chatcontentsplit = chatcontent.split(":this");
-      var chatcontent1 = chatcontentsplit[0];
-      //console.log(chatcontentsplit[0]);
-      //console.log("---------------------------------------------------------");
-      var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
-      //console.log(chatcontent2);
-      //console.log("---------------------------------------------------------");
-      var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
-      //console.log(chatcontent3);
-      //console.log("---------------------------------------------------------");
-      const d = new Date();
-
-      var dm
-      if (d.getMonth() < 10) {
-        dm = "0" + d.getMonth()
-      } else {
-        dm = d.getMonth();
+    if(this.chat.isGroup)
+      this.sendMessageToGroup(msg);
+    else{
+      if (this.userID == msg.authorId) {
+        // urlfile = this.chatuserUrl + "index.ttl#this";
+        // author = "me";
       }
-      //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
-      const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
 
-      //console.log("numero de mensaje: " + msgnb);
+      var chatcontent = "";
 
-      const message = chatcontent1 + `
-        :Msg${msgnb}
-            terms:created "${d.toISOString()}"^^XML:dateTime;
-            n:content "${msg.content}";
-            n0:maker c:${author}.
-            `+ `:this
-            `+ `
-             `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
-      console.log(message);
-      this.fileClient.updateFile(urlfile, message).then(success => {
-        console.log('message has been saved');
-      }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+      //Lee el ttl:
+      this.fileClient.readFile(urlfile).then(body => {
+        chatcontent = body;
+        //console.log(chatcontent);
+        //console.log("---------------------------------------------------------");
+        var chatcontentsplit = chatcontent.split(":this");
+        var chatcontent1 = chatcontentsplit[0];
+        //console.log(chatcontentsplit[0]);
+        //console.log("---------------------------------------------------------");
+        var chatcontent2 = chatcontentsplit[1].split("flow:message")[0];
+        //console.log(chatcontent2);
+        //console.log("---------------------------------------------------------");
+        var chatcontent3 = chatcontentsplit[1].split("flow:message")[1];
+        //console.log(chatcontent3);
+        //console.log("---------------------------------------------------------");
+        const d = new Date();
 
-    }, err => this.createBaseChat(this.chatuserUrl)).catch(error => console.log("Not able to read file"));
+        var dm
+        if (d.getMonth() < 10) {
+          dm = "0" + d.getMonth()
+        } else {
+          dm = d.getMonth();
+        }
+        //Decidimos un numero en base a la fecha para que no haya mensajes repetidos
+        const msgnb = d.getFullYear().toString() + dm + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + 0;
+
+        //console.log("numero de mensaje: " + msgnb);
+
+        const message = chatcontent1 + `
+          :Msg${msgnb}
+              terms:created "${d.toISOString()}"^^XML:dateTime;
+              n:content "${msg.content}";
+              n0:maker c:${author}.
+              `+ `:this
+              `+ `
+              `+ chatcontent2 + `flow:message ` + `:Msg${msgnb} ,` + chatcontent3
+        console.log(message);
+        this.fileClient.updateFile(urlfile, message).then(success => {
+          console.log('message has been saved');
+        }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+
+      }, err => this.createBaseChat(this.chatuserUrl)).catch(error => console.log("Not able to read file"));
+    } 
   }
 
   async removeMessage(msg: SolidMessage) {
@@ -238,8 +240,8 @@ export class ChatService implements OnInit {
   async loadMessages(user, friend) {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
-    if (name != "undefined") {
-      this.getMessagesFromPOD(this.getChatUrl(this.userID));
+    if (name != "undefined" && !this.chat.isGroup) {
+      this.getMessagesFromPOD(this.getChatUrl(this.rdf.session.webId));
       this.chat.friendsId.forEach(friendId =>{
         this.getMessagesFromPOD(this.getChatUrl(friendId));
       });
@@ -370,6 +372,7 @@ export class ChatService implements OnInit {
     let j = 0;
     let d = new Date();
     let url = "https://"+this.getUsername(this.rdf.session.webId)+".solid.community/private/GroupChat" + groupName + "/";
+    
     this.chatuserUrl = url;
 
     this.basechat = 
@@ -469,8 +472,8 @@ export class ChatService implements OnInit {
     return time_parsed;
   }
 
-  async createBaseChatForGroup(url:string){
-    var d = new Date().toISOString();
+  createBaseChatForGroup(url:string){
+    let date = new Date();
     let groupBaseChat = 
     `
     @prefix : <#>.
@@ -483,7 +486,7 @@ export class ChatService implements OnInit {
     @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
         
     :Msg0000000000001
-        terms:created "${d}"^^XML:dateTime;
+        terms:created "${date.toISOString()}"^^XML:dateTime;
         n:content "Chat started";
         n0:maker c:me.
     ind:this flow:message :Msg0000000000001 .
@@ -491,16 +494,16 @@ export class ChatService implements OnInit {
     console.log(url);
     console.log(groupBaseChat);
 
-    let yearFolder = url.replace("/04/29/chat.ttl#this", "");
+    let yearFolder = url.substring(0,url.length-20);
     
-    await this.fileClient.createFolder(yearFolder).then(() => {
+    this.fileClient.createFolder(yearFolder).then(() => {
       console.log('year');
-      let monthFolder = url.replace("/29/chat.ttl#this","");
+      let monthFolder = url.substring(0,url.length - 17);
       this.fileClient.createFolder(monthFolder).then(()=>{
-        console.log('year');
+        console.log('month');
         let dayFolder = url.replace("/chat.ttl#this","");
         this.fileClient.createFolder(dayFolder).then(()=> {
-          console.log('year');
+          console.log('day');
           this.fileClient.createFile(url).then(fileCreated => {
             console.log('chat');
             this.fileClient.updateFile(fileCreated,groupBaseChat);
@@ -508,7 +511,46 @@ export class ChatService implements OnInit {
         });
       });
     });
-    
+  }
+
+  async sendMessageToGroup(msg:SolidMessage){
+    let date = new Date();
+    let chatUrl = this.chatUrlGroup(date.toISOString().split("T")[0].split("-"));
+
+    await this.fileClient.readFile(chatUrl).then(body => {
+      console.log('chat exists');
+      let chatContent = body;
+      
+      let chatContent0 = body.split("ind:this")[0];
+      let chatContent1 = body.split("ind:this")[1].split("flow:message")[0];
+      let chatContent2 = body.split("ind:this")[1].split("flow:message")[1];
+
+      let dm
+      if (date.getMonth() < 10) {
+        dm = "0" + date.getMonth()
+      } else {
+        dm = date.getMonth();
+      }
+  
+      const msgnb = date.getFullYear().toString() + dm + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + 0;
+      const message = chatContent0 + `
+        :Msg${msgnb}
+            terms:created "${date.toISOString()}"^^XML:dateTime;
+            n:content "${msg.content}";
+            n0:maker c:me.
+            `+ `:this
+            `+ `
+             `+ chatContent1 + `flow:message ` + `:Msg${msgnb} ,` + chatContent2
+      this.fileClient.updateFile(chatUrl, message).then(success => {
+        console.log('message has been saved');
+      }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+    },async err => {
+      console.log(err + '\ncreate new chat.ttl');
+      await this.createBaseChatForGroup(chatUrl);
+    });
+
+
+
   }
 
 }
