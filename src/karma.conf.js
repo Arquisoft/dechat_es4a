@@ -12,6 +12,11 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+      files:[
+      'app/**/*.ts',
+      "../node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
+      'assets/js/libs/rdflib.min.js'
+    ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -28,13 +33,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-      browsers: ['ChromeHeadlessNoSandbox'],
-      customLaunchers: {
-          ChromeHeadlessNoSandbox: {
-              base: 'ChromeHeadless',
-              flags: ['--no-sandbox']
-          }
-      },
+      browsers: ['Chrome'],
       singleRun: false
 
   });
