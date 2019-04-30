@@ -2,7 +2,7 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
-  config.set({
+  var cfg = {
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
@@ -11,6 +11,10 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
+    ],
+      files:[
+      "../node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
+      'assets/js/libs/rdflib.min.js'
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -28,14 +32,19 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-      browsers: ['ChromeHeadlessNoSandbox'],
-      customLaunchers: {
-          ChromeHeadlessNoSandbox: {
-              base: 'ChromeHeadless',
-              flags: ['--no-sandbox']
-          }
-      },
-      singleRun: false
+    browsers: ["Chrome"],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox"]
+      }
+    },
+    singleRun: false,
+  }
 
-  });
+  if (process.env.TRAVIS) {
+    cfg.browsers = ['Chrome_travis_ci'];
+}
+
+config.set(cfg);
 };
