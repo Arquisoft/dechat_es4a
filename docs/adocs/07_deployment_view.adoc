@@ -4,7 +4,7 @@
 
 === Infrastructure Level 1
 
-image:images/07_Deployment.PNG["Basic Deployment View"]
+image:07_Deployment.PNG["Basic Deployment View"]
 
 .Deployment nodes and artifact
 |===
