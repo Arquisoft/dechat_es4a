@@ -49,4 +49,7 @@ describe('ChatComponent', () => {
             (fixture.nativeElement as HTMLElement).remove();
         }
     });
+    afterEach(() => {
+        TestBed.resetTestingModule();
+      });
 });

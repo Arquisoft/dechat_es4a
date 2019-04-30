@@ -199,7 +199,7 @@ export class ChatComponent implements OnInit {
         else
           return 0;
       });
-
+      let user = await this.getUsername();
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -207,12 +207,14 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              this.toastr.info("You have a new message from " + message.authorId);
-              let sound = new Howl({
-                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
-              });
-              Howler.volume(1);
-              sound.play();
+              if(message.authorId != this.chat.userID){
+                this.toastr.info("You have a new message from " + message.authorId);
+                let sound = new Howl({
+                  src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                });
+                Howler.volume(1);
+                sound.play();
+              }
             }
           }
         }

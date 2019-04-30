@@ -34,4 +34,8 @@ describe('CardComponent',() =>{
 	it('should create',async(()=>{
 		expect(component).toBeTruthy();
 	}));
+
+	afterAll(() => {
+		TestBed.resetTestingModule();
+	  });
 });
