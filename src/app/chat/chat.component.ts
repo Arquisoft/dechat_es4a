@@ -87,12 +87,12 @@ export class ChatComponent implements OnInit {
   }
 
   //Carga los amigos
-  loadFriends() {
+  async loadFriends() {
     if (!this.auth.getOldFriends()) {
-      const list_friends = this.rdf.getFriends();
-      this.auth.saveFriends(this.rdf.getFriends());
-      if (list_friends) {
-        this.amigos = list_friends;
+      const friends = await this.rdf.getFriends();
+      this.auth.saveFriends(friends.list_friends);
+      if (friends.list_friends) {
+        this.amigos = friends.list_friends;
       }
     }
     else {
@@ -199,7 +199,7 @@ export class ChatComponent implements OnInit {
         else
           return 0;
       });
-
+      let user = await this.getUsername();
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -207,12 +207,14 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              this.toastr.info("You have a new message from " + message.authorId);
-              let sound = new Howl({
-                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
-              });
-              Howler.volume(1);
-              sound.play();
+              if(message.authorId != this.chat.userID){
+                this.toastr.info("You have a new message from " + message.authorId);
+                let sound = new Howl({
+                  src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                });
+                Howler.volume(1);
+                sound.play();
+              }
             }
           }
         }
@@ -271,12 +273,19 @@ export class ChatComponent implements OnInit {
     return user;
   }
 
-  //Devuelve el nombre de usuario loggeado
   getUsername(): string {
-    let id = this.auth.getOldWebId();
-    let username = id.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
+    try {
+      let id = this.auth.getOldWebId();
+      if(id != null || id != undefined){
+        let username = id.replace('https://', '');
+        let user = username.split('.')[0];
+        return user;
+      }
+      return "";
+    }
+    catch (error) {
+      console.log(`Error webId: ${error}`);
+    }
   }
 
   //Sale de sesión
@@ -531,7 +540,8 @@ export class ChatComponent implements OnInit {
   async removeChat(friend: string) {
     if(confirm("Are you sure you want to delete this chat?")){
       console.log("Removing chat....: " + friend);
-      this.chat.removeChat(this.getUsername(), friend);
+      let user = await this.getUsername();
+      this.chat.removeChat(user, friend);
       this.mapContacts.forEach((value: string, key: string) => {
         if (key.includes(friend)) {
           this.mapContacts.delete(key);
@@ -752,8 +762,9 @@ export class ChatComponent implements OnInit {
   }
 
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
-  createFolderNotifications(){
-    this.chat.createFolderNotifications(this.getUsername());
+  async createFolderNotifications(){
+    let user = await this.getUsername();
+    this.chat.createFolderNotifications(user);
   }
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar

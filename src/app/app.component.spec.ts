@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardComponent } from './card/card.component';
 import { RegisterComponent } from './register/register.component';
 import { ChatComponent } from './chat/chat.component';
@@ -67,25 +66,11 @@ describe('AppComponent', () => {
       expect(service).toBeTruthy();
     });
   }));
-  /*
-ejemplos de supuestos test de localstorage
 
-    describe('setAccessToken', () => {
-      it('should store the token in localStorage',
-        () => {
-          service.setAccessToken('sometoken');
-          expect(localStorage.getItem('id_token')).toEqual('sometoken');
-        });
-    });
- 
-  describe('getAccessToken', () => {
-    it('should return stored token from localStorage',
-      () => {
-        localStorage.setItem('id_token', 'anothertoken');
-        expect(service.getAccessToken()).toEqual('anothertoken');
-      });
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
- */
+
 
   /*it(`should have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
