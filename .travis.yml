@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - "10.15"
 before_script:
+  - apt-get update
+  - apt-get install -y gdebi
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - gdebi --non-interactive google-chrome-stable_current_amd64.deb
   - npm install -g @angular/cli
   - npm install
   - npm install --save howler
