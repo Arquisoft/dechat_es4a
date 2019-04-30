@@ -12,8 +12,8 @@ There are certain limitations that may restrict our application, which are diffe
 [options="header"]
 |===
 |Constraint|Background and / or motivation      
-|Programming language  | JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.
-|SOLID Specifications  | El chat debe ser descentralizado utilizando la tecnología SOLID.
+|Programming language  | TypeScript will be used as the programming language to build the application as it is extremely flexible and confortable to use for web based applications. 
+|SOLID Specifications  | The Chat must be decentralized, using SOLID POD tecnologies
 |Decentralized architecture | It must be a chat where the user's data is separated from the application that uses it.
 |Compatible and stand-alone application | This application must be compatible with any operating system and major web browsers (Chrome, Firefox, Opera, Edge ...).
 |===
