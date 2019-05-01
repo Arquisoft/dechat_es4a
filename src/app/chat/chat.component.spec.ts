@@ -76,6 +76,21 @@ describe('ChatComponent', () => {
         expect(message.toString()).toBe('user1' + ": " + 'Hola');
     });
 
+    it('should create an instance of Solid Chat model', () => {
+        const message = new SolidMessage('user1', 'Hola', (new Date()).toISOString());
+        expect(message).toBeTruthy();
+    });
+
+    it('should return values from Solid Chat model', () => {
+        let date = (new Date()).toISOString()
+        const message = new SolidMessage('user1', 'Hola', date);
+        expect(message).toBeTruthy();
+        expect(message.authorId).toBe('user1');
+        expect(message.content).toBe('Hola');
+        expect(message.time).toBe(date);
+        expect(message.toString()).toBe('user1' + ": " + 'Hola');
+    });
+
     afterEach(() => {
         if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
             (fixture.nativeElement as HTMLElement).remove();

@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
