@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { Renderer2 } from '@angular/core';
 
 describe('AppComponent', () => {
 
@@ -21,7 +22,7 @@ describe('AppComponent', () => {
         AppComponent,
         NavbarComponent
       ],
-      providers: [ChatComponent],
+      providers: [ChatComponent, Renderer2],
       imports: [
         RouterTestingModule, ToastrModule.forRoot()
       ]
