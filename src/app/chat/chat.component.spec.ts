@@ -82,25 +82,21 @@ describe('ChatComponent', () => {
 
         });
 
-        it('getPicture must return the profile photo', () => {
-             'https://davidcr98.solid.community/profile/card#me';
-            expect(component.getProfilePicture(user)).toBe('https://yagoprado.solid.community/profile/perfil.jpeg');
+        it('Check the profile photo', () => {
+             const user = 'https://davidcr98.solid.community/profile/card#me';
+             component.loadProfile('')
+            expect(component).toBe('https://davidcr98.solid.community/profile/perfil.jpeg');
 
         });
 
-        it('initSelection must put receiver ', () => {
-            const chat: ChatService = fixture.debugElement.injector.get(ChatService);
-            spyOn(chat, 'initChat');
-            component.initSelection('https://fooroute')
-            expect(chat.initChat).toHaveBeenCalledTimes(1);
-            expect(document.getElementById('receiver').innerHTML).toBe(name);
+        it('create a chat ', () => {
+
 
         });
 
         it('actualizar should update the message list ', () => {
             const chat: ChatService = fixture.debugElement.injector.get(ChatService);
             //spyOn(chat, 'actualizar');
-            //spyOn(chat, 'order');
             component.actualizar();
             expect (component.messages).toEqual([]);
             //expect(chat.actualizar).toHaveBeenCalledTimes(1);
@@ -110,9 +106,6 @@ describe('ChatComponent', () => {
 
 
     });
-
-
-
 
     afterEach(() => {
         if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
