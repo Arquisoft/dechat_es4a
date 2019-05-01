@@ -85,6 +85,12 @@ export class ChatComponent implements OnInit {
     this.lookForInvitations();
   }
 
+
+
+  getWebId(): string {
+    const webId = this.rdf.getWebId();
+    return webId;
+  }
   //Carga los amigos
   async loadFriends() {
     if (!this.auth.getOldFriends()) {
@@ -128,7 +134,7 @@ export class ChatComponent implements OnInit {
         let user = username.split('.')[0];
         this.mapFriendsTotal.set(user, transformIm);
 
-        const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
+        const bool = await this.chat.isChatCreated(this.getOldWebId(), user);
         if (bool) {
           this.mapContacts.set(user, transformIm);
         }
@@ -188,7 +194,7 @@ export class ChatComponent implements OnInit {
 
     try {
 
-      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.rdf.session.webId), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.rdf.session.webId)));
+      var chat = await this.chat.loadMessages(this.getChatUrl(this.getUsernameFromId(this.getWebId()), this.friendActive), this.getChatUrl(this.friendActive, this.getUsernameFromId(this.getWebId())));
 
       await chat.messages.sort(function (a, b) {
         if (a.time > b.time)
@@ -206,7 +212,7 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              if(message.authorId != this.chat.userID){
+              if (message.authorId != this.chat.userID) {
                 this.toastr.info("You have a new message from " + message.authorId);
                 let sound = new Howl({
                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
@@ -271,11 +277,15 @@ export class ChatComponent implements OnInit {
     let user = username.split('.')[0];
     return user;
   }
+  getOldWebId(): string {
+    return this.auth.getOldWebId();
+  }
+
 
   getUsername(): string {
     try {
-      let id = this.auth.getOldWebId();
-      if(id != null || id != undefined){
+      let id = this.getOldWebId();
+      if (id != null || id != undefined) {
         let username = id.replace('https://', '');
         let user = username.split('.')[0];
         return user;
@@ -320,7 +330,7 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.dateLastMessage = undefined;
-    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    this.chat.createInboxChat(this.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
     this.loadMessages();
   }
 
@@ -339,7 +349,7 @@ export class ChatComponent implements OnInit {
     console.log("CAMBIANDO BACKGROUND...");
     const file: File = imageInput.files[0];
     let type = file.type.split("/");
-    const myNewFile = new File([file], 'background.'+ type[1], {type: file.type});
+    const myNewFile = new File([file], 'background.' + type[1], { type: file.type });
     console.log("myNewFile.name: " + myNewFile.name);
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
@@ -351,18 +361,18 @@ export class ChatComponent implements OnInit {
   }
 
   //Coloca la imagen del input como background
-  setBackground(imageURL){
+  setBackground(imageURL) {
     document.getElementById("content").style.backgroundImage = "url(" + imageURL + ")";
     document.getElementById("content").style.backgroundRepeat = "no-repeat";
     document.getElementById("content").style.backgroundPosition = "center";
-    document.getElementById("content").style.backgroundSize= "cover";
+    document.getElementById("content").style.backgroundSize = "cover";
   }
 
   //Devuelve la url del background chat si hay un amigo elegido
-  getUrlBackground(){
+  getUrlBackground() {
     let url = "https://" + this.getUsername() + ".solid.community/private/Chat" + this.friendActive + "/background.jpeg";
-    if(this.friendActive != undefined){
-         return "url('"+ url + "')"; 
+    if (this.friendActive != undefined) {
+      return "url('" + url + "')";
     }
     return "url('/assets/images/cosmos.jpg')";
   }
@@ -436,7 +446,7 @@ export class ChatComponent implements OnInit {
 
   //Para saber si el chat ya ha sido creado
   async isChatCreated(user: string) {
-    const bool = await this.chat.isChatCreated(this.auth.getOldWebId(), user);
+    const bool = await this.chat.isChatCreated(this.getOldWebId(), user);
     return bool;
   }
 
@@ -445,7 +455,7 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name, photo);
-    this.mapContacts.set(name, photo);    
+    this.mapContacts.set(name, photo);
   }
 
   //Abre el panel vertical
@@ -467,13 +477,13 @@ export class ChatComponent implements OnInit {
     return false;
   }
 
-   //Devuelve true si es video (archivo online)
-  isVideo(str: string) : boolean {
-    str = str +'';
-    if( str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov' )!= -1
-        || str.indexOf('.avi' )!= -1 || str.indexOf('.mp4' )!= -1  ){
-      if(!this.videosSafesURL[str]){
-        this.videosSafesURL[str]= this.getVideoTrustedUrl(str);
+  //Devuelve true si es video (archivo online)
+  isVideo(str: string): boolean {
+    str = str + '';
+    if (str.indexOf('youtu.be') != -1 || str.indexOf('youtube') != -1 || str.indexOf('.mov') != -1
+      || str.indexOf('.avi') != -1 || str.indexOf('.mp4') != -1) {
+      if (!this.videosSafesURL[str]) {
+        this.videosSafesURL[str] = this.getVideoTrustedUrl(str);
       }
       return true;
     }
@@ -481,18 +491,18 @@ export class ChatComponent implements OnInit {
   }
 
   //Devuelve true si es audio (archivo subido a la pod)
-  isAudio(str: string): boolean{
-    str = str +'';
-    if( str.indexOf('.wav' )!= -1 || str.indexOf('.mp3' )!= -1  ){
-      if(!this.audiosSafesURL[str]){
-        this.audiosSafesURL[str]= this.getTrustedUrl(str);
+  isAudio(str: string): boolean {
+    str = str + '';
+    if (str.indexOf('.wav') != -1 || str.indexOf('.mp3') != -1) {
+      if (!this.audiosSafesURL[str]) {
+        this.audiosSafesURL[str] = this.getTrustedUrl(str);
       }
       return true;
     }
     return false;
   }
 
-  getTrustedUrl(str : string) : SafeResourceUrl{
+  getTrustedUrl(str: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(str);
   }
 
@@ -537,7 +547,7 @@ export class ChatComponent implements OnInit {
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
-    if(confirm("Are you sure you want to delete this chat?")){
+    if (confirm("Are you sure you want to delete this chat?")) {
       console.log("Removing chat....: " + friend);
       let user = await this.getUsername();
       this.chat.removeChat(user, friend);
@@ -595,8 +605,8 @@ export class ChatComponent implements OnInit {
   }
 
   //Para saber si la lista con chats esta vacia para mostrar o no el boton de añadir amigo con mensaje 
-  hasContactsChats(){
-    if(this.mapContacts.size > 0){
+  hasContactsChats() {
+    if (this.mapContacts.size > 0) {
       return true;
     }
     else
@@ -608,7 +618,7 @@ export class ChatComponent implements OnInit {
     console.log("---------------------------");
     console.log(urlFriend);
     console.log("---------------------------");
-    var clientid = this.rdf.session.webId;
+    var clientid = this.getWebId();
     console.log(clientid);
     this.fileClient.readFile(clientid).then(body => {
 
@@ -664,120 +674,120 @@ export class ChatComponent implements OnInit {
 
   //Para cambiar los colores del chat
   changeComplete($event: ColorEvent) {
-    this.changeLetterColor("fa-user-plus","#0b3153");
-    this.changeLetterColor("fa-bars","#0b3153");
-    this.changeLetterColor("friendText","#0b3153");
-    this.changeLetterColor("wrap","#0b3153");
-    if($event.color.hex == "#ff6900"){
+    this.changeLetterColor("fa-user-plus", "#0b3153");
+    this.changeLetterColor("fa-bars", "#0b3153");
+    this.changeLetterColor("friendText", "#0b3153");
+    this.changeLetterColor("wrap", "#0b3153");
+    if ($event.color.hex == "#ff6900") {
       document.getElementById('contacts').style.backgroundColor = "#C55F15";
       document.getElementById('sidepanel').style.backgroundColor = "#FF8632";
       document.getElementById('contact-profile').style.backgroundColor = "#FFA669";
       document.getElementById('message-input').style.backgroundColor = "#FFA669";
-      this.changeLetterColor("fa-user-plus","#fff");
-      this.changeLetterColor("fa-bars","#fff");
-      this.changeLetterColor("friendText","#fff");
-      this.changeLetterColor("wrap","#fff");
+      this.changeLetterColor("fa-user-plus", "#fff");
+      this.changeLetterColor("fa-bars", "#fff");
+      this.changeLetterColor("friendText", "#fff");
+      this.changeLetterColor("wrap", "#fff");
     }
-    else if($event.color.hex == "#fcb900"){
+    else if ($event.color.hex == "#fcb900") {
       document.getElementById('contacts').style.backgroundColor = "#FCB900";
       document.getElementById('sidepanel').style.backgroundColor = "#FFCB3C";
       document.getElementById('contact-profile').style.backgroundColor = "#FFDD7F";
       document.getElementById('message-input').style.backgroundColor = "#FFDD7F";
     }
-    else if($event.color.hex == "#7bdcb5"){
+    else if ($event.color.hex == "#7bdcb5") {
       document.getElementById('contacts').style.backgroundColor = "#7BDCB5";
       document.getElementById('sidepanel').style.backgroundColor = "#A9DCC7";
       document.getElementById('contact-profile').style.backgroundColor = "#D5F8EA";
       document.getElementById('message-input').style.backgroundColor = "#D5F8EA";
     }
-    else if($event.color.hex == "#00d084"){
+    else if ($event.color.hex == "#00d084") {
       document.getElementById('contacts').style.backgroundColor = "#11AC74";
       document.getElementById('sidepanel').style.backgroundColor = "#39CF99";
       document.getElementById('contact-profile').style.backgroundColor = "#8AD1B7";
       document.getElementById('message-input').style.backgroundColor = "#8AD1B7";
-      this.changeLetterColor("fa-user-plus","#fff");
-      this.changeLetterColor("fa-bars","#fff");
-      this.changeLetterColor("friendText","#fff");
-      this.changeLetterColor("wrap","#fff");
+      this.changeLetterColor("fa-user-plus", "#fff");
+      this.changeLetterColor("fa-bars", "#fff");
+      this.changeLetterColor("friendText", "#fff");
+      this.changeLetterColor("wrap", "#fff");
     }
-    else if($event.color.hex == "#8ed1fc"){
+    else if ($event.color.hex == "#8ed1fc") {
       document.getElementById('contacts').style.backgroundColor = "#7CB8DE";
       document.getElementById('sidepanel').style.backgroundColor = "#B0DBF7";
       document.getElementById('contact-profile').style.backgroundColor = "#C6DBE8";
       document.getElementById('message-input').style.backgroundColor = "#C6DBE8";
     }
-    else if($event.color.hex == "#0693e3"){
+    else if ($event.color.hex == "#0693e3") {
       document.getElementById('contacts').style.backgroundColor = "#1F8AC7";
       document.getElementById('sidepanel').style.backgroundColor = "#55B6ED";
       document.getElementById('contact-profile').style.backgroundColor = "#A1C7DD";
       document.getElementById('message-input').style.backgroundColor = "#A1C7DD";
-      this.changeLetterColor("fa-user-plus","#fff");
-      this.changeLetterColor("fa-bars","#fff");
-      this.changeLetterColor("friendText","#fff");
-      this.changeLetterColor("wrap","#fff");
+      this.changeLetterColor("fa-user-plus", "#fff");
+      this.changeLetterColor("fa-bars", "#fff");
+      this.changeLetterColor("friendText", "#fff");
+      this.changeLetterColor("wrap", "#fff");
     }
-    else if($event.color.hex == "#abb8c3"){
+    else if ($event.color.hex == "#abb8c3") {
       document.getElementById('contacts').style.backgroundColor = "#ABB8C3";
       document.getElementById('sidepanel').style.backgroundColor = "#CCD9E5";
       document.getElementById('contact-profile').style.backgroundColor = "#E0E3E6";
       document.getElementById('message-input').style.backgroundColor = "#E0E3E6";
     }
-    else if($event.color.hex == "#eb144c"){
+    else if ($event.color.hex == "#eb144c") {
       document.getElementById('contacts').style.backgroundColor = "#BC254C";
       document.getElementById('sidepanel').style.backgroundColor = "#EA5A80";
       document.getElementById('contact-profile').style.backgroundColor = "#E6B0BE";
       document.getElementById('message-input').style.backgroundColor = "#E6B0BE";
-      this.changeLetterColor("fa-user-plus","#fff");
-      this.changeLetterColor("fa-bars","#fff");
-      this.changeLetterColor("friendText","#fff");
-      this.changeLetterColor("wrap","#fff");
+      this.changeLetterColor("fa-user-plus", "#fff");
+      this.changeLetterColor("fa-bars", "#fff");
+      this.changeLetterColor("friendText", "#fff");
+      this.changeLetterColor("wrap", "#fff");
     }
-    else if($event.color.hex == "#f78da7"){
+    else if ($event.color.hex == "#f78da7") {
       document.getElementById('contacts').style.backgroundColor = "#F78DA7";
       document.getElementById('sidepanel').style.backgroundColor = "#EAB3C0";
       document.getElementById('contact-profile').style.backgroundColor = "#EFE2E5";
       document.getElementById('message-input').style.backgroundColor = "#EFE2E5";
     }
-    else if($event.color.hex == "#9900ef"){
+    else if ($event.color.hex == "#9900ef") {
       document.getElementById('contacts').style.backgroundColor = "#8C2EC1";
       document.getElementById('sidepanel').style.backgroundColor = "#C36BF4";
       document.getElementById('contact-profile').style.backgroundColor = "#DEC0F0";
       document.getElementById('message-input').style.backgroundColor = "#DEC0F0";
-      this.changeLetterColor("fa-user-plus","#fff");
-      this.changeLetterColor("fa-bars","#fff");
-      this.changeLetterColor("friendText","#fff");
-      this.changeLetterColor("wrap","#fff");
+      this.changeLetterColor("fa-user-plus", "#fff");
+      this.changeLetterColor("fa-bars", "#fff");
+      this.changeLetterColor("friendText", "#fff");
+      this.changeLetterColor("wrap", "#fff");
     }
     document.getElementById('colorPicker').style.display = "none";
   }
 
   //Cambia de color las letras
-  private changeLetterColor(className:string, color:string){
+  private changeLetterColor(className: string, color: string) {
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
     for (i = 0; i < list.length; i++) {
-        list[i].style.color = color;
+      list[i].style.color = color;
     }
   }
 
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
-  async createFolderNotifications(){
+  async createFolderNotifications() {
     let user = await this.getUsername();
     this.chat.createFolderNotifications(user);
   }
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
-  lookForInvitations(){
+  lookForInvitations() {
     setInterval(() => {
       let invitationURL = "https://" + this.getUsername() + ".solid.community/public/chatInvitation/invitation.txt";
       this.fileClient.readFile(invitationURL).then(body => {
         let content = body;
         console.log("content: " + content);
         let names = content.split(",");
-        for(let i = 0; i < names.length; i++){
+        for (let i = 0; i < names.length; i++) {
           let count = 0;
-          for(let j = 0; j < this.acceptedInvitations.length; j++){
-            if(this.acceptedInvitations[j] == names[i]){
+          for (let j = 0; j < this.acceptedInvitations.length; j++) {
+            if (this.acceptedInvitations[j] == names[i]) {
               count++;
             }
           }
@@ -786,9 +796,9 @@ export class ChatComponent implements OnInit {
               count++;
             }
           });
-          if(count == 0){
-            if(names[i] != ""){
-              if(confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")){
+          if (count == 0) {
+            if (names[i] != "") {
+              if (confirm(names[i] + " wants to chat with you!\nDo you want to chat with this person?")) {
                 //Miramos si es una amigo o un desconocido
                 let count = 0;
                 this.mapFriendsTotal.forEach((value: string, key: string) => {
@@ -796,29 +806,29 @@ export class ChatComponent implements OnInit {
                     count++;
                   }
                 });
-                if(count == 0){ //Si es desconocido se añade
+                if (count == 0) { //Si es desconocido se añade
                   this.addFriendFromInvitation(names[i]);
                 }
-                
+
                 this.loadFriends();
                 let photo = this.mapFriendsTotal.get(names[i]);
                 this.changeChat(names[i], photo.toString());
-                this.mapContacts.set(names[i], photo); 
+                this.mapContacts.set(names[i], photo);
                 this.acceptedInvitations.push(names[i]);
               }
-              else{
+              else {
                 this.acceptedInvitations.push(names[i]);
               }
             }
-            this.chat.removeInvitation(invitationURL,names[i]);
+            this.chat.removeInvitation(invitationURL, names[i]);
           }
         }
       }, (err: any) => console.log("No invitations founded"));
     }, 5000);
   }
 
-  addFriendFromInvitation(friend:string) {
-    var clientid = this.rdf.session.webId;
+  addFriendFromInvitation(friend: string) {
+    var clientid = this.getWebId();
     this.fileClient.readFile(clientid).then(body => {
       var friendname = friend;
       var internalnamevar = "addedfriend" + friendname;
