@@ -121,6 +121,12 @@ export class AuthService {
    * @return {SolidProvider[]} A list of SolidProviders
    */
   getIdentityProviders(): SolidProvider[] {
+    const inruptProvider: SolidProvider = {
+      name: 'Inrupt',
+      image: '/dechat_es4a/assets/images/Inrupt.png',
+      loginUrl: 'https://inrupt.net/auth',
+      desc: 'Inrupt Inc. provider'
+    };
     const solidCommunityProvider: SolidProvider = {
       name: 'Solid Community',
       image: '/dechat_es4a/assets/images/Solid.png',
@@ -135,6 +141,7 @@ export class AuthService {
     };
 
     return [
+      inruptProvider,
       solidCommunityProvider,
       otherProvider
     ];

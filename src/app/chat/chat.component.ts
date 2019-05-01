@@ -113,10 +113,10 @@ export class ChatComponent implements OnInit {
       for (i = 0; i < this.amigos.length; i++) {
         const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
         if (profile) {
-          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
+          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
         }
         else {
-          profileImage = '/dechat_es4a/assets/images/profile.png';
+          profileImage = '/assets/images/profile.png';
         }
         let transformIm = profileImage.toString();
         if (transformIm.match('>')) {
@@ -304,10 +304,10 @@ export class ChatComponent implements OnInit {
       const profile = await this.rdf.getProfile();
       if (profile) {
         this.profile = profile;
-        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
       }
       else {
-        this.profileImage = '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = '/assets/images/profile.png';
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -365,7 +365,7 @@ export class ChatComponent implements OnInit {
     if(this.friendActive != undefined){
          return "url('"+ url + "')"; 
     }
-    return "url('/dechat_es4a/assets/images/cosmos.jpg')";
+    return "url('/assets/images/cosmos.jpg')";
   }
 
   openColorPicker() {

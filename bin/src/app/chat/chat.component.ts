@@ -69,10 +69,10 @@ export class ChatComponent implements OnInit {
       for (i = 0; i < this.amigos.length; i++) {
         const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
         if (profile) {
-          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
+          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
         }
         else {
-          profileImage = '/dechat_es4a/assets/images/profile.png';
+          profileImage = '/assets/images/profile.png';
         }
         let transformIm = profileImage.toString();
         if (transformIm.match('>')) {
@@ -232,10 +232,10 @@ export class ChatComponent implements OnInit {
       const profile = await this.rdf.getProfile();
       if (profile) {
         this.profile = profile;
-        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
       }
       else {
-        this.profileImage = '/dechat_es4a/assets/images/profile.png';
+        this.profileImage = '/assets/images/profile.png';
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -267,6 +267,16 @@ export class ChatComponent implements OnInit {
 
   changeBackground(event) {
     console.log("CAMBIAR BACKGROUND");
+    /*const fd = new FormData();
+    const img = event.target.files[0];
+    console.log("imagen: " + img);
+    fd.append('image', event.target.files[0]);
+    this.http.post('/assets/images/background/',fd,  {
+            headers:{'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                      'Access-Control-Allow-Origin': 'http://localhost:4200/'}
+          }).subscribe(response => console.log("Upload ok"));*/
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // Read file as data url
