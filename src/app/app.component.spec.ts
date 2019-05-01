@@ -28,7 +28,6 @@ describe('AppComponent', () => {
       ]
     }).compileComponents();
     service = TestBed.get(ChatComponent);
-
   }));
 
   it('should create the app', async(() => {
