@@ -4,24 +4,23 @@ import {ToastrModule} from 'ngx-toastr';
 import {RouterModule} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
-import { DashboardComponent } from './dashboard.component';
+import {RegisterComponent} from './register.component';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
 
-  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ToastrModule.forRoot(),
         RouterModule, RouterTestingModule],
-      declarations: [ DashboardComponent ]
+      declarations: [ RegisterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
