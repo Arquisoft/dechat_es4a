@@ -4,6 +4,7 @@ import { SolidProfile } from '../models/solid-profile.model';
 import { SolidSession } from '../models/solid-session.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidChat } from '../models/solid-chat.model';
+import { group } from '@angular/animations';
 /*import { forEach } from '@angular/router/src/utils/collection';
 import { bloomFindPossibleInjector } from '@angular/core/src/render3/di';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';*/
@@ -245,7 +246,9 @@ export class ChatService implements OnInit {
         //TODO: Lectura mensajes.
         this.getGroupMessagesFromPOD("");
       }else{
-        this.getMessagesFromPOD(this.getChatUrl(this.rdf.session.webId));
+        this.getMessagesFromPOD(this.chatuserUrl);
+        console.log(this.chatfriendUrl);
+        console.log(this.chatuserUrl);
         this.getMessagesFromPOD(this.chatfriendUrl);
       }
     }
@@ -265,7 +268,7 @@ export class ChatService implements OnInit {
       //console.log("loadMessages url: " + url);
 
       try {
-        this.fileClient.readFile(url).then(body => {
+        this.fileClient.readFile(url + "index.ttl#this").then(body => {
           chatcontent = body;
 
           var split = chatcontent.split(':Msg');
@@ -596,7 +599,8 @@ export class ChatService implements OnInit {
   sendInvitationToGroup(invitedUser:string,groupUrl:string){
     let users = new Array<string>()
     users.push(invitedUser);
-
+    console.log(invitedUser);
+    console.log(groupUrl);
     this.chat = new SolidChat(invitedUser,this.rdf.session.webId,users);
     let content = groupUrl + "\n Here's your invitation to my group!";
     let msg = new SolidMessage(this.rdf.session.webId,content);

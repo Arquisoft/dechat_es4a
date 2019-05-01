@@ -317,10 +317,13 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.dateLastMessage = undefined;
-    if(this.amigos.includes(name))
+    this.getNamesFriends()
+    if(this.namesFriends.includes(name))
       this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
-    else
+    else{
       this.chat.createGroupChat(this.getUsersFromTTL(name),name);
+      console.log('cagada');
+    }
     this.loadMessages();
   }
 
@@ -763,7 +766,6 @@ export class ChatComponent implements OnInit {
     this.friendActive = groupName;
     this.dateLastMessage = undefined; 
     this.chat.createGroupChat(this.groupUsers,groupName);
-    this.loadMessages();
     this.groupUsers = new Array();
   }
 
