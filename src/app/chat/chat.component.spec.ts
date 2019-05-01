@@ -23,6 +23,11 @@ describe('ChatComponent', () => {
     let fixture: ComponentFixture<ChatComponent>;
 
     beforeEach(async(() => {
+
+
+
+
+
         TestBed.configureTestingModule({
             imports: [  BrowserAnimationsModule, ToastrModule.forRoot(), ShContextMenuModule, VgCoreModule,
                 VgControlsModule, VgOverlayPlayModule, VgBufferingModule, VgStreamingModule, RouterTestingModule,
@@ -43,6 +48,24 @@ describe('ChatComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+
+
+    it('have to contain 0 friend', () => {
+        component.loadProfile();
+        expect(component.amigos.length).toBe(0);
+    });
+
+    it('have to contain 1 friend', () => {
+        component.loadProfile();
+        //hay que precargar un perfil
+        //component.addFriend();
+        expect(component.amigos.length).toBe(1);
+    });
+
+    it ('',()=>{
+
+    })
 
     afterEach(() => {
         if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
