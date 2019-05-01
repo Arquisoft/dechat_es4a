@@ -571,37 +571,41 @@ export class ChatService implements OnInit {
   }
 
   getGroupMessagesFromPOD(folderUrl:string){
-    //folderUrl ==> https://ejemplo.solid.community/private/GroupChatejemplo/
 
-    // this.fileClient.readFolder(folderUrl).then(folder =>{
-    //   console.log(folder.folders);
-    //   folder.folders.forEach(folder =>{
-    //     this.fileClient.readFolder(folder.url).then(folder =>{
-    //       folder.folders.forEach(folder =>{
-    //         this.fileClient.readFolder(folder.url).then(folder =>{
-    //           folder.files.forEach(file =>{
-    //             console.log(file);
-    //             console.log(file.url);
-    //             this.fileClient.readFile(file.url).then(body => {
-    //               let chatcontent = body;
+    this.fileClient.readFolder(folderUrl).then(folder => {
+      for(let yearFolder of folder.folders){
+        this.fileClient.readFolder(yearFolder.url).then(folder => {
+          for(let monthFolder of folder.folders){
+            this.fileClient.readFolder(monthFolder.url).then(folder => {
+              for(let dayFolder of folder.folders){
+                this.fileClient.readFolder(dayFolder.url).then(folder => {
+                  for(let chatFile of folder.files){
+                    this.fileClient.readFile(chatFile.url).then(body => {
+                      let chatcontent = body;
 
-    //               var split = chatcontent.split(':Msg');
+                      var split = chatcontent.split(':Msg');
 
-    //               split.forEach(async str => {
-    //               var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
-    //               var maker = this.getUsername(folderUrl);
-    //               var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
-    //               var time_array = time_not_parsed.split("T").join(".").split(".");
-    //               var time = time_array[0] + " " + time_array[1];
-    //               this.addToChat(content, maker, time);
-    //               })
-    //             });
-    //           });
-    //         });
-    //       });
-    //     },err => console.log(err)); 
-    //   });
-    // },err => console.log(err));
+                      split.forEach(async str => {
+                      var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+                      var maker = this.getUsername(folderUrl);
+                      var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+                      var time_array = time_not_parsed.split("T").join(".").split(".");
+                      var time = time_array[0] + " " + time_array[1];
+                      this.addToChat(content, maker, time);
+                      })
+                    });
+                  }
+                });
+              }
+            });
+          }
+        },err =>{
+          console.log(err);
+        });
+      }
+    },err => {
+      console.log(err);
+    });
   }
 
   sendInvitationToGroup(invitedUser:string,groupUrl:string){
