@@ -285,7 +285,7 @@ export class ChatService implements OnInit {
     Método que añade el contenido del mensaje al objeto SolidChat. En caso de que este vacío
     o su contenido sea "Chat Started" este no lo añade. 
   */
-  private addToChat(msg: string, maker: string, time = "") {
+  addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     let messageTime = time.substring(time.indexOf("\"") + 1);
     if (content != "" && content.length > 0 && content != "Chat Started") {

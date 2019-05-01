@@ -25,8 +25,8 @@ describe('ChatService', () => {
   }));
 
   it('should create inbox chat', inject([ChatService], (service: ChatService) => {
-    let idUser1 = "https://user1.solid.community/profile/card#me";
-    let idUser2 = "https://user2.solid.community/profile/card#me";
+    let idUser1 = "https://miau.solid.community/profile/card#me";
+    let idUser2 = "https://feyre.solid.community/profile/card#me";
     let chat1 = "https://" + service.getUsername(idUser1) + ".solid.community/private/Chat" + service.getUsername(idUser2) + "/";
     let chat2 = "https://" + service.getUsername(idUser2) + ".solid.community/private/Chat" + service.getUsername(idUser1) + "/";
     service.createInboxChat(idUser1,idUser2);
@@ -45,25 +45,44 @@ describe('ChatService', () => {
   it('should remove a message', inject([ChatService], (service: ChatService) => {
     let date = (new Date()).toISOString();
     let msg = new SolidMessage("user", "Hi", date);
+    service.chatuserUrl = "https://miau.solid.community/private/Chatfeyre/";
     service.removeMessage(msg);
   }));
 
   it('should return a message', inject([ChatService], (service: ChatService) => {
-    service.isChatCreated("https://user1.solid.community/profile/card#me","https://user2.solid.community/profile/card#me");
+    service.isChatCreated("https://miau.solid.community/profile/card#me","https://feyre.solid.community/profile/card#me");
   }));
 
   it('should create base chat', inject([ChatService], (service: ChatService) => {
-    service.createBaseChat("https://user1.solid.community/private/Chat/");
+    service.createBaseChat("https://miau.solid.community/private/Chatfeyre/");
   }));
 
   it('should reset chat',inject([ChatService], (service: ChatService) => {
     service.resetChat();
   }));
 
-  it('should reset chat', async(inject([ChatService],(service: ChatService) => {
-    expect(service).toBeTruthy();
-    service.loadMessages("user1","user2");
+  it('should load messages', async(inject([ChatService],(service: ChatService) => {
+    service.loadMessages("https://miau.solid.community/profile/card#me","https://feyre.solid.community/profile/card#me");
   })));
 
+  /*it('should get messages from POD', async(inject([ChatService],(service: ChatService) => {
+    service.getMessagesFromPOD("https://miau.solid.community/private/Chatfeyre/index.ttl#this");
+  })));*/
+
+  /*it('should add message to chat', async(inject([ChatService],(service: ChatService) => {
+    let date = (new Date()).toISOString();
+    //service.chat.messages = [];
+    service.addToChat("Hola","user1",date);
+    //expect(service.chat.messages.length).toBe(1);
+  })));*/
+
+  it('should delete whole chat', inject([ChatService],(service: ChatService) => {
+    service.removeChat("miau","aida");
+  }));
+
+  it('should give permissions', inject([ChatService],(service: ChatService) => {
+    service.friendID = "https://feyre.solid.community/profile/card#me";
+    service.givePermissions("https://miau.solid.community/private/Chatfeyre/");
+  }));
 
 });
