@@ -88,8 +88,9 @@ export class ChatComponent implements OnInit {
 
 
 
-  getWebId() {
-    return this.rdf.getWebId();
+  getWebId(): string {
+    const webId = this.rdf.getWebId();
+    return webId;
   }
   //Carga los amigos
   async loadFriends() {
@@ -618,7 +619,7 @@ export class ChatComponent implements OnInit {
     console.log("---------------------------");
     console.log(urlFriend);
     console.log("---------------------------");
-    var clientid = this.rdf.getWebId();
+    var clientid = this.getWebId();
     console.log(clientid);
     this.fileClient.readFile(clientid).then(body => {
 
