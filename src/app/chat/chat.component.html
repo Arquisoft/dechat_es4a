@@ -258,7 +258,7 @@
 
             <div class="modal-search">
                 <input #name type="text" placeholder="Group name" (keyup.enter)="createNewGroup($event.target.value)" />
-                <button type="button" class="btn btn-primary" (click)="createNewGroup(name.value)">Create group</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewGroup(name.value)">Create group</button>
             </div>
 
             <!-- Modal footer -->

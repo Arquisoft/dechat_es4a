@@ -396,7 +396,7 @@ export class ChatService implements OnInit {
       i++;
     });
 
-   this.basechat+= 
+    await this.basechat+= 
    `@prefix ui: <http://www.w3.org/ns/ui#>.
     @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
     @prefix n0: <http://purl.org/dc/elements/1.1/>.

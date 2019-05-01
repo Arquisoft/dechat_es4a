@@ -317,7 +317,10 @@ export class ChatComponent implements OnInit {
     this.friendActive = name;
     this.friendPhotoActive = photo;
     this.dateLastMessage = undefined;
-    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    if(this.amigos.includes(name))
+      this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+    else
+      this.chat.createGroupChat(this.getUsersFromTTL(name),name);
     this.loadMessages();
   }
 
@@ -766,6 +769,23 @@ export class ChatComponent implements OnInit {
 
   addContactToGroup(user:string){
     this.groupUsers.push(user);
+  }
+
+  getUsersFromTTL(name:string):Array<string>{
+    let users = new Array<string>();
+    let url = "https://"+this.getUsername()+".solid.community/private/GroupChat"+name+"/index.ttl#this";
+
+    this.fileClient.readFile(url).then(body => {
+      let prefixes = body.split("@prefix");
+      prefixes.forEach(element => {
+        if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<"),element.indexOf(">")));
+      });
+       
+    }, err =>{
+      console.log('group doesnt exist');
+    });
+    
+    return users;
   }
 
 }
