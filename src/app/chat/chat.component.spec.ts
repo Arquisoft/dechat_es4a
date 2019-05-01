@@ -15,19 +15,16 @@ import {ColorSketchModule} from "ngx-color/sketch";
 import {ColorTwitterModule} from "ngx-color/twitter";
 import {VgStreamingModule} from "videogular2/streaming";
 import {RouterTestingModule} from "@angular/router/testing";
+import {ChatService} from '../../../bin/src/app/services/chat.service';
 import {Router} from "@angular/router";
 import {RdfService} from "../services/rdf.service";
+import {By} from '@angular/platform-browser';
 
 describe('ChatComponent', () => {
     let component: ChatComponent;
     let fixture: ComponentFixture<ChatComponent>;
 
     beforeEach(async(() => {
-
-
-
-
-
         TestBed.configureTestingModule({
             imports: [  BrowserAnimationsModule, ToastrModule.forRoot(), ShContextMenuModule, VgCoreModule,
                 VgControlsModule, VgOverlayPlayModule, VgBufferingModule, VgStreamingModule, RouterTestingModule,
@@ -68,7 +65,7 @@ describe('ChatComponent', () => {
 
         it('check the button call the function', () => {
             spyOn(component, 'send');
-            const boton = fixture.debugElement.query(By.html(chatButton)).nativeElement;
+            const boton = fixture.debugElement.query(By.css(chatButton)).nativeElement;
             boton.click();
             expect(component.send).toHaveBeenCalledTimes(1);
 
@@ -76,7 +73,8 @@ describe('ChatComponent', () => {
 
         it('send method should call the chat service', () => {
             const chat: ChatService = fixture.debugElement.injector.get(ChatService);
-            spyOn(chat, 'send');
+            //spyOn(chat, 'send');
+            fixture.debugElement.query(By.css()).
             component.send();
             expect(chat.send).toHaveBeenCalledTimes(1);
 
@@ -84,8 +82,8 @@ describe('ChatComponent', () => {
 
         it('Check the profile photo', () => {
              const user = 'https://davidcr98.solid.community/profile/card#me';
-             component.loadProfile('')
-            expect(component).toBe('https://davidcr98.solid.community/profile/perfil.jpeg');
+             component.loadProfile();
+             expect(component.profileImage).toBe('https://davidcr98.solid.community/profile/perfil.jpeg');
 
         });
 
@@ -96,10 +94,10 @@ describe('ChatComponent', () => {
 
         it('actualizar should update the message list ', () => {
             const chat: ChatService = fixture.debugElement.injector.get(ChatService);
-            //spyOn(chat, 'actualizar');
-            component.actualizar();
+            //spyOn(chat, 'refreshMessages');
+            component.refreshMessages();
             expect (component.messages).toEqual([]);
-            //expect(chat.actualizar).toHaveBeenCalledTimes(1);
+            //expect(chat.refreshMessages).toHaveBeenCalledTimes(1);
 
         });
 
