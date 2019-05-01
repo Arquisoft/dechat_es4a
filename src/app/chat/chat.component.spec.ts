@@ -21,6 +21,7 @@ import {VgStreamingModule} from "videogular2/streaming";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Router} from "@angular/router";
 import {RdfService} from "../services/rdf.service";
+import { By } from '@angular/platform-browser';
 
 describe('ChatComponent', () => {
     let component: ChatComponent;
@@ -90,6 +91,16 @@ describe('ChatComponent', () => {
         expect(message.time).toBe(date);
         expect(message.toString()).toBe('user1' + ": " + 'Hola');
     });
+
+    it('should trigger click event for colors', () => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          let comp = fixture.componentInstance;
+          spyOn(comp, 'changeComplete');
+          let el = fixture.debugElement.query(By.css('dropdown-item')).nativeElement.click();
+          expect(comp.changeComplete).toHaveBeenCalled();
+        });
+      });
 
     afterEach(() => {
         if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
