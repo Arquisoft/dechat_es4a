@@ -30,7 +30,7 @@ describe('ChatComponent', () => {
                 VgControlsModule, VgOverlayPlayModule, VgBufferingModule, VgStreamingModule, RouterTestingModule,
             ],
             declarations: [ChatComponent],
-            providers: [ToastrService, RdfService, Renderer2],
+            providers: [ToastrService, RdfService, Renderer2, ChatComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
             .compileComponents();
@@ -56,23 +56,29 @@ describe('ChatComponent', () => {
         };
 */
     });
+    /*
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
+*/
 
 
 
 
     it('should return stored token from localStorage',
         () => {
-            var cc = ChatComponent.prototype;
 
-            spyOn(cc, 'getOldWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
-            spyOn(cc, 'getWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
-            expect(cc.getWebId()).toEqual('https://albertong.solid.community/profile/card#me');
+            spyOn(component, 'getOldWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            spyOn(component, 'getWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            expect(component.getUsername()).toEqual('albertong');
         });
 
+    it('should return true on the day before today',
+        () => {
+
+            expect(component.dateMessages(new Date().toISOString()));
+
+        });
 
 
 
