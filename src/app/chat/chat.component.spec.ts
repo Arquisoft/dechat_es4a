@@ -63,7 +63,7 @@ describe('ChatComponent', () => {
     describe('Send the message', () => {
 
 
-        it('check the button call the function', () => {
+        it('check the button call the function send', () => {
             spyOn(component, 'send');
             const boton = fixture.debugElement.query(By.css(chatButton)).nativeElement;
             boton.click();
@@ -76,7 +76,7 @@ describe('ChatComponent', () => {
             //spyOn(chat, 'send');
             fixture.debugElement.query(By.css()).
             component.send();
-            expect(chat.send).toHaveBeenCalledTimes(1);
+            expect(chat).toHaveBeenCalledTimes(1);
 
         });
 
@@ -92,7 +92,7 @@ describe('ChatComponent', () => {
 
         });
 
-        it('actualizar should update the message list ', () => {
+        it('refreshMessage should update the message list ', () => {
             const chat: ChatService = fixture.debugElement.injector.get(ChatService);
             //spyOn(chat, 'refreshMessages');
             component.refreshMessages();
