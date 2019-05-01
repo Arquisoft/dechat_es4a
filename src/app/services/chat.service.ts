@@ -92,10 +92,6 @@ export class ChatService implements OnInit {
   async postMessage(msg: SolidMessage) {
     var author = "me";
     var urlfile = this.chatuserUrl + "index.ttl#this";
-    if (this.userID == msg.authorId) {
-      // urlfile = this.chatuserUrl + "index.ttl#this";
-      // author = "me";
-    }
 
     var chatcontent = "";
 
@@ -302,9 +298,6 @@ export class ChatService implements OnInit {
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    /*this.fileClient.deleteFolder("https://" + user + ".solid.community/private/Chat" + nameFriend).then(success => {
-      console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("Folder not deleted"));*/
   }
   /* 
     Método que sube la imagen a la POD y envia un mensaje con la URL para que sea posible
