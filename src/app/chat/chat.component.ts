@@ -68,7 +68,7 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
-  groupUsers: Array<string> = new Array();
+  groupUsers: string[] = new Array();
 
   @ViewChild('chatbox') chatbox: ElementRef;
 
@@ -312,17 +312,12 @@ export class ChatComponent implements OnInit {
 
   //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
   changeChat(name: string, photo: string) {
-    this.toastr.info('The messages are being loaded, it will take just a second!');
-    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
-    this.friendActive = name;
-    this.friendPhotoActive = photo;
-    this.dateLastMessage = undefined;
-    this.getNamesFriends()
-    if(this.namesFriends.includes(name))
-      this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+    if(this.namesFriends.includes(name)){
+      this.changeToIndividualChat(name,photo);
+    }
     else{
-      this.chat.createGroupChat(this.getUsersFromTTL(name),name);
-      console.log('cagada');
+      this.changeToGroup(name,photo);
     }
     this.loadMessages();
   }
@@ -765,7 +760,7 @@ export class ChatComponent implements OnInit {
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = groupName;
     this.dateLastMessage = undefined; 
-    this.chat.createGroupChat(this.groupUsers,groupName);
+    this.chat.createGroupChat(groupName, this.groupUsers);
     this.groupUsers = new Array();
   }
 
@@ -773,25 +768,10 @@ export class ChatComponent implements OnInit {
     this.groupUsers.push(user);
   }
 
-  getUsersFromTTL(name:string):Array<string>{
-    let users = new Array<string>();
-    let url = "https://"+this.getUsername()+".solid.community/private/GroupChat"+name+"/index.ttl#this";
 
-    this.fileClient.readFile(url).then(body => {
-      let prefixes = body.split("@prefix");
-      prefixes.forEach(element => {
-        if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<"),element.indexOf(">")));
-      });
-       
-    }, err =>{
-      console.log('group doesnt exist');
-    });
-    
-    return users;
-  }
 
   createGroupFromInvitation(url: string){
-   this.groupUsers = new Array<string>();
+   
     
    url = url.substring(url.indexOf("https"));
 
@@ -800,7 +780,7 @@ export class ChatComponent implements OnInit {
       let prefixes = body.split("@prefix");
       prefixes.forEach(element => {
         if(element.includes(".solid.community") && !element.includes(this.getUsername())) 
-          this.groupUsers.push(element.substring(element.indexOf("<"),element.indexOf(">")));
+          this.groupUsers.push(element.substring(element.indexOf("<")+1,element.indexOf(">")));
       });
     }, err => {
       console.log('group does not exist');
@@ -814,6 +794,25 @@ export class ChatComponent implements OnInit {
     return content.includes("https") && content.includes("GroupChat");
   }
 
+  changeToGroup(name:string, photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.chat.createGroupChat(name);
+  }
+
+  changeToIndividualChat(name:string , photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.getNamesFriends()
+    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+  }
 }
 
 
