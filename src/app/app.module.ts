@@ -93,8 +93,7 @@ export const routes: Routes = [
     VgStreamingModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    ChatComponent
+    ReactiveFormsModule
   ],
   providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
   bootstrap: [AppComponent],
