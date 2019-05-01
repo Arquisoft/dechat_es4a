@@ -137,7 +137,7 @@ export class ChatComponent implements OnInit {
       this.fileClient.readFolder(groupFolderUrl).then(folder => {
         folder.folders.forEach(folder => {
           if(folder.name.includes("GroupChat")) 
-            this.mapContacts.set(folder.name.replace("GroupChat",""),"") 
+            this.mapContacts.set(folder.name.replace("GroupChat",""),'/assets/images/profile.png'); 
         });
       }, 
         err=> console.log(err));

@@ -560,11 +560,11 @@ export class ChatService implements OnInit {
 
     this.fileClient.readFolder(folderUrl).then(folder =>{
       folder.folders.forEach(folder =>{
-        this.fileClient.readFolder(folder).then(folder =>{
+        this.fileClient.readFolder(folder.url).then(folder =>{
           folder.folders.forEach( folder =>{
-            this.fileClient.readFolder(folder).then(folder =>{
+            this.fileClient.readFolder(folder.url).then(folder =>{
               folder.files.forEach(file =>{
-                this.fileClient.readFile(file).then(body => {
+                this.fileClient.readFile(file.url).then(body => {
                   let chatcontent = body;
 
                   var split = chatcontent.split(':Msg');
