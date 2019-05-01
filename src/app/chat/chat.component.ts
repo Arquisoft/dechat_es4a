@@ -158,7 +158,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Envía mensajes y los guarda
-  send(content: string, event) {
+  send(content: string) {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     if (this.friendActive) {
       if (!(content == "") && value) {

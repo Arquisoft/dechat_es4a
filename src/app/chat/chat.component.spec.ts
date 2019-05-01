@@ -65,7 +65,7 @@ describe('ChatComponent', () => {
 
         it('check the button call the function send', () => {
             spyOn(component, 'send');
-            const boton = fixture.debugElement.query(By.css(chatButton)).nativeElement;
+            const boton = fixture.debugElement.query(By.css('button#send.chatButton')).nativeElement;
             boton.click();
             expect(component.send).toHaveBeenCalledTimes(1);
 
@@ -74,8 +74,8 @@ describe('ChatComponent', () => {
         it('send method should call the chat service', () => {
             const chat: ChatService = fixture.debugElement.injector.get(ChatService);
             //spyOn(chat, 'send');
-            fixture.debugElement.query(By.css()).
-            component.send();
+            spyOn(component,'send');
+            component.send('hola');
             expect(chat).toHaveBeenCalledTimes(1);
 
         });
