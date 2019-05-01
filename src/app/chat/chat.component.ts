@@ -752,7 +752,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Cambia de color las letras
-  private changeLetterColor(className:string, color:string){
+  changeLetterColor(className:string, color:string){
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
     for (i = 0; i < list.length; i++) {

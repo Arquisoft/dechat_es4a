@@ -50,16 +50,16 @@ describe('ChatComponent', () => {
     });
 
     it('should create an instance of Solid Chat User', () => {
-        const user1 = new SolidChatUser('httpsuser1.solid.communityprofilecard#me', 'user1', 'httpsuser1.solid.communityprofileimage.jpg');
+        const user1 = new SolidChatUser("https://miau.solid.community/profile/card#me", 'miau',"https://miau.solid.community/profile/image.jpg");
         expect(user1).toBeTruthy();
     });
 
     it('should return values from Solid Chat User', () => {
-        const user1 = new SolidChatUser('httpsuser1.solid.communityprofilecard#me', 'user1', 'httpsuser1.solid.communityprofileimage.jpg');
+        const user1 = new SolidChatUser("https://miau.solid.community/profile/card#me", 'miau', "https://miau.solid.community/profile/image.jpg");
         expect(user1).toBeTruthy();
-        expect(user1.webId).toBe('httpsuser1.solid.communityprofilecard#me');
-        expect(user1.name).toBe('user1');
-        expect(user1.urlPicture).toBe('httpsuser1.solid.communityprofileimage.jpg');
+        expect(user1.webId).toBe("https://miau.solid.community/profile/card#me");
+        expect(user1.name).toBe('miau');
+        expect(user1.urlPicture).toBe("https://miau.solid.community/profile/image.jpg");
     });
 
     it('should create an instance of Solid Message model', () => {
@@ -101,6 +101,24 @@ describe('ChatComponent', () => {
           expect(comp.changeComplete).toHaveBeenCalled();
         });
       });
+
+    it('should change colors from element', () => {
+        component.changeLetterColor("fa-user-plus","#0b3153");
+    });
+    
+    it('should return name from id', () => {
+        let user = "https://miau.solid.community/profile/card#me";
+        let name = component.getUsernameFromId(user);
+        expect(name).toBe("miau");
+    });
+
+    /*it('should change chat', () => {
+        component.changeChat("feyre","https://feyre.solid.community/profile/image.jpg");
+        expect(component.messages.length).toBe(0);
+        expect(component.friendActive).toBe("feyre");
+        expect(component.friendPhotoActive).toBe("https://feyre.solid.community/profile/image.jpg");
+        expect(component.dateLastMessage).toBe(undefined);
+    });*/
 
     afterEach(() => {
         if (fixture.nativeElement && 'remove' in fixture.nativeElement) {

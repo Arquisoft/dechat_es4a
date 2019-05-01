@@ -18,14 +18,6 @@ describe('CardComponent',() =>{
 	let debugElement: DebugElement;
 	
 	beforeEach(async(()=>{
-		const rdfServiceStub = {
-				getProfile: () => ({}),
-				updateProfile: () => ({})
-		};
-		const authServiceStub = {
-				saveOldUserData: () => ({}),
-				solidSignOut: () => ({})
-		};
 		TestBed.configureTestingModule({
             imports: [    
                 RouterTestingModule, BrowserAnimationsModule, ToastrModule.forRoot()
@@ -33,10 +25,6 @@ describe('CardComponent',() =>{
 			declarations: [
                 CardComponent
 						],
-						providers: [
-							{ provide: RdfService, useValue: rdfServiceStub },
-							{ provide: AuthService, useValue: authServiceStub }
-					],
 		}).compileComponents();
 	}));
 	
