@@ -38,4 +38,9 @@ describe('CardComponent',() =>{
 	afterAll(() => {
 		TestBed.resetTestingModule();
 	  });
+	afterEach(() => {
+		if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
+			(fixture.nativeElement as HTMLElement).remove();
+		}
+	});
 });

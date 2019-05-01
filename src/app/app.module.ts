@@ -32,7 +32,7 @@ import {VgStreamingModule} from "videogular2/streaming";
 import {CommonModule} from "@angular/common";
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: LoginComponent
@@ -71,7 +71,7 @@ const routes: Routes = [
     LoginPopupComponent,
     CardComponent,
     RegisterComponent,
-    ChatComponent,
+    ChatComponent ,
     NavbarComponent,
   ],
   imports: [
@@ -94,6 +94,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ChatComponent
   ],
   providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
   bootstrap: [AppComponent],
