@@ -80,6 +80,18 @@ describe('ChatComponent', () => {
 
         });
 
+    it('should return the hour',
+        () => {
+            var h = new Date();
+            h.setHours(0, 0, 0, 0);
+            expect(component.hourMessages(h.toISOString())).toEqual("00:00");
+        });
+    it('should add a friend',
+        () => {
+            spyOn(component, 'getOldWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            spyOn(component, 'getWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            expect(component.addFriend());
+        });
 
 
 
