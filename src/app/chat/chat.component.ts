@@ -14,6 +14,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
 import { ColorEvent } from 'ngx-color';
+import { stringify } from '@angular/compiler/src/util';
 
 class ImageSnippet {
 
@@ -132,6 +133,14 @@ export class ChatComponent implements OnInit {
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
       }
+      let groupFolderUrl = this.rdf.session.webId.replace("/profile/card#me","/private");
+      this.fileClient.readFolder(groupFolderUrl).then(folder => {
+        folder.folders.forEach(folder => {
+          if(folder.name.includes("GroupChat")) 
+            this.mapContacts.set(folder.name.replace("GroupChat",""),"") 
+        });
+      }, 
+        err=> console.log(err));
     } catch (error) {
       console.log(`Error: ${error}`);
 
