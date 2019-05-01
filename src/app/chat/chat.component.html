@@ -90,7 +90,10 @@
                                 <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="!isImage(string)&& !isVideo(string) ">
+                            <p *ngIf= "isInvitation(string.content)" href="createGroupFromInvitation(string.content)">
+                                {{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span>
+                            </p>
+                            <p *ngIf="!isImage(string)&& !isVideo(string) && !isInvitation(string.content)">
                                 {{string.content}} <span id='timeMessage'>{{hourMessages(string.time)}}</span>
                             </p>
                             <div *ngIf="isAudio(string.content)">

@@ -788,6 +788,30 @@ export class ChatComponent implements OnInit {
     return users;
   }
 
+  createGroupFromInvitation(url: string){
+   this.groupUsers = new Array<string>();
+    
+   url = url.substring(url.indexOf("https"));
+
+   this.groupUsers.push("https://"+this.friendActive+".solid.community/profile/card#me");
+    this.fileClient(url).then(body => {
+      let prefixes = body.split("@prefix");
+      prefixes.forEach(element => {
+        if(element.includes(".solid.community") && !element.includes(this.getUsername())) 
+          this.groupUsers.push(element.substring(element.indexOf("<"),element.indexOf(">")));
+      });
+    }, err => {
+      console.log('group does not exist');
+      console.log(err);
+    });
+    let name = url.substring(url.indexOf("GroupChat"+9),url.indexOf("/index"));
+    this.createNewGroup(name);
+  }
+
+  isInvitation(content:string){
+    return content.includes("https") && content.includes("GroupChat");
+  }
+
 }
 
 

@@ -246,9 +246,7 @@ export class ChatService implements OnInit {
         this.getGroupMessagesFromPOD("");
       }else{
         this.getMessagesFromPOD(this.getChatUrl(this.rdf.session.webId));
-        this.chat.friendsId.forEach(friendId =>{
-          this.getMessagesFromPOD(this.getChatUrl(friendId));
-        });
+        this.getMessagesFromPOD(this.chatfriendUrl);
       }
     }
     return this.chat;
