@@ -241,10 +241,15 @@ export class ChatService implements OnInit {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
     if (name != "undefined" && !this.chat.isGroup) {
-      this.getMessagesFromPOD(this.getChatUrl(this.rdf.session.webId));
-      this.chat.friendsId.forEach(friendId =>{
-        this.getMessagesFromPOD(this.getChatUrl(friendId));
-      });
+      if(this.chat.isGroup){
+        //TODO: Lectura mensajes.
+        this.getGroupMessagesFromPOD("");
+      }else{
+        this.getMessagesFromPOD(this.getChatUrl(this.rdf.session.webId));
+        this.chat.friendsId.forEach(friendId =>{
+          this.getMessagesFromPOD(this.getChatUrl(friendId));
+        });
+      }
     }
     return this.chat;
   }
@@ -548,9 +553,37 @@ export class ChatService implements OnInit {
       console.log(err + '\ncreate new chat.ttl');
       await this.createBaseChatForGroup(chatUrl);
     });
+  }
 
+  getGroupMessagesFromPOD(folderUrl:string){
+    //folderUrl ==> https://ejemplo.solid.community/private/GroupChatejemplo/
 
+    this.fileClient.readFolder(folderUrl).then(folder =>{
+      folder.folders.forEach(folder =>{
+        this.fileClient.readFolder(folder).then(folder =>{
+          folder.folders.forEach( folder =>{
+            this.fileClient.readFolder(folder).then(folder =>{
+              folder.files.forEach(file =>{
+                this.fileClient.readFile(file).then(body => {
+                  let chatcontent = body;
 
+                  var split = chatcontent.split(':Msg');
+
+                  split.forEach(async str => {
+                  var content = str.substring(str.indexOf("n:content"), str.indexOf("\";"));
+                  var maker = this.getUsername(folderUrl);
+                  var time_not_parsed = str.substring(str.indexOf("terms:created "), str.indexOf("^^XML:dateTime;"));
+                  var time_array = time_not_parsed.split("T").join(".").split(".");
+                  var time = time_array[0] + " " + time_array[1];
+                  this.addToChat(content, maker, time);
+                  })
+                });
+              });
+            });
+          });
+        },err => console.log(err)); 
+      });
+    },err => console.log(err));
   }
 
 }
