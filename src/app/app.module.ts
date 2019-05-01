@@ -20,7 +20,7 @@ import { ColorTwitterModule } from 'ngx-color/twitter'; // <color-twitter></colo
 import { AuthService } from './services/solid.auth.service';
 import { AuthGuard } from './services/auth.guard.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import {ShContextMenuModule} from 'ng2-right-click-menu'
 import {RdfService} from "./services/rdf.service";
 import {ChatService} from "../../bin/src/app/services/chat.service";
 import {VgStreamingModule} from "videogular2/streaming";
+import {CommonModule} from "@angular/common";
 
 
 const routes: Routes = [
@@ -89,7 +90,10 @@ const routes: Routes = [
     ColorSketchModule,
     ColorTwitterModule,
     BrowserAnimationsModule,
-    VgStreamingModule
+    VgStreamingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
   bootstrap: [AppComponent],
