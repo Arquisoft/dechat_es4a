@@ -92,7 +92,12 @@ describe('ChatComponent', () => {
             spyOn(component, 'getWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
             expect(component.addFriend());
         });
-
+    it('should look for invitations',
+        () => {
+            spyOn(component, 'getOldWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            spyOn(component, 'getWebId').and.returnValue('https://albertong.solid.community/profile/card#me');
+            expect(component.lookForInvitations());
+        });
 
 
     afterEach(() => {
