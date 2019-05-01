@@ -371,7 +371,7 @@ export class ChatService implements OnInit {
   /*Recibe como parametros la lista de usuarios que formarán parte del grupo y un nombre, se crea una carpeta con el nombre del grupo 
   y posteriormente un archivo index.ttl  que contiene los mensajes*/
   async  createGroupChat(users:Array<string>,groupName:string){
-    this.chat = new SolidChat(groupName,this.rdf.session.webId,users);
+   
     
     let i = 0;
     let j = 0;
@@ -396,7 +396,7 @@ export class ChatService implements OnInit {
       i++;
     });
 
-    await this.basechat+= 
+    this.basechat+= 
    `@prefix ui: <http://www.w3.org/ns/ui#>.
     @prefix mee: <http://www.w3.org/ns/pim/meeting#>.
     @prefix n0: <http://purl.org/dc/elements/1.1/>.
@@ -427,16 +427,25 @@ export class ChatService implements OnInit {
         n0:title "Chat channel";
         flow:participation :id1556460926376;
         ui:sharedPreferences :SharedPreferences.`;
-
-    this.fileClient.createFolder(url).then(success => {
-      console.log('Folder Created');
-        this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
-          this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
-            console.log('chat has been started');
-          }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
-        }, err => console.log(err)).catch(error => console.log("File not created"));
+    
+    this.fileClient.readFile(url + "index.ttl#this").then(body => {
+      console.log('chat exists')
+    }, err =>{
+      this.fileClient.createFolder(url).then(success => {
+        console.log('Folder Created');
+          this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
+            this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
+             console.log('chat has been started');
+            }, (err: any) => console.log(err)).catch(error => console.log("File not updated"));
+          }, err => console.log(err)).catch(error => console.log("File not created"));
+      })
     });
-
+    
+    await users.forEach(user => {
+      this.sendInvitationToGroup(user,url + "index.ttl#this");
+    });
+    
+    this.chat = new SolidChat(groupName,this.rdf.session.webId,users);
     this.createBaseChatForGroup(this.chatUrlGroup(d.toISOString().split("T")[0].split("-")));
   }
 
@@ -584,6 +593,16 @@ export class ChatService implements OnInit {
         },err => console.log(err)); 
       });
     },err => console.log(err));
+  }
+
+  sendInvitationToGroup(invitedUser:string,groupUrl:string){
+    let users = new Array<string>()
+    users.push(invitedUser);
+
+    this.chat = new SolidChat(invitedUser,this.rdf.session.webId,users);
+    let content = groupUrl + "\n Here's your invitation to my group!";
+    let msg = new SolidMessage(this.rdf.session.webId,content);
+    this.postMessage(msg);
   }
 
 }
