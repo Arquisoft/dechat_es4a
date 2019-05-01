@@ -767,6 +767,8 @@ export class ChatComponent implements OnInit {
     this.chat.createFolderNotifications(user);
   }
 
+
+
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
   lookForInvitations(){
     setInterval(() => {

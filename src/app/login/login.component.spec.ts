@@ -51,7 +51,7 @@ describe('LoginComponent', () => {
         component.goToRegistration();
         tick(15000);
         fixture.detectChanges();
-      //  expect(location.path()).toBe('/register');
+        expect(location.path()).toBe('/register');
 
     }));
 
