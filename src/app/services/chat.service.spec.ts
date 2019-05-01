@@ -5,13 +5,26 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {ToastrModule} from "ngx-toastr";
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
+import { RdfService } from './rdf.service';
 
 describe('ChatService', () => {
+
+  let chatService: ChatService;
+  let rdfService: RdfService;
+
+  let user = "https://miau.solid.community/profile/card#me";
+  let friend = "https://feyre.solid.community/profile/card#me";
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule, ToastrModule.forRoot() ] ,
       providers: [ChatService]
     });
+    rdfService = TestBed.get(RdfService);
+    chatService = TestBed.get(ChatService);
+
+    chatService.userID = user;
+    chatService.friendID = friend;
   });
 
   it('should be created', inject([ChatService], (service: ChatService) => {
@@ -19,9 +32,8 @@ describe('ChatService', () => {
   }));
 
   it('should get name user from webId', inject([ChatService], (service: ChatService) => {
-    let webId = "https://user.solid.community/profile/card#me";
-    let user = service.getUsername(webId);
-    expect(user).toBe('user');
+    let name = service.getUsername(user);
+    expect(name).toBe('miau');
   }));
 
   it('should create inbox chat', inject([ChatService], (service: ChatService) => {
