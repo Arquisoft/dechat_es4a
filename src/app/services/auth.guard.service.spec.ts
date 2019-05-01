@@ -52,7 +52,7 @@ describe('AuthServiceGuard', () => {
         expect(service.canActivate()).toBe(true);
       }));
 
-  
+
 
 });
 
