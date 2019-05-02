@@ -40,6 +40,10 @@ module.exports = function (config) {
        }
     },
     singleRun: false,
+    captureTimeout: 210000,
+    browserDisconnectTolerance: 3, 
+    browserDisconnectTimeout : 210000,
+    browserNoActivityTimeout : 210000,
   }
 
   if (process.env.TRAVIS) {
