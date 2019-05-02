@@ -19,6 +19,9 @@ import {ChatService} from '../../../bin/src/app/services/chat.service';
 import {Router} from "@angular/router";
 import {RdfService} from "../services/rdf.service";
 import {By} from '@angular/platform-browser';
+import {AuthService} from '../services/solid.auth.service';
+import{SolidProfile} from '../models/solid-profile.model';
+import {SolidSession} from '../models/solid-session.model';
 
 
 describe('ChatComponent', () => {
@@ -26,12 +29,13 @@ describe('ChatComponent', () => {
     let fixture: ComponentFixture<ChatComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
+         TestBed.configureTestingModule({
             imports: [  BrowserAnimationsModule, ToastrModule.forRoot(), ShContextMenuModule, VgCoreModule,
                 VgControlsModule, VgOverlayPlayModule, VgBufferingModule, VgStreamingModule, RouterTestingModule,
             ],
             declarations: [ ChatComponent ],
-            providers: [ ToastrService , RdfService],
+            providers: [ ToastrService , RdfService
+                ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
             .compileComponents();
@@ -49,17 +53,24 @@ describe('ChatComponent', () => {
 
 
 
-    it('have to contain 0 friend', () => {
+   /* it('the profile no photo', () => {
+        spyOn(,'getProfile').and.callThrough();
         component.loadProfile();
-        expect(component.amigos.length).toBe(0);
-    });
+        expect(component.profileImage).toContain('');
+
+    });*/
+
+
 
   /*  it('have to contain 1 friend', () => {
         component.loadProfile();
-        //hay que precargar un perfil
-        //component.addFriend();
+        component.loadFriends();
         expect(component.amigos.length).toBe(1);
     });*/
+
+   /* it('have to change the color' ()=>{
+
+    }); */
 
 
 

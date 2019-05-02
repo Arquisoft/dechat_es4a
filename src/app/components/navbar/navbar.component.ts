@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+
   getUsername(): string {
     try {
       let id = this.rdf.session.webId;
