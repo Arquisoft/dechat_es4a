@@ -15,6 +15,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { escapeRegExp } from 'tslint/lib/utils';
 import { ColorEvent } from 'ngx-color';
 import { stringify } from '@angular/compiler/src/util';
+import { group } from '@angular/animations';
 
 class ImageSnippet {
 
@@ -757,6 +758,7 @@ export class ChatComponent implements OnInit {
 
   createNewGroup(groupName:string){
     this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.groupUsers.push(this.rdf.session.webId);
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = groupName;
     this.dateLastMessage = undefined; 
@@ -769,15 +771,22 @@ export class ChatComponent implements OnInit {
   }
 
   createGroupFromInvitation(url: string){   
-   let chaturl = url.substring(url.indexOf("https")) +"index.ttl#this";
-
-   this.groupUsers.push("https://"+this.friendActive+".solid.community/profile/card#me");
-    this.fileClient.readFile(chaturl).then(body => {
-      let prefixes = body.split("@prefix");
-      prefixes.forEach(element => {
-        if(element.includes(".solid.community")) 
-          this.groupUsers.push(element.substring(element.indexOf("<")+1,element.indexOf(">")));
-      });
+   let chaturl = url.substring(url.indexOf("https"));
+   let groupInfo;
+   let userurl;
+   console.log(chaturl);
+    this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+      groupInfo = body;
+      userurl = chaturl.replace(this.getUsernameFromId(chaturl),this.getUsername());
+      this.fileClient.createFolder(userurl).then(success => {
+        this.fileClient.readFile(userurl + "index.ttl#this").then(body => {
+          console.log('group exists');
+        }, err => {
+          this.fileClient.createFile(userurl  +"index.ttl#this").then(success => {
+            this.fileClient.updateFile(userurl +"index.ttl#this",groupInfo);
+          });
+        });
+      },err => {});
     }, err => {
       console.log('group does not exist');
       console.log(err);
@@ -789,7 +798,8 @@ export class ChatComponent implements OnInit {
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.dateLastMessage = undefined; 
-    this.chat.createGroupChat(name, this.groupUsers,true);
+    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.chat.getUsersFromTTL(name));
+    this.chat.createBaseChatForGroup(userurl);
     this.groupUsers = new Array();
     this.messages = [];
     this.loadMessages();
