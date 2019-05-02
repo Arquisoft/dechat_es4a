@@ -10,8 +10,7 @@
                     <i class="fa fa-bars" role="button" data-toggle="dropdown"></i>
                     <span class="tooltiptext">Settings</span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList"
-                            style="cursor:pointer; color: #0b3153;">New group</a>
+                        <a class="dropdown-item" data-toggle="modal" href="#contactGroupList" style="cursor:pointer; color: #0b3153;">New group</a>
                     </div>
                 </div>
                 <div class="newContact">
@@ -71,8 +70,7 @@
                             Background
                             <input #backgroundInput type="file" (change)="changeBackground(backgroundInput)" accept=".jpeg,.jpg"/>
                         </label>
-                        <a class="dropdown-item" (click)="openColorPicker()"
-                            style="color: #0b3153;cursor: pointer;font-size: 16px;">
+                        <a class="dropdown-item" (click)="openColorPicker()" style="color: #0b3153;cursor: pointer;font-size: 16px;">
                             Color
                         </a>
                     </div>
@@ -90,12 +88,14 @@
                         <li class="replies">
                             <img [src]="profileImage" alt="" />
                             <div *ngIf="isImage(string.content)">
-                                <img style="width:20px;border-radius:10px; height:250px; width:250px;"
-                                    [src]="getTrustedUrl(string.content)" alt="" />
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
                                 <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
+                            </div>
+                            <div *ngIf="isInvitation(string.content)">
+                                <button type="button" class="btn btn-primary" (click)="createGroupFromInvitation(string.content)">{{string.content}}</button>
                             </div>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 42%;">
@@ -123,7 +123,7 @@
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}}
+                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string) && !isInvitation(string.content)">{{string.content}}
                                 <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
@@ -131,13 +131,14 @@
                         <li class="sent">
                             <img src={{friendPhotoActive}} alt="" />
                             <div *ngIf="isImage(string.content)">
-                                <img style="width:20px;border-radius:10px; height:250px; width:250px;"
-                                    [src]="getTrustedUrl(string.content)" alt="" />
+                                <img style="width:20px;border-radius:10px; height:250px; width:250px;" [src]="getTrustedUrl(string.content)" alt="" />
                             </div>
                             <div *ngIf="isVideo(string.content)">
-                                <iframe style="margin-right:0" width="520" height="345"
-                                        [src]="this.videosSafesURL[string.content]">
+                                <iframe style="margin-right:0" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
+                            </div>
+                            <div *ngIf="isInvitation(string.content)">
+                                <button type="button" class="btn btn-primary" (click)="createGroupFromInvitation(string.content)">{{string.content}}</button>
                             </div>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 5%;">
@@ -181,9 +182,7 @@
                             <i class="far fa-smile" id="open" (click)="openPopup()"></i>
                         </td>
                         <td>
-                            <emoji-input inputClass="emojiInput" id="emoji"[popupAnchor]="'bottom'" [(model)]="text"
-                                [closeAfterSelection]="false" (click)="openPopup(false)"
-                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
+                            <emoji-input inputClass="emojiInput" id="emoji" [popupAnchor]="'bottom'" [(model)]="text" [closeAfterSelection]="false" (click)="openPopup(false)" (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
                             </emoji-input>
                         </td>
                         <td style="width: 20px;">
@@ -235,8 +234,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
-                    data-target="#AddNewContactWindow">Add new contact</button>
+                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal" data-target="#AddNewContactWindow">Add new contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -261,11 +259,15 @@
             <!-- Modal body -->
             <div class="modal-body">
 
-                <div *ngFor="let entry of mapFriendsTotal | keyvalue">
-                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
-                        (click)="createChat(entry.key,entry.value)">
-                        {{entry.key}}</button>
+                <div *ngFor="let entry of amigos">
+                    <button type="button" class="list-group-item list-group-item-action" (click)="addContactToGroup(entry)">
+                        {{getUsernameFromId(entry)}}</button>
                 </div>
+            </div>
+
+            <div class="modal-search">
+                <input #name type="text" placeholder="Group name" (keyup.enter)="createNewGroup($event.target.value)" />
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewGroup(name.value)">Create group</button>
             </div>
 
             <!-- Modal footer -->
@@ -278,8 +280,7 @@
 </div>
 
 <!--Modal new friend-->
-<div class="modal fade" id="AddNewContactWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="AddNewContactWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -292,16 +293,12 @@
                 <form>
                     <div class="form-group">
                         <label for="webid-name" class="col-form-label">WebId:</label><br>
-                        <input type="text" class="form-control" id="webid-name" value=""
-                            placeholder="https://[insert friend id].solid.community/profile/card#me"><button
-                            type="button" class="btn btn-primary mr-auto" (click)="addFriend()"
-                            id="addFriendButton">Add</button>
+                        <input type="text" class="form-control" id="webid-name" value="" placeholder="https://[insert friend id].solid.community/profile/card#me"><button type="button" class="btn btn-primary mr-auto" (click)="addFriend()" id="addFriendButton">Add</button>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal"
-                    data-target="#contactList">Add existing contact</button>
+                <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal" data-toggle="modal" data-target="#contactList">Add existing contact</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -315,10 +312,5 @@
 
 <!-- Color Picker -->
 <div id="colorPicker">
-    <color-twitter
-    color="#fff"
-    triangle="top-right"
-    (onChangeComplete)="changeComplete($event)"
-    (onChange)="changeComplete($event)"
-    ></color-twitter>
+    <color-twitter color="#fff" triangle="top-right" (onChangeComplete)="changeComplete($event)" (onChange)="changeComplete($event)"></color-twitter>
 </div>
