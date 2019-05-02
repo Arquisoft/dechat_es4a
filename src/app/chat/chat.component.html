@@ -137,6 +137,9 @@
                                 <iframe style="margin-right:0" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
+                            <div *ngIf="isInvitation(string.content)">
+                                <button type="button" class="btn btn-primary" (click)="createGroupFromInvitation(string.content)">{{string.content}}</button>
+                            </div>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 5%;">
                                     <vg-controls>
@@ -163,7 +166,7 @@
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span id='timeMessage'>
+                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string) && !isInvitation(string.content)">{{string.content}} <span id='timeMessage'>
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
