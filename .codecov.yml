@@ -3,8 +3,12 @@ codecov:
     require_ci_to_pass: no
 
 ignore:
-
+  - "src/.*/chat.component.ts"
+  - "src/**/chat.component.ts"
   - "**/chat.component.ts"
+  - "*./chat.component.ts"
+  - "src/chat.component.ts"
+  - "*/chat.component.ts"
   - "chat.component.ts"
   - "src/app/chat.component.ts"
   - "src/app/chat/chat.component.ts"
