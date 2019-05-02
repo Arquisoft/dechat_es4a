@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Building Block View [TODO]</title>
+<title>Building Block View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -528,11 +528,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-building-block-view">Building Block View [TODO]</a>
+<li><a href="#section-building-block-view">Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#whitebox-overall-system">Whitebox Overall System</a></li>
-<li><a href="#level-2todo">Level 2[TODO]</a></li>
-<li><a href="#level-3todo">Level 3[TODO]</a></li>
+<li><a href="#level-2">Level 2</a></li>
 </ul>
 </li>
 </ul>
@@ -540,7 +539,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-building-block-view"><a class="anchor" href="#section-building-block-view"></a>Building Block View [TODO]</h2>
+<h2 id="section-building-block-view"><a class="anchor" href="#section-building-block-view"></a>Building Block View</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="whitebox-overall-system"><a class="anchor" href="#whitebox-overall-system"></a>Whitebox Overall System</h3>
@@ -551,7 +550,7 @@ who can access it, to achieve this, the SOLID PODs have been created. These PODs
 it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/05_building_block_level1.PNG" alt="Whitebox Overall System"></span></p>
+<p><span class="image"><img src="./images/05_building_block_level1.png" alt="Whitebox Overall System"></span></p>
 </div>
 <div class="paragraph">
 <p>The main elements that make part of the app and will communicate with each other are the following:</p>
@@ -574,29 +573,61 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>User POD</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, then, any user with granted access can interact with it</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, givimg permission to other users if the application that use them need them</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>deChat app</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it&#8217;s funcionality</em></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="level-2todo"><a class="anchor" href="#level-2todo"></a>Level 2[TODO]</h3>
-
+<h3 id="level-2"><a class="anchor" href="#level-2"></a>Level 2</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_building_block_level2.png" alt="Whitebox Inner Structure System"></span></p>
 </div>
-<div class="sect2">
-<h3 id="level-3todo"><a class="anchor" href="#level-3todo"></a>Level 3[TODO]</h3>
-
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User POD</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, givimg permission to other users if the application that use them need them</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>index.ttl</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>It&#8217;s where the chat is stored in a chat turtle format</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>deChat app</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it&#8217;s funcionality</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>chat.component.ts</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>section of the app that treats the data recieved from chat.service to show it to the user in the chat</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>chat.service.ts</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>section of the app reads both PODs to pass the messages to chat.component, and writes in it&#8217;s own POD with the messages written in the App by the user</em></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-04 22:19:32 CEST
+Last updated 2019-05-01 01:05:22 CEST
 </div>
 </div>
 </body>
