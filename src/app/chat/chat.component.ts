@@ -774,11 +774,16 @@ export class ChatComponent implements OnInit {
    let chaturl = url.substring(url.indexOf("https"));
    let groupInfo;
    let userurl;
-   console.log(chaturl);
+   let users = new Array();
     this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+      let prefixes = body.split("@prefix");
+      prefixes.forEach(element => {
+        if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
+      });
       groupInfo = body;
       userurl = chaturl.replace(this.getUsernameFromId(chaturl),this.getUsername());
       this.fileClient.createFolder(userurl).then(success => {
+        this.chat.giveGroupPermissions(users,userurl+'.acl')
         this.fileClient.readFile(userurl + "index.ttl#this").then(body => {
           console.log('group exists');
         }, err => {
@@ -786,19 +791,23 @@ export class ChatComponent implements OnInit {
             this.fileClient.updateFile(userurl +"index.ttl#this",groupInfo);
           });
         });
-      },err => {});
+      },err => {
+        console.log(err);
+      });
     }, err => {
       console.log('group does not exist');
       console.log(err);
     });
-    
+   
     let name = chaturl.split("/")[4].replace("GroupChat","");
     console.log(name);
+
+    this.groupUsers = this.chat.getUsersFromTTL(name)
     this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.dateLastMessage = undefined; 
-    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.chat.getUsersFromTTL(name));
+    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
     this.chat.createBaseChatForGroup(userurl);
     this.groupUsers = new Array();
     this.messages = [];

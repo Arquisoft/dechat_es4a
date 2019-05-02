@@ -247,15 +247,18 @@ export class ChatService implements OnInit {
     console.log(name);
     if(this.chat.isGroup){
       //TODO: Lectura mensajes.
+      console.log('soy grupo');
       console.log(this.rdf.session.webId)
       this.getGroupMessagesFromPOD(this.rdf.session.webId.replace("/profile/card#me","/private/GroupChat"+this.chat.chatName));
       this.chat.friendsId.forEach(friend => {
         this.getGroupMessagesFromPOD(friend.replace("/profile/card#me","/private/GroupChat"+this.chat.chatName));
       });
-    }else if (name != "undefined") {
+    }
+    if (name != "undefined" && !this.chat.isGroup) {
         this.getMessagesFromPOD(this.chatuserUrl);
         console.log(this.chatfriendUrl);
         console.log(this.chatuserUrl);
+        console.log('no soy grupo')
         this.getMessagesFromPOD(this.chatfriendUrl);
       }
     return this.chat;
@@ -548,9 +551,9 @@ export class ChatService implements OnInit {
       console.log('chat exists');
       let chatContent = body;
       
-      let chatContent0 = body.split(":this")[0];
-      let chatContent1 = body.split(":this")[1].split("flow:message")[0];
-      let chatContent2 = body.split(":this")[1].split("flow:message")[1];
+      let chatContent0 = body.split("ind:this")[0];
+      let chatContent1 = body.split("ind:this")[1].split("flow:message")[0];
+      let chatContent2 = body.split("ind:this")[1].split("flow:message")[1];
 
       let dm
       if (date.getMonth() < 10) {
@@ -560,7 +563,8 @@ export class ChatService implements OnInit {
       }
   
       const msgnb = date.getFullYear().toString() + dm + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + 0;
-      const message = chatContent0 + `
+      const message = chatContent0 + 
+      `
         :Msg${msgnb}
             terms:created "${date.toISOString()}"^^XML:dateTime;
             n:content "${msg.content}";
@@ -674,15 +678,15 @@ export class ChatService implements OnInit {
         n0:accessTo Ch:;
         n0:agent`; 
     for(let i in users){
-      if(Number(i) < users.length)
+      if(Number(i) < users.length - 1)
         this.baseAcl += ` c${i}:me, `
       else
-        this.baseAcl += `c${i}:me.
+        this.baseAcl += `c${i}:me;
         `
     }
     this.baseAcl+=
        `
-       n0:defaultForNew Ch:
+       n0:defaultForNew Ch:;
        n0:mode n0:Read.`;
    
     this.fileClient.readFile(url).then(body =>{
