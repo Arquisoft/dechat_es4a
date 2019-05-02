@@ -86,6 +86,9 @@ describe('ChatService', () => {
   it('should upload the background', async(inject([ChatService], (service: ChatService) => {
     service.uploadBackground(new File([""], "filename"));
   })));
+  it('should send an invitation', async(inject([ChatService], (service: ChatService) => {
+    service.sendInvitation();
+  })));
 
 
 
