@@ -73,9 +73,9 @@ describe('ChatService', () => {
     service.resetChat();
   }));
 
-  it('should load messages', async(inject([ChatService],(service: ChatService) => {
+  /*it('should load messages', async(inject([ChatService],(service: ChatService) => {
     service.loadMessages("https://miau.solid.community/profile/card#me","https://feyre.solid.community/profile/card#me");
-  })));
+  })));*/
 
   /*it('should get messages from POD', async(inject([ChatService],(service: ChatService) => {
     service.getMessagesFromPOD("https://miau.solid.community/private/Chatfeyre/index.ttl#this");
