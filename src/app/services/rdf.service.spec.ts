@@ -92,7 +92,7 @@ describe('RdfService', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-   /* it('check create methods', ()=>{
+    it('check create methods', ()=>{
         const user = 'https://davidcr98.solid.community/profile/card#me';
         service.getValueFromVcard('','https://davidcr98.solid.community/profile/card#me');
         service.getValueFromFoaf('','https://davidcr98.solid.community/profile/card#me');
@@ -104,5 +104,5 @@ describe('RdfService', () => {
         service.getFieldName('email');
         service.getFieldName('check');
 
-    });*/
+    });
 });
