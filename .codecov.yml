@@ -1,8 +1,10 @@
 codecov:
   notify:
-    require_ci_to_pass: no
+    require_ci_to_pass: yes
 
 ignore:
+  - "**/*"
+  - "src/**/*"
   - "**/chat.component.ts"
   - "chat.component.ts"
   - "src/app/chat/*"
