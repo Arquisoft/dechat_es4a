@@ -92,10 +92,6 @@ export class ChatService implements OnInit {
   async postMessage(msg: SolidMessage) {
     var author = "me";
     var urlfile = this.chatuserUrl + "index.ttl#this";
-    if (this.userID == msg.authorId) {
-      // urlfile = this.chatuserUrl + "index.ttl#this";
-      // author = "me";
-    }
 
     var chatcontent = "";
 
@@ -289,7 +285,7 @@ export class ChatService implements OnInit {
     Método que añade el contenido del mensaje al objeto SolidChat. En caso de que este vacío
     o su contenido sea "Chat Started" este no lo añade. 
   */
-  private addToChat(msg: string, maker: string, time = "") {
+  addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     let messageTime = time.substring(time.indexOf("\"") + 1);
     if (content != "" && content.length > 0 && content != "Chat Started") {
@@ -302,9 +298,6 @@ export class ChatService implements OnInit {
     this.fileClient.deleteFile(url).then(success => {
       console.log(`Deleted ${url}.`);
     }, err => console.log(err)).catch(error => console.log("File not deleted"));
-    /*this.fileClient.deleteFolder("https://" + user + ".solid.community/private/Chat" + nameFriend).then(success => {
-      console.log(`Deleted ${url}.`);
-    }, err => console.log(err)).catch(error => console.log("Folder not deleted"));*/
   }
   /* 
     Método que sube la imagen a la POD y envia un mensaje con la URL para que sea posible
