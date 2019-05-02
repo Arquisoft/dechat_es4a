@@ -26,10 +26,12 @@ import {ToastrModule, ToastrService} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
-import {RdfService} from "./services/rdf.service";
-import {ChatService} from "../../bin/src/app/services/chat.service";
+import {AgoraConfig, AngularAgoraRtcModule} from "angular-agora-rtc";
+import { VideoChatComponent } from './video-chat/video-chat.component';
+import {RdfService} from "./services/rdf.service"
 import {VgStreamingModule} from "videogular2/streaming";
 import {CommonModule} from "@angular/common";
+import { ChatService } from './services/chat.service';
 
 
 export const routes: Routes = [
@@ -61,8 +63,14 @@ export const routes: Routes = [
   {
     path: 'navbar',
     component: NavbarComponent
+  },
+  {
+    path: 'videoChat',
+    component: VideoChatComponent
   }
 ];
+
+export const agoraConfig: AgoraConfig = { AppID: '9474fbbc318f4821853cdaaa2c7924eb' };
 
 @NgModule({
   declarations: [
@@ -73,6 +81,7 @@ export const routes: Routes = [
     RegisterComponent,
     ChatComponent ,
     NavbarComponent,
+    VideoChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +98,7 @@ export const routes: Routes = [
     VgBufferingModule,
     ColorSketchModule,
     ColorTwitterModule,
+    AngularAgoraRtcModule.forRoot(agoraConfig),
     BrowserAnimationsModule,
     VgStreamingModule,
     CommonModule,

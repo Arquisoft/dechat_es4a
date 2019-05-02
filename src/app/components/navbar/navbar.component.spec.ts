@@ -4,6 +4,8 @@ import { NavbarComponent } from './navbar.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import {ToastrModule} from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/solid.auth.service';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
