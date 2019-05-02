@@ -32,13 +32,18 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      customLaunchers: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+          }
+      }
+      },
     singleRun: false,
   }
 
-  if (process.env.TRAVIS) {
-    cfg.browsers = ['Chrome_travis_ci'];
-}
 
 config.set(cfg);
 };
