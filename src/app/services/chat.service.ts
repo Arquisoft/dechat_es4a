@@ -283,7 +283,7 @@ export class ChatService implements OnInit {
 
       try {
         this.chatNotFounded = false;
-        this.fileClient.readFile(url).then(body => {
+        this.fileClient.readFile(url + "index.ttl#this").then(body => {
           chatcontent = body;
 
           var split = chatcontent.split(':Msg');
