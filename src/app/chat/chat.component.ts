@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
@@ -87,12 +86,12 @@ export class ChatComponent implements OnInit {
   }
 
   //Carga los amigos
-  loadFriends() {
+  async loadFriends() {
     if (!this.auth.getOldFriends()) {
-      const list_friends = this.rdf.getFriends();
-      this.auth.saveFriends(this.rdf.getFriends());
-      if (list_friends) {
-        this.amigos = list_friends;
+      const friends = await this.rdf.getFriends();
+      this.auth.saveFriends(friends.list_friends);
+      if (friends.list_friends) {
+        this.amigos = friends.list_friends;
       }
     }
     else {
@@ -199,7 +198,7 @@ export class ChatComponent implements OnInit {
         else
           return 0;
       });
-
+      let user = await this.getUsername();
       await chat.messages.forEach(message => {
         if (message.content && message.content.length > 0) {
           if (!this.checkExistingMessage(message)) {
@@ -207,12 +206,14 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              this.toastr.info("You have a new message from " + message.authorId);
-              let sound = new Howl({
-                src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
-              });
-              Howler.volume(1);
-              sound.play();
+              if(message.authorId != this.chat.userID){
+                this.toastr.info("You have a new message from " + message.authorId);
+                let sound = new Howl({
+                  src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
+                });
+                Howler.volume(1);
+                sound.play();
+              }
             }
           }
         }
@@ -271,12 +272,19 @@ export class ChatComponent implements OnInit {
     return user;
   }
 
-  //Devuelve el nombre de usuario loggeado
   getUsername(): string {
-    let id = this.auth.getOldWebId();
-    let username = id.replace('https://', '');
-    let user = username.split('.')[0];
-    return user;
+    try {
+      let id = this.auth.getOldWebId();
+      if(id != null || id != undefined){
+        let username = id.replace('https://', '');
+        let user = username.split('.')[0];
+        return user;
+      }
+      return "";
+    }
+    catch (error) {
+      console.log(`Error webId: ${error}`);
+    }
   }
 
   //Sale de sesión
@@ -354,7 +362,7 @@ export class ChatComponent implements OnInit {
   getUrlBackground(){
     let url = "https://" + this.getUsername() + ".solid.community/private/Chat" + this.friendActive + "/background.jpeg";
     if(this.friendActive != undefined){
-         return "url('"+ url + "')"; 
+         return "url('"+ url + "')";
     }
     return "url('/assets/images/cosmos.jpg')";
   }
@@ -375,7 +383,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  //Devuelve el url del chat del amigo en la cuenta loggeada 
+  //Devuelve el url del chat del amigo en la cuenta loggeada
   getChatUrl(user: string, friend: string) {
     let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
 
@@ -437,7 +445,7 @@ export class ChatComponent implements OnInit {
     this.closeNav();
     this.loadFriends();
     this.changeChat(name, photo);
-    this.mapContacts.set(name, photo);    
+    this.mapContacts.set(name, photo);
   }
 
   //Abre el panel vertical
@@ -527,11 +535,39 @@ export class ChatComponent implements OnInit {
     console.log("Create group");
   }
 
+
+  goToVideoChat() {
+    if (this.friendActive) {
+      const friendWebId = "https://" + this.friendActive + ".solid.community/profile/card#me";
+      let webIds = [this.auth.getOldWebId(), friendWebId];
+      webIds.sort(function (a, b) {
+        if (a.firstname < b.firstname) {
+          return -1;
+        }
+        if (a.firstname > b.firstname) {
+          return 1;
+        }
+        return 0;
+      });
+      let channelKey = '';
+      for (const webId in webIds) {
+        channelKey = channelKey + webId;
+      }
+      localStorage.setItem('channelKey', channelKey);
+      this.router.navigate(['videoChat']);
+    }
+    else {
+      this.toastr.info('Please select a friend first to call');
+    }
+  }
+
+
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
     if(confirm("Are you sure you want to delete this chat?")){
       console.log("Removing chat....: " + friend);
-      this.chat.removeChat(this.getUsername(), friend);
+      let user = await this.getUsername();
+      this.chat.removeChat(user, friend);
       this.mapContacts.forEach((value: string, key: string) => {
         if (key.includes(friend)) {
           this.mapContacts.delete(key);
@@ -585,7 +621,7 @@ export class ChatComponent implements OnInit {
     return finalHour;
   }
 
-  //Para saber si la lista con chats esta vacia para mostrar o no el boton de añadir amigo con mensaje 
+  //Para saber si la lista con chats esta vacia para mostrar o no el boton de añadir amigo con mensaje
   hasContactsChats(){
     if(this.mapContacts.size > 0){
       return true;
@@ -752,8 +788,9 @@ export class ChatComponent implements OnInit {
   }
 
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
-  createFolderNotifications(){
-    this.chat.createFolderNotifications(this.getUsername());
+  async createFolderNotifications(){
+    let user = await this.getUsername();
+    this.chat.createFolderNotifications(user);
   }
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar

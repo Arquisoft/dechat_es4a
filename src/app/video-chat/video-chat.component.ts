@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularAgoraRtcService, Stream} from "angular-agora-rtc";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-video-chat',
@@ -15,16 +16,23 @@ export class VideoChatComponent implements OnInit {
   localStream: Stream ;
   remoteCalls:any = [];
 
-  constructor( private agoraService: AngularAgoraRtcService) {
+  constructor( private agoraService: AngularAgoraRtcService, private router  : Router) {
     this.agoraService.createClient();
+    this.startCall();
   }
 
-  startCall(channelKey: string) {
-    this.agoraService.client.join(null, '12', null, (uid) => {
+  startCall() {
+    this.agoraService.client.join(null, localStorage.getItem('channelKey'), null, (uid) => {
       this.localStream = this.agoraService.createStream(uid, true, null, null, true, false);
       this.localStream.setVideoProfile('720p_3');
       this.subscribeToStreams();
     });
+  }
+
+  endCall(){
+    this.localStream.stop();
+    this.localStream.close();
+    this.router.navigate(['chat']);
   }
   private subscribeToStreams() {
     this.localStream.on("accessAllowed", () => {

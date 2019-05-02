@@ -1,5 +1,6 @@
 #video_streaming{
     margin: 20px;
+    margin-left: 30%;
     display: inline-flex;
 }
 #agora_local{
@@ -13,4 +14,13 @@
     margin-left: 50px;
     height: 250px;
     width: 250px;
+}
+
+.phoneCall .fas fa-phone-slash {
+    margin-left: 30px;
+    cursor:pointer;
+    color: #41437e !important;
+    text-transform: uppercase;
+    border: none;
+    size: 20px;
 }
