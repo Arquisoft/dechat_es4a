@@ -90,9 +90,9 @@
                                 <iframe style="margin-left:45%;" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
                             </div>
-                            <p *ngIf="isInvitation(string.content)" href="createGroupFromInvitation(string.content)">
-                                {{string.content}} <span id='timeMessage2'>{{hourMessages(string.time)}}</span>
-                            </p>
+                            <div *ngIf="isInvitation(string.content)">
+                                <button type="button" class="btn btn-primary" (click)="createGroupFromInvitation(string.content)">{{string.content}}</button>
+                            </div>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 42%;">
                                     <vg-controls>
@@ -119,8 +119,8 @@
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string)">{{string.content}}
-                                <span id='timeMessage2'>{{hourMessages(string.time)}}</span></p>
+                            <p *ngIf="!isImage(string) && !isVideo(string) &&!isAudio(string) && !isInvitation(string.content)">{{string.content}}
+                                <span id='timeMessage'>{{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
                     <div *ngIf="!isContactMessage(string)">
@@ -132,6 +132,9 @@
                             <div *ngIf="isVideo(string.content)">
                                 <iframe style="margin-right:0" width="520" height="345" [src]="this.videosSafesURL[string.content]">
                                 </iframe>
+                            </div>
+                            <div *ngIf="isInvitation(string.content)">
+                                <button type="button" class="btn btn-primary" (click)="createGroupFromInvitation(string.content)">{{string.content}}</button>
                             </div>
                             <div *ngIf="isAudio(string.content)">
                                 <vg-player style="height: 50px; width: 500px; margin-left: 5%;">
@@ -159,7 +162,7 @@
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span id='timeMessage3'>
+                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string) && !isInvitation(string.content)">{{string.content}} <span id='timeMessage3'>
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>

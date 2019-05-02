@@ -768,30 +768,35 @@ export class ChatComponent implements OnInit {
     this.groupUsers.push(user);
   }
 
-
-
-  createGroupFromInvitation(url: string){
-   
-    
-   url = url.substring(url.indexOf("https"));
+  createGroupFromInvitation(url: string){   
+   let chaturl = url.substring(url.indexOf("https")) +"index.ttl#this";
 
    this.groupUsers.push("https://"+this.friendActive+".solid.community/profile/card#me");
-    this.fileClient(url).then(body => {
+    this.fileClient.readFile(chaturl).then(body => {
       let prefixes = body.split("@prefix");
       prefixes.forEach(element => {
-        if(element.includes(".solid.community") && !element.includes(this.getUsername())) 
+        if(element.includes(".solid.community")) 
           this.groupUsers.push(element.substring(element.indexOf("<")+1,element.indexOf(">")));
       });
     }, err => {
       console.log('group does not exist');
       console.log(err);
     });
-    let name = url.substring(url.indexOf("GroupChat"+9),url.indexOf("/index"));
-    this.createNewGroup(name);
+    
+    let name = chaturl.split("/")[4].replace("GroupChat","");
+    console.log(name);
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.dateLastMessage = undefined; 
+    this.chat.createGroupChat(name, this.groupUsers,true);
+    this.groupUsers = new Array();
+    this.messages = [];
+    this.loadMessages();
   }
 
   isInvitation(content:string){
-    return content.includes("https") && content.includes("GroupChat");
+    return content.includes("GroupChat");
   }
 
   changeToGroup(name:string, photo:string){

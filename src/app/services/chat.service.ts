@@ -241,21 +241,23 @@ export class ChatService implements OnInit {
   async loadMessages(user, friend) {
     let username = friend.replace('https://', '');
     let name = username.split('.')[0];
+    console.log(user);
     console.log(this.chat.isGroup);
+    console.log(friend);
+    console.log(name);
     if(this.chat.isGroup){
       //TODO: Lectura mensajes.
       console.log(this.rdf.session.webId)
       this.getGroupMessagesFromPOD(this.rdf.session.webId.replace("/profile/card#me","/private/GroupChat"+this.chat.chatName));
       this.chat.friendsId.forEach(friend => {
         this.getGroupMessagesFromPOD(friend.replace("/profile/card#me","/private/GroupChat"+this.chat.chatName));
-    });
-    if (name != "undefined" && !this.chat.isGroup) {
+      });
+    }else if (name != "undefined") {
         this.getMessagesFromPOD(this.chatuserUrl);
         console.log(this.chatfriendUrl);
         console.log(this.chatuserUrl);
         this.getMessagesFromPOD(this.chatfriendUrl);
       }
-    }
     return this.chat;
   }
 
@@ -375,15 +377,13 @@ export class ChatService implements OnInit {
 
   /*Recibe como parametros la lista de usuarios que formarán parte del grupo y un nombre, se crea una carpeta con el nombre del grupo 
   y posteriormente un archivo index.ttl  que contiene los mensajes*/
-  async createGroupChat(groupName:string, users:Array<string> = this.getUsersFromTTL(groupName)){
+  async createGroupChat(groupName:string, users:Array<string> = this.getUsersFromTTL(groupName), invited: boolean = false){
     console.log(users);
     console.log(users.length);
     let i = 0;
     let j = 0;
     let d = new Date();
-    let url = "https://"+this.getUsername(this.rdf.session.webId)+".solid.community/private/GroupChat" + groupName + "/";
-    
-    this.chatuserUrl = url;
+    let url = "https://"+this.getUsername(this.rdf.session.webId)+".solid.community/private/GroupChat" + groupName + "/"; 
 
     this.basechat = 
     `
@@ -446,13 +446,14 @@ export class ChatService implements OnInit {
           }, err => console.log(err)).catch(error => console.log("File not created"));
       })
     });
-
-    await users.forEach(user => {
-      this.sendInvitationToGroup(user,url);
-    })
-    
+    if(!invited){
+      await users.forEach(user => {
+        this.sendInvitationToGroup(user,url);
+      })
+    }
     
     this.chat = new SolidChat(groupName,this.rdf.session.webId,users);
+    this.chatuserUrl = url;
     console.log(users.length);
     this.createBaseChatForGroup(this.chatUrlGroup(d.toISOString().split("T")[0].split("-")));
   }
@@ -674,14 +675,15 @@ export class ChatService implements OnInit {
         n0:agent`; 
     for(let i in users){
       if(Number(i) < users.length)
-        this.baseAcl += `c${i}:me,`
+        this.baseAcl += ` c${i}:me, `
       else
         this.baseAcl += `c${i}:me.
         `
     }
     this.baseAcl+=
-       `n0:defaultForNew Ch:
-        n0:mode n0:Read.`;
+       `
+       n0:defaultForNew Ch:
+       n0:mode n0:Read.`;
    
     this.fileClient.readFile(url).then(body =>{
       console.log('already has permissions');
