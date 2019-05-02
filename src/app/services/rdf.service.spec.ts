@@ -93,8 +93,16 @@ describe('RdfService', () => {
     });
 
     it('check create methods', ()=>{
-    service.getValueFromVcard('','https://davidcr98.solid.community/profile/card#me');
-    service.getValueFromFoaf('','https://davidcr98.solid.community/profile/card#me');
+        const user = 'https://davidcr98.solid.community/profile/card#me';
+        service.getValueFromVcard('','https://davidcr98.solid.community/profile/card#me');
+        service.getValueFromFoaf('','https://davidcr98.solid.community/profile/card#me');
+        //service.transformDataForm(null,user,'');
+        //service.getPhotoFriend(user);
+        //service.getFieldValue(null,'phone');
+        //service.getOldFieldValue('phone',null);
+        service.getFieldName('company');
+        service.getFieldName('email');
+        service.getFieldName('check');
 
     });
 });
