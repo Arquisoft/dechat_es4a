@@ -20,18 +20,21 @@ import { ColorTwitterModule } from 'ngx-color/twitter'; // <color-twitter></colo
 import { AuthService } from './services/solid.auth.service';
 import { AuthGuard } from './services/auth.guard.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EmojiPickerModule} from 'ng-emoji-picker';
 import {ShContextMenuModule} from 'ng2-right-click-menu'
-import {RdfService} from "./services/rdf.service";
-import {ChatService} from "../../bin/src/app/services/chat.service";
+import {AgoraConfig, AngularAgoraRtcModule} from "angular-agora-rtc";
+import { VideoChatComponent } from './video-chat/video-chat.component';
+import {RdfService} from "./services/rdf.service"
 import {VgStreamingModule} from "videogular2/streaming";
+import {CommonModule} from "@angular/common";
+import { ChatService } from './services/chat.service';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: LoginComponent
@@ -60,8 +63,14 @@ const routes: Routes = [
   {
     path: 'navbar',
     component: NavbarComponent
+  },
+  {
+    path: 'videoChat',
+    component: VideoChatComponent
   }
 ];
+
+export const agoraConfig: AgoraConfig = { AppID: '9474fbbc318f4821853cdaaa2c7924eb' };
 
 @NgModule({
   declarations: [
@@ -70,8 +79,9 @@ const routes: Routes = [
     LoginPopupComponent,
     CardComponent,
     RegisterComponent,
-    ChatComponent,
+    ChatComponent ,
     NavbarComponent,
+    VideoChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,10 +98,14 @@ const routes: Routes = [
     VgBufferingModule,
     ColorSketchModule,
     ColorTwitterModule,
+    AngularAgoraRtcModule.forRoot(agoraConfig),
     BrowserAnimationsModule,
-    VgStreamingModule
+    VgStreamingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
+  providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

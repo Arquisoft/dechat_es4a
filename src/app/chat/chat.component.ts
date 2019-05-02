@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
@@ -158,7 +157,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Envía mensajes y los guarda
-  send(content: string) {
+  send(content: string, event) {
     var value = (<HTMLInputElement>document.querySelector('.emojiInput')).value;
     if (this.friendActive) {
       if (!(content == "") && value) {
@@ -384,7 +383,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  //Devuelve el url del chat del amigo en la cuenta loggeada 
+  //Devuelve el url del chat del amigo en la cuenta loggeada
   getChatUrl(user: string, friend: string) {
     let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
 
@@ -535,6 +534,33 @@ export class ChatComponent implements OnInit {
   createGroup() {
     console.log("Create group");
   }
+
+
+  goToVideoChat() {
+    if (this.friendActive) {
+      const friendWebId = "https://" + this.friendActive + ".solid.community/profile/card#me";
+      let webIds = [this.auth.getOldWebId(), friendWebId];
+      webIds.sort(function (a, b) {
+        if (a.firstname < b.firstname) {
+          return -1;
+        }
+        if (a.firstname > b.firstname) {
+          return 1;
+        }
+        return 0;
+      });
+      let channelKey = '';
+      for (const webId in webIds) {
+        channelKey = channelKey + webId;
+      }
+      localStorage.setItem('channelKey', channelKey);
+      this.router.navigate(['videoChat']);
+    }
+    else {
+      this.toastr.info('Please select a friend first to call');
+    }
+  }
+
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
@@ -753,7 +779,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Cambia de color las letras
-  private changeLetterColor(className:string, color:string){
+  changeLetterColor(className:string, color:string){
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
     for (i = 0; i < list.length; i++) {
@@ -766,6 +792,8 @@ export class ChatComponent implements OnInit {
     let user = await this.getUsername();
     this.chat.createFolderNotifications(user);
   }
+
+
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
   lookForInvitations(){

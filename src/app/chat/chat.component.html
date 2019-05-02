@@ -59,7 +59,7 @@
         <div class="contact-profile" id="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
-               <div class="phoneCall">
+               <div class="phoneCall" (click)="goToVideoChat">
                     <i class="fas fa-phone" role="button"></i>
                     <span class="tooltiptext">Call</span>
                 </div>
@@ -183,7 +183,7 @@
                         <td>
                             <emoji-input inputClass="emojiInput" id="emoji"[popupAnchor]="'bottom'" [(model)]="text"
                                 [closeAfterSelection]="false" (click)="openPopup(false)"
-                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text)">
+                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
                             </emoji-input>
                         </td>
                         <td style="width: 20px;">
@@ -196,7 +196,7 @@
                             </label>
                         </td>
                         <td style="width: 20px;">
-                            <button id="send" class="chatButton" type="submit" (click)=send(text)>
+                            <button id="send" class="chatButton" type="submit" (click)=send(text,$event)>
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             </button>
                         </td>

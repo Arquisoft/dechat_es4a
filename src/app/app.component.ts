@@ -41,7 +41,7 @@ import { AuthService } from './services/solid.auth.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'DeChat';
+  title = 'app';
   public inLogin;
 
   constructor(private _router: ActivatedRoute, private auth: AuthService) {

@@ -1,0 +1,10 @@
+{
+  "simulation": "computerdatabase.dechatSecondSimulation",
+  "simulationId": "dechatsecondsimulation",
+  "start": 1556699680189,
+  "description": "",
+  "scenarios": ["dechatSecondSimulation"],
+  "assertions": [
+
+  ]
+}

@@ -31,12 +31,6 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-    it('should have as title as DeChat', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('DeChat');
-    }));
-
   afterEach(() => {
     TestBed.resetTestingModule();
   });

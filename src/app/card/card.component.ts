@@ -61,7 +61,7 @@ export class CardComponent implements OnInit {
   }
   // Format data coming back from server. Intended purpose is to replace profile image with default if it's missing
   // and potentially format the address if we need to reformat it for this UI
-  private setupProfileData() {
+  setupProfileData() {
     if (this.profile) {
       this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
     } else {
@@ -72,10 +72,6 @@ export class CardComponent implements OnInit {
   // Example of logout functionality. Normally wouldn't be triggered by clicking the profile picture.
   logout() {
     this.auth.solidSignOut();
-  }
-
-  goToChat() {
-    this.router.navigateByUrl('/chat');
   }
 
   rotate() {
