@@ -108,3 +108,19 @@ Then('I can read he has sent me {string}', function (string) {
     assert.equal(this.response, string); 
   }
 });
+ // my friends got listed
+ Given('I press List Friends button', function () {
+  // Write code here that turns the phrase above into concrete actions
+  this.list = true;
+});
+When('My friend {string} got listed', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  this.response = string;
+});
+     
+Then('I looked for my friend {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  if(this.message){
+    assert.equal(this.response, string); 
+  }
+});
