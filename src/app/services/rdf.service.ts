@@ -65,15 +65,6 @@ export class RdfService {
     this.session = await solid.auth.currentSession(localStorage);
   }
 
-
-  /**
-   * gets the WebId based on the current session
-   */
-  getWebId =  () => {
-   return this.session.webId;
-  }
-
-
   /**
    * Gets a node that matches the specified pattern using the VCARD onthology
    *
@@ -315,9 +306,9 @@ export class RdfService {
         let person = friends[i].value;
         list_friends.push(person);
       }
-      return {
+      return{
         list_friends: list_friends
-      }
+      } 
     } catch (error) {
       console.log(`Error fetching data: ${error}`);
     }
