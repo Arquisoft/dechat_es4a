@@ -17,6 +17,7 @@ interface SolidSession {
   providedIn: 'root',
 })
 export class AuthService {
+
   session: Observable<SolidSession>;
   fechInit = {
     method: 'PATCH',
@@ -33,7 +34,7 @@ export class AuthService {
   /*
    * This will check if current session is active to avoid security problems
   */
-  isSessionActive = async () => {
+  async isSessionActive()  {
     this.session = from(solid.auth.currentSession());
   }
 
@@ -47,7 +48,6 @@ export class AuthService {
       await solid.auth.popupLogin({ popupUri: './login-popup'});
       // Check if session is valid to avoid redirect issues
       await this.isSessionActive();
-
       // popupLogin success redirect to profile
       this.router.navigate(['/card']);
     } catch (error) {
@@ -62,7 +62,6 @@ export class AuthService {
     try {
 
       await solid.auth.logout();
-
     } catch (error) {
       console.log(`Error: ${error}`);
     }

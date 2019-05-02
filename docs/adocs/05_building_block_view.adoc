@@ -1,7 +1,7 @@
 [[section-building-block-view]]
 
 
-== Building Block View [TODO]
+== Building Block View
 
 === Whitebox Overall System
 
@@ -10,7 +10,7 @@ World Wide Web. Its name stands for "SOcial LInked Data". The main goal of SOLID
 who can access it, to achieve this, the SOLID PODs have been created. These PODs also let users decide where their data is stored, 
 it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.
 
-image:images/05_building_block_level1.png["Whitebox Overall System"]
+image:05_building_block_level1.png["Whitebox Overall System"]
 
 The main elements that make part of the app and will communicate with each other are the following:
 
@@ -18,13 +18,21 @@ The main elements that make part of the app and will communicate with each other
 |===
 | **Name** | **Responsibility**
 | _User_ | _Users will log in using their POD, from there, they can have conversations and share files with other users_
-| _User POD_ | _They are used to store the data of his owner, then, any user with granted access can interact with it_
-| _deChat app_ | _This app allows users to communicate with each other, provides the functionality and views necessary for that matter_
+| _User POD_ | _They are used to store the data of his owner, givimg permission to other users if the application that use them need them_
+| _deChat app_ | _This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it's funcionality_
 |===
 
-=== Level 2[TODO]
+=== Level 2
+image:05_building_block_level2.png["Whitebox Inner Structure System"]
 
-
-=== Level 3[TODO]
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| _User POD_ | _They are used to store the data of his owner, givimg permission to other users if the application that use them need them_
+| _index.ttl_ | _It's where the chat is stored in a chat turtle format_
+| _deChat app_ | _This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it's funcionality_
+| _chat.component.ts_ | _section of the app that treats the data recieved from chat.service to show it to the user in the chat_
+| _chat.service.ts_ | _section of the app reads both PODs to pass the messages to chat.component, and writes in it's own POD with the messages written in the App by the user_
+|===
 
 

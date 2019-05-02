@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 // Auth Service
 import { AuthService } from '../services/solid.auth.service';
 import { SolidProvider } from '../models/solid-provider.model';
+import {register} from "ts-node";
 
 
 @Component({
@@ -51,6 +52,6 @@ export class LoginComponent implements OnInit {
   }
 
   goToRegistration() {
-    this.router.navigateByUrl('/register');
+    this.router.navigate(['register']);
   }
 }
