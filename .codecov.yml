@@ -2,6 +2,22 @@ codecov:
   notify:
     require_ci_to_pass: no
 
+ignore:
+
+  - "**/chat.component.ts"
+  - "chat.component.ts"
+  - "src/app/chat.component.ts"
+  - "src/app/chat/chat.component.ts"
+  - "src/app/chat/*"
+  - "src/app/chat/.*"
+  - "bin/src/app/chat/.*"
+  - "bin/src/app/chat/*"
+  - "adocs" 
+  - "coverage"
+  - ".nyc_output"
+  - "scripts"
+
+
 coverage:
   precision: 2
   round: down
@@ -23,10 +39,4 @@ parsers:
 comment:
   layout: "header, diff"
   behavior: default
-  require_changes: no
-
-ignore:
-  - "adocs" 
-  - "coverage"
-  - ".nyc_output"
-  - "scripts"
+require_changes: no
