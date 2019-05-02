@@ -642,8 +642,8 @@ A more rigorous specification can be found at the following link, which describe
 <div class="paragraph">
 <div class="title">Use cases</div>
 <p>Here are two cases of uses in which our application shares a text file: the first one being between two users and the other case, a user sharing a file with several.
-<span class="image"><img src="./images/images/Diapos0.png" alt="Diapos0"></span> <strong>Case One (1-1)</strong>
-<span class="image"><img src="./images/images/Diapos1.png" alt="Diapos1"></span> <strong>Case Two (1-</strong>)*</p>
+<span class="image"><img src="./images/Diapos0.png" alt="Diapos0"></span> <strong>Case One (1-1)</strong>
+<span class="image"><img src="./images/Diapos1.png" alt="Diapos1"></span> <strong>Case Two (1-</strong>)*</p>
 </div>
 </div>
 <div class="sect2">
@@ -1080,10 +1080,10 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="log-in"><a class="anchor" href="#log-in"></a>6.1. Log in</h3>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>The user runs the application:</p>
+<p>1. The user runs the application:</p>
 <div class="literalblock">
 <div class="content">
 <pre>1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)</pre>
@@ -1100,23 +1100,18 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 </div>
 </div>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="send-messages"><a class="anchor" href="#send-messages"></a>6.2. Send messages</h3>
-<div class="literalblock">
-<div class="content">
-<pre>In order to send a message the user has follow the following steps</pre>
-</div>
+<div class="paragraph">
+<p>In order to send a message the user has follow the following steps:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>1. The user opens the app, logs in, and then they can go to the chat page.</p>
-</li>
-<li>
-<p>2. The chat page has two main sections, the conversation list and the chat box.</p>
+<p>1. The user opens the app, logs in, and then they can go to the chat page.The chat page has two main sections, the conversation list and the chat box.</p>
 </li>
 <li>
 <p>2.1. to chat with someone you need to have them as a friend. if you want to add someone as a friend you can do so by going to the new contact section of the contacts button and putting his POD ID there.</p>
@@ -1125,7 +1120,7 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <p>2.2. To chat with a friend the user first selects a contact to have a conversation with in the contacts button, which will add a conversation to the contact list. If there is already a chat ongoing it will be on the conversation list.</p>
 </li>
 <li>
-<p>2.3.  upon clicking a conversation will update the chatbox</p>
+<p>2.3.  upon clicking a conversation will update the chatbox, loading said chat</p>
 </li>
 <li>
 <p>3. When a chat is loaded the user can start talking to the selected friend by writing in the text box located in the bottom of the chat box. The app reads the friend&#8217;s POD folder for this conversation and checks for messages from the friend to show the user</p>
