@@ -1,9 +1,6 @@
 [[section-concepts]]
 == Cross-cutting Concepts
 
-.Possible topics for crosscutting concepts
-image:08-Crosscutting-Concepts-Structure-EN.png[Possible topics for crosscutting concepts, align="center"]
-
 === Domain Model
 
 In th following image, we present you the arquitecture of components we are using in this project. 
@@ -51,7 +48,7 @@ image::chat.png[Chat Page,width="80%",height="80%", align="center"]
 
 ==== Internationalization
 
-This app will be available in English and we will adapt it to Spanish in the future.
+This app will be available in English.
 
 === Under-the-hood
 
