@@ -438,6 +438,7 @@ export class ChatService implements OnInit {
     }, err =>{
       this.fileClient.createFolder(url).then(success => {
         console.log('Folder Created');
+        this.giveGroupPermissions(users,url+'.acl');
           this.fileClient.createFile(url + "index.ttl#this").then(fileCreated => {
             this.fileClient.updateFile(fileCreated, this.basechat).then(success => {
              console.log('chat has been started');
@@ -445,6 +446,11 @@ export class ChatService implements OnInit {
           }, err => console.log(err)).catch(error => console.log("File not created"));
       })
     });
+
+    await users.forEach(user => {
+      this.sendInvitationToGroup(user,url);
+    })
+    
     
     this.chat = new SolidChat(groupName,this.rdf.session.webId,users);
     console.log(users.length);
@@ -615,8 +621,9 @@ export class ChatService implements OnInit {
     users.push(invitedUser);
     console.log(invitedUser);
     console.log(groupUrl);
-    //this.chat = new SolidChat(invitedUser,this.rdf.session.webId,users);
-    let content = groupUrl + "\n Here's your invitation to my group!";
+    this.chat = new SolidChat(invitedUser,this.rdf.session.webId,users);
+    this.chatuserUrl =  "https://" + this.getUsername(this.rdf.session.webId) + ".solid.community/private/Chat" + this.getUsername(invitedUser) + "/"
+    let content =  "Here's your invitation to my group! " +groupUrl;
     let msg = new SolidMessage(this.rdf.session.webId,content);
     this.postMessage(msg);
   }
@@ -676,10 +683,13 @@ export class ChatService implements OnInit {
        `n0:defaultForNew Ch:
         n0:mode n0:Read.`;
    
-    
-    this.fileClient.createFile(url,this.baseAcl).then(success => {
-      console.log('permissions given');
-    }, (err: any) => console.log(err));
+    this.fileClient.readFile(url).then(body =>{
+      console.log('already has permissions');
+    },err => {
+      this.fileClient.createFile(url,this.baseAcl).then(success => {
+        console.log('permissions given');
+      }, (err: any) => console.log(err));
+    });
   }
 
 
