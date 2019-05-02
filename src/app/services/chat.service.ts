@@ -548,9 +548,9 @@ export class ChatService implements OnInit {
       console.log('chat exists');
       let chatContent = body;
       
-      let chatContent0 = body.split("ind:this")[0];
-      let chatContent1 = body.split("ind:this")[1].split("flow:message")[0];
-      let chatContent2 = body.split("ind:this")[1].split("flow:message")[1];
+      let chatContent0 = body.split(":this")[0];
+      let chatContent1 = body.split(":this")[1].split("flow:message")[0];
+      let chatContent2 = body.split(":this")[1].split("flow:message")[1];
 
       let dm
       if (date.getMonth() < 10) {
