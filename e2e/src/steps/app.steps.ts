@@ -1,5 +1,6 @@
 import { Before, Given, Then, When } from 'cucumber';
 import { expect } from 'chai';
+const assert = require('assert');
 
 
 import { AppPage } from '../page/app.po';
@@ -88,4 +89,38 @@ When(/^I click on the emoji$/, async () => {
 When(/^I click on the open$/, async () => {
   // Write code here that turns the phrase above into concrete actions
   await page.clickOnOpenPopUp();
+});
+
+//chat_friend
+Given('I am using the app', function () {
+  // Write code here that turns the phrase above into concrete actions
+  this.app = true;
+});
+
+When('I am chatting with my friend {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  this.response = string;
+});
+
+Then('I can read he has sent me {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  if(this.message){
+    assert.equal(this.response, string); 
+  }
+});
+ // my friends got listed
+ Given('I press List Friends button', function () {
+  // Write code here that turns the phrase above into concrete actions
+  this.list = true;
+});
+When('My friend {string} got listed', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  this.response = string;
+});
+     
+Then('I looked for my friend {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  if(this.message){
+    assert.equal(this.response, string); 
+  }
 });
