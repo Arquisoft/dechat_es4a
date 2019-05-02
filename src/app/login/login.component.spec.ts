@@ -17,6 +17,7 @@ import {VgCoreModule} from "videogular2/core";
 import {VgControlsModule} from "videogular2/controls";
 import {VgOverlayPlayModule} from "videogular2/overlay-play";
 import {VgBufferingModule} from "videogular2/buffering";
+import {VideoChatComponent} from "../video-chat/video-chat.component";
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -29,7 +30,7 @@ describe('LoginComponent', () => {
                 RouterTestingModule.withRoutes(routes) , ToastrModule.forRoot() , VgCoreModule, VgControlsModule,
                 VgOverlayPlayModule, VgBufferingModule, ],
             declarations: [LoginComponent , LoginPopupComponent, ChatComponent, CardComponent,
-                NavbarComponent, RegisterComponent ,  ],
+                NavbarComponent, RegisterComponent , VideoChatComponent ],
             providers: [],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         }).compileComponents();
