@@ -1,8 +1,8 @@
-import { TestBed, inject,async } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 
 import { ChatService } from './chat.service';
-import {RouterTestingModule} from "@angular/router/testing";
-import {ToastrModule} from "ngx-toastr";
+import { RouterTestingModule } from "@angular/router/testing";
+import { ToastrModule } from "ngx-toastr";
 import { SolidChat } from '../models/solid-chat.model';
 import { SolidMessage } from '../models/solid-message.model';
 import { RdfService } from './rdf.service';
@@ -17,7 +17,7 @@ describe('ChatService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, ToastrModule.forRoot() ] ,
+      imports: [RouterTestingModule, ToastrModule.forRoot()],
       providers: [ChatService]
     });
     rdfService = TestBed.get(RdfService);
@@ -41,7 +41,7 @@ describe('ChatService', () => {
     let idUser2 = "https://feyre.solid.community/profile/card#me";
     let chat1 = "https://" + service.getUsername(idUser1) + ".solid.community/private/Chat" + service.getUsername(idUser2) + "/";
     let chat2 = "https://" + service.getUsername(idUser2) + ".solid.community/private/Chat" + service.getUsername(idUser1) + "/";
-    service.createInboxChat(idUser1,idUser2);
+    service.createInboxChat(idUser1, idUser2);
     expect(service.userID).toBe(idUser1);
     expect(service.friendID).toBe(idUser2);
     expect(service.chatuserUrl).toBe(chat1);
@@ -55,6 +55,7 @@ describe('ChatService', () => {
   }));
 
   it('should remove a message', inject([ChatService], (service: ChatService) => {
+
     let date = (new Date()).toISOString();
     let msg = new SolidMessage("user", "Hi", date);
     service.chatuserUrl = "https://miau.solid.community/private/Chatfeyre/";
@@ -62,20 +63,31 @@ describe('ChatService', () => {
   }));
 
   it('should return a message', inject([ChatService], (service: ChatService) => {
-    service.isChatCreated("https://miau.solid.community/profile/card#me","https://feyre.solid.community/profile/card#me");
+    service.isChatCreated("https://miau.solid.community/profile/card#me", "https://feyre.solid.community/profile/card#me");
   }));
 
   it('should create base chat', inject([ChatService], (service: ChatService) => {
     service.createBaseChat("https://miau.solid.community/private/Chatfeyre/");
   }));
 
-  it('should reset chat',inject([ChatService], (service: ChatService) => {
+  it('should reset chat', inject([ChatService], (service: ChatService) => {
     service.resetChat();
   }));
 
-  it('should load messages', async(inject([ChatService],(service: ChatService) => {
-    service.loadMessages("https://miau.solid.community/profile/card#me","https://feyre.solid.community/profile/card#me");
+  it('should load messages', async(inject([ChatService], (service: ChatService) => {
+    service.loadMessages("https://miau.solid.community/profile/card#me", "https://feyre.solid.community/profile/card#me");
   })));
+
+
+  it('should upload images to POD', async(inject([ChatService], (service: ChatService) => {
+    service.uploadImage(new File([""], "filename"));
+  })));
+
+  it('should upload the background', async(inject([ChatService], (service: ChatService) => {
+    service.uploadBackground(new File([""], "filename"));
+  })));
+
+
 
   /*it('should get messages from POD', async(inject([ChatService],(service: ChatService) => {
     service.getMessagesFromPOD("https://miau.solid.community/private/Chatfeyre/index.ttl#this");
@@ -88,11 +100,11 @@ describe('ChatService', () => {
     //expect(service.chat.messages.length).toBe(1);
   })));*/
 
-  it('should delete whole chat', inject([ChatService],(service: ChatService) => {
-    service.removeChat("miau","aida");
+  it('should delete whole chat', inject([ChatService], (service: ChatService) => {
+    service.removeChat("miau", "aida");
   }));
 
-  it('should give permissions', inject([ChatService],(service: ChatService) => {
+  it('should give permissions', inject([ChatService], (service: ChatService) => {
     service.friendID = "https://feyre.solid.community/profile/card#me";
     service.givePermissions("https://miau.solid.community/private/Chatfeyre/");
   }));
