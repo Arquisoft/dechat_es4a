@@ -89,6 +89,12 @@ describe('ChatService', () => {
   it('should send an invitation', async(inject([ChatService], (service: ChatService) => {
     service.sendInvitation();
   })));
+  it('should create folder notifications', async(inject([ChatService], (service: ChatService) => {
+    service.createFolderNotifications("albertong");
+  })));
+  it('should give Permissions Invitations', async(inject([ChatService], (service: ChatService) => {
+    service.givePermissionsInvitations("https://albertong.solid.community/profile/card#me");
+  })));
 
 
 
