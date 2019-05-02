@@ -42,9 +42,10 @@ module.exports = function (config) {
     singleRun: true,
   }
 
-  /* if (process.env.TRAVIS) {
-     cfg.browsers = ['Chrome_travis_ci'];
- }*/
+ /* if (process.env.TRAVIS) {
+    cfg.browsers = ['Chrome_travis_ci'];
+}*/
 
-  config.set(cfg);
+config.set(cfg);
 };
+

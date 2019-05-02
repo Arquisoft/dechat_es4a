@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { DebugElement } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { SolidChat } from '../models/solid-chat.model';
+import { RdfService } from '../services/rdf.service';
 
 import { ToastrModule, ToastrService} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -23,7 +24,7 @@ describe('CardComponent',() =>{
               ],
 			declarations: [
                 CardComponent
-            ],
+						],
 		}).compileComponents();
 	}));
 	
