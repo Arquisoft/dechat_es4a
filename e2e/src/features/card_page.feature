@@ -1,7 +1,7 @@
 Feature: See card title
   Display the card title
 
-
+@Scenario
   Scenario: Card Page
     Given I am on the card page
     When I do nothing
