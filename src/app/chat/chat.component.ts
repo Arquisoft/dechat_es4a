@@ -770,12 +770,12 @@ export class ChatComponent implements OnInit {
     this.groupUsers.push(user);
   }
 
-  createGroupFromInvitation(url: string){   
+  async createGroupFromInvitation(url: string){   
    let chaturl = url.substring(url.indexOf("https"));
    let groupInfo;
    let userurl;
    let users = new Array();
-    this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+    await this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
       let prefixes = body.split("@prefix");
       prefixes.forEach(element => {
         if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
@@ -807,11 +807,13 @@ export class ChatComponent implements OnInit {
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.dateLastMessage = undefined; 
-    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
-    this.chat.createBaseChatForGroup(userurl);
+    await this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
+    await this.chat.createBaseChatForGroup(userurl);
     this.groupUsers = new Array();
-    this.messages = [];
-    this.loadMessages();
+    await this.messages = [];
+    await this.loadMessages();
+
+    await this.changeChat(name,'/assets/images/profile.png');
   }
 
   isInvitation(content:string){
