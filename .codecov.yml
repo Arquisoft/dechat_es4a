@@ -3,6 +3,16 @@ codecov:
     require_ci_to_pass: no
 
 ignore:
+
+    - "src/.*/rdf.service.ts"
+  - "src/**/rdf.service.ts"
+  - "**/rdf.service.ts"
+  - "*./rdf.service.ts"
+  - "src/rdf.service.ts"
+  - "*/rdf.service.ts"
+  - "rdf.service.ts"
+  - "src/service/rdf.service.ts"
+  - "src/app/service/rdf.service.ts"
   - "src/.*/chat.component.ts"
   - "src/**/chat.component.ts"
   - "**/chat.component.ts"
