@@ -73,15 +73,19 @@ describe('CardComponent',() =>{
 	});
 
 	it('should create an instance of Solid Chat model', () => {
-		const chat = new SolidChat('user1', 'user2');
+		let users = new Array();
+		users.push('user1');
+		const chat = new SolidChat('user1', 'user2',users);
 		expect(chat).toBeTruthy();
 });
 
 it('should return values from Solid Chat model', () => {
-		const chat = new SolidChat('user1', 'user2');
+		let users = new Array()
+		users.push('user1');
+		const chat = new SolidChat('user1', 'user2',users);
 		expect(chat).toBeTruthy();
-		expect(chat.clientId).toBe('user1');
-		expect(chat.friendId).toBe('user2');
+		expect(chat.clientId).toBe('user2');
+		expect(chat.friendsId.includes('user1')).toBeTruthy();
 });
 
 	afterAll(() => {
