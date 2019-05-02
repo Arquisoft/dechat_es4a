@@ -94,4 +94,5 @@ describe('AuthService', () => {
     const expectedRes = {c:'elena' , c0: 'aida'};
     expect(JSON.stringify(service.getOldFriends())).toBe(JSON.stringify(expectedRes));
   });
+  
 });
