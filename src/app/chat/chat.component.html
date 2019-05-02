@@ -58,8 +58,8 @@
     <div id="content" style="height: 100%" [ngStyle]="{'background-image': getUrlBackground(), 'background-position': 'center center', 'background-size': 'cover' }">
         <div class="contact-profile" id="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
-            <div class="profile-option" (click)="goToVideoChat()">
-               <div class="phoneCall">
+            <div class="profile-option">
+               <div class="phoneCall" (click)="goToVideoChat">
                     <i class="fas fa-phone" role="button"></i>
                     <span class="tooltiptext">Call</span>
                 </div>

@@ -62,7 +62,6 @@ export class AuthService {
     try {
 
       await solid.auth.logout();
-
     } catch (error) {
       console.log(`Error: ${error}`);
     }

@@ -87,4 +87,10 @@ it('should return values from Solid Chat model', () => {
 	afterAll(() => {
 		TestBed.resetTestingModule();
 	  });
+
+	afterEach(() => {
+		if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
+			(fixture.nativeElement as HTMLElement).remove();
+		}
+	});
 });
