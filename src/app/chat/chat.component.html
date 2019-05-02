@@ -58,7 +58,7 @@
         <div class="contact-profile" id="contact-profile">
             <img src={{getFriendPhotoActive()}} alt="" /><a>{{getFriendActive()}}</a>
             <div class="profile-option">
-               <div class="phoneCall" (click)="goToVideoChat()">
+                <div class="phoneCall" (click)="goToVideoChat()">
                     <i class="fas fa-phone" role="button"></i>
                     <span class="tooltiptext">Call</span>
                 </div>
@@ -166,8 +166,9 @@
                                     </audio>
                                 </vg-player>
                             </div>
-                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string)">{{string.content}} <span
-                                    id='timeMessage'>
+
+                            <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string) && !isInvitation(string.content)">{{string.content}} <span id='timeMessage'>
+
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>
@@ -225,8 +226,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div *ngFor="let entry of mapFriendsTotal | keyvalue">
-                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal"
-                        (click)="createChat(entry.key,entry.value)">
+                    <button type="button" class="list-group-item list-group-item-action" data-dismiss="modal" (click)="createChat(entry.key,entry.value)">
                         {{entry.key}}
                     </button>
                 </div>
