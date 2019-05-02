@@ -383,7 +383,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  //Devuelve el url del chat del amigo en la cuenta loggeada 
+  //Devuelve el url del chat del amigo en la cuenta loggeada
   getChatUrl(user: string, friend: string) {
     let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
 
@@ -534,6 +534,33 @@ export class ChatComponent implements OnInit {
   createGroup() {
     console.log("Create group");
   }
+
+
+  goToVideoChat() {
+    if (this.friendActive) {
+      const friendWebId = "https://" + this.friendActive + ".solid.community/profile/card#me";
+      let webIds = [this.auth.getOldWebId(), friendWebId];
+      webIds.sort(function (a, b) {
+        if (a.firstname < b.firstname) {
+          return -1;
+        }
+        if (a.firstname > b.firstname) {
+          return 1;
+        }
+        return 0;
+      });
+      let channelKey = '';
+      for (const webId in webIds) {
+        channelKey = channelKey + webId;
+      }
+      localStorage.setItem('channelKey', channelKey);
+      this.router.navigate(['videoChat']);
+    }
+    else {
+      this.toastr.info('Please select a friend first to call');
+    }
+  }
+
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
