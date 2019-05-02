@@ -38,7 +38,7 @@ describe('CardComponent',() =>{
 		expect(component).toBeTruthy();
 	}));
 
-	/*it('should rotate images',async(()=>{
+	it('should rotate images',async(()=>{
 		component.state = 'default';
 		component.rotate();
 		expect(component.state).toBe('rotated');
@@ -82,7 +82,7 @@ it('should return values from Solid Chat model', () => {
 		expect(chat).toBeTruthy();
 		expect(chat.clientId).toBe('user1');
 		expect(chat.friendId).toBe('user2');
-});*/
+});
 
 	afterAll(() => {
 		TestBed.resetTestingModule();

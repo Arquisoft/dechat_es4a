@@ -31,7 +31,7 @@ describe('ChatService', () => {
     expect(service).toBeTruthy();
   }));
 
-  /*it('should get name user from webId', inject([ChatService], (service: ChatService) => {
+  it('should get name user from webId', inject([ChatService], (service: ChatService) => {
     let name = service.getUsername(user);
     expect(name).toBe('miau');
   }));
@@ -46,7 +46,7 @@ describe('ChatService', () => {
     expect(service.friendID).toBe(idUser2);
     expect(service.chatuserUrl).toBe(chat1);
     expect(service.chatfriendUrl).toBe(chat2);
-  }));*/
+  }));
 
   /*it('should post a message', inject([ChatService], (service: ChatService) => {
     let date = (new Date()).toISOString();
