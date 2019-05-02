@@ -12,7 +12,7 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
-      files:[
+    files:[
       "../node_modules/solid-auth-client/dist-lib/solid-auth-client.bundle.js",
       'assets/js/libs/rdflib.min.js'
     ],
@@ -20,12 +20,12 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-        dir: require("path").join(__dirname, "../coverage"),
-        reports: ["html", "lcovonly", "text-summary"],
-        fixWebpackSourcePaths: true,
-        combineBrowserReports: true,
-        skipFilesWithNoCoverage: true,
-        verbose: true
+      dir: require("path").join(__dirname, "../coverage"),
+      reports: ["html", "lcovonly", "text-summary"],
+      fixWebpackSourcePaths: true,
+      combineBrowserReports: true,
+      skipFilesWithNoCoverage: true,
+      verbose: true
     },
     reporters: ['progress', 'kjhtml','coverage-istanbul'],
     port: 4200,
@@ -34,16 +34,17 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
-      customLaunchers: {
-        ChromeHeadlessNoSandbox: {
-          base: 'ChromeHeadless',
-          flags: ['--no-sandbox']
-          }
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
       }
-      },
-    singleRun: false,
+    },
+    singleRun: true,
   }
 
+  /* if (process.env.TRAVIS) {
+     cfg.browsers = ['Chrome_travis_ci'];
+ }*/
 
-config.set(cfg);
+  config.set(cfg);
 };
