@@ -4,6 +4,8 @@ codecov:
 
 ignore:
 
+  - "**/*"
+  - "src/**/*"
   - "*./chat.component.ts"
   - "**/chat.component.ts"
   - "chat.component.ts"
