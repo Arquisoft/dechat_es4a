@@ -546,10 +546,6 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>Cross-cutting Concepts</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<div class="title">Possible topics for crosscutting concepts</div>
-<p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
-</div>
 <div class="sect2">
 <h3 id="domain-model"><a class="anchor" href="#domain-model"></a>Domain Model</h3>
 <div class="paragraph">
@@ -557,7 +553,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="paragraph">
 <div class="title">Domain Model</div>
-<p><span class="image"><img src="./images/images/classDiagram.png" alt="Domain Model"></span></p>
+<p><span class="image"><img src="./images/classDiagram.png" alt="Domain Model"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -591,7 +587,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="paragraph">
 <div class="title">Modules</div>
-<p><span class="image"><img src="./images/images/modules.png" alt="Modules"></span></p>
+<p><span class="image"><img src="./images/modules.png" alt="Modules"></span></p>
 </div>
 </div>
 </div>
@@ -605,33 +601,37 @@ We have pages for the login, registration, main page and chat.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/login.png" alt="Login Page" width="30%" height="30%">
+<img src="./images/login.png" alt="Login Page" width="30%" height="30%">
 </div>
 <div class="title">Figure 1. Login Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/login2.png" alt="Registration Page" width="80%" height="80%">
+<img src="./images/login2.png" alt="Registration Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 2. Registration Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/home.png" alt="Home Page" width="80%" height="80%">
+<img src="./images/home.png" alt="Home Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 3. Home Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/chat.png" alt="Chat Page" width="80%" height="80%">
+<img src="./images/chat.png" alt="Chat Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 4. Chat Page</div>
+</div>
+<div class="paragraph">
+<p>There is a possibility to change background and colors from the chat. Just clicking in the three points in the chat page.
+Besides, in the help button from navigation bar you can find this documentation plus user&#8217;s guide and about us.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="internationalization"><a class="anchor" href="#internationalization"></a>Internationalization</h4>
 <div class="paragraph">
-<p>This app will be available in English and we will adapt it to Spanish in the future.</p>
+<p>This app will be available in English.</p>
 </div>
 </div>
 </div>
@@ -646,7 +646,8 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>Exception/Error Handling</h4>
 <div class="paragraph">
-<p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
+<p>Most of the error handling in the application occurs in the methods of the solid-file-client library: the expected succesful event (reading a file, updating a file, creating it&#8230;&#8203;) is used both as condition of not trowing an exception and the opening of a try statement. Along the whole code of the succesful event we may throw an error at any point, which lets us run the error code of the method
+a prime example of this kind of error handling would be the addFriend() method in chat.component.ts, which handles the WEBID given to add a friend and throwns am error in different parts of the code after sucessfully reading the index.ttl of the user</p>
 </div>
 </div>
 </div>
@@ -661,7 +662,7 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="safety"><a class="anchor" href="#safety"></a>Safety</h4>
 <div class="paragraph">
-<p>This application doesn&#8217;t have anything dangerous.</p>
+<p>This application itself doesn&#8217;t do anything that poses a threat: it simply reads the pods and whrites on it&#8217;s own, which leaves it not very open to vulnerabilities.</p>
 </div>
 </div>
 </div>
@@ -670,7 +671,26 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="testability"><a class="anchor" href="#testability"></a>Testability</h4>
 <div class="paragraph">
-<p>In our project we are implementing tests with Cucumbertest y Jasmine.</p>
+<p>We made several tests for our project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Load Testing: tests with Gatling.</p>
+</li>
+<li>
+<p>User Acceptance Testing: made with Cucumber.</p>
+</li>
+<li>
+<p>Usability Testing: made with some volunteers. They have different ages and different knowledge of informatic.</p>
+</li>
+<li>
+<p>Monitory and Profiling Testing: tests with Google Chrome.</p>
+</li>
+<li>
+<p>Unit Testing: tests with Karma and Jasmine.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -679,7 +699,7 @@ We have pages for the login, registration, main page and chat.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-04 19:22:09 CEST
+Last updated 2019-05-02 18:11:20 CEST
 </div>
 </div>
 </body>

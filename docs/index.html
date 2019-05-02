@@ -549,14 +549,13 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
-<li><a href="#section-building-block-view">5. Building Block View [TODO]</a>
+<li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#whitebox-overall-system">5.1. Whitebox Overall System</a></li>
-<li><a href="#level-2todo">5.2. Level 2[TODO]</a></li>
-<li><a href="#level-3todo">5.3. Level 3[TODO]</a></li>
+<li><a href="#level-2">5.2. Level 2</a></li>
 </ul>
 </li>
-<li><a href="#section-runtime-view">6. Runtime View [TODO]</a>
+<li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
 <li><a href="#log-in">6.1. Log in</a></li>
 <li><a href="#send-messages">6.2. Send messages</a></li>
@@ -564,7 +563,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
 <ul class="sectlevel2">
-<li><a href="#infrastructure-level-1">7.1. Infrastructure Level 1</a></li>
+<li><a href="#infrastructure">7.1. Infrastructure</a></li>
 </ul>
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
@@ -773,11 +772,11 @@ A more rigorous specification can be found at the following link, which describe
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Programming language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript will be used as the programming language to build the application as it is the most advisable option for web based.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TypeScript will be used as the programming language to build the application as it is extremely flexible and confortable to use for web based applications.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El chat debe ser descentralizado utilizando la tecnología SOLID.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Chat must be decentralized, using SOLID POD tecnologies</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized architecture</p></td>
@@ -990,7 +989,7 @@ issues,etc.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-building-block-view"><a class="anchor" href="#section-building-block-view"></a>5. Building Block View [TODO]</h2>
+<h2 id="section-building-block-view"><a class="anchor" href="#section-building-block-view"></a>5. Building Block View</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="whitebox-overall-system"><a class="anchor" href="#whitebox-overall-system"></a>5.1. Whitebox Overall System</h3>
@@ -1001,7 +1000,7 @@ who can access it, to achieve this, the SOLID PODs have been created. These PODs
 it can be stored in their personal PC or in an onlive server from various SOLID providers. In order to Log in to the deChat app you can use your SOLID POD.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/05_building_block_level1.PNG" alt="Whitebox Overall System"></span></p>
+<p><span class="image"><img src="./images/05_building_block_level1.png" alt="Whitebox Overall System"></span></p>
 </div>
 <div class="paragraph">
 <p>The main elements that make part of the app and will communicate with each other are the following:</p>
@@ -1024,27 +1023,60 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>User POD</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, then, any user with granted access can interact with it</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, givimg permission to other users if the application that use them need them</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>deChat app</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it&#8217;s funcionality</em></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="level-2todo"><a class="anchor" href="#level-2todo"></a>5.2. Level 2[TODO]</h3>
-
+<h3 id="level-2"><a class="anchor" href="#level-2"></a>5.2. Level 2</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_building_block_level2.png" alt="Whitebox Inner Structure System"></span></p>
 </div>
-<div class="sect2">
-<h3 id="level-3todo"><a class="anchor" href="#level-3todo"></a>5.3. Level 3[TODO]</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User POD</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>They are used to store the data of his owner, givimg permission to other users if the application that use them need them</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>index.ttl</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>It&#8217;s where the chat is stored in a chat turtle format</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>deChat app</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This app allows users to communicate with each other, provides the functionality and views necessary for that matter. It modifies the POD to fit it&#8217;s funcionality</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>chat.component.ts</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>section of the app that treats the data recieved from chat.service to show it to the user in the chat</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>chat.service.ts</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>section of the app reads both PODs to pass the messages to chat.component, and writes in it&#8217;s own POD with the messages written in the App by the user</em></p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>6. Runtime View [TODO]</h2>
+<h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>6. Runtime View</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="log-in"><a class="anchor" href="#log-in"></a>6.1. Log in</h3>
@@ -1075,34 +1107,33 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <h3 id="send-messages"><a class="anchor" href="#send-messages"></a>6.2. Send messages</h3>
 <div class="literalblock">
 <div class="content">
-<pre>In order to send a message the user has to be logged in and have friends added.</pre>
+<pre>In order to send a message the user has follow the following steps</pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>The user opens the app, logs in, and then they can go to the chat page.</p>
+<p>1. The user opens the app, logs in, and then they can go to the chat page.</p>
 </li>
 <li>
-<p>The chat page has two main sections, the friends list and the chat box.</p>
-<div class="literalblock">
-<div class="content">
-<pre>2.1. To chat with a friend the user selects a user from the list.</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>2.2. If there is already a chat selected it will load the previous messages.</pre>
-</div>
-</div>
+<p>2. The chat page has two main sections, the conversation list and the chat box.</p>
 </li>
 <li>
-<p>When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.</p>
+<p>2.1. to chat with someone you need to have them as a friend. if you want to add someone as a friend you can do so by going to the new contact section of the contacts button and putting his POD ID there.</p>
 </li>
 <li>
-<p>The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. Then the other user application can read the messages from the submitter&#8217;s POD and display them</p>
+<p>2.2. To chat with a friend the user first selects a contact to have a conversation with in the contacts button, which will add a conversation to the contact list. If there is already a chat ongoing it will be on the conversation list.</p>
 </li>
-</ol>
+<li>
+<p>2.3.  upon clicking a conversation will update the chatbox</p>
+</li>
+<li>
+<p>3. When a chat is loaded the user can start talking to the selected friend by writing in the text box located in the bottom of the chat box. The app reads the friend&#8217;s POD folder for this conversation and checks for messages from the friend to show the user</p>
+</li>
+<li>
+<p>4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. The other user application can read the messages from the submitter&#8217;s POD and display them</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1112,9 +1143,9 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <h2 id="section-deployment-view"><a class="anchor" href="#section-deployment-view"></a>7. Deployment View</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="infrastructure-level-1"><a class="anchor" href="#infrastructure-level-1"></a>7.1. Infrastructure Level 1</h3>
+<h3 id="infrastructure"><a class="anchor" href="#infrastructure"></a>7.1. Infrastructure</h3>
 <div class="paragraph">
-<p><span class="image"><img src="./images/images/07_Deployment.PNG" alt="Basic Deployment View"></span></p>
+<p><span class="image"><img src="./images/07_Deployment.PNG" alt="Basic Deployment View"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. Deployment nodes and artifact</caption>
@@ -1162,10 +1193,6 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 <div class="sect1">
 <h2 id="section-concepts"><a class="anchor" href="#section-concepts"></a>8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<div class="title">Possible topics for crosscutting concepts</div>
-<p><span class="image"><img src="./images/images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts"></span></p>
-</div>
 <div class="sect2">
 <h3 id="domain-model"><a class="anchor" href="#domain-model"></a>8.1. Domain Model</h3>
 <div class="paragraph">
@@ -1173,7 +1200,7 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 </div>
 <div class="paragraph">
 <div class="title">Domain Model</div>
-<p><span class="image"><img src="./images/images/classDiagram.png" alt="Domain Model"></span></p>
+<p><span class="image"><img src="./images/classDiagram.png" alt="Domain Model"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -1207,7 +1234,7 @@ it can be stored in their personal PC or in an onlive server from various SOLID 
 </div>
 <div class="paragraph">
 <div class="title">Modules</div>
-<p><span class="image"><img src="./images/images/modules.png" alt="Modules"></span></p>
+<p><span class="image"><img src="./images/modules.png" alt="Modules"></span></p>
 </div>
 </div>
 </div>
@@ -1221,33 +1248,37 @@ We have pages for the login, registration, main page and chat.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/login.png" alt="Login Page" width="30%" height="30%">
+<img src="./images/login.png" alt="Login Page" width="30%" height="30%">
 </div>
 <div class="title">Figure 1. Login Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/login2.png" alt="Registration Page" width="80%" height="80%">
+<img src="./images/login2.png" alt="Registration Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 2. Registration Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/home.png" alt="Home Page" width="80%" height="80%">
+<img src="./images/home.png" alt="Home Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 3. Home Page</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/images/chat.png" alt="Chat Page" width="80%" height="80%">
+<img src="./images/chat.png" alt="Chat Page" width="80%" height="80%">
 </div>
 <div class="title">Figure 4. Chat Page</div>
+</div>
+<div class="paragraph">
+<p>There is a possibility to change background and colors from the chat. Just clicking in the three points in the chat page.
+Besides, in the help button from navigation bar you can find this documentation plus user&#8217;s guide and about us.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="internationalization"><a class="anchor" href="#internationalization"></a>8.4.2. Internationalization</h4>
 <div class="paragraph">
-<p>This app will be available in English and we will adapt it to Spanish in the future.</p>
+<p>This app will be available in English.</p>
 </div>
 </div>
 </div>
@@ -1262,7 +1293,8 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="exceptionerror-handling"><a class="anchor" href="#exceptionerror-handling"></a>8.5.2. Exception/Error Handling</h4>
 <div class="paragraph">
-<p>Description of how we will handle errors and exceptions. To be filled in the future.</p>
+<p>Most of the error handling in the application occurs in the methods of the solid-file-client library: the expected succesful event (reading a file, updating a file, creating it&#8230;&#8203;) is used both as condition of not trowing an exception and the opening of a try statement. Along the whole code of the succesful event we may throw an error at any point, which lets us run the error code of the method
+a prime example of this kind of error handling would be the addFriend() method in chat.component.ts, which handles the WEBID given to add a friend and throwns am error in different parts of the code after sucessfully reading the index.ttl of the user</p>
 </div>
 </div>
 </div>
@@ -1277,7 +1309,7 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="safety"><a class="anchor" href="#safety"></a>8.6.2. Safety</h4>
 <div class="paragraph">
-<p>This application doesn&#8217;t have anything dangerous.</p>
+<p>This application itself doesn&#8217;t do anything that poses a threat: it simply reads the pods and whrites on it&#8217;s own, which leaves it not very open to vulnerabilities.</p>
 </div>
 </div>
 </div>
@@ -1286,7 +1318,26 @@ We have pages for the login, registration, main page and chat.</p>
 <div class="sect3">
 <h4 id="testability"><a class="anchor" href="#testability"></a>8.7.1. Testability</h4>
 <div class="paragraph">
-<p>In our project we are implementing tests with Cucumbertest y Jasmine.</p>
+<p>We made several tests for our project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Load Testing: tests with Gatling.</p>
+</li>
+<li>
+<p>User Acceptance Testing: made with Cucumber.</p>
+</li>
+<li>
+<p>Usability Testing: made with some volunteers. They have different ages and different knowledge of informatic.</p>
+</li>
+<li>
+<p>Monitory and Profiling Testing: tests with Google Chrome.</p>
+</li>
+<li>
+<p>Unit Testing: tests with Karma and Jasmine.</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1373,7 +1424,7 @@ Strategy, but an index of these is:</p>
 <div class="sect2">
 <h3 id="quality-tree"><a class="anchor" href="#quality-tree"></a>10.1. Quality Tree</h3>
 <div class="paragraph">
-<p><span class="image"><img src="./images/quality_tree.PNG" alt="quality tree"></span></p>
+<p><span class="image"><img src="./images/quality_tree.png" alt="quality tree"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -1506,7 +1557,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-04 22:34:49 CEST
+Last updated 2019-04-23 23:54:16 CEST
 </div>
 </div>
 </body>
