@@ -218,7 +218,7 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              if(message.authorId != this.chat.userID){
+              if(message.authorId != this.auth.getOldWebId()){
                 this.toastr.info("You have a new message from " + message.authorId);
                 let sound = new Howl({
                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
