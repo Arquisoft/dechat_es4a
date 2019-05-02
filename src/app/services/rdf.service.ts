@@ -192,7 +192,7 @@ export class RdfService {
    * @param {string} field The name of the field that is going to be extracted from the form
    * @return {RdfNamedNode}
    */
-  getFieldValue(form: NgForm, field: string): any {
+  private getFieldValue(form: NgForm, field: string): any {
     let fieldValue: any;
 
     if (!form.value[field]) {
@@ -214,7 +214,7 @@ export class RdfService {
     return fieldValue;
   }
 
-  getOldFieldValue(field, oldProfile): any {
+  private getOldFieldValue(field, oldProfile): any {
     let oldValue: any;
 
     if (!oldProfile || !oldProfile[field]) {
@@ -236,7 +236,7 @@ export class RdfService {
     return oldValue;
   }
 
-  getFieldName(field): string {
+   getFieldName(field): string {
     switch (field) {
       case 'company':
         return 'organization-name';
