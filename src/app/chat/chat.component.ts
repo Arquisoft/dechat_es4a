@@ -811,15 +811,16 @@ export class ChatComponent implements OnInit {
   }
 
   addContactToGroup(user:string){
-    this.groupUsers.push(user);
+    if(!this.groupUsers.includes(user)) this.groupUsers.push(user);
+    this.toastr.info('Contact added to the group!');
   }
 
-  async createGroupFromInvitation(url: string){   
+  createGroupFromInvitation(url: string){   
    let chaturl = url.substring(url.indexOf("https"));
    let groupInfo;
    let userurl;
    let users = new Array();
-    await this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+    this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
       let prefixes = body.split("@prefix");
       prefixes.forEach(element => {
         if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
@@ -846,18 +847,18 @@ export class ChatComponent implements OnInit {
     let name = chaturl.split("/")[4].replace("GroupChat","");
     console.log(name);
 
-    this.groupUsers = await this.chat.getUsersFromTTL(name)
+    this.groupUsers = this.chat.getUsersFromTTL(name)
     this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.dateLastMessage = undefined; 
     this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
-    await this.chat.createBaseChatForGroup(userurl);
+    this.chat.createBaseChatForGroup(userurl);
     this.groupUsers = new Array();
     this.messages = [];
-    await this.loadMessages();
+    this.loadMessages();
 
-    await this.changeChat(name,'/assets/images/profile.png');
+    this.changeChat(name,'/assets/images/profile.png');
   }
 
   isInvitation(content:string){
