@@ -15,6 +15,8 @@ describe('ChatService', () => {
   let user = "https://miau.solid.community/profile/card#me";
   let friend = "https://feyre.solid.community/profile/card#me";
 
+  let friends = new Array();
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, ToastrModule.forRoot()],
@@ -22,9 +24,13 @@ describe('ChatService', () => {
     });
     rdfService = TestBed.get(RdfService);
     chatService = TestBed.get(ChatService);
-
+    friends.push(friend);
     chatService.userID = user;
     chatService.friendID = friend;
+    
+    spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
+    spyOn(ChatService.prototype as any,'getFriendsID').and.returnValue(friends);
+    spyOn(ChatService.prototype as any,'getChatName').and.returnValue('feyre');
   });
 
   it('should be created', inject([ChatService], (service: ChatService) => {
@@ -39,6 +45,9 @@ describe('ChatService', () => {
   it('should create inbox chat', inject([ChatService], (service: ChatService) => {
     let idUser1 = "https://miau.solid.community/profile/card#me";
     let idUser2 = "https://feyre.solid.community/profile/card#me";
+    let users = new Array();
+    users.push(idUser2);
+    
     let chat1 = "https://" + service.getUsername(idUser1) + ".solid.community/private/Chat" + service.getUsername(idUser2) + "/";
     let chat2 = "https://" + service.getUsername(idUser2) + ".solid.community/private/Chat" + service.getUsername(idUser1) + "/";
     service.createInboxChat(idUser1, idUser2);
@@ -71,28 +80,35 @@ describe('ChatService', () => {
   }));
 
   it('should reset chat', inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.resetChat();
   }));
 
   it('should load messages', async(inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.loadMessages("https://miau.solid.community/profile/card#me", "https://feyre.solid.community/profile/card#me");
   })));
 
 
   it('should upload images to POD', async(inject([ChatService], (service: ChatService) => {
+   // spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.uploadImage(new File([""], "filename"));
   })));
 
   it('should upload the background', async(inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.uploadBackground(new File([""], "filename"));
   })));
   it('should send an invitation', async(inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.sendInvitation();
   })));
   it('should create folder notifications', async(inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.createFolderNotifications("albertong");
   })));
   it('should give Permissions Invitations', async(inject([ChatService], (service: ChatService) => {
+    //spyOn(ChatService.prototype as any,'isGroup').and.returnValue(false);
     service.givePermissionsInvitations("https://albertong.solid.community/profile/card#me");
   })));
 
