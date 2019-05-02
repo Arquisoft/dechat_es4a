@@ -26,6 +26,8 @@ comment:
   require_changes: no
 
 ignore:
+ - "bin/src/app/chat"
+  - "src/app/chat"
   - "adocs" 
   - "coverage"
   - ".nyc_output"
