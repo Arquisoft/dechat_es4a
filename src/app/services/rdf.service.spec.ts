@@ -1,8 +1,8 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject, async} from '@angular/core/testing';
 
 import { RdfService } from './rdf.service';
 import {RouterTestingModule} from "@angular/router/testing";
-import {ToastrModule} from "ngx-toastr";
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SolidProfile} from '../../../bin/src/app/models/solid-profile.model';
 
 
@@ -38,11 +38,14 @@ describe('RdfService', () => {
         }
 
 
-    beforeEach(() => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ RouterTestingModule, ToastrModule.forRoot() ] ,
-            providers: [RdfService]
-        });
+            imports: [ToastrModule.forRoot()],
+            providers: [RdfService, ToastrService]
+        })
+            .compileComponents();
+    }));
+    beforeEach(() => {
         service = TestBed.get(RdfService);
     });
 
