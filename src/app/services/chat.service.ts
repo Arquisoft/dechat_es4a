@@ -301,7 +301,7 @@ export class ChatService implements OnInit {
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     let messageTime = time.substring(time.indexOf("\"") + 1);
-    if (content != "" && content.length > 0 && content != "Chat Started") {
+    if (content != "" && content.length > 0 && content != ("Chat Started" && "Chat started")) {
       this.chat.messages.push(new SolidMessage(maker, content, messageTime));
     }
   }
@@ -577,9 +577,11 @@ export class ChatService implements OnInit {
         this.fileClient.readFolder(yearFolder.url).then(folder => {
           for(let monthFolder of folder.folders){
             this.fileClient.readFolder(monthFolder.url).then(folder => {
+              console.log(folder.folders);
               for(let dayFolder of folder.folders){
                 this.fileClient.readFolder(dayFolder.url).then(folder => {
                   for(let chatFile of folder.files){
+                    console.log(chatFile.url);
                     this.fileClient.readFile(chatFile.url).then(body => {
                       let chatcontent = body;
 
@@ -634,5 +636,51 @@ export class ChatService implements OnInit {
     });
     return users;
   }
+
+  giveGroupPermissions(users: Array<string>,url:string){
+    let id = "";
+    let i = 0;
+
+    this.baseAcl = `@prefix : <#>.
+    @prefix n0: <http://www.w3.org/ns/auth/acl#>.
+    @prefix Ch: <./>.
+    @prefix c: </profile/card#>.
+    `;
+    
+    users.forEach(user => {
+      id = user.substring(0,user.length-2);
+      this.baseAcl += `@prefix c${i}: <${id}>.
+      `;
+      i++;
+    });
+    
+    this.baseAcl += 
+   `:ControlReadWrite
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent c:me;
+        n0:defaultForNew Ch:;
+        n0:mode n0:Control, n0:Read, n0:Write.
+    :Read
+        a n0:Authorization;
+        n0:accessTo Ch:;
+        n0:agent`; 
+    for(let i in users){
+      if(Number(i) < users.length)
+        this.baseAcl += `c${i}:me,`
+      else
+        this.baseAcl += `c${i}:me.
+        `
+    }
+    this.baseAcl+=
+       `n0:defaultForNew Ch:
+        n0:mode n0:Read.`;
+   
+    
+    this.fileClient.createFile(url,this.baseAcl).then(success => {
+      console.log('permissions given');
+    }, (err: any) => console.log(err));
+  }
+
 
 }
