@@ -18,6 +18,7 @@ ignore:
   - "scripts"
 
 
+  
 coverage:
   precision: 2
   round: down
