@@ -183,7 +183,7 @@
                         <td>
                             <emoji-input inputClass="emojiInput" id="emoji"[popupAnchor]="'bottom'" [(model)]="text"
                                 [closeAfterSelection]="false" (click)="openPopup(false)"
-                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text,$event)">
+                                (setPopupAction)="setPopupAction($event)" (keyup.enter)="send(text)">
                             </emoji-input>
                         </td>
                         <td style="width: 20px;">
