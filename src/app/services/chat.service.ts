@@ -303,7 +303,7 @@ export class ChatService implements OnInit {
   private addToChat(msg: string, maker: string, time = "") {
     let content = msg.substring(msg.indexOf("\"") + 1);
     let messageTime = time.substring(time.indexOf("\"") + 1);
-    if (content != "" && content.length > 0 && content != ("Chat Started" && "Chat started")) {
+    if (content != "" && content.length > 0 && content != "Chat Started") {
       this.chat.messages.push(new SolidMessage(maker, content, messageTime));
     }
   }
@@ -510,7 +510,7 @@ export class ChatService implements OnInit {
         
     :Msg0000000000001
         terms:created "${date.toISOString()}"^^XML:dateTime;
-        n:content "Chat started";
+        n:content "Chat Started";
         n0:maker c:me.
     ind:this flow:message :Msg0000000000001 .
     `;
