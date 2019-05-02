@@ -30,7 +30,6 @@ import {AgoraConfig, AngularAgoraRtcModule} from "angular-agora-rtc";
 import { VideoChatComponent } from './video-chat/video-chat.component';
 import {RdfService} from "./services/rdf.service"
 import {VgStreamingModule} from "videogular2/streaming";
-import { RdfService } from "./services/rdf.service";
 import { ChatService } from './services/chat.service';
 
 
