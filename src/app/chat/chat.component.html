@@ -166,7 +166,9 @@
                                     </audio>
                                 </vg-player>
                             </div>
+
                             <p *ngIf="!isImage(string) && !isVideo(string) && !isAudio(string) && !isInvitation(string.content)">{{string.content}} <span id='timeMessage'>
+
                                     {{hourMessages(string.time)}}</span></p>
                         </li>
                     </div>

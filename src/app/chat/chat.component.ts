@@ -808,7 +808,9 @@ export class ChatComponent implements OnInit {
     this.dateLastMessage = undefined; 
     this.chat.createGroupChat(groupName, this.groupUsers);
     this.groupUsers = new Array();
+
     this.mapContacts.set(groupName,'/assets/images/profile.png');
+
   }
 
   addContactToGroup(user:string){
@@ -858,8 +860,10 @@ export class ChatComponent implements OnInit {
     this.groupUsers = new Array();
     this.messages = [];
     this.loadMessages();
+
     
     this.mapContacts.set(name,'/assets/images/profile.png');
+
     this.changeChat(name,'/assets/images/profile.png');
   }
 
@@ -874,7 +878,9 @@ export class ChatComponent implements OnInit {
     this.friendPhotoActive = photo;
     this.dateLastMessage = undefined;
     this.chat.createGroupChat(name);
+
     
+
   }
 
   changeToIndividualChat(name:string , photo:string){
