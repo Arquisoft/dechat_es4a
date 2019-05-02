@@ -4,21 +4,7 @@ codecov:
 
 ignore:
 
-    - "src/.*/rdf.service.ts"
-  - "src/**/rdf.service.ts"
-  - "**/rdf.service.ts"
-  - "*./rdf.service.ts"
-  - "src/rdf.service.ts"
-  - "*/rdf.service.ts"
-  - "rdf.service.ts"
-  - "src/service/rdf.service.ts"
-  - "src/app/service/rdf.service.ts"
-  - "src/.*/chat.component.ts"
-  - "src/**/chat.component.ts"
   - "**/chat.component.ts"
-  - "*./chat.component.ts"
-  - "src/chat.component.ts"
-  - "*/chat.component.ts"
   - "chat.component.ts"
   - "src/app/chat.component.ts"
   - "src/app/chat/chat.component.ts"
@@ -53,5 +39,4 @@ parsers:
 comment:
   layout: "header, diff"
   behavior: default
-  require_changes: no
-
+require_changes: no
