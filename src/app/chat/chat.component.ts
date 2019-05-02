@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
 import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
+import {SolidChat} from '../models/solid-chat.model'
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +14,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
 import { ColorEvent } from 'ngx-color';
+import { stringify } from '@angular/compiler/src/util';
+import { group } from '@angular/animations';
 
 class ImageSnippet {
 
@@ -66,6 +69,7 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
+  groupUsers: string[] = new Array();
   //Invitaciones aceptadas
   acceptedInvitations = [];
 
@@ -135,6 +139,14 @@ export class ChatComponent implements OnInit {
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
       }
+      let groupFolderUrl = this.rdf.session.webId.replace("/profile/card#me","/private");
+      this.fileClient.readFolder(groupFolderUrl).then(folder => {
+        folder.folders.forEach(folder => {
+          if(folder.name.includes("GroupChat")) 
+            this.mapContacts.set(folder.name.replace("GroupChat",""),'/assets/images/profile.png'); 
+        });
+      }, 
+        err=> console.log(err));
     } catch (error) {
       console.log(`Error: ${error}`);
 
@@ -315,12 +327,13 @@ export class ChatComponent implements OnInit {
 
   //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
   changeChat(name: string, photo: string) {
-    this.toastr.info('The messages are being loaded, it will take just a second!');
-    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
-    this.friendActive = name;
-    this.friendPhotoActive = photo;
-    this.dateLastMessage = undefined;
-    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+    if(this.namesFriends.includes(name)){
+      this.changeToIndividualChat(name,photo);
+    }
+    else{
+      this.changeToGroup(name,photo);
+    }
     this.loadMessages();
   }
 
@@ -787,6 +800,89 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  createNewGroup(groupName:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.groupUsers.push(this.rdf.session.webId);
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = groupName;
+    this.dateLastMessage = undefined; 
+    this.chat.createGroupChat(groupName, this.groupUsers);
+    this.groupUsers = new Array();
+  }
+
+  addContactToGroup(user:string){
+    this.groupUsers.push(user);
+  }
+
+  async createGroupFromInvitation(url: string){   
+   let chaturl = url.substring(url.indexOf("https"));
+   let groupInfo;
+   let userurl;
+   let users = new Array();
+    await this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+      let prefixes = body.split("@prefix");
+      prefixes.forEach(element => {
+        if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
+      });
+      groupInfo = body;
+      userurl = chaturl.replace(this.getUsernameFromId(chaturl),this.getUsername());
+      this.fileClient.createFolder(userurl).then(success => {
+        this.chat.giveGroupPermissions(users,userurl+'.acl')
+        this.fileClient.readFile(userurl + "index.ttl#this").then(body => {
+          console.log('group exists');
+        }, err => {
+          this.fileClient.createFile(userurl  +"index.ttl#this").then(success => {
+            this.fileClient.updateFile(userurl +"index.ttl#this",groupInfo);
+          });
+        });
+      },err => {
+        console.log(err);
+      });
+    }, err => {
+      console.log('group does not exist');
+      console.log(err);
+    });
+   
+    let name = chaturl.split("/")[4].replace("GroupChat","");
+    console.log(name);
+
+    this.groupUsers = await this.chat.getUsersFromTTL(name)
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.dateLastMessage = undefined; 
+    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
+    await this.chat.createBaseChatForGroup(userurl);
+    this.groupUsers = new Array();
+    this.messages = [];
+    await this.loadMessages();
+
+    await this.changeChat(name,'/assets/images/profile.png');
+  }
+
+  isInvitation(content:string){
+    return content.includes("GroupChat");
+  }
+
+  changeToGroup(name:string, photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.chat.createGroupChat(name);
+  }
+
+  changeToIndividualChat(name:string , photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.getNamesFriends()
+    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+  }
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
   async createFolderNotifications(){
     let user = await this.getUsername();
