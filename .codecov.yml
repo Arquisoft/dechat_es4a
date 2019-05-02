@@ -3,14 +3,7 @@ codecov:
     require_ci_to_pass: yes
 
 ignore:
-  - "**/*"
-  - "src/**/*"
-  - "**/chat.component.ts"
-  - "chat.component.ts"
-  - "src/app/chat/*"
-  - "src/app/chat/.*"
-  - "bin/src/app/chat/.*"
-  - "bin/src/app/chat/*"
+ 
   - "adocs" 
   - "coverage"
   - ".nyc_output"
