@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {LoginPopupComponent} from './login-popup.component';
+import {ChatComponent} from "../../../bin/src/app/chat/chat.component";
 
 describe('LoginPopupComponent', () => {
   let component: LoginPopupComponent;
@@ -14,7 +15,7 @@ describe('LoginPopupComponent', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ToastrModule.forRoot(),
         RouterModule, RouterTestingModule],
-      declarations: [ LoginPopupComponent ]
+      declarations: [ LoginPopupComponent, ChatComponent ]
     })
     .compileComponents();
   }));
@@ -28,4 +29,11 @@ describe('LoginPopupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  afterEach(() => {
+    if (fixture.nativeElement && 'remove' in fixture.nativeElement) {
+      (fixture.nativeElement as HTMLElement).remove();
+    }
+  });
+
 });
