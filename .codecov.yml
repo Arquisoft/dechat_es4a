@@ -7,6 +7,8 @@ ignore:
   - "src/**/*"
   - "**/chat.component.ts"
   - "chat.component.ts"
+  - "src/app/chat.component.ts"
+  - "src/app/chat/chat.component.ts"
   - "src/app/chat/*"
   - "src/app/chat/.*"
   - "bin/src/app/chat/.*"
