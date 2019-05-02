@@ -1,3 +1,4 @@
+
 import {TestBed, inject, async} from '@angular/core/testing';
 
 import { RdfService } from './rdf.service';
@@ -106,3 +107,4 @@ describe('RdfService', () => {
 
     });*/
 });
+
