@@ -105,7 +105,7 @@ export const agoraConfig: AgoraConfig = { AppID: '9474fbbc318f4821853cdaaa2c7924
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard],
+  providers: [AuthService, ChatService, RdfService, ToastrService, AuthGuard ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
