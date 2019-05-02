@@ -31,7 +31,7 @@ class dechatThirdSimulation extends Simulation {
     val uri1 = "http://clientservices.googleapis.com/chrome-variations/seed"
 
 	val scn = scenario("dechatThirdSimulation")
-		// first
+		// first - Entramos en nuestra aplicacion
 		.exec(http("request_0")
 			.get("/dechat_es4a/")
 			.headers(headers_0)
@@ -56,7 +56,7 @@ class dechatThirdSimulation extends Simulation {
 			.check(status.is(404)))
 			.check(status.is(404)))
 		.pause(9)
-		// second
+		// second - Selecciono en la barra menu Home
 		.exec(http("request_6")
 			.get("/assets/images/messageBubble2.png")
 			.headers(headers_1)
@@ -66,7 +66,7 @@ class dechatThirdSimulation extends Simulation {
 			.check(status.is(404)))
 			.check(status.is(404)))
 		.pause(14)
-		// thir vuelvo al chat
+		// third - vuelvo al chat
 		.exec(http("request_8")
 			.get("/assets/images/cosmos.jpg")
 			.headers(headers_1)
@@ -76,13 +76,13 @@ class dechatThirdSimulation extends Simulation {
 			.check(status.is(404)))
 			.check(status.is(404)))
 		.pause(25)
-		// añado contactos
+		// four - añado contactos
 		// cierro
 		.exec(http("request_10")
 			.get(uri1 + "?osname=win&channel=stable&milestone=73")
 			.headers(headers_10))
 		.pause(37)
-		// cambioo color back
+		// five - cambio color background
 		.exec(http("request_11")
 			.get("/assets/images/messageBubble2.png")
 			.headers(headers_1)
@@ -92,7 +92,7 @@ class dechatThirdSimulation extends Simulation {
 			.check(status.is(404)))
 			.check(status.is(404)))
 		.pause(13)
-		// vuelvo a home y al chat
+		// six - vuelvo a home y al chat
 		.exec(http("request_13")
 			.get("/assets/images/cosmos.jpg")
 			.headers(headers_1)
@@ -102,7 +102,7 @@ class dechatThirdSimulation extends Simulation {
 			.check(status.is(404)))
 			.check(status.is(404)))
 		.pause(16)
-		// doy a doc
+		// seven - doy a documentacion en la barra menu
 		.exec(http("request_15")
 			.get("/dechat_es4a/assets/statics/docs")
 			.headers(headers_0))
