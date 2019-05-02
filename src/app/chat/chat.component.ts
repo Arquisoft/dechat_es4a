@@ -802,15 +802,15 @@ export class ChatComponent implements OnInit {
     let name = chaturl.split("/")[4].replace("GroupChat","");
     console.log(name);
 
-    this.groupUsers = this.chat.getUsersFromTTL(name)
+    this.groupUsers = await this.chat.getUsersFromTTL(name)
     this.toastr.info('The messages are being loaded, it will take just a second!');
     this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
     this.friendActive = name;
     this.dateLastMessage = undefined; 
-    await this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
+    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
     await this.chat.createBaseChatForGroup(userurl);
     this.groupUsers = new Array();
-    await this.messages = [];
+    this.messages = [];
     await this.loadMessages();
 
     await this.changeChat(name,'/assets/images/profile.png');
