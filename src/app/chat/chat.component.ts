@@ -116,10 +116,10 @@ export class ChatComponent implements OnInit {
       for (i = 0; i < this.amigos.length; i++) {
         const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
         if (profile) {
-          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
+          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
         }
         else {
-          profileImage = '/assets/images/profile.png';
+          profileImage = '/dechat_es4a/assets/images/profile.png';
         }
         let transformIm = profileImage.toString();
         if (transformIm.match('>')) {
@@ -143,7 +143,7 @@ export class ChatComponent implements OnInit {
       this.fileClient.readFolder(groupFolderUrl).then(folder => {
         folder.folders.forEach(folder => {
           if(folder.name.includes("GroupChat")) 
-            this.mapContacts.set(folder.name.replace("GroupChat",""),'/assets/images/profile.png'); 
+            this.mapContacts.set(folder.name.replace("GroupChat",""),'/dechat_es4a/assets/images/profile.png'); 
         });
       }, 
         err=> console.log(err));
@@ -315,10 +315,10 @@ export class ChatComponent implements OnInit {
       const profile = await this.rdf.getProfile();
       if (profile) {
         this.profile = profile;
-        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
+        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
       }
       else {
-        this.profileImage = '/assets/images/profile.png';
+        this.profileImage = '/dechat_es4a/assets/images/profile.png';
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -377,7 +377,7 @@ export class ChatComponent implements OnInit {
     if(this.friendActive != undefined){
          return "url('"+ url + "')"; 
     }
-    return "url('/assets/images/cosmos.jpg')";
+    return "url('/dechat_es4a/assets/images/cosmos.jpg')";
   }
 
   openColorPicker() {
@@ -862,9 +862,9 @@ export class ChatComponent implements OnInit {
     this.loadMessages();
 
     
-    this.mapContacts.set(name,'/assets/images/profile.png');
+    this.mapContacts.set(name,'/dechat_es4a/assets/images/profile.png');
 
-    this.changeChat(name,'/assets/images/profile.png');
+    this.changeChat(name,'/dechat_es4a/assets/images/profile.png');
   }
 
   isInvitation(content:string){
