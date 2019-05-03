@@ -2,7 +2,7 @@
 
 == Deployment View
 
-=== Infrastructure Level 1
+=== Infrastructure
 
 image:07_Deployment.PNG["Basic Deployment View"]
 

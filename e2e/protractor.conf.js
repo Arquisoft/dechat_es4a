@@ -23,5 +23,6 @@ exports.config = {
   },
   cucumberOpts: {
     require: ["./src/steps/**/*.steps.ts"],
+    tags: "@Scenario"
   }
 };

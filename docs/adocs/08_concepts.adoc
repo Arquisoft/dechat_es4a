@@ -1,9 +1,6 @@
 [[section-concepts]]
 == Cross-cutting Concepts
 
-.Possible topics for crosscutting concepts
-image:08-Crosscutting-Concepts-Structure-EN.png[Possible topics for crosscutting concepts, align="center"]
-
 === Domain Model
 
 In th following image, we present you the arquitecture of components we are using in this project. 
@@ -49,9 +46,13 @@ image::home.png[Home Page,width="80%",height="80%", align="center"]
 .Chat Page
 image::chat.png[Chat Page,width="80%",height="80%", align="center"]
 
+There is a possibility to change background and colors from the chat. Just clicking in the three points in the chat page.
+Besides, in the help button from navigation bar you can find this documentation plus user's guide and about us.
+
+
 ==== Internationalization
 
-This app will be available in English and we will adapt it to Spanish in the future.
+This app will be available in English.
 
 === Under-the-hood
 
@@ -78,4 +79,10 @@ This application itself doesn't do anything that poses a threat: it simply reads
 
 ==== Testability
 
-In our project we are implementing tests with Cucumbertest y Jasmine.
+We made several tests for our project:
+
+* Load Testing: tests with Gatling.
+* User Acceptance Testing: made with Cucumber.
+* Usability Testing: made with some volunteers. They have different ages and different knowledge of informatic.
+* Monitory and Profiling Testing: tests with Google Chrome.
+* Unit Testing: tests with Karma and Jasmine.

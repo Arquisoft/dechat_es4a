@@ -44,6 +44,11 @@ MIT
 @ng-select/ng-select
 MIT
 
+agora-rtc-sdk
+SEE LICENSE IN LICENSE.md
+
+angular-agora-rtc
+
 bootstrap
 MIT
 The MIT License (MIT)

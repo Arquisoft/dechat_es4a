@@ -236,7 +236,7 @@ export class RdfService {
     return oldValue;
   }
 
-  private getFieldName(field): string {
+   getFieldName(field): string {
     switch (field) {
       case 'company':
         return 'organization-name';

@@ -3,17 +3,19 @@ import { Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
 import { RdfService } from '../services/rdf.service';
 import { AuthService } from '../services/solid.auth.service';
+import {SolidChat} from '../models/solid-chat.model'
 import { SolidMessage } from '../models/solid-message.model';
 import { SolidProfile } from '../models/solid-profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { SolidChatUser } from '../models/solid-chat-user.model';
 import { Howl, Howler } from 'howler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SolidChat } from '../models/solid-chat.model';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { escapeRegExp } from 'tslint/lib/utils';
 import { ColorEvent } from 'ngx-color';
+import { stringify } from '@angular/compiler/src/util';
+import { group } from '@angular/animations';
 
 class ImageSnippet {
 
@@ -67,6 +69,7 @@ export class ChatComponent implements OnInit {
   dateLastMessage: string;
   secondMessage = 0;
 
+  groupUsers: string[] = new Array();
   //Invitaciones aceptadas
   acceptedInvitations = [];
 
@@ -113,10 +116,10 @@ export class ChatComponent implements OnInit {
       for (i = 0; i < this.amigos.length; i++) {
         const profile = await this.rdf.getPhotoFriend(this.amigos[i]);
         if (profile) {
-          profileImage = profile.image ? profile.image : '/assets/images/profile.png';
+          profileImage = profile.image ? profile.image : '/dechat_es4a/assets/images/profile.png';
         }
         else {
-          profileImage = '/assets/images/profile.png';
+          profileImage = '/dechat_es4a/assets/images/profile.png';
         }
         let transformIm = profileImage.toString();
         if (transformIm.match('>')) {
@@ -136,6 +139,14 @@ export class ChatComponent implements OnInit {
         let chatuser = new SolidChatUser(profile.url, user, transformIm);
         this.chatUsers.push(chatuser);
       }
+      let groupFolderUrl = this.rdf.session.webId.replace("/profile/card#me","/private");
+      this.fileClient.readFolder(groupFolderUrl).then(folder => {
+        folder.folders.forEach(folder => {
+          if(folder.name.includes("GroupChat")) 
+            this.mapContacts.set(folder.name.replace("GroupChat",""),'/dechat_es4a/assets/images/profile.png'); 
+        });
+      }, 
+        err=> console.log(err));
     } catch (error) {
       console.log(`Error: ${error}`);
 
@@ -207,7 +218,7 @@ export class ChatComponent implements OnInit {
             let realDate = new Date(message.time);
             realDate.setHours(new Date(message.time).getHours() + 2);
             if (new Date().getTime() - realDate.getTime() < 30000) {
-              if(message.authorId != this.chat.userID){
+              if(message.authorId != this.auth.getOldWebId()){
                 this.toastr.info("You have a new message from " + message.authorId);
                 let sound = new Howl({
                   src: ['../dechat_es4a/assets/sounds/alert.mp3'], html5: true
@@ -304,10 +315,10 @@ export class ChatComponent implements OnInit {
       const profile = await this.rdf.getProfile();
       if (profile) {
         this.profile = profile;
-        this.profileImage = this.profile.image ? this.profile.image : '/assets/images/profile.png';
+        this.profileImage = this.profile.image ? this.profile.image : '/dechat_es4a/assets/images/profile.png';
       }
       else {
-        this.profileImage = '/assets/images/profile.png';
+        this.profileImage = '/dechat_es4a/assets/images/profile.png';
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -316,12 +327,13 @@ export class ChatComponent implements OnInit {
 
   //Cambiar chat cada vez que se hace click, tiene que cargar mensajes de otra persona
   changeChat(name: string, photo: string) {
-    this.toastr.info('The messages are being loaded, it will take just a second!');
-    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
-    this.friendActive = name;
-    this.friendPhotoActive = photo;
-    this.dateLastMessage = undefined;
-    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+    if(this.namesFriends.includes(name)){
+      this.changeToIndividualChat(name,photo);
+    }
+    else{
+      this.changeToGroup(name,photo);
+    }
     this.loadMessages();
   }
 
@@ -365,7 +377,7 @@ export class ChatComponent implements OnInit {
     if(this.friendActive != undefined){
          return "url('"+ url + "')"; 
     }
-    return "url('/assets/images/cosmos.jpg')";
+    return "url('/dechat_es4a/assets/images/cosmos.jpg')";
   }
 
   openColorPicker() {
@@ -384,7 +396,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  //Devuelve el url del chat del amigo en la cuenta loggeada 
+  //Devuelve el url del chat del amigo en la cuenta loggeada
   getChatUrl(user: string, friend: string) {
     let chatUrl = "https://" + user + ".solid.community/private/Chat" + friend + "/index.ttl#this";
 
@@ -535,6 +547,33 @@ export class ChatComponent implements OnInit {
   createGroup() {
     console.log("Create group");
   }
+
+
+  goToVideoChat() {
+    if (this.friendActive) {
+      const friendWebId = "https://" + this.friendActive + ".solid.community/profile/card#me";
+      let webIds = [this.auth.getOldWebId(), friendWebId];
+      webIds.sort(function (a, b) {
+        if (a.firstname < b.firstname) {
+          return -1;
+        }
+        if (a.firstname > b.firstname) {
+          return 1;
+        }
+        return 0;
+      });
+      let channelKey = '';
+      for (const webId in webIds) {
+        channelKey = channelKey + webId;
+      }
+      localStorage.setItem('channelKey', channelKey);
+      this.router.navigate(['videoChat']);
+    }
+    else {
+      this.toastr.info('Please select a friend first to call');
+    }
+  }
+
 
   //Para eliminar todo el chat (incluido de la POD)
   async removeChat(friend: string) {
@@ -753,7 +792,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Cambia de color las letras
-  private changeLetterColor(className:string, color:string){
+  changeLetterColor(className:string, color:string){
     var list = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
     var i;
     for (i = 0; i < list.length; i++) {
@@ -761,11 +800,106 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  createNewGroup(groupName:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.groupUsers.push(this.rdf.session.webId);
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = groupName;
+    this.dateLastMessage = undefined; 
+    this.chat.createGroupChat(groupName, this.groupUsers);
+    this.groupUsers = new Array();
+
+    this.mapContacts.set(groupName,'/assets/images/profile.png');
+
+  }
+
+  addContactToGroup(user:string){
+    if(!this.groupUsers.includes(user)) this.groupUsers.push(user);
+    this.toastr.info('Contact added to the group!');
+  }
+
+  createGroupFromInvitation(url: string){   
+   let chaturl = url.substring(url.indexOf("https"));
+   let groupInfo;
+   let userurl;
+   let users = new Array();
+    this.fileClient.readFile(chaturl+"index.ttl#this").then(body => {
+      let prefixes = body.split("@prefix");
+      prefixes.forEach(element => {
+        if(element.includes(".solid.community")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
+      });
+      groupInfo = body;
+      userurl = chaturl.replace(this.getUsernameFromId(chaturl),this.getUsername());
+      this.fileClient.createFolder(userurl).then(success => {
+        this.chat.giveGroupPermissions(users,userurl+'.acl')
+        this.fileClient.readFile(userurl + "index.ttl#this").then(body => {
+          console.log('group exists');
+        }, err => {
+          this.fileClient.createFile(userurl  +"index.ttl#this").then(success => {
+            this.fileClient.updateFile(userurl +"index.ttl#this",groupInfo);
+          });
+        });
+      },err => {
+        console.log(err);
+      });
+    }, err => {
+      console.log('group does not exist');
+      console.log(err);
+    });
+   
+    let name = chaturl.split("/")[4].replace("GroupChat","");
+    console.log(name);
+
+    this.groupUsers = this.chat.getUsersFromTTL(name)
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.dateLastMessage = undefined; 
+    this.chat.chat = new SolidChat(name,this.rdf.session.webId,this.groupUsers);
+    this.chat.createBaseChatForGroup(userurl);
+    this.groupUsers = new Array();
+    this.messages = [];
+    this.loadMessages();
+
+    
+    this.mapContacts.set(name,'/dechat_es4a/assets/images/profile.png');
+
+    this.changeChat(name,'/dechat_es4a/assets/images/profile.png');
+  }
+
+  isInvitation(content:string){
+    return content.includes("GroupChat");
+  }
+
+  changeToGroup(name:string, photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.chat.createGroupChat(name);
+
+    
+
+  }
+
+  changeToIndividualChat(name:string , photo:string){
+    this.toastr.info('The messages are being loaded, it will take just a second!');
+    this.messages = []; //vacia el array cada vez q se cambia de chat para que no aparezcan en pantalla
+    this.friendActive = name;
+    this.friendPhotoActive = photo;
+    this.dateLastMessage = undefined;
+    this.getNamesFriends()
+    this.chat.createInboxChat(this.auth.getOldWebId(), "https://" + name + ".solid.community/profile/card#me");
+
+  }
   //Crea la carpeta para las notificaciones con sus permisos correspondientes
   async createFolderNotifications(){
     let user = await this.getUsername();
     this.chat.createFolderNotifications(user);
   }
+
+
 
   //Busca por nuevas invitaciones en el .txt para aceptar o rechazar
   lookForInvitations(){

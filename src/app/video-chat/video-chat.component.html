@@ -1,0 +1,13 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<div id = 'video_streaming'>
+  <div id="agora_local">
+  </div>
+  <div class="phoneCall" (click)="endCall()" >
+    <i class="fas fa-phone-slash fa-3x" role="button"></i>
+  </div>
+  <div class="remote-containers">
+    <div class="remote_calls" *ngFor="let remote of remoteCalls;" [id]="remote">
+    </div>
+  </div>
+</div>

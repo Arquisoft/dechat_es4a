@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Runtime View [TODO]</title>
+<title>Runtime View</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-runtime-view">Runtime View [TODO]</a>
+<li><a href="#section-runtime-view">Runtime View</a>
 <ul class="sectlevel2">
 <li><a href="#log-in">Log in</a></li>
 <li><a href="#send-messages">Send messages</a></li>
@@ -539,14 +539,14 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>Runtime View [TODO]</h2>
+<h2 id="section-runtime-view"><a class="anchor" href="#section-runtime-view"></a>Runtime View</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="log-in"><a class="anchor" href="#log-in"></a>Log in</h3>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>The user runs the application:</p>
+<p>1. The user runs the application:</p>
 <div class="literalblock">
 <div class="content">
 <pre>1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)</pre>
@@ -563,41 +563,35 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="send-messages"><a class="anchor" href="#send-messages"></a>Send messages</h3>
-<div class="literalblock">
-<div class="content">
-<pre>In order to send a message the user has to be logged in and have friends added.</pre>
+<div class="paragraph">
+<p>In order to send a message the user has follow the following steps:</p>
 </div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>The user opens the app, logs in, and then they can go to the chat page.</p>
+<p>1. The user opens the app, logs in, and then they can go to the chat page.The chat page has two main sections, the conversation list and the chat box.</p>
 </li>
 <li>
-<p>The chat page has two main sections, the friends list and the chat box.</p>
-<div class="literalblock">
-<div class="content">
-<pre>2.1. To chat with a friend the user selects a user from the list.</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>2.2. If there is already a chat selected it will load the previous messages.</pre>
-</div>
-</div>
+<p>2.1. to chat with someone you need to have them as a friend. if you want to add someone as a friend you can do so by going to the new contact section of the contacts button and putting his POD ID there.</p>
 </li>
 <li>
-<p>When a chat is loaded the user can start talking to the selected friend by writing int the text box located in the bottom of the chat box.</p>
+<p>2.2. To chat with a friend the user first selects a contact to have a conversation with in the contacts button, which will add a conversation to the contact list. If there is already a chat ongoing it will be on the conversation list.</p>
 </li>
 <li>
-<p>The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. Then the other user application can read the messages from the submitter&#8217;s POD and display them</p>
+<p>2.3.  upon clicking a conversation will update the chatbox, loading said chat</p>
 </li>
-</ol>
+<li>
+<p>3. When a chat is loaded the user can start talking to the selected friend by writing in the text box located in the bottom of the chat box. The app reads the friend&#8217;s POD folder for this conversation and checks for messages from the friend to show the user</p>
+</li>
+<li>
+<p>4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter&#8217;s POD. The other user application can read the messages from the submitter&#8217;s POD and display them</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -605,7 +599,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-04 22:19:32 CEST
+Last updated 2019-05-02 19:08:10 CEST
 </div>
 </div>
 </body>

@@ -3,7 +3,7 @@
 
 === Log in
 
-    1. The user runs the application:
+- 1. The user runs the application:
         
         1.1. Subscenario 1: The user doesnt have a POD, they have to sign up to either Inrupt or Solid Community. (Solid Community recommended since the current version has some bugs with Inrupt's PODs)
         
@@ -13,18 +13,16 @@
 
 === Send messages
 
-    In order to send a message the user has follow the following steps
+In order to send a message the user has follow the following steps:
 
-    - 1. The user opens the app, logs in, and then they can go to the chat page.
-
-    - 2. The chat page has two main sections, the conversation list and the chat box.
+- 1. The user opens the app, logs in, and then they can go to the chat page.The chat page has two main sections, the conversation list and the chat box.
          
-        - 2.1. to chat with someone you need to have them as a friend. if you want to add someone as a friend you can do so by going to the new contact section of the contacts button and putting his POD ID there.
+    - 2.1. to chat with someone you need to have them as a friend. if you want to add someone as a friend you can do so by going to the new contact section of the contacts button and putting his POD ID there.
 
-        - 2.2. To chat with a friend the user first selects a contact to have a conversation with in the contacts button, which will add a conversation to the contact list. If there is already a chat ongoing it will be on the conversation list.
+    - 2.2. To chat with a friend the user first selects a contact to have a conversation with in the contacts button, which will add a conversation to the contact list. If there is already a chat ongoing it will be on the conversation list.
 
-        - 2.3.  upon clicking a conversation will update the chatbox
+    - 2.3.  upon clicking a conversation will update the chatbox, loading said chat
 
-    - 3. When a chat is loaded the user can start talking to the selected friend by writing in the text box located in the bottom of the chat box. The app reads the friend's POD folder for this conversation and checks for messages from the friend to show the user
+- 3. When a chat is loaded the user can start talking to the selected friend by writing in the text box located in the bottom of the chat box. The app reads the friend's POD folder for this conversation and checks for messages from the friend to show the user
 
-    - 4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter's POD. The other user application can read the messages from the submitter's POD and display them
+- 4. The user clicks "Send" (this action can also be done by pressing the enter key) and then the message will be writen in the submitter's POD. The other user application can read the messages from the submitter's POD and display them
