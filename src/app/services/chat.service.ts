@@ -49,7 +49,6 @@ export class ChatService implements OnInit {
     let user = username.split('.')[0];
 
     return user;
-
   }
 
   createInboxChat(submitterWebId: string, destinataryWebId: string) {

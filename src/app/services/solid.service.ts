@@ -6,7 +6,7 @@ export class SolidService{
        this.fileClient = require('solid-file-client');
    }
    
-   readFile(url:string) : string{
+   readFile(url:string){
        let fileContent:string;
        
        this.fileClient.readFile(url).then(body => {
