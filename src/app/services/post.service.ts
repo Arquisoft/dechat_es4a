@@ -5,7 +5,8 @@ import { SolidService } from "./solid.service";
 
 export class PostService implements OnInit{
     solidService: SolidService;
-    
+    msgnb:any;
+
     ngOnInit(): void {
         throw new Error("Method not implemented.");
     }
@@ -15,41 +16,22 @@ export class PostService implements OnInit{
     }
 
     sendIndividualMessage(msg: SolidMessage, url:string) :boolean {
+      let toSplit = ":this";
       let date = new Date();
-      let dm
-      date.getMonth() < 10 ? dm = '0'+date.getMonth() : dm  = date.getMonth().toString();
-      const msgnb = date.getFullYear().toString() + dm + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + 0;
-      const message =
-      `
-        :Msg${msgnb}
-            terms:created "${date.toISOString()}"^^XML:dateTime;
-            n:content "${msg.content}";
-            n0:maker c:me.
-            `+ `:this
-            `+ `
-            `;
+      let message = this.createMessage(msg.content,toSplit);
 
-      return this.postMessage(url,":this",message,msgnb);
+      return this.postMessage(url,toSplit,message);
     }
 
     sendMessageToGroup(msg:SolidMessage, url:string){
+      let toSplit = "ind:this";
       let date = new Date();
-      let dm
-      date.getMonth() < 10 ? dm = '0'+date.getMonth() : dm  = date.getMonth().toString();
-      const msgnb = date.getFullYear().toString() + dm + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + 0;
-      const message = 
-      `
-        :Msg${msgnb}
-            terms:created "${date.toISOString()}"^^XML:dateTime;
-            n:content "${msg.content}";
-            n0:maker c:me.
-            `+ `:this
-            `+ `
-              `
-      return this.postMessage(url,"ind:this",message,msgnb);
+      let message = this.createMessage(msg.content,toSplit);
+
+      return this.postMessage(url,toSplit,message);
     }
 
-    postMessage(url:string,toSplit:string,content,msgnb):boolean {
+    postMessage(url:string,toSplit:string,content):boolean {
       let date = new Date();
     
       let chatcontent = this.solidService.readFile(url)
@@ -59,10 +41,26 @@ export class PostService implements OnInit{
       let chatContent1 = chatcontent.split(toSplit)[1].split("flow:message")[0];
       let chatContent2 = chatcontent.split(toSplit)[1].split("flow:message")[1];
   
-      let dm
-      date.getMonth() < 10 ? dm = '0'+date.getMonth() : dm  = date.getMonth().toString();
-  
-      const message = chatContent0 + content +chatContent1 + `flow:message ` + `:Msg${msgnb} ,` + chatContent2
+      const message = chatContent0 + content +chatContent1 + `flow:message ` + `:Msg${this.msgnb} ,` + chatContent2
       return this.solidService.updateFile(url,message);
+    }
+
+    createMessage(content: string,toSplit:string){
+      let date = new Date();
+      let dm;
+      date.getMonth() < 10 ? dm = '0'+date.getMonth() : dm  = date.getMonth().toString();
+      this.msgnb = date.getFullYear().toString() + dm + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + 0;
+      
+      const message = 
+      `
+        :Msg${this.msgnb}
+            terms:created "${date.toISOString()}"^^XML:dateTime;
+            n:content "${content}";
+            n0:maker c:me.
+            `+ `${toSplit}
+            `+ `
+              `;
+
+      return message;
     }
 }
