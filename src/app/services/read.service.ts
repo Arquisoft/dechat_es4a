@@ -57,6 +57,18 @@ export class ReadService implements OnInit{
         });
     }
 
+    getUsersFromTTL(url:string): Array<string>{
+        let users = new Array<string>();
+    
+        let body = this.solidService.readFile(url);
+        let prefixes = body.split("@prefix");
+        prefixes.forEach(element => {
+            if(element.includes(".solid.community") || element.includes(".inrupt.net")) users.push(element.substring(element.indexOf("<")+1,element.indexOf(">"))+"me");
+        });
+
+        return users;
+      }
+
     addToChat(msg:string,maker:string,time:string){
         let content = msg.substring(msg.indexOf("\"") + 1);
         let messageTime = time.substring(time.indexOf("\"") + 1);
