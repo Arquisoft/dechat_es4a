@@ -12,6 +12,7 @@ export class CreateService implements OnInit{
     }
 
     createBaseChat(){
+        let d = new Date();
         let baseChat = 
         `
         @prefix : <#>.
@@ -47,7 +48,24 @@ export class CreateService implements OnInit{
     }
 
     createBaseLongChatTTL(){
-        
+        let date = new Date()
+        let groupBaseChat = 
+        `
+        @prefix : <#>.
+        @prefix terms: <http://purl.org/dc/terms/>.
+        @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+        @prefix n: <http://rdfs.org/sioc/ns#>.
+        @prefix n0: <http://xmlns.com/foaf/0.1/>.
+        @prefix c: </profile/card#>.
+        @prefix ind: <../../../index.ttl#>.
+        @prefix flow: <http://www.w3.org/2005/01/wf/flow#>.
+            
+        :Msg0000000000001
+            terms:created "${date.toISOString()}"^^XML:dateTime;
+            n:content "Chat Started";
+            n0:maker c:me.
+        ind:this flow:message :Msg0000000000001 .
+        `;
     }
 
     solidService:SolidService
