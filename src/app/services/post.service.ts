@@ -31,20 +31,6 @@ export class PostService implements OnInit{
       return this.postMessage(url,toSplit,message);
     }
 
-    postMessage(url:string,toSplit:string,content):boolean {
-      let date = new Date();
-    
-      let chatcontent = this.solidService.readFile(url)
-      if(chatcontent == '' || chatcontent == null) return false;
-      
-      let chatContent0 = chatcontent.split(toSplit)[0];
-      let chatContent1 = chatcontent.split(toSplit)[1].split("flow:message")[0];
-      let chatContent2 = chatcontent.split(toSplit)[1].split("flow:message")[1];
-  
-      const message = chatContent0 + content +chatContent1 + `flow:message ` + `:Msg${this.msgnb} ,` + chatContent2
-      return this.solidService.updateFile(url,message);
-    }
-
     createMessage(content: string,toSplit:string){
       let date = new Date();
       let dm;
@@ -62,5 +48,19 @@ export class PostService implements OnInit{
               `;
 
       return message;
+    }
+
+    postMessage(url:string,toSplit:string,content):boolean {
+      let date = new Date();
+    
+      let chatcontent = this.solidService.readFile(url)
+      if(chatcontent == '' || chatcontent == null) return false;
+      
+      let chatContent0 = chatcontent.split(toSplit)[0];
+      let chatContent1 = chatcontent.split(toSplit)[1].split("flow:message")[0];
+      let chatContent2 = chatcontent.split(toSplit)[1].split("flow:message")[1];
+  
+      const message = chatContent0 + content +chatContent1 + `flow:message ` + `:Msg${this.msgnb} ,` + chatContent2
+      return this.solidService.updateFile(url,message);
     }
 }

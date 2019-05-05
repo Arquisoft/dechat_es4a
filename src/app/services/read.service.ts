@@ -67,7 +67,7 @@ export class ReadService implements OnInit{
         });
 
         return users;
-      }
+    }
 
     addToChat(msg:string,maker:string,time:string){
         let content = msg.substring(msg.indexOf("\"") + 1);
